@@ -3,6 +3,8 @@ Technology we use
 
 * Ruby 1.9.3
 * Rails 4.0
+* Rspec
+* Cucumber
 * Postgres
 * Heroku
 
