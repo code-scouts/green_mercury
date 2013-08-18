@@ -24,8 +24,9 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 
 gem "twitter-bootstrap-rails"
-
+gem "devise"
 gem 'asset_sync'
+
 group :production do
   gem 'rails_12factor'
 end

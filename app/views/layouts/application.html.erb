@@ -8,11 +8,39 @@
 </head>
 <body>
 
-<header class='text-center'>
-  <%= link_to(image_tag('codescouts.png'), url_for(controller: 'index', action: 'index')) %>
+<header>
+  <div class="row-fluid">
+    <div class="span10"></div>
+    <div class="span2">
+      <% if user_signed_in? %>
+        Signed in as <%= current_user.email %>. <%= link_to("Sign out", destroy_user_session_path, method: :delete) %>
+      <% else %>
+        <%= link_to("Sign up", new_user_registration_path) %> or <%= link_to("Sign in", new_user_session_path) %>
+      <% end %>
+    </div>
+  </div>
 </header>
+<article>
+  <div class="text-center">
+    <%= link_to(image_tag('codescouts.png'), url_for(controller: '/index', action: 'index')) %>
+  </div>
+</article>
+<% if notice.present? || alert.present? %>
+  <article class="flash">
+    <% if notice.present? %>
+      <p class="notice"><%= notice %></p>
+    <% end %>
+    <% if alert.present? %>
+      <p class="alert"><%= alert %></p>
+    <% end %>
+  </article>
+<% end %>
 
-<%= yield %>
+<div class="container">
+  <div class="row-fluid">
+    <%= yield %>
+  </div>
+</div>
 
 </body>
 </html>

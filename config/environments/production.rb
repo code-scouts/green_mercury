@@ -80,4 +80,8 @@ GreenMercury::Application.configure do
 
   # serve assets from s3
   config.action_controller.asset_host = "https://#{ENV['CLOUDFRONT']}.cloudfront.net"
+
+  #Devise will use this when sending password reset emails.
+  #This should be changed when the site goes live. I don't know how to guarantee that that happens :(
+  config.action_mailer.default_url_options = { :host => 'green-mercury.herokuapp.com' }
 end
