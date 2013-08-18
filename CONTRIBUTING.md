@@ -16,7 +16,7 @@ We look forward to your pull requests!
 
 
 How the heck do I get all the requirements to contribute?
----------------------------------------------------------
+=========================================================
 
 Slowly, unfortunately, and it depends on whether you're running Windows, Mac OS X, or Linux.
 The website uses a version of both Ruby and Rails that is not installed by default on most of these platforms.
@@ -27,14 +27,16 @@ Mac OS X
 We will walk through the steps, but at a high level, they are:
 
 1. Install Xcode
-2. Install Xcode's Command Line Tools
-3. Install Homebrew
-4. Install [RVM (Ruby Version Manager)](http://rvm.io)
-5. Install Ruby 1.9.3
-6. Clone source
-7. Create RVM gemset
-8. Install required libraries
-9. Contribute!
+1. Install Xcode's Command Line Tools
+1. Install Homebrew
+1. Install [RVM (Ruby Version Manager)](http://rvm.io)
+1. Install Ruby 1.9.3
+1. Install PostgreSQL
+1. Clone source
+1. Create RVM gemset
+1. Install required libraries
+1. Create and migrate databases
+1. Contribute!
 
 Now the detail.
 
@@ -50,3 +52,24 @@ Install Xcode's Command Line Tools
 2. Go to the Downloads section and select to install Command Line Tools (see screenshot below)
 
 ![Command Line Tools Screenshot](https://raw.github.com/jeffweiss/green_mercury/add_contribution_requirements_instructions/contributing_assets/xcode_commandline_tools.png)
+
+
+Install PostgreSQL
+------------------
+This project relies on a PostgreSQL database. On a Mac the simplest way to install Postgres is with [Postgres.app](http://postgresapp.com/). Install it according to the guide on that website.
+
+
+Create And Migrate Databases
+----------------------------
+Now that you have the dependencies installed, it's time to create the databases for the site. At your terminal run `psql postgres`. This will open a Psql prompt, where you should enter:
+```SQL
+create database green_mercury;
+create database green_mercury_test;
+commit;
+\q
+```
+That creates a pair of empty databases, so you just need to set them up with the proper tables:
+```
+$ rake db:migrate
+$ rake db:migrate RAILS_ENV=test
+```
