@@ -87,4 +87,14 @@ GreenMercury::Application.configure do
 
   #API key for Janrain Engage
   RPXNow.api_key = ENV['ENGAGE_API_KEY']
+
+  #Send emails via sendgrid
+  ActionMailer::Base.smtp_settings = {
+    :address        => "smtp.sendgrid.net",
+    :port           => "587",
+    :authentication => :plain,
+    :user_name      => ENV['SENDGRID_USERNAME'],
+    :password       => ENV['SENDGRID_PASSWORD'],
+    :domain         => 'heroku.com',
+  }
 end
