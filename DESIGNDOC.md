@@ -9,6 +9,7 @@ Technology we use
 * JavaScript (not CoffeeScript; see below)
 * Postgres
 * Heroku
+* Janrain (see below for some developmer info)
 
 Rspec
 -----
@@ -27,3 +28,7 @@ JavaScript
 ----------
 
 This project uses JavaScript by itself, without CoffeeScript. CoffeeScript is _great_, but adds to the list of things someone must learn before being able to contribute, so we've decided to eschew it.
+
+Janrain
+-------
+Social sign-in is coupled to the Janrain API. Currently you will be able to run the development server, but you will not be able to use the social sign-in functions without the Code Scouts Janrain API key (which you don't have). We are working on a solution to this.

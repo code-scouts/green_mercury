@@ -26,6 +26,7 @@ gem 'jbuilder', '~> 1.2'
 
 gem "twitter-bootstrap-rails"
 gem "devise"
+gem "devise_rpx_connectable"
 gem 'asset_sync'
 
 group :production do
