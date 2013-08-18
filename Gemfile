@@ -25,6 +25,7 @@ gem 'jbuilder', '~> 1.2'
 
 gem "twitter-bootstrap-rails"
 
+gem 'asset_sync'
 group :production do
   gem 'rails_12factor'
 end
