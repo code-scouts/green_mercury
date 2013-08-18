@@ -42,6 +42,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'cucumber-rails', :require => false
   gem 'spork', '~> 1.0rc'
+  gem 'factory_girl_rails'
 end
 
 # Use ActiveModel has_secure_password

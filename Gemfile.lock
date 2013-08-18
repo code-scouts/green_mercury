@@ -68,6 +68,11 @@ GEM
     excon (0.25.3)
     execjs (1.4.0)
       multi_json (~> 1.0)
+    factory_girl (4.2.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.2.1)
+      factory_girl (~> 4.2.0)
+      railties (>= 3.0.0)
     fog (1.15.0)
       builder
       excon (~> 0.25.0)
@@ -194,6 +199,7 @@ DEPENDENCIES
   cucumber-rails
   devise
   devise_rpx_connectable
+  factory_girl_rails
   jbuilder (~> 1.2)
   jquery-rails
   pg
