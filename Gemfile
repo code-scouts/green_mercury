@@ -40,7 +40,9 @@ end
 
 group :development, :test do
   gem 'rspec-rails'
-  gem 'cucumber-rails', :require => false
+  gem 'database_cleaner'
+  gem 'cucumber', '1.2.5', require: false
+  gem 'cucumber-rails', require: false
   gem 'spork', '~> 1.0rc'
   gem 'factory_girl_rails'
 end

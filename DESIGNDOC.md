@@ -4,8 +4,8 @@ Technology we use
 * Ruby 1.9.3
 * Rails 4.0
 * Rspec (see below for how to run the specs)
-* Spork (see below for how to run the specs FAST)
-* Cucumber
+* Cucumber (see below for how to run the features)
+* Spork (see below for how to make the specs and features FAST)
 * JavaScript (not CoffeeScript; see below)
 * Postgres
 * Heroku
@@ -15,9 +15,15 @@ Rspec
 -----
 This project uses Rspec to test that everything is working as it should be. Once you have your environment set up as described in [CONTRIBUTING.md](https://github.com/code-scouts/green_mercury/blob/master/CONTRIBUTING.md), you should be able to run the specs by simply running `rspec` at the command line.
 
+Cucumber
+--------
+This project uses Cucumber to test that pages are working as they shoud be. Once you have your environment set up as described in [CONTRIBUTING.md](https://github.com/code-scouts/green_mercury/blob/master/CONTRIBUTING.md), you should be able to run the features by simply running `cucumber` at the command line.
+
 Spork
 -----
-You can optionally use Spork to make the specs ever so fast. Once you have your environment set up, run `spork &` at the command line. Wait a few seconds until you see "Spork is ready and listening on 8989!", run `rspec --drb` to run the specs. Remember that changing certain core files, such as `routes.rb`, will require restarting spork:
+You can optionally use Spork to make the specs and features ever so fast. Once you have your environment set up, run `spork &` at the command line. Wait a few seconds until you see "Spork is ready and listening on 8989!", and then run `rspec --drb` to run the specs. Similarly, to use Spork with Cucumber, run `spork cucumber &`, wait until you see "Spork is ready and listening on 8990!", and run `cucumber --drb`.
+
+Remember that changing certain core files, such as `routes.rb`, will require restarting spork:
 
 ```
 $ kill %1
