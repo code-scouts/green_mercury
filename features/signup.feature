@@ -4,7 +4,7 @@ I want to sign up with my details
 So that I can login
 
 Scenario: Password does not match confirmation
-  Given I am on the signup page
+  Given I am on the "signup" page
   When I fill in "Email" with "user@gmail.com"
   And I fill in "Password" with "Secret"
   And I fill in "Password confirmation" with "Password"
@@ -14,7 +14,7 @@ Scenario: Password does not match confirmation
   And "user@gmail.com" should not be registered
 
 Scenario: All fields correct
-  Given I am on the signup page
+  Given I am on the "signup" page
   When I fill in "Email" with "user@gmail.com"
   And I fill in "Password" with "supersekrit"
   And I fill in "Password confirmation" with "supersekrit"
@@ -24,3 +24,8 @@ Scenario: All fields correct
   And "user@gmail.com" should be registered
   And "user@gmail.com" should have been sent a confirmation email
 
+Scenario: Users are asked to create an email
+  Given I have a social account
+  And I am signed in
+  And I am on the "home" page
+  Then I should see "add an email address"

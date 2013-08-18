@@ -1,5 +1,18 @@
-Given(/^I am on the signup page$/) do
-  visit new_user_registration_path
+Given(/^I am on the "(.+)" page$/) do |page|
+  page_map = {
+    signup: new_user_registration_path,
+    home: root_path,
+  }
+  visit page_map[page.to_sym]
+end
+
+Given(/^I have a social account$/) do
+  @user = FactoryGirl.build :social_user
+  @user.confirmed_at = Time.now
+end
+
+Given(/^I am signed in$/) do
+  login_as(@user, scope: :user)
 end
 
 
@@ -9,11 +22,6 @@ end
 
 When(/^I press "(.*?)"$/) do |button|
   click_button button
-end
-
-When(/^I sign in with "(.+)"$/) do |provider|
-  sleep 30
-  find("##{provider.downcase}").click
 end
 
 
@@ -26,7 +34,12 @@ Then(/^I should be on the home page$/) do
 end
 
 Then(/^I should see "(.*?)"$/) do |text|
-  page.should have_content(text)
+  begin
+    page.should have_content(text)
+  rescue
+    save_and_open_page
+    raise
+  end
 end
 
 Then(/^"(.+)" should not be registered$/) do |email|
