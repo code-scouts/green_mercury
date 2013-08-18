@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/code-scouts/green_mercury.png?branch=master)](https://travis-ci.org/code-scouts/green_mercury)
+
 Green Mercury
 =============
 
