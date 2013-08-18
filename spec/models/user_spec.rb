@@ -15,8 +15,13 @@ describe User do
 
   describe "create" do
     describe "blank email" do
-      it "is nil, not empty string" do
+      it "defaults to nil" do
         user = User.create!
+        user.email.should be_nil
+      end
+
+      it "is nil even when passed empty string" do
+        user = User.create! email: ''
         user.email.should be_nil
       end
     end

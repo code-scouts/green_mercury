@@ -27,7 +27,6 @@ class User < ActiveRecord::Base
     !password_confirmation.nil?
   end
 
-  # Warning: the tests don't fully demonstrate the need for this.
   # The RegistrationsController sets email to an empty string on
   # social registration from twitter. BUT that means the unique
   # index on email is violated by the second twitter registration.
