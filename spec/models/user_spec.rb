@@ -12,4 +12,13 @@ describe User do
       end
     end
   end
+
+  describe "create" do
+    describe "blank email" do
+      it "is nil, not empty string" do
+        user = User.create!
+        user.email.should be_nil
+      end
+    end
+  end
 end

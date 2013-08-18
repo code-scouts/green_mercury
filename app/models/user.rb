@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
          :rpx_connectable
 
+  before_create :blank_email_is_null
+
   def has_password?
     encrypted_password.present?
   end
@@ -23,5 +25,17 @@ class User < ActiveRecord::Base
   # confirmation checks if password confirmation was passed.
   def password_required?
     !password_confirmation.nil?
+  end
+
+  # Warning: the tests don't fully demonstrate the need for this.
+  # The RegistrationsController sets email to an empty string on
+  # social registration from twitter. BUT that means the unique
+  # index on email is violated by the second twitter registration.
+  # Setting it to null rather than empty string allows multiple users
+  # with blank emails.
+  def blank_email_is_null
+    if email.blank?
+      self.email = nil
+    end
   end
 end
