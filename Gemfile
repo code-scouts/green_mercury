@@ -28,6 +28,7 @@ gem "twitter-bootstrap-rails"
 gem "devise"
 gem "devise_rpx_connectable"
 gem 'asset_sync'
+gem 'unicorn'
 
 group :production do
   gem 'rails_12factor'
