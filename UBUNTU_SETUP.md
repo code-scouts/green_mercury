@@ -75,7 +75,7 @@ rvm gemset use green_mercury
 
 Install required libraries
 --------------------------
-This project uses [Bundler](http://bundler.io/) to manage its dependencies. That means it requires only a couple of commands to get all the code libraries you need:
+This project uses [Bundler](http://bundler.io/) to manage its dependencies. That means it takes only a single command to get all the code libraries you need:
 ```
 bundle install
 ```
