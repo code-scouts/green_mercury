@@ -22,7 +22,7 @@ Xcode is Apple's development environment for native applications. We need it for
 
 Install Xcode's Command Line Tools
 ----------------------------------
-1. After Xcode is installed, open it and got to `Preferences...`.
+1. After Xcode is installed, open it and go to `Preferences...`.
 2. Go to the Downloads section and select to install Command Line Tools (see screenshot below)
 
 ![Command Line Tools Screenshot](https://raw.github.com/jeffweiss/green_mercury/add_contribution_requirements_instructions/contributing_assets/xcode_commandline_tools.png)
