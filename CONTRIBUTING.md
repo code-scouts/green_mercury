@@ -26,17 +26,17 @@ Mac OS X
 
 We will walk through the steps, but at a high level, they are:
 
-1. Install Xcode
-1. Install Xcode's Command Line Tools
+1. [Install Xcode](#install-xcode)
+1. [Install Xcode's Command Line Tools](#install-xcodes-command-line-tools)
 1. Install Homebrew
-1. Install [RVM (Ruby Version Manager)](http://rvm.io)
-1. Install Ruby 1.9.3
-1. Install PostgreSQL
-1. Clone source
-1. Create RVM gemset
-1. Install required libraries
-1. Create and migrate databases
-1. Contribute!
+1. [Install RVM (Ruby Version Manager)](#install-rvm)
+1. [Install Ruby 1.9.3](#install-ruby-193)
+1. [Install PostgreSQL](#install-postgresql)
+1. [Clone the source](#clone-the-source)
+1. [Create a gemset](#create-a-gemset)
+1. [Install required libraries](#install-required-libraries)
+1. [Create and migrate databases](#create-and-migrate-databases)
+1. [Contribute!](#contribute)
 
 Now the detail.
 
@@ -55,7 +55,7 @@ Install Xcode's Command Line Tools
 
 Install RVM
 -----------
-RVM is a tool for installing and managing various versions of Ruby, as well as creating "gemsets", self-contained environments for Ruby libraries that prevent subtle, hard-to-diagnose, hard-to-resolve problems when working on multiple Ruby projects. In short, RVM is a cheap solution to an expensive problem. You can install RVM by pasting a single line into your terminal:
+[RVM](http://rvm.io) is a tool for installing and managing various versions of Ruby, as well as creating "gemsets", self-contained environments for Ruby libraries that prevent subtle, hard-to-diagnose, hard-to-resolve problems when working on multiple Ruby projects. In short, RVM is a cheap solution to an expensive problem. You can install RVM by pasting a single line into your terminal:
 ```
 \curl -L https://get.rvm.io | bash -s stable
 ```
