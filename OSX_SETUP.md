@@ -5,7 +5,7 @@ We will walk through the steps, but at a high level, they are:
 
 1. [Install Xcode](#install-xcode)
 1. [Install Xcode's Command Line Tools](#install-xcodes-command-line-tools)
-1. Install Homebrew
+1. [Install Homebrew](#install-homebrew)
 1. [Install RVM (Ruby Version Manager)](#install-rvm)
 1. [Install Ruby 1.9.3](#install-ruby-193)
 1. [Install PostgreSQL](#install-postgresql)
@@ -29,6 +29,13 @@ Install Xcode's Command Line Tools
 2. Go to the Downloads section and select to install Command Line Tools (see screenshot below)
 
 ![Command Line Tools Screenshot](https://raw.github.com/jeffweiss/green_mercury/add_contribution_requirements_instructions/contributing_assets/xcode_commandline_tools.png)
+
+Install Homebrew
+----------------
+Homebrew is a tool for installing various dependencies and apps onto your computer. It is simple to install:
+```
+ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
+```
 
 Install RVM
 -----------
