@@ -1,3 +1,6 @@
+Setting up your OSX computer so you can contribute
+==================================================
+
 We will walk through the steps, but at a high level, they are:
 
 1. [Install Xcode](#install-xcode)
@@ -29,7 +32,7 @@ Install Xcode's Command Line Tools
 
 Install RVM
 -----------
-[RVM](http://rvm.io) is a tool for installing and managing various versions of Ruby, as well as creating "gemsets", self-contained environments for Ruby libraries that prevent subtle, hard-to-diagnose, hard-to-resolve problems when working on multiple Ruby projects. In short, RVM is a cheap solution to an expensive problem. You can install RVM by pasting a single line into your terminal:
+[RVM](http://rvm.io) is a tool for installing and managing different versions of Ruby, as well as creating "gemsets", self-contained environments for Ruby libraries that prevent subtle, hard-to-diagnose, hard-to-resolve problems when working on multiple Ruby projects. In short, RVM is a cheap solution to an expensive problem. You can install RVM by pasting a single line into your terminal:
 ```
 \curl -L https://get.rvm.io | bash -s stable
 ```
@@ -48,7 +51,9 @@ rvm use --default 1.9.3
 
 Install PostgreSQL
 ------------------
-This project relies on a PostgreSQL database. On a Mac the simplest way to install Postgres is with [Postgres.app](http://postgresapp.com/). Install it according to the guide on that website.
+This project relies on a PostgreSQL database. On a Mac the simplest way to install Postgres is with [Postgres.app](http://postgresapp.com/). You can install it according to the guide on that website.
+
+Depending on your version of OSX, your computer may complain that Postgres.app is not from the App Store. This is a well-intentioned move by Apple to make sure your computer isn't infected with malware...but in this case it's being too picky! If you encounter this dialog, right-click on Postgres.app and choose "Open", then choose the "Open" button on the dialog that asks you to confirm that you really want to run Postgres.
 
 Clone the Source
 ----------------
