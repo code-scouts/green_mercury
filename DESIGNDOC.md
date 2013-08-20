@@ -2,14 +2,18 @@ Technology we use
 =================
 
 * Ruby 1.9.3
-* Rails 4.0
+* Rails 4.0 (see below for how to run a development server)
 * Rspec (see below for how to run the specs)
 * Cucumber (see below for how to run the features)
 * Spork (see below for how to make the specs and features FAST)
 * JavaScript (not CoffeeScript; see below)
 * Postgres
 * Heroku
-* Janrain (see below for some developmer info)
+* Janrain (see below for some developer info)
+
+Rails
+-----
+This is a Rails 4.0 project, which means it's dead simple to run a local version of the site for development. Set up your environment as described in [CONTRIBUTING.md](CONTRIBUTING.md), then enter `rails server` at the command line. Wait a couple of seconds for the server to start, then point your browser at http://localhost:3000. If you want to stop the server, hit control-c in the terminal where it's running.
 
 Rspec
 -----
