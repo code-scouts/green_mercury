@@ -25,6 +25,8 @@ See [OSX_SETUP.md](OSX_SETUP.md) for instructions on getting set up on Mac OS X.
 
 See [UBUNTU_SETUP.md](UBUNTU_SETUP.md) for instructions on getting set up on Ubuntu.
 
+See [WINDOWS_SETUP.md](WINDOWS_SETUP.md) for instructions on getting set up on Windows.
+
 Instructions for getting set up on Windows are coming soon!
 
 I still have questions about contributing.
