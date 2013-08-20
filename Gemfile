@@ -29,6 +29,7 @@ gem "devise"
 gem "devise_rpx_connectable"
 gem 'asset_sync'
 gem 'unicorn'
+gem 'newrelic_rpm'
 
 group :production do
   gem 'rails_12factor'
