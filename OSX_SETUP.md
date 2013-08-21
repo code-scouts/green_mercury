@@ -32,14 +32,14 @@ Install Xcode's Command Line Tools
 
 Install Homebrew
 ----------------
-Homebrew is a tool for installing various dependencies and apps onto your computer. It is simple to install:
+Homebrew is a tool for installing various dependencies and apps onto your computer. It installs with a shell command:
 ```
 ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
 ```
 
 Install RVM
 -----------
-[RVM](http://rvm.io) is a tool for installing and managing different versions of Ruby, as well as creating "gemsets", self-contained environments for Ruby libraries that prevent subtle, hard-to-diagnose, hard-to-resolve problems when working on multiple Ruby projects. In short, RVM is a cheap solution to an expensive problem. You can install RVM by pasting a single line into your terminal:
+[RVM](http://rvm.io) is a tool for installing and managing different versions of Ruby, as well as creating "gemsets", self-contained environments for Ruby libraries that prevent subtle, hard-to-diagnose, hard-to-resolve problems when working on multiple Ruby projects. In short, RVM is a cheap solution to an expensive problem. You can install RVM by pasting this line into your terminal:
 ```
 \curl -L https://get.rvm.io | bash -s stable
 ```
@@ -50,7 +50,7 @@ source ~/.rvm/scripts/rvm
 
 Install Ruby 1.9.3
 ------------------
-The production environment runs Ruby 1.9.3, so you should use that version during development as well. Having installed RVM, installing this version of Ruby is easy:
+The production environment runs Ruby 1.9.3, so you should use that version during development as well. Having installed RVM, installing this version of Ruby is a pair of commands:
 ```
 rvm install 1.9.3
 rvm use --default 1.9.3
@@ -91,7 +91,7 @@ bundle install
 
 Create And Migrate Databases
 ----------------------------
-Now that you have the dependencies installed, it's time to create the databases for the site. At your terminal run `psql postgres`. This will open a Psql prompt, where you should enter:
+Now that you have the dependencies installed, it's time to create the databases for the site. At your terminal run `psql postgres -h localhost`. This will open a Psql prompt, where you should enter:
 ```SQL
 create database green_mercury;
 create database green_mercury_test;
