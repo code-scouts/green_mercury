@@ -30,6 +30,7 @@ gem "devise_rpx_connectable"
 gem 'asset_sync'
 gem 'unicorn'
 gem 'newrelic_rpm'
+gem 'httparty'
 
 group :production do
   gem 'rails_12factor'
@@ -45,6 +46,7 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'cucumber', '1.2.5', require: false
   gem 'cucumber-rails', require: false
+  gem 'selenium-webdriver'
   gem 'spork', '~> 1.0rc'
   gem 'factory_girl_rails'
   gem 'launchy'
