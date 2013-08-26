@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  before_filter :tell_users_to_have_an_email
+  after_filter :tell_users_to_have_an_email
 
   def tell_users_to_have_an_email
     if user_signed_in? && current_user.email.blank?
