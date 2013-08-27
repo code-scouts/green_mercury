@@ -2,7 +2,11 @@ class EventsController < ApplicationController
   include EventsHelper
 
   def index
-    redirect_to meetup_login_url and return unless current_user.meetup_token.present?
+    unless current_user.meetup_token.present?
+      redirect_to meetup_login_url
+      return
+    end
+
     begin
       @events = get_events(current_user.meetup_token)
     rescue NeedNewToken
