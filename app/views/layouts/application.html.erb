@@ -10,7 +10,12 @@
 
 <header>
   <div class="row-fluid">
-    <div class="span10"></div>
+    <div class="span8"></div>
+    <div class="span2">
+      <% if user_signed_in? %>
+        <%= link_to("Manage events", events_path) %>
+      <% end %>
+    </div>
     <div class="span2">
       <% if user_signed_in? %>
         <%= link_to("Edit Profile", edit_user_registration_path) %> or <%= link_to("Sign out", destroy_user_session_path, method: :delete) %>

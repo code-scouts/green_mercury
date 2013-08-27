@@ -30,4 +30,7 @@ GreenMercury::Application.configure do
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 
   RPXNow.api_key = ENV['ENGAGE_API_KEY']
+
+  MEETUP_API_KEY = ENV['MEETUP_API_KEY']
+  MEETUP_API_SECRET = ENV['MEETUP_API_SECRET']
 end

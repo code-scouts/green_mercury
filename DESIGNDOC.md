@@ -10,6 +10,7 @@ Technology we use
 * Postgres
 * Heroku
 * Janrain (see below for some developer info)
+* Meetup (see below for some developer info)
 
 Rails
 -----
@@ -42,3 +43,7 @@ This project uses JavaScript by itself, without CoffeeScript. CoffeeScript is _g
 Janrain
 -------
 Social sign-in is coupled to the Janrain API. Currently you will be able to run the development server, but you will not be able to use the social sign-in functions without the Code Scouts Janrain API key (which you don't have). We are working on a solution to this.
+
+Meetup
+------
+Events management is coupled to the Meetup API. You can run the development server without an API key, but the events-management pages will require you to get one. Go to [the Oauth Consumers page on Meetup](http://www.meetup.com/meetup_api/oauth_consumers/), and create a new Consumer. Now when you run the development server, you should invoke it with `MEETUP_API_KEY=<yourApiKey> MEETUP_API_SECRET=<yourApiSecret> rails server`.

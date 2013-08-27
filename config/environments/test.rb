@@ -37,4 +37,6 @@ GreenMercury::Application.configure do
   config.cache_classes = false
 
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  MEETUP_API_KEY = 'Thisisnotreal'
+  MEETUP_API_SECRET = 'Thiswillnotwork'
 end

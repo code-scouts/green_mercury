@@ -1,11 +1,3 @@
-Given(/^I am on the "(.+)" page$/) do |page|
-  page_map = {
-    signup: new_user_registration_path,
-    home: root_path,
-  }
-  visit page_map[page.to_sym]
-end
-
 Given(/^I have a social account$/) do
   @user = FactoryGirl.build :social_user
   @user.confirmed_at = Time.now
