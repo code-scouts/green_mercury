@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   protect_from_forgery with: :exception
 
-  before_filter :tell_users_to_have_an_email
+  after_filter :tell_users_to_have_an_email
 
   def tell_users_to_have_an_email
     if user_signed_in? && current_user.email.blank?
