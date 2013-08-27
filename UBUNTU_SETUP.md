@@ -16,7 +16,7 @@ We will walk through the steps, but at a high level, they are:
 
 Install Git
 -----------
-git is an extremely powerful source-code management tool. We use it in conjunction with Github to manage changes to the code that runs this project. It is simple to install:
+git is an extremely powerful source-code management tool. We use it in conjunction with Github to manage changes to the code that runs this project. You can install it with apt:
 ```
 sudo apt-get install git
 ```
@@ -86,6 +86,7 @@ Now that you have the dependencies installed, it's time to create the databases 
 ```SQL
 create role <me> with login createdb;
 create database green_mercury owner <me>;
+create database green_mercury_test owner <me>;
 commit;
 \q
 ```
