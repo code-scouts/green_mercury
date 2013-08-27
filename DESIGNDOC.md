@@ -14,15 +14,15 @@ Technology we use
 
 Rails
 -----
-This is a Rails 4.0 project, which means it's dead simple to run a local version of the site for development. Set up your environment as described in [CONTRIBUTING.md](CONTRIBUTING.md), then enter `rails server` at the command line. Wait a couple of seconds for the server to start, then point your browser at http://localhost:3000. If you want to stop the server, hit control-c in the terminal where it's running.
+This is a Rails 4.0 project, which means it's set up to run a local version of the site for development with one command. Set up your environment as described in [CONTRIBUTING.md](CONTRIBUTING.md), then enter `rails server` at the command line. Wait a couple of seconds for the server to start, then point your browser at http://localhost:3000. If you want to stop the server, hit control-c in the terminal where it's running.
 
 Rspec
 -----
-This project uses Rspec to test that everything is working as it should be. Once you have your environment set up as described in [CONTRIBUTING.md](https://github.com/code-scouts/green_mercury/blob/master/CONTRIBUTING.md), you should be able to run the specs by simply running `rspec` at the command line.
+This project uses Rspec to test that everything is working as it should be. Once you have your environment set up as described in [CONTRIBUTING.md](https://github.com/code-scouts/green_mercury/blob/master/CONTRIBUTING.md), you should be able to run the specs by running `rspec` at the command line.
 
 Cucumber
 --------
-This project uses Cucumber to test that pages are working as they shoud be. Once you have your environment set up as described in [CONTRIBUTING.md](https://github.com/code-scouts/green_mercury/blob/master/CONTRIBUTING.md), you should be able to run the features by simply running `cucumber` at the command line.
+This project uses Cucumber to test that pages are working as they shoud be. Once you have your environment set up as described in [CONTRIBUTING.md](https://github.com/code-scouts/green_mercury/blob/master/CONTRIBUTING.md), you should be able to run the features by running `cucumber` at the command line.
 
 Spork
 -----
