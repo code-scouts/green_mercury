@@ -29,6 +29,8 @@ See [WINDOWS_SETUP.md](WINDOWS_SETUP.md) for instructions on getting set up on W
 
 Instructions for getting set up on Windows are coming soon!
 
+You could optionally use [VAGRANT_SETUP.md](VAGRANT_SETUP.md) on any platform for a quicker, easier setup with some minor downsides.
+
 I still have questions about contributing.
 ==========================================
 
