@@ -2,6 +2,10 @@ class EventsController < ApplicationController
   include EventsHelper
 
   def index
+    unless current_user.present?
+      redirect_to new_user_session_path
+      return
+    end
     unless current_user.meetup_token.present?
       redirect_to meetup_login_url
       return
