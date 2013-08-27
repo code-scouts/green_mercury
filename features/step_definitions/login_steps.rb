@@ -29,7 +29,10 @@ Then(/^I should see "(.*?)"$/) do |text|
   begin
     page.should have_content(text)
   rescue
-    save_and_open_page
+    begin
+      save_and_open_page
+    rescue Launchy::CommandNotFoundError
+    end
     raise
   end
 end
