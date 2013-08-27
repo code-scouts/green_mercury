@@ -13,7 +13,9 @@ module EventsHelper
     meetups = body['results']
     meetups.map do |meetup|
       {
-        time: Time.at(meetup['time'] / 1000).strftime('%A, %-d %b %-I:%M %p'),
+        time: Time.at((meetup['time'] + meetup['utc_offset']) / 1000).\
+              utc.\
+              strftime('%A, %-d %b %-I:%M %p'),
         name: meetup['name'],
         url: meetup['event_url'],
         going: ((meetup['self']['rsvp'] || {})['response'] == 'yes'),

@@ -62,6 +62,7 @@ describe EventsHelper do
       response = double
       response.should_receive(:body).and_return('{"results":[
         {
+          "utc_offset": -28800000,
           "time":1377829800000,
           "name":"hacknite",
           "event_url":"https://meetup.com/Pdxcodescouts/1234",
@@ -71,6 +72,7 @@ describe EventsHelper do
           "id":"rummaging"
         },
         {
+          "utc_offset": -25200000,
           "time":1378429200000,
           "name":"hacknite 2: the hackening",
           "event_url":"https://meetup.com/Pdxcodescouts/4321",
@@ -86,7 +88,7 @@ describe EventsHelper do
 
       get_events('waaaaar').should == [
         {
-          time: 'Thursday, 29 Aug 7:30 PM',
+          time: 'Thursday, 29 Aug 6:30 PM',
           name: 'hacknite',
           url: 'https://meetup.com/Pdxcodescouts/1234',
           going: true,
