@@ -88,6 +88,9 @@ GreenMercury::Application.configure do
   #API key for Janrain Engage
   RPXNow.api_key = ENV['ENGAGE_API_KEY']
 
+  MEETUP_API_KEY = ENV['MEETUP_API_KEY']
+  MEETUP_API_SECRET = ENV['MEETUP_API_SECRET']
+
   #Send emails via sendgrid
   ActionMailer::Base.smtp_settings = {
     :address        => "smtp.sendgrid.net",
