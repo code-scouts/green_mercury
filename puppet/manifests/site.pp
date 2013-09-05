@@ -1,4 +1,19 @@
 node default {
+  user { 'green_mercury':
+    shell => '/bin/bash',
+    home => '/home/green_mercury',
+    managehome => true,
+    ensure => present,
+  }
+
+  ssh_authorized_key { 'green_mercury_alorente':
+    ensure => present,
+    key => 'AAAAB3NzaC1yc2EAAAADAQABAAABAQCkmkuFbxxKmsDiqUMH1X7PFS+EZfR6i7U/Xe0vociH41kA8ZBr6GQ5pXU/MYg8LlOqOnJnxSeScDGMyPMOEida+NsJGYwYHOablAJ9H9cD3uQG9gPZQEYEd8gRCUPwzK9o+80SPAq4YCM8/wttMtEXmqEUVZ5skbQsCEwh5kfsqDNd/b+xXwYYWhr1nPSt8jimvjViXlJ5D7LjoWThFEXztTKTmhOhc6UiKPDeXGsU28A/PuAXgnLQaxjoHk/7IFWFr52yclYo+xGBRb2GBYO6I20sjQK8IHDK5L+f/wufHAoJZsvLj0ekWUwN+NAFLKO8BHqp5XCpblk+V/3JKr6P',
+    name => 'green_mercury_alorente',
+    type => 'ssh-rsa',
+    user => 'green_mercury',
+  }
+
   class { 'nginx': }
   nginx::resource::upstream { 'green_mercury':
     ensure  => present,
@@ -28,4 +43,18 @@ node default {
     role      => 'green_mercury',
   }
 
+
+  include rvm
+  rvm::system_user { green_mercury: ; }
+
+  rvm_system_ruby { 'ruby-1.9.3-p448':
+    ensure => 'present',
+    default_use => true,
+  }
+
+  rvm_gemset {
+  "ruby-1.9.3-p448@green_mercury":
+    ensure => present,
+    require => Rvm_system_ruby['ruby-1.9.3-p448'];
+  }
 }

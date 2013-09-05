@@ -5,3 +5,4 @@ forge "http://forge.puppetlabs.com"
 mod 'puppetlabs/nginx', git: 'https://github.com/AndrewLorente/puppetlabs-nginx.git'
 
 mod 'puppetlabs/postgresql'
+mod 'maestrodev/rvm'
