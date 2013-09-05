@@ -12,9 +12,10 @@
     sudo puppet resource cron puppet-apply ensure=present user=root minute=30 command='/usr/bin/puppet apply $(/usr/bin/puppet config print manifest)'
 
 # ON LOCAL
-    # deploy the puppet config!
-    rsync -r puppet/* greenmercury:/home/ubuntu/puppet
+    # sync the puppet config
+    rsync -rl puppet/* greenmercury:/home/ubuntu/puppet
 
 #ON REMOTE
+    # put the puppet config in place
     sudo cp -r puppet/modules/* /etc/puppet/modules/
     sudo cp -r puppet/manifests/* /etc/puppet/manifests/

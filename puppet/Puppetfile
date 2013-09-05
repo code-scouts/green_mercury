@@ -4,4 +4,4 @@ forge "http://forge.puppetlabs.com"
 # until https://github.com/puppetlabs/puppetlabs-nginx/pull/45 is merged
 mod 'puppetlabs/nginx', git: 'https://github.com/AndrewLorente/puppetlabs-nginx.git'
 
-# mod 'puppetlabs/postgresql'
+mod 'puppetlabs/postgresql'
