@@ -7,45 +7,50 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-<header>
-  <div class="row-fluid">
-    <div class="span8"></div>
-    <div class="span2">
-      <% if user_signed_in? %>
-        <%= link_to("Manage events", events_path) %>
-      <% end %>
-    </div>
-    <div class="span2">
-      <% if user_signed_in? %>
-        <%= link_to("Edit Profile", edit_user_registration_path) %> or <%= link_to("Sign out", destroy_user_session_path, method: :delete) %>
-      <% else %>
-        <%= link_to("Sign up", new_user_registration_path) %> or <%= link_to("Sign in", new_user_session_path) %>
-      <% end %>
-    </div>
-  </div>
-</header>
-<article>
-  <div class="text-center">
-    <%= link_to(image_tag('codescouts.png'), url_for(controller: '/index', action: 'index')) %>
-  </div>
-</article>
-<% if notice.present? || alert.present? %>
-  <article class="flash">
-    <% if notice.present? %>
-      <p class="notice"><%= notice %></p>
+<div id="wrap">
+  <div id="main">
+    <header>
+      <div class="row-fluid">
+        <div class="span8"></div>
+        <div class="span2">
+          <% if user_signed_in? %>
+            <%= link_to("Manage events", events_path) %>
+          <% end %>
+        </div>
+        <div class="span2">
+          <% if user_signed_in? %>
+            <%= link_to("Edit Profile", edit_user_registration_path) %> or <%= link_to("Sign out", destroy_user_session_path, method: :delete) %>
+          <% else %>
+            <%= link_to("Sign up", new_user_registration_path) %> or <%= link_to("Sign in", new_user_session_path) %>
+          <% end %>
+        </div>
+      </div>
+    </header>
+    <article>
+      <div class="text-center">
+        <%= link_to(image_tag('codescouts.png'), url_for(controller: '/index', action: 'index')) %>
+      </div>
+    </article>
+    <% if notice.present? || alert.present? %>
+      <article class="flash">
+        <% if notice.present? %>
+          <p class="notice"><%= notice %></p>
+        <% end %>
+        <% if alert.present? %>
+          <p class="alert"><%= alert %></p>
+        <% end %>
+      </article>
     <% end %>
-    <% if alert.present? %>
-      <p class="alert"><%= alert %></p>
-    <% end %>
-  </article>
-<% end %>
 
-<div class="container">
-  <div class="row-fluid">
-    <%= yield %>
+    <div class="container">
+      <div class="row-fluid">
+        <%= yield %>
+      </div>
+    </div>
   </div>
 </div>
-
+<footer>
+  Code Scouts is sponsored by <%= link_to(@sponsor[:name], @sponsor[:link]) %>, <%= @sponsor[:blurb] %>
+</footer>
 </body>
 </html>

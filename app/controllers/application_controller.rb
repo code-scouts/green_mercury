@@ -4,11 +4,17 @@ class ApplicationController < ActionController::Base
   alias_method :original_url_for, :url_for
   include ActionView::Helpers::UrlHelper
   alias_method :url_for, :original_url_for
+  include ApplicationHelper
 
   # Prevent CSRF attacks by raising an exception.
   protect_from_forgery with: :exception
 
-  after_filter :tell_users_to_have_an_email
+  before_filter :select_a_sponsor
+    def select_a_sponsor
+      @sponsor = sponsors.sample
+    end
+
+  before_filter :tell_users_to_have_an_email
 
   def tell_users_to_have_an_email
     if user_signed_in? && current_user.email.blank?
