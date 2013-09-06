@@ -19,9 +19,9 @@
     # put the puppet config in place
     sudo cp -r puppet/modules/* /etc/puppet/modules/
     sudo cp -r puppet/manifests/* /etc/puppet/manifests/
-    sudo puppet apply $(sudo puppet config print manifest)
 
     #run puppet
+    sudo puppet apply $(sudo puppet config print manifest)
 
     #create a .env file for the app
     # it needs these keys (and values, where provided)
@@ -38,3 +38,5 @@
     # NEW_RELIC_APP_NAME=Green Mercury
     # NEW_RELIC_LICENSE_KEY
     # NEW_RELIC_LOG=stdout
+    # SES_USERNAME
+    # SES_PASSWORD
