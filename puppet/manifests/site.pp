@@ -1,4 +1,9 @@
 node default {
+  package { "libpq-dev":
+    ensure => installed,
+  }
+
+
   user { 'green_mercury':
     shell => '/bin/bash',
     home => '/home/green_mercury',
@@ -12,6 +17,24 @@ node default {
     name => 'green_mercury_alorente',
     type => 'ssh-rsa',
     user => 'green_mercury',
+  }
+
+  file { ['/u', '/u/apps']:
+    ensure => 'directory',
+    owner => 'root',
+    group => 'root',
+    mode => '0644'
+  }
+
+  file { [
+      '/u/apps/green_mercury',
+      '/u/apps/green_mercury/shared/',
+      '/u/apps/green_mercury/shared/pids',
+    ]:
+    ensure => 'directory',
+    owner => 'green_mercury',
+    group => 'green_mercury',
+    mode => '0644'
   }
 
   class { 'nginx': }
