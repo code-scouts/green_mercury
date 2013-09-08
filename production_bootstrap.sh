@@ -24,6 +24,7 @@
     sudo puppet apply $(sudo puppet config print manifest)
 
     #create a .env file for the app
+    # it should be /u/apps/green_mercury/shared/.env
     # it needs these keys (and values, where provided)
 
     # PGPASSWORD
@@ -40,3 +41,4 @@
     # NEW_RELIC_LOG=stdout
     # SES_USERNAME
     # SES_PASSWORD
+    # SECRET_KEY
