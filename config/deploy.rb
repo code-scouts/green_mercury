@@ -6,9 +6,9 @@ set :application, "green_mercury"
 set :repository,  "https://github.com/code-scouts/green_mercury.git"
 set :scm, :git
 
-role :web, "ec2-54-200-1-25.us-west-2.compute.amazonaws.com" # Your HTTP server, Apache/etc
-role :app, "ec2-54-200-1-25.us-west-2.compute.amazonaws.com" # This may be the same as your `Web` server
-role :db,  "ec2-54-200-1-25.us-west-2.compute.amazonaws.com", :primary => true # This is where Rails migrations will run
+role :web, "green-mercury.codescouts.org"
+role :app, "green-mercury.codescouts.org"
+role :db,  "green-mercury.codescouts.org", :primary => true
 
 set :user, 'green_mercury'
 set :use_sudo, false
