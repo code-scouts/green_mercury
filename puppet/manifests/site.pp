@@ -30,6 +30,7 @@ node default {
       '/u/apps/green_mercury',
       '/u/apps/green_mercury/shared/',
       '/u/apps/green_mercury/shared/pids',
+      '/u/apps/green_mercury/shared/log',
     ]:
     ensure => 'directory',
     owner => 'green_mercury',
