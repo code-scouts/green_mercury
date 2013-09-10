@@ -22,3 +22,10 @@ test: &test
 
 cucumber:
   <<: *test
+
+production:
+  adapter: postgresql
+  host: localhost
+  database: green_mercury
+  encoding: unicode
+  password: <%= ENV['PGPASSWORD'] %>
