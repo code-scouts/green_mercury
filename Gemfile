@@ -31,6 +31,7 @@ gem 'asset_sync'
 gem 'unicorn'
 gem 'newrelic_rpm'
 gem 'httparty'
+gem 'dotenv-rails'
 
 group :production do
   gem 'rails_12factor'
@@ -52,14 +53,18 @@ group :development, :test do
   gem 'launchy'
 end
 
+group :development do
+  gem 'puppet'
+  gem 'librarian-puppet'
+  gem 'capistrano'
+  gem 'rvm-capistrano'
+end
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
 # Use unicorn as the app server
 # gem 'unicorn'
-
-# Use Capistrano for deployment
-# gem 'capistrano', group: :development
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]

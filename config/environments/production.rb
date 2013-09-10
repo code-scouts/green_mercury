@@ -83,7 +83,7 @@ GreenMercury::Application.configure do
 
   #Devise will use this when sending password reset emails.
   #This should be changed when the site goes live. I don't know how to guarantee that that happens :(
-  config.action_mailer.default_url_options = { :host => 'green-mercury.herokuapp.com' }
+  config.action_mailer.default_url_options = { :host => 'green-mercury.codescouts.org' }
 
   #API key for Janrain Engage
   RPXNow.api_key = ENV['ENGAGE_API_KEY']
@@ -93,11 +93,11 @@ GreenMercury::Application.configure do
 
   #Send emails via sendgrid
   ActionMailer::Base.smtp_settings = {
-    :address        => "smtp.sendgrid.net",
+    :address        => "email-smtp.us-east-1.amazonaws.com",
     :port           => "587",
-    :authentication => :plain,
-    :user_name      => ENV['SENDGRID_USERNAME'],
-    :password       => ENV['SENDGRID_PASSWORD'],
-    :domain         => 'heroku.com',
+    :authentication => :login,
+    :enable_starttls_auto => true,
+    :user_name      => ENV['SES_USERNAME'],
+    :password       => ENV['SES_PASSWORD'],
   }
 end
