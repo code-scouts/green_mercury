@@ -45,7 +45,7 @@ node default {
     ],
   }
 
-  nginx::resource::vhost { 'green_mercury':
+  nginx::resource::vhost { 'green-mercury.codescouts.org':
     ensure => present,
     proxy  => 'http://green_mercury',
   }

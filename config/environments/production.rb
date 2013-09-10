@@ -83,7 +83,7 @@ GreenMercury::Application.configure do
 
   #Devise will use this when sending password reset emails.
   #This should be changed when the site goes live. I don't know how to guarantee that that happens :(
-  config.action_mailer.default_url_options = { :host => 'green-mercury.herokuapp.com' }
+  config.action_mailer.default_url_options = { :host => 'green-mercury.codescouts.org' }
 
   #API key for Janrain Engage
   RPXNow.api_key = ENV['ENGAGE_API_KEY']
