@@ -1,10 +1,13 @@
+require "cucumber/rspec/doubles"
+require 'user'
+
 Given(/^I have a social account$/) do
-  @user = FactoryGirl.build :social_user
+  @user = User.new
   @user.confirmed_at = Time.now
 end
 
 Given(/^I am signed in$/) do
-  login_as(@user, scope: :user)
+  ApplicationController.any_instance.should_receive(:current_user).at_least(1).and_return @user
 end
 
 
