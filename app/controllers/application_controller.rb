@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   alias_method :original_url_for, :url_for
   include ActionView::Helpers::UrlHelper
   alias_method :url_for, :original_url_for
+  helper_method :user_signed_in?
 
   # Prevent CSRF attacks by raising an exception.
   protect_from_forgery with: :exception
