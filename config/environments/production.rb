@@ -100,4 +100,10 @@ GreenMercury::Application.configure do
     :user_name      => ENV['SES_USERNAME'],
     :password       => ENV['SES_PASSWORD'],
   }
+
+  CAPTURE_CLIENT_ID = 'wvy5ezp4mdypcrgp84kmtzanguqe3kf3'
+  CAPTURE_APP_ID = 'kr2e8rz35hhgqeja6wvx9c6sjy'
+  RPX_URL = 'https://codescouts.rpxnow.com'
+  CAPTURE_URL = 'https://codescouts.janraincapture.com'
+  FLOW_VERSION = 'a03ec869-6ba9-4512-a057-1a35f645b643'
 end

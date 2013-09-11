@@ -31,4 +31,10 @@ GreenMercury::Application.configure do
 
   MEETUP_API_KEY = ENV['MEETUP_API_KEY']
   MEETUP_API_SECRET = ENV['MEETUP_API_SECRET']
+
+  CAPTURE_CLIENT_ID = 'b7ceaax84qmqch6ampjugwzscf7zyubq'
+  CAPTURE_APP_ID = 'dtdggxejjsvuhvfeqy59gn5dr2'
+  RPX_URL = 'https://codescouts-dev.rpxnow.com'
+  CAPTURE_URL = 'https://codescouts-dev.janraincapture.com'
+  FLOW_VERSION = '47917eba-c22d-4b93-9a58-071f9a5086c2'
 end
