@@ -17,14 +17,186 @@
       <% end %>
     </div>
     <div class="span2">
-      <% if user_signed_in? %>
-        <%= link_to("Edit Profile", edit_user_registration_path) %> or <%= link_to("Sign out", destroy_user_session_path, method: :delete) %>
-      <% else %>
-        <%= link_to("Sign up", new_user_registration_path) %> or <%= link_to("Sign in", new_user_session_path) %>
-      <% end %>
+      <button class="btn btn-primary btn-large" id='signInButton'>Log In</button>
     </div>
   </div>
 </header>
+
+
+<div class="wrapper">
+  <div id="launchDemo" style="display: none;">
+    <div class="grid-block section">
+      <div class="center-col col2">
+        <div class="contentBoxWhiteShadow">
+          <h5>Welcome to the Capture Widget Demo</h5>
+          <a href="#" class="capture_modal_open btn primary">Sign In <span class="janrain-icon-16 janrain-icon-forward"></span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="activeSessionDisplay" style="display: none;">
+    <div class="grid-block section">
+      <div class="center-col col2">
+        <div class="contentBoxWhiteShadow">
+          <h5>Hello, now that you're logged in&hellip;</h5>
+          <a href="edit-profile.html" class="btn primary"><span class="janrain-icon-16 janrain-icon-pencil"></span> Edit Profile</a> <a href="#" class="capture_end_session btn primary"><span class="janrain-icon-16 janrain-icon-ex2"></span> Sign Out</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="display:none;" id="signIn">
+  <div class="capture_header">
+    <h1>Sign Up / Sign In</h1>
+  </div>
+  <div class="capture_signin">
+    <h2>With your existing account from...</h2>
+    {* loginWidget *} <br />
+  </div>
+  <div class="capture_backgroundColor">
+    <div class="capture_signin">
+      <h2>With a traditional account...</h2>
+      {* #userInformationForm *}
+        {* traditionalSignIn_emailAddress *}
+        {* traditionalSignIn_password *}
+        <div class="capture_rightText">
+          {* traditionalSignIn_signInButton *}{* traditionalSignIn_createButton *}
+        </div>
+      {* /userInformationForm *}
+    </div>
+  </div>
+</div>
+<div style="display:none;" id="returnSocial">
+  <div class="capture_header">
+    <h1>Sign In</h1>
+  </div>
+  <div class="capture_signin">
+    <h2>Welcome Back {* welcomeName *}</h2>
+    {* loginWidget *}
+    <div class="capture_centerText switchLink"><a href="#" data-cancelcapturereturnexperience="true">Use another account</a></div>
+  </div>
+</div>
+<div style="display:none;" id="returnTraditional">
+  <div class="capture_header">
+    <h1>Sign In</h1>
+  </div>
+  <h2 class="capture_centerText">Welcome back, {* displayNameStorageData *}!</h2>
+    <div class="capture_backgroundColor">
+      <div class="capture_signin">
+        {* #userInformationForm *}
+          {* traditionalSignIn_emailAddress *}
+          {* traditionalSignIn_password *}
+          <div class="capture_form_item capture_rightText">
+            {* traditionalSignIn_signInButton *}
+          </div>
+        {* /userInformationForm *}
+      </div>
+      <div class="capture_centerText switchLink"><a href="#" data-cancelcapturereturnexperience="true">Use another account</a></div>
+    </div>
+  </div>
+</div>
+  <div style="display:none;" id="socialRegistration">
+    <div class="capture_header">
+      <h1>Almost done!</h1>
+    </div>
+    <h2>Please confirm the information below before signing in.</h2>
+    {* #SocialRegistrationForm *}
+      {* SocialRegistration_firstName *}
+      {* SocialRegistration_lastName *}
+      {* SocialRegistration_emailAddress *}
+      {* SocialRegistration_displayName *}
+      <div class="capture_footer">
+        <div class="capture_left">
+          {* backButton *}
+        </div>
+        <div class="capture_right">
+          {* signinButton *}
+        </div>
+      </div>
+    {* /socialRegistrationForm *}
+  </div>
+  <div style="display:none;" id="registrationNewVerification">
+    <div class="capture_header">
+      <h1>Thank you for registering!</h1>
+    </div>
+    <p>We have sent a confirmation email to {* emailAddressData *}. Please check your email and click on the link to activate your account.</p>
+    <div class="capture_footer">
+      <a href="#" onclick="window.location.reload()" class="capture_btn capture_primary">close</a>
+    </div>
+  </div>
+  <div style="display:none;" id="traditionalRegistration">
+    <div class="capture_header">
+      <h1>almost done!</h1>
+    </div>
+    <p>Please confirm the information below before signing in. already have an account? <a href="#" data-capturescreen="signin">sign in.</a> </p>
+    {* #registrationForm *}
+      {* traditionalRegistration_firstName *}
+      {* traditionalRegistration_lastName *}
+      {* traditionalRegistration_emailAddress *}
+      {* traditionalRegistration_password *}
+      {* traditionalRegistration_passwordConfirm *}
+      {* traditionalRegistration_displayName *}
+      <div class="capture_footer">
+        <div class="capture_left">
+          {* backButton *}
+        </div>
+        <div class="capture_right">
+          {* createAccountButton *}
+        </div>
+      </div>
+    {* /registrationForm *}
+  </div>
+  <div style="display:none;" id="forgotPassword">
+    <div class="capture_header">
+      <h1>Create a new password</h1>
+    </div>
+    <h2>We'll send you a link to create a new password.</h2>
+    {* #forgotPasswordForm *}
+      {* traditionalSignIn_emailAddress *}
+      <div class="capture_footer">
+        <div class="capture_left">
+          {* backButton *}
+        </div>
+        <div class="capture_right">
+          {* forgotPassword_sendButton *}
+        </div>
+      </div>
+    {* /forgotPasswordForm *}
+  </div>
+  <div style="display:none;" id="forgotPasswordSuccess">
+    <div class="capture_header">
+      <h1>Create a new password</h1>
+    </div>
+    <p>We've sent an email with instructions to create a new password. your existing password has not been changed.</p>
+    <div class="capture_footer">
+      <a href="#" onclick="janrain.capture.ui.modal.close()" class="capture_btn capture_primary">close</a>
+    </div>
+  </div>
+  <div style="display:none;" id="mergeAccounts">
+    {* mergeAccounts *}
+  </div>
+  <div style="display:none;" id="traditionalAuthenticateMerge">
+    <div class="capture_header">
+      <h1>Sign in to complete account merge</h1>
+    </div>
+    <div class="capture_signin">
+      {* #tradAuthenticateMergeForm *}
+        {* traditionalSignIn_emailAddress *}
+        {* mergePassword *}
+        <div class="capture_footer">
+          <div class="capture_left">
+            {* backButton *}
+          </div>
+          <div class="capture_right">
+            {* signInButton *}
+          </div>
+        </div>
+      {* /tradAuthenticateMergeForm *}
+    </div>
+</div>
+
+
 <article>
   <div class="text-center">
     <%= link_to(image_tag('codescouts.png'), url_for(controller: '/index', action: 'index')) %>
@@ -46,6 +218,81 @@
     <%= yield %>
   </div>
 </div>
+
+<script type="text/javascript">
+
+  function janrainCaptureWidgetOnLoad() {
+    janrain.capture.ui.start();
+  }
+
+  (function() {
+    if (typeof window.janrain !== 'object') window.janrain = {};
+    window.janrain.settings = {};
+    window.janrain.settings.capture = {};
+
+    janrain.settings.appUrl = 'https://codescouts-dev.rpxnow.com';
+
+    janrain.settings.capture.redirectUri = 'https://codescouts-dev.janraincapture.com',
+    janrain.settings.capture.appId = 'dtdggxejjsvuhvfeqy59gn5dr2';
+    janrain.settings.capture.clientId = 'b7ceaax84qmqch6ampjugwzscf7zyubq';
+    janrain.settings.capture.recaptchaPublicKey = '6LeVKb4SAAAAAGv-hg5i6gtiOV4XrLuCDsJOnYoP';
+    janrain.settings.capture.responseType = 'token';
+    janrain.settings.capture.captureServer = 'https://codescouts-dev.janraincapture.com';
+    janrain.settings.capture.registerFlow = 'socialRegistration';
+    janrain.settings.capture.transactionTimeout = 10000;
+    janrain.settings.capture.flowVersion = '47917eba-c22d-4b93-9a58-071f9a5086c2';
+    janrain.settings.capture.flowName = 'signinFlow';
+    janrain.settings.capture.stylesheets = [];
+    janrain.settings.capture.mobileStylesheets = [];
+
+    janrain.settings.capture.keepProfileCookieAfterLogout = true;
+    janrain.settings.capture.setProfileCookie = true;
+    janrain.settings.type = 'embed';
+    janrain.settings.fontFamily = 'Helvetica, Lucida Grande, Verdana, sans-serif';
+    janrain.settings.tokenUrl = '';
+    janrain.settings.tokenAction = 'event';
+    janrain.settings.format = 'one column';
+    janrain.settings.providers = ['facebook','google','twitter'];
+    janrain.settings.providersPerPage = 4;
+    janrain.settings.actionText = ' ';
+    janrain.settings.width = 300;
+    janrain.settings.borderColor = '#ffffff';
+    janrain.settings.backgroundColor = '#ffffff';
+    janrain.settings.language = 'en';
+
+    janrain.settings.capture.modalBorderOpacity = 1;
+    janrain.settings.capture.modalBorderWidth = 5;
+    janrain.settings.capture.modalBorderRadius = 5;
+    janrain.settings.capture.modalCloseHtml = '<span class="janrain-icon-16 janrain-icon-ex2"></span>';
+    janrain.settings.capture.modalBorderColor = '#7AB433';
+    janrain.settings.capture.noModalBorderInlineCss = true;
+
+    janrain.settings.packages = ['login', 'capture'];
+
+    function isReady() { janrain.ready = true; };
+    if (document.addEventListener) {
+        document.addEventListener("DOMContentLoaded", isReady, false);
+    } else {
+        window.attachEvent('onload', isReady);
+    }
+
+    var e = document.createElement('script');
+    e.type = 'text/javascript';
+    e.id = 'janrainAuthWidget'
+
+    var url = document.location.protocol === 'https:' ? 'https://' : 'http://';
+    url += 'd16s8pqtk4uodx.cloudfront.net/signin/load.js';
+    e.src = url;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(e, s);
+  })();
+
+  $(document).ready(function() {
+    $('#signInButton').click(function() {
+      $('#signIn').parent().show();
+    });
+  });
+</script>
 
 </body>
 </html>
