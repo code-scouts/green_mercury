@@ -17,159 +17,103 @@
       <% end %>
     </div>
     <div class="span2">
-      <button class="btn btn-primary btn-large" id='signInButton'>Log In</button>
+      <button class="btn btn-primary" id='signInButton'>Log In</button>
     </div>
   </div>
 </header>
 
 <div style="display:none;" id="signIn">
-  <div class="capture_header">
-    <h1>Sign Up / Sign In</h1>
-  </div>
-  <div class="capture_signin">
-    <h2>With your existing account from...</h2>
-    {* loginWidget *} <br />
-  </div>
-  <div class="capture_backgroundColor">
-    <div class="capture_signin">
-      <h2>With a traditional account...</h2>
-      {* #userInformationForm *}
-        {* traditionalSignIn_emailAddress *}
-        {* traditionalSignIn_password *}
-        <div class="capture_rightText">
-          {* traditionalSignIn_signInButton *}{* traditionalSignIn_createButton *}
-        </div>
-      {* /userInformationForm *}
-    </div>
-  </div>
+  <h1>Sign Up / Sign In</h1>
+  <h2>With your existing account from...</h2>
+  {* loginWidget *} <br />
+  <h2>With a traditional account...</h2>
+  {* #userInformationForm *}
+    {* traditionalSignIn_emailAddress *}
+    {* traditionalSignIn_password *}
+    {* traditionalSignIn_signInButton *}{* traditionalSignIn_createButton *}
+  {* /userInformationForm *}
 </div>
+
 <div style="display:none;" id="returnSocial">
-  <div class="capture_header">
-    <h1>Sign In</h1>
-  </div>
-  <div class="capture_signin">
-    <h2>Welcome Back {* welcomeName *}</h2>
-    {* loginWidget *}
-    <div class="capture_centerText switchLink"><a href="#" data-cancelcapturereturnexperience="true">Use another account</a></div>
-  </div>
+  <h1>Sign In</h1>
+  <h2>Welcome Back, {* welcomeName *}!</h2>
+  {* loginWidget *}
+  <a href="#" data-cancelcapturereturnexperience="true">Use another account</a>
 </div>
+
 <div style="display:none;" id="returnTraditional">
-  <div class="capture_header">
-    <h1>Sign In</h1>
-  </div>
-  <h2 class="capture_centerText">Welcome back, {* displayNameStorageData *}!</h2>
-    <div class="capture_backgroundColor">
-      <div class="capture_signin">
-        {* #userInformationForm *}
-          {* traditionalSignIn_emailAddress *}
-          {* traditionalSignIn_password *}
-          <div class="capture_form_item capture_rightText">
-            {* traditionalSignIn_signInButton *}
-          </div>
-        {* /userInformationForm *}
-      </div>
-      <div class="capture_centerText switchLink"><a href="#" data-cancelcapturereturnexperience="true">Use another account</a></div>
-    </div>
-  </div>
+  <h1>Sign In</h1>
+  <h2>Welcome back, {* displayNameStorageData *}!</h2>
+  {* #userInformationForm *}
+    {* traditionalSignIn_emailAddress *}
+    {* traditionalSignIn_password *}
+    {* traditionalSignIn_signInButton *}
+  {* /userInformationForm *}
+  <a href="#" data-cancelcapturereturnexperience="true">Use another account</a>
 </div>
-  <div style="display:none;" id="socialRegistration">
-    <div class="capture_header">
-      <h1>Almost done!</h1>
-    </div>
-    <h2>Please confirm the information below before signing in.</h2>
-    {* #SocialRegistrationForm *}
-      {* SocialRegistration_firstName *}
-      {* SocialRegistration_lastName *}
-      {* SocialRegistration_emailAddress *}
-      {* SocialRegistration_displayName *}
-      <div class="capture_footer">
-        <div class="capture_left">
-          {* backButton *}
-        </div>
-        <div class="capture_right">
-          {* signinButton *}
-        </div>
-      </div>
-    {* /socialRegistrationForm *}
-  </div>
-  <div style="display:none;" id="registrationNewVerification">
-    <div class="capture_header">
-      <h1>Thank you for registering!</h1>
-    </div>
-    <p>We have sent a confirmation email to {* emailAddressData *}. Please check your email and click on the link to activate your account.</p>
-    <div class="capture_footer">
-      <a href="#" onclick="window.location.reload()" class="capture_btn capture_primary">close</a>
-    </div>
-  </div>
-  <div style="display:none;" id="traditionalRegistration">
-    <div class="capture_header">
-      <h1>almost done!</h1>
-    </div>
-    <p>Please confirm the information below before signing in. already have an account? <a href="#" data-capturescreen="signin">sign in.</a> </p>
-    {* #registrationForm *}
-      {* traditionalRegistration_firstName *}
-      {* traditionalRegistration_lastName *}
-      {* traditionalRegistration_emailAddress *}
-      {* traditionalRegistration_password *}
-      {* traditionalRegistration_passwordConfirm *}
-      {* traditionalRegistration_displayName *}
-      <div class="capture_footer">
-        <div class="capture_left">
-          {* backButton *}
-        </div>
-        <div class="capture_right">
-          {* createAccountButton *}
-        </div>
-      </div>
-    {* /registrationForm *}
-  </div>
-  <div style="display:none;" id="forgotPassword">
-    <div class="capture_header">
-      <h1>Create a new password</h1>
-    </div>
-    <h2>We'll send you a link to create a new password.</h2>
-    {* #forgotPasswordForm *}
-      {* traditionalSignIn_emailAddress *}
-      <div class="capture_footer">
-        <div class="capture_left">
-          {* backButton *}
-        </div>
-        <div class="capture_right">
-          {* forgotPassword_sendButton *}
-        </div>
-      </div>
-    {* /forgotPasswordForm *}
-  </div>
-  <div style="display:none;" id="forgotPasswordSuccess">
-    <div class="capture_header">
-      <h1>Create a new password</h1>
-    </div>
-    <p>We've sent an email with instructions to create a new password. your existing password has not been changed.</p>
-    <div class="capture_footer">
-      <a href="#" onclick="janrain.capture.ui.modal.close()" class="capture_btn capture_primary">close</a>
-    </div>
-  </div>
-  <div style="display:none;" id="mergeAccounts">
-    {* mergeAccounts *}
-  </div>
-  <div style="display:none;" id="traditionalAuthenticateMerge">
-    <div class="capture_header">
-      <h1>Sign in to complete account merge</h1>
-    </div>
-    <div class="capture_signin">
-      {* #tradAuthenticateMergeForm *}
-        {* traditionalSignIn_emailAddress *}
-        {* mergePassword *}
-        <div class="capture_footer">
-          <div class="capture_left">
-            {* backButton *}
-          </div>
-          <div class="capture_right">
-            {* signInButton *}
-          </div>
-        </div>
-      {* /tradAuthenticateMergeForm *}
-    </div>
+
+<div style="display:none;" id="socialRegistration">
+  <h1>Almost done!</h1>
+  <h2>Please confirm the information below before signing in.</h2>
+  {* #SocialRegistrationForm *}
+    {* SocialRegistration_firstName *}
+    {* SocialRegistration_lastName *}
+    {* SocialRegistration_emailAddress *}
+    {* SocialRegistration_displayName *}
+    {* backButton *}
+    {* signinButton *}
+  {* /socialRegistrationForm *}
+</div>
+
+<div style="display:none;" id="registrationNewVerification">
+  <h1>Thank you for registering!</h1>
+  <p>We have sent a confirmation email to {* emailAddressData *}. Please check your email and click on the link to activate your account.</p>
+  <a href="#" onclick="janrain.capture.ui.modal.close()">close</a>
+</div>
+
+<div style="display:none;" id="traditionalRegistration">
+  <h1>Almost done!</h1>
+  <p>Please confirm the information below before signing in. already have an account? <a href="#" data-capturescreen="signin">sign in.</a> </p>
+  {* #registrationForm *}
+    {* traditionalRegistration_firstName *}
+    {* traditionalRegistration_lastName *}
+    {* traditionalRegistration_emailAddress *}
+    {* traditionalRegistration_password *}
+    {* traditionalRegistration_passwordConfirm *}
+    {* traditionalRegistration_displayName *}
+    {* backButton *}
+    {* createAccountButton *}
+  {* /registrationForm *}
+</div>
+
+<div style="display:none;" id="forgotPassword">
+  <h1>Create a new password</h1>
+  <h2>We'll send you a link to create a new password.</h2>
+  {* #forgotPasswordForm *}
+    {* traditionalSignIn_emailAddress *}
+    {* backButton *}
+    {* forgotPassword_sendButton *}
+  {* /forgotPasswordForm *}
+</div>
+
+<div style="display:none;" id="forgotPasswordSuccess">
+  <h1>Create a new password</h1>
+  <p>We've sent an email with instructions to create a new password. your existing password has not been changed.</p>
+  <a href="#" onclick="janrain.capture.ui.modal.close()">close</a>
+</div>
+
+<div style="display:none;" id="mergeAccounts">
+  {* mergeAccounts *}
+</div>
+
+<div style="display:none;" id="traditionalAuthenticateMerge">
+  <h1>Sign in to complete account merge</h1>
+  {* #tradAuthenticateMergeForm *}
+    {* traditionalSignIn_emailAddress *}
+    {* mergePassword *}
+    {* backButton *}
+    {* signInButton *}
+  {* /tradAuthenticateMergeForm *}
 </div>
 
 
