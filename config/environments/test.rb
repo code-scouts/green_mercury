@@ -39,4 +39,9 @@ GreenMercury::Application.configure do
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
   MEETUP_API_KEY = 'Thisisnotreal'
   MEETUP_API_SECRET = 'Thiswillnotwork'
+  CAPTURE_CLIENT_ID = 'thisalsoisfake'
+  CAPTURE_APP_ID = 'thiswillnotwork'
+  RPX_URL = 'https://codescouts.rpxnow.test.host'
+  CAPTURE_URL = 'https://codescouts.janraincapture.test.host'
+  FLOW_VERSION = 'some-version'
 end

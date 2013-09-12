@@ -1,3 +1,4 @@
+<% environment.context_class.instance_eval { include Rails.application.routes.url_helpers } %>
 (function() {
   if (typeof window.janrain !== 'object') window.janrain = {};
   if (typeof window.janrain.settings !== 'object') window.janrain.settings = {};
@@ -54,5 +55,21 @@ $(document).ready(function() {
 
 function janrainCaptureWidgetOnLoad() {
   janrain.capture.ui.start();
+
+  var acquireSession = function(result) {
+    var url = '<%= acquire_session_path %>.json';
+    $.ajax(url, {
+      type: "POST",
+      data: {access_token: result.accessToken},
+      success: function(data, status, jqXHR) {
+        window.location.reload(true);
+      },
+      error: function(jqXHR, status, errorThrown) {
+        alert(errorThrown);
+      }
+    });
+  };
+
+  janrain.events.onCaptureLoginSuccess.addHandler(acquireSession);
 }
 
