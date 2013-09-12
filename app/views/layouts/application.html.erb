@@ -50,7 +50,7 @@
   </div>
 </div>
 <footer>
-  Code Scouts is sponsored by <%= link_to(@sponsor[:name], @sponsor[:link]) %>, <%= @sponsor[:blurb] %>
+  Code Scouts is sponsored by <%= @sponsor[:name] %> <%= link_to image_tag(@sponsor[:logo]), @sponsor[:link] %> <%= @sponsor[:blurb] %>
 </footer>
 </body>
 </html>
