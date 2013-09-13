@@ -31,7 +31,6 @@ class EventsController < ApplicationController
 
   def get_token
     current_user.meetup_token = exchange_code_for_token(params[:code])
-    current_user.save
 
     redirect_to events_path
   end
