@@ -20,7 +20,7 @@
       <% if user_signed_in? %>
         <%= link_to("Log out", logout_path, method: :post) %>
       <% else %>
-        <button class="btn btn-primary" id='signInButton'>Log In</button>
+        <button class="btn btn-primary capture_modal_open" id='signInButton'>Log In</button>
       <% end %>
     </div>
   </div>
