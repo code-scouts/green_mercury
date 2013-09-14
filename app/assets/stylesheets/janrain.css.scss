@@ -1,0 +1,1266 @@
+/*
+Adapted from
+https://gist.github.com/Blorvak/4458634/raw/8e2d55dcc79871ed72f2182a4737296af9856026/default.css
+*/
+#janrainModal {
+  .janrain-capture-ui.capture-ui-content {
+    border-radius: 5px;
+    khtml-border-radius: 5px;
+    min-height: 350px;
+    moz-border-radius: 5px;
+    ms-border-radius: 5px;
+    o-border-radius: 5px;
+    padding: 20px 20px 70px 20px;
+    webkit-border-radius: 5px;
+    width: 400px;
+    background-color: #fff;
+
+    h1 {
+      color: #333;
+      font-size: 18px;
+      font-weight: bold;
+      line-height: inherit;
+    }
+    h2 {
+      font-size: 15px;
+      font-weight: bold;
+    }
+    h3 {
+      font-size: 15px;
+    }
+    h4 {
+      font-size: 1.385em;
+    }
+    h5 {
+      font-size: 1.077em;
+    }
+  }
+
+  .capture_header {
+    border-bottom: 1px solid #eee;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+    moz-box-sizing: border-box;
+    ms-box-sizing: border-box;
+    padding-bottom: 10px;
+    webkit-box-sizing: border-box;
+    h1 {
+      margin: 0;
+      padding: 0;
+    }
+  }
+
+  .capture_footer {
+    background-color: #f6f6f6;
+    border-radius: 0 0 5px 5px;
+    bottom: 0;
+    box-shadow: 0 9px 9px -9px rgba(0,0,0,0.1) inset;
+    height: 35px;
+    khtml-border-radius: 0 0 5px 5px;
+    left: 0;
+    moz-border-radius: 0 0 5px 5px;
+    moz-box-shadow: 0 9px 9px -9px rgba(0,0,0,0.1) inset;
+    ms-border-radius: 0 0 5px 5px;
+    o-border-radius: 0 0 5px 5px;
+    o-box-shadow: 0 9px 9px -9px rgba(0,0,0,0.1) inset;
+    padding: 10px 0;
+    position: absolute;
+    text-align: right;
+    webkit-border-radius: 0 0 5px 5px;
+    webkit-box-shadow: 0 9px 9px -9px rgba(0,0,0,0.1) inset;
+    width: 100%;
+    z-index: 5;
+    zoom: 1;
+  }
+  .capture_footer:after {
+    clear: both;
+    content: "";
+    display: table;
+  }
+
+  .janrain-capture-ui.capture-ui-content {
+    .capture_fatal_error {
+        margin-bottom: 15px;
+    }
+  }
+  .janrain-capture-ui.capture-ui-content#signIn .capture_fatal_error,
+  .janrain-capture-ui.capture-ui-content#returnSocial .capture_fatal_error,
+  .janrain-capture-ui.capture-ui-content#returnTraditional .capture_fatal_error {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+  .janrain-capture-ui.capture-ui-content .capture_access,
+  .janrain-capture-ui.capture-ui-content .capture_retrieving {
+    box-shadow: none;
+    margin: 0 0 0 -150px;
+    moz-box-shadow: none;
+    o-box-shadow: none;
+    padding: 0 0 0 40px;
+    webkit-box-shadow: none;
+  }
+}
+
+.janrain_close_confirm_container {
+  border-radius: 10px;
+  font-family: helvetica,sans-serif;
+  font-size: 13px;
+  khtml-border-radius: 10px;
+  line-height: 17px;
+  moz-border-radius: 10px;
+  ms-border-radius: 10px;
+  o-border-radius: 10px;
+  webkit-border-radius: 10px;
+  .janrain_close_confirm {
+    color: white;
+    h3 {
+      color: #fff;
+      font-size: 1.077em;
+      font-weight: normal;
+      margin: 0;
+      padding: 0 0 5px;
+      text-shadow: none;
+    }
+    .janrain_modal_confirm {
+      background: linear-gradient(top, #34c5ff,#0092cd);
+      background: -moz-linear-gradient(top, #34c5ff,#0092cd);
+      background: -ms-linear-gradient(top, #34c5ff,#0092cd);
+      background: -o-linear-gradient(top, #34c5ff,#0092cd);
+      background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #34c5ff), color-stop(100%, #0092cd));
+      background: -webkit-linear-gradient(top, #34c5ff,#0092cd);
+      background-color: #009ddc;
+      box-shadow: 0 1px 0px 0px rgba(255,255,255,0.35) inset,0 -26px 13px -13px rgba(0,0,0,0.2) inset;
+      color: #fff;
+      moz-box-shadow: 0 1px 0px 0px rgba(255,255,255,0.35) inset,0 -26px 13px -13px rgba(0,0,0,0.2) inset;
+      o-box-shadow: 0 1px 0px 0px rgba(255,255,255,0.35) inset,0 -26px 13px -13px rgba(0,0,0,0.2) inset;
+      text-shadow: 0 1px 1px rgba(0,0,0,0.45);
+      webkit-box-shadow: 0 1px 0px 0px rgba(255,255,255,0.35) inset,0 -26px 13px -13px rgba(0,0,0,0.2) inset;
+    }
+    .janrain_modal_cancel {
+      background-color: #f6f6f6;
+      box-shadow: 0 1px 0px 0px rgba(255,255,255,0.35) inset,0 -26px 13px -13px rgba(0,0,0,0.2) inset;
+      color: #333;
+      moz-box-shadow: 0 1px 0px 0px rgba(255,255,255,0.35) inset,0 -26px 13px -13px rgba(0,0,0,0.2) inset;
+      o-box-shadow: 0 1px 0px 0px rgba(255,255,255,0.35) inset,0 -26px 13px -13px rgba(0,0,0,0.2) inset;
+      webkit-box-shadow: 0 1px 0px 0px rgba(255,255,255,0.35) inset,0 -26px 13px -13px rgba(0,0,0,0.2) inset;
+    }
+  }
+}
+
+.janrain-capture-ui {
+  background-color: transparent;
+  color: #666;
+  font-family: helvetica,sans-serif;
+  font-size: 13px;
+  line-height: inherit;
+
+  .capture_footer .capture_btn {
+    margin: 0 20px;
+  }
+
+  .capture-ui-content {
+    width: 600px;
+  }
+
+  /*
+  * Shared percentage based grid. Use <div class="grid-block"> as a wrapper
+  * and include any column size within that add up to 100% (including margin).
+  * Grid has a maximum of 4 columns wide.
+  * Example HTML:
+  *   <div class="grid-block">
+  *       <div class="capture_col3"></div>
+  *       <div class="capture_col1"></div>
+  *   </div>
+  */
+  .grid-block {
+    clear: both;
+    margin: 0 0 0 -2%;
+    zoom: 1;
+  }
+  .grid-block:after {
+    clear: both;
+    content: "";
+    display: table;
+  }
+  div[class^="capture_col"] {
+    border-radius: 5px;
+    display: inline;
+    float: left;
+    khtml-border-radius: 5px;
+    margin-left: 2%;
+    moz-border-radius: 5px;
+    ms-border-radius: 5px;
+    o-border-radius: 5px;
+    webkit-border-radius: 5px;
+  }
+  .capture_col4 {
+    width: 98%;
+  }
+  .capture_col3 {
+    width: 73%;
+  }
+  .capture_col2 {
+    width: 48%;
+  }
+  .capture_col125 {
+    width: 31.3%;
+  }
+  .capture_col250 {
+    width: 64.5%;
+  }
+  .capture_col1 {
+    width: 23%;
+  }
+
+  /*
+  * Link colors. Can be removed if you want to use the link colors from your site CSS.
+  */
+  a,
+  a:visited,
+  a:link {
+    color: #009ddc;
+  }
+  a:hover {
+    color: #006690;
+  }
+
+  /*
+  * Buttons that have been clicked get replaced with a div with this class
+  */
+  .capture_processing
+  {
+    background-color: none;
+    border: none !important;
+    box-shadow: none;
+    moz-box-shadow: none;
+    o-box-shadow: none;
+    webkit-box-shadow: none;
+  }
+
+  /*
+  * Errors that appear at the top of the screen if a fatal error has occured
+  */
+  .capture_fatal_error
+  {
+    background-image: none;
+    color: #f58002;
+    font-size: 12px;
+  }
+  .capture_fatal_error:first-letter
+  {
+    text-transform: capitalize;
+  }
+
+  /*
+  * Errors that appear at the top of a form if a form error has occured server-side
+  */
+  .capture_form_error {
+    background-image: none;
+    color: #f58002;
+  }
+
+  /*
+  * Save message that appears when a profile is successfully saved.
+  */
+  .capture_save_success {
+    color: #64AE29;
+    display: inline-block;
+    display: -moz-inline-box;
+    moz-box-orient: vertical;
+    vertical-align: auto;
+    vertical-align: middle;
+  }
+  .capture_save_success {
+    *display: inline;
+  }
+
+  /*
+  * Hide sections that don't apply to social accounts.
+  * These will get displayed through js if traditional acct.
+  */
+  .janrain_traditional_account_only {
+    display: none;
+  }
+
+  /*
+  * Misc. general styling
+  */
+  .capture_dashed {
+    border: 1px #ccc dashed;
+    margin: 0 20px;
+  }
+  .capture_border {
+    border: 1px solid #ccc;
+  }
+
+  /*
+  * Secondary brand background color and how certain elements should look when placed within.
+  * Used on signin and traditional return experience to divide content area
+  */
+  .capture_backgroundColor {
+      background-color: #f6f6f6;
+      color: #666;
+      border-radius: 0 0 5px 5px;
+      box-shadow: 0 9px 9px -9px rgba(0,0,0,0.1) inset;
+      khtml-border-radius: 0 0 5px 5px;
+      margin-top: 20px;
+      moz-border-radius: 0 0 5px 5px;
+      moz-box-shadow: 0 9px 9px -9px rgba(0,0,0,0.1) inset;
+      ms-border-radius: 0 0 5px 5px;
+      o-border-radius: 0 0 5px 5px;
+      o-box-shadow: 0 9px 9px -9px rgba(0,0,0,0.1) inset;
+      webkit-border-radius: 0 0 5px 5px;
+      webkit-box-shadow: 0 9px 9px -9px rgba(0,0,0,0.1) inset;
+
+    .capture_text_input,
+    .capture_checkbox,
+    .capture_radio,
+    .capture_inputPlaceholder,
+    .capture_select,
+    .capture_textarea,
+    .capture_checkbox,
+    .capture_radio {
+      background-color: #fff;
+    }
+    .capture_text_input:focus,
+    .capture_checkbox:focus,
+    .capture_radio:focus,
+    .capture_inputPlaceholder:focus,
+    .capture_select:focus,
+    .capture_textarea:focus,
+    .capture_checkbox:focus,
+    .capture_radio:focus {
+      background-color: #fff;
+    }
+  }
+
+  /*------------------------------------*\
+  $FORM ELEMENTS
+  \*------------------------------------*/
+
+  /*
+  * Wrapping, parent container for form items
+  */
+  .capture_form_item {
+    min-height: 0;
+  }
+
+  /*
+  * Labels for form items. Hidden by default but still accessible by screen readers.
+  */
+  .capture_form_item>label {
+    color: #666;
+    height: 0px;
+    overflow: hidden;
+    text-indent: -99999px;
+  }
+
+  /*
+  * Input, select, radio, checkbox, textarea styling
+  */
+  .capture_text_input,
+  .capture_checkbox,
+  .capture_radio,
+  .capture_inputPlaceholder,
+  .capture_select,
+  .capture_textarea {
+    background-color: #f6f6f6;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 3px rgba(0,0,0,0.2) inset;
+    color: #b3b3b3;
+    font-family: helvetica,sans-serif;
+    font-size: 14px;
+    khtml-border-radius: 5px;
+    margin-left: 0;
+    margin-right: 0;
+    moz-border-radius: 5px;
+    moz-box-shadow: 0 0 3px rgba(0,0,0,0.2) inset;
+    ms-border-radius: 5px;
+    o-border-radius: 5px;
+    o-box-shadow: 0 0 3px rgba(0,0,0,0.2) inset;
+    webkit-border-radius: 5px;
+    webkit-box-shadow: 0 0 3px rgba(0,0,0,0.2) inset;
+  }
+
+  /*
+  * Input, select, radio, checkbox, textarea focused styling
+  */
+  .capture_text_input:focus,
+  .capture_checkbox:focus,
+  .capture_radio:focus,
+  .capture_inputPlaceholder:focus,
+  .capture_select:focus,
+  .capture_textarea:focus {
+    background-color: #e2e2e2;
+    border: 1px solid #009ddc;
+    box-shadow: 0 0 3px #009ddc,0 0 3px rgba(0,0,0,0.2) inset;
+    color: #333;
+    moz-box-shadow: 0 0 3px #009ddc,0 0 3px rgba(0,0,0,0.2) inset;
+    o-box-shadow: 0 0 3px #009ddc,0 0 3px rgba(0,0,0,0.2) inset;
+    webkit-box-shadow: 0 0 3px #009ddc,0 0 3px rgba(0,0,0,0.2) inset;
+  }
+
+  /*
+  * Input, select, radio, checkbox, textarea box sizing
+  */
+  .capture_text_input,
+  .capture_checkbox,
+  .capture_radio,
+  .capture_inputPlaceholder,
+  .capture_textarea,
+  .capture_inputPlaceholder {
+    box-sizing: border-box;
+    color: #333;
+    display: inline-block;
+    display: -moz-inline-box;
+    moz-box-orient: vertical;
+    moz-box-sizing: border-box;
+    ms-box-sizing: border-box;
+    vertical-align: auto;
+    vertical-align: middle;
+    webkit-box-sizing: border-box;
+    width: 100%;
+  }
+  /*
+  * Old IE inline-block fix
+  */
+  .capture_text_input,
+  .capture_checkbox,
+  .capture_radio,
+  .capture_inputPlaceholder,
+  .capture_textarea,
+  .capture_inputPlaceholder {
+    *display: inline;
+  }
+
+  /*
+  * Input, select, radio, checkbox, textarea placeholder colors
+  */
+  .capture_text_input::-webkit-input-placeholder,
+  .capture_checkbox::-webkit-input-placeholder,
+  .capture_radio::-webkit-input-placeholder,
+  .capture_inputPlaceholder::-webkit-input-placeholder,
+  .capture_textarea::-webkit-input-placeholder,
+  .capture_inputPlaceholder::-webkit-input-placeholder,
+  .capture_text_input:-moz-placeholder,
+  .capture_checkbox:-moz-placeholder,
+  .capture_radio:-moz-placeholder,
+  .capture_inputPlaceholder:-moz-placeholder,
+  .capture_textarea:-moz-placeholder,
+  .capture_inputPlaceholder:-moz-placeholder,
+  .capture_text_input:-ms-input-placeholder,
+  .capture_checkbox:-ms-input-placeholder,
+  .capture_radio:-ms-input-placeholder,
+  .capture_inputPlaceholder:-ms-input-placeholder,
+  .capture_textarea:-ms-input-placeholder,
+  .capture_inputPlaceholder:-ms-input-placeholder {
+    color: #b3b3b3;
+  }
+
+  /*
+  * Select specific styling/placeholder colors
+  */
+  .capture_select {
+    box-sizing: border-box;
+    color: #333;
+    moz-box-sizing: border-box;
+    ms-box-sizing: border-box;
+    webkit-box-sizing: border-box;
+    width: 100%;
+    .capture_disabled {
+      color: #b3b3b3;
+    }
+    .capture_disabled:focus {
+      color: #333;
+    }
+  }
+
+  /*
+  * Checkbox/radio specific styling
+  */
+  .capture_checkbox,
+  .capture_radio {
+    border: 0;
+    box-shadow: none;
+    moz-box-shadow: none;
+    o-box-shadow: none;
+    webkit-box-shadow: none;
+    label {
+      font-size: 13px;
+    }
+  }
+
+  /*
+  * Vertically center checkbox/radio input within label wrapper
+  */
+  .capture_checkbox .capture_input_radio,
+  .capture_form_collection .capture_input_radio,
+  .capture_checkbox .capture_input_checkbox,
+  .capture_form_collection .capture_input_checkbox,
+  .capture_radio .capture_input_radio,
+  .capture_radio .capture_input_checkbox {
+    margin-top: -8px;
+    top: 50%;
+  }
+
+  /*
+  * Coloring of input tips based on state of wrapping container
+  */
+  .capture_form_item.capture_focused .capture_tip {
+    color: #333;
+  }
+  .capture_form_item {
+    .capture_tip {
+      color: #aaa;
+    }
+    .capture_tip_validating {
+      color: #aaa;
+    }
+    .capture_tip_validated {
+      color: #aaa;
+    }
+    .capture_tip_error {
+      color: #f58002;
+    }
+    .capture_btn {
+      margin: 0;
+    }
+  }
+
+  /*
+  * Styling of form elements when the wrapping container has error class
+  */
+  .capture_error {
+    .capture_radio,
+    .capture_checkbox,
+    .capture_text_input,
+    .capture_checkbox,
+    .capture_radio,
+    .capture_inputPlaceholder
+    {
+      border: 1px solid #f58002;
+      box-shadow: 0 0 3px rgba(245,148,2,0.3) inset;
+      moz-box-shadow: 0 0 3px rgba(245,148,2,0.3) inset;
+      o-box-shadow: 0 0 3px rgba(245,148,2,0.3) inset;
+      webkit-box-shadow: 0 0 3px rgba(245,148,2,0.3) inset;
+    }
+  }
+
+  /*
+  * Dummy input styling if a blank input looking container is needed.
+  */
+  .capture_inputPlaceholder {
+    border: 0;
+    box-shadow: none;
+    moz-box-shadow: none;
+    o-box-shadow: none;
+    webkit-box-shadow: none;
+  }
+
+
+  /*------------------------------------*\
+  $DATA DISPLAYS
+  \*------------------------------------*/
+  .capture_data_item {
+    clear: both;
+    margin-bottom: 15px;
+    zoom: 1;
+    label {
+      float: left;
+      margin-right: 1%;
+      text-align: right;
+      width: 39%;
+    }
+    .capture_data {
+      float: left;
+      width: 60%;
+    }
+  }
+  .capture_data_item:after {
+    clear: both;
+    content: "";
+    display: table;
+  }
+
+
+  /*------------------------------------*\
+  $BUTTONS
+  \*------------------------------------*/
+  .capture_btn,
+  a.capture_btn,
+  button.capture_btn,
+  input.capture_btn,
+  .capture_backButton {
+    box-shadow: 0 1px 0px 0px rgba(255,255,255,0.35) inset,0 -26px 13px -13px rgba(0,0,0,0.2) inset;
+    font-family: helvetica,sans-serif;
+    moz-box-shadow: 0 1px 0px 0px rgba(255,255,255,0.35) inset,0 -26px 13px -13px rgba(0,0,0,0.2) inset;
+    o-box-shadow: 0 1px 0px 0px rgba(255,255,255,0.35) inset,0 -26px 13px -13px rgba(0,0,0,0.2) inset;
+    webkit-box-shadow: 0 1px 0px 0px rgba(255,255,255,0.35) inset,0 -26px 13px -13px rgba(0,0,0,0.2) inset;
+  }
+  .capture_btn:active,
+  .capture_btn:focus,
+  a.capture_btn:active,
+  a.capture_btn:focus,
+  button.capture_btn:active,
+  button.capture_btn:focus,
+  input.capture_btn:active,
+  input.capture_btn:focus,
+  .capture_backButton:active,
+  .capture_backButton:focus {
+    box-shadow: 0 1px 0px 0px rgba(0,0,0,0.1) inset,0 -1px 0px 0px rgba(255,255,255,0.35) inset;
+    moz-box-shadow: 0 1px 0px 0px rgba(0,0,0,0.1) inset,0 -1px 0px 0px rgba(255,255,255,0.35) inset;
+    o-box-shadow: 0 1px 0px 0px rgba(0,0,0,0.1) inset,0 -1px 0px 0px rgba(255,255,255,0.35) inset;
+    webkit-box-shadow: 0 1px 0px 0px rgba(0,0,0,0.1) inset,0 -1px 0px 0px rgba(255,255,255,0.35) inset;
+  }
+
+  /*
+  * Colors for primary buttons
+  */
+  .capture_primary,
+  a.capture_primary,
+  button.capture_primary,
+  input.capture_primary {
+    background: linear-gradient(top, #34c5ff,#0092cd);
+    background: -moz-linear-gradient(top, #34c5ff,#0092cd);
+    background: -ms-linear-gradient(top, #34c5ff,#0092cd);
+    background: -o-linear-gradient(top, #34c5ff,#0092cd);
+    background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #34c5ff), color-stop(100%, #0092cd));
+    background: -webkit-linear-gradient(top, #34c5ff,#0092cd);
+    background-color: #009ddc;
+    color: #fff;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.45);
+  }
+  a.capture_primary:visited,
+  a.capture_primary:link,
+  a.capture_primary:hover {
+    color: #fff;
+  }
+
+  /*
+  * Colors for secondary buttons
+  */
+  .capture_secondary,
+  a.capture_secondary,
+  button.capture_secondary,
+  input.capture_secondary {
+    background: linear-gradient(top, #f6f6f6,#dddddd);
+    background: -moz-linear-gradient(top, #f6f6f6,#dddddd);
+    background: -ms-linear-gradient(top, #f6f6f6,#dddddd);
+    background: -o-linear-gradient(top, #f6f6f6,#dddddd);
+    background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #f6f6f6), color-stop(100%, #dddddd));
+    background: -webkit-linear-gradient(top, #f6f6f6,#dddddd);
+    background-color: #f6f6f6;
+    box-shadow: 0 1px 0 0 rgba(255,255,255,0.35) inset;
+    color: #009ddc;
+    moz-box-shadow: 0 1px 0 0 rgba(255,255,255,0.35) inset;
+    o-box-shadow: 0 1px 0 0 rgba(255,255,255,0.35) inset;
+    text-decoration: none;
+    text-shadow: none;
+    webkit-box-shadow: 0 1px 0 0 rgba(255,255,255,0.35) inset;
+  }
+  a.capture_secondary:visited,
+  a.capture_secondary:link,
+  a.capture_secondary:hover {
+    color: #333;
+  }
+
+  /*
+  * Class for a button to take up half of it's parent container
+  */
+  .capture_btn_half,
+  a.capture_btn_half,
+  button.capture_btn_half,
+  input.capture_btn_half {
+    box-sizing: border-box;
+    margin: 0 1%;
+    moz-box-sizing: border-box;
+    ms-box-sizing: border-box;
+    padding-left: 5px;
+    padding-right: 5px;
+    webkit-box-sizing: border-box;
+    width: 48%;
+  }
+  /*
+  * Class for a button to take up 100% of it's parent container
+  */
+  .capture_btn_full,
+  a.capture_btn_full,
+  button.capture_btn_full,
+  input.capture_btn_full {
+    box-sizing: border-box;
+    margin: 0;
+    moz-box-sizing: border-box;
+    ms-box-sizing: border-box;
+    webkit-box-sizing: border-box;
+    width: 100%;
+  }
+
+  .capture_backButton {
+    background-image: none;
+    span {
+      background-image: none;
+      line-height: inherit;
+    }
+  }
+
+  .capture_backgroundColor .capture_secondary {
+    border: 1px solid #ddd;
+    border-width: 1px 1px 0 1px;
+  }
+
+
+  /*------------------------------------*\
+  $PUBLIC/PRIVATE PROFILE TOGGLES
+  \*------------------------------------*/
+
+  .capture_display_toggle_wrap {
+    border-radius: 4px;
+    font-size: 12px;
+    khtml-border-radius: 4px;
+    left: 100%;
+    line-height: 16px;
+    moz-border-radius: 4px;
+    ms-border-radius: 4px;
+    o-border-radius: 4px;
+    top: 20px;
+    webkit-border-radius: 4px;
+  }
+  .capture_display_toggle:hover {
+    background-color: #f6f6f6;
+  }
+  .capture_display_toggle_disabled {
+    color: #ccc;
+  }
+  .capture_display_toggle_disabled:hover {
+    background-color: transparent;
+    cursor: none;
+  }
+
+  /*------------------------------------*\
+  $ADDRESS, NAME, DATE BLOCKS
+  \*------------------------------------*/
+  .capture_form_item.capture_addressBlock {
+    .capture_form_item_addressDrop_city_,
+    .capture_form_item_addressDrop_stateprovince_,
+    .capture_form_item_addressDrop_zippostalcode_,
+    .capture_form_item_editProfile_addressDrop_city_,
+    .capture_form_item_editProfile_addressDrop_stateprovince_,
+    .capture_form_item_editProfile_addressDrop_zippostalcode_ {
+      display: inline-block;
+      display: -moz-inline-box;
+      margin-left: 1%;
+      moz-box-orient: vertical;
+      vertical-align: auto;
+      vertical-align: middle;
+    }
+    .capture_form_item_addressDrop_city_,
+    .capture_form_item_addressDrop_stateprovince_,
+    .capture_form_item_addressDrop_zippostalcode_,
+    .capture_form_item_editProfile_addressDrop_city_,
+    .capture_form_item_editProfile_addressDrop_stateprovince_,
+    .capture_form_item_editProfile_addressDrop_zippostalcode_ {
+      *display: inline;
+    }
+    .capture_tip_validating,
+    .capture_tip_error,
+    .capture_tip_validated {
+      left: 290px;
+      position: absolute;
+      top: 10px;
+    }
+    .capture_form_item_addressDrop_city_ {
+      margin-left: 0;
+      width: 40%;
+    }
+    .capture_form_item_addressDrop_stateprovince_ {
+      width: 20%;
+    }
+    .capture_form_item_addressDrop_zippostalcode_ {
+      width: 38%;
+    }
+  }
+  .capture_dateselect_day,
+  .capture_dateselect_month,
+  .capture_dateselect_year {
+    display: inline-block;
+    display: -moz-inline-box;
+    margin-left: 1%;
+    moz-box-orient: vertical;
+    vertical-align: auto;
+    vertical-align: middle;
+    *display: inline;
+  }
+  .capture_dateselect_month {
+    margin-left: 0;
+    width: 40%;
+  }
+  .capture_dateselect_day {
+    width: 18%;
+  }
+  .capture_dateselect_year {
+    width: 40%;
+  }
+
+  .capture_nameBlock .capture_form_item,
+  .capture_addressBlock .capture_form_item {
+    margin-bottom: 0;
+    min-height: 0;
+  }
+
+
+  /*------------------------------------*\
+  $DATE PICKER
+  \*------------------------------------*/
+  .capture_datePicker_wrapper {
+    background-color: #fff;
+    border: 1px solid #ccc;
+  }
+  .capture_datePicker_header {
+    background-color: #ccc;
+    background-color: #f6f6f6;
+    border-bottom: 1px solid #ccc;
+    box-shadow: 0 -26px 13px -13px rgba(0,0,0,0.2) inset;
+    moz-box-shadow: 0 -26px 13px -13px rgba(0,0,0,0.2) inset;
+    o-box-shadow: 0 -26px 13px -13px rgba(0,0,0,0.2) inset;
+    text-shadow: 0 1px #fff;
+    webkit-box-shadow: 0 -26px 13px -13px rgba(0,0,0,0.2) inset;
+  }
+  .capture_datePicker_monthButtons:visited,
+  .capture_datePicker_monthButtons:link {
+    color: #666;
+  }
+  .capture_datePicker_monthTable {
+    th {
+      background-color: #f6f6f6;
+    }
+    td {
+      border-color: #ccc;
+      border-style: solid;
+    }
+    td.capture_datePicker_prevMonthDay,
+    td.capture_datePicker_nextMonthDay {
+      a:visited,
+      a:link {
+        color: #ccc;
+      }
+      a:hover {
+        color: #666;
+      }
+    }
+    a:visited,
+    a:link {
+      color: #666;
+    }
+    a:hover {
+      background-color: #ccc;
+    }
+  }
+  .capture_datePicker_today {
+    background-color: #efefef;
+  }
+  .capture_datePicker_selectedDate {
+    background-color: #ccc;
+  }
+
+
+  /*------------------------------------*\
+  $TABS
+  \*------------------------------------*/
+
+  .capture_tabs {
+    margin: 0 5px;
+    text-align: left;
+    li {
+      box-sizing: border-box;
+      margin: 0 1% 0 0;
+      moz-box-sizing: border-box;
+      ms-box-sizing: border-box;
+      webkit-box-sizing: border-box;
+      width: auto;
+      a {
+        background-color: #ddd;
+        box-shadow: 0 -10px 5px -8px rgba(0,0,0,0.1) inset;
+        display: block;
+        font-size: 12px;
+        font-size: 14px;
+        moz-box-shadow: 0 -10px 5px -8px rgba(0,0,0,0.1) inset;
+        o-box-shadow: 0 -10px 5px -8px rgba(0,0,0,0.1) inset;
+        webkit-box-shadow: 0 -10px 5px -8px rgba(0,0,0,0.1) inset;
+      }
+      a:visited,
+      a:link,
+      a:hover {
+        color: #999;
+      }
+    }
+  /*
+  * capture_toggled class gets added to the active tab
+  */
+    li.capture_toggled {
+      a {
+        background-color: #f6f6f6;
+        box-shadow: none;
+        moz-box-shadow: none;
+        o-box-shadow: none;
+        webkit-box-shadow: none;
+      }
+      a:visited,
+      a:link,
+      a:hover {
+        color: #666;
+      }
+    }
+  }
+
+  /*------------------------------------*\
+  $LINKED ACCOUNT LIST
+  \*------------------------------------*/
+  .capture_provider {
+    margin: 0;
+    li {
+      background-color: #f6f6f6;
+      border-radius: 5px;
+      khtml-border-radius: 5px;
+      moz-border-radius: 5px;
+      ms-border-radius: 5px;
+      o-border-radius: 5px;
+      webkit-border-radius: 5px;
+      .capture_remove {
+        cursor: pointer;
+        position: absolute;
+        right: 0;
+      }
+    }
+    li.capture_linkAccount {
+      background-color: transparent;
+      margin: 0;
+      padding: 0;
+    }
+  }
+
+  /*------------------------------------*\
+  $RECAPTCHA
+  \*------------------------------------*/
+  #recaptcha_container {
+    .recaptchatable {
+      background-color: #fff;
+      border: none !important;
+      border-radius: 5px;
+      khtml-border-radius: 5px;
+      moz-border-radius: 5px;
+      ms-border-radius: 5px;
+      o-border-radius: 5px;
+      webkit-border-radius: 5px;
+      #recaptcha_response_field {
+        border: 1px solid #ccc !important;
+        color: #333 !important;
+        margin-left: 0;
+        width: 290px !important;
+      }
+      #recaptcha_response_field:focus {
+        border: 1px solid #009ddc !important;
+      }
+    }
+  }
+
+
+  /*------------------------------------*\
+  $PHOTO MANAGER
+  \*------------------------------------*/
+  /*
+  * Displays profile photo at a specified size. All items below should match.
+  */
+  #profile_pic {
+    height: 150px;
+    overflow: hidden;
+    img {
+      width: 150px;
+    }
+  }
+  .capture_profile_pic {
+    height: 150px;
+    margin: 0 auto 20px auto;
+    width: 150px;
+  }
+
+  /*
+  * <ul> element under the displayed user/default profile photo
+  */
+  .capture_photoManager {
+    .options {
+      display: block;
+      margin-top: 10px;
+      text-align: center;
+      li {
+        border: 1px #ccc solid;
+        border-width: 0 1px;
+        display: inline-block;
+        display: -moz-inline-box;
+        moz-box-orient: vertical;
+        padding: 0 5px;
+        vertical-align: auto;
+        vertical-align: middle;
+        *display: inline;
+      }
+      li:first-child,
+      li:last-child {
+        border: none;
+      }
+    }
+  }
+
+  .capture_uploadPhoto_container {
+    display: inline-block;
+    display: -moz-inline-box;
+    moz-box-orient: vertical;
+    vertical-align: auto;
+    vertical-align: middle;
+    width: 250px;
+    *display: inline;
+  }
+
+  /*
+  * Remove photo popup
+  */
+  .capture_popup_container {
+    background-color: #f6f6f6;
+    border: 1px solid #ccc;
+    .capture_popup-arrow:after {
+      background: #f6f6f6;
+      border: 1px solid #ccc;
+    }
+  }
+}
+
+/*
+* Makes upload photo modal wider to account for a large user image to crop
+*/
+#janrainModal {
+  .janrain-capture-ui.capture-ui-content#capture_editProfile_photoManager_editphotoscreen {
+      width: 740px;
+  }
+
+  /*------------------------------------*\
+  $SCREEN SPECIFIC
+  \*------------------------------------*/
+  /*
+  * Adjustments for certain screens that don't require padding.
+  */
+  .janrain-capture-ui.capture-ui-content#signIn,
+  .janrain-capture-ui.capture-ui-content#returnSocial,
+  .janrain-capture-ui.capture-ui-content#returnTraditional {
+      min-height: 220px;
+      padding: 20px 0 0 0;
+      h1 {
+        margin: 0 0 0 20px;
+      }
+  }
+
+  /*
+  * Allows for the centering of Engage Widget
+  */
+  .janrain-capture-ui.capture-ui-content .capture_signin {
+      width: 310px;
+      margin: 0 auto;
+  }
+}
+
+.janrain-capture-ui#editProfile .capture_form_item label {
+    height: auto;
+    overflow: visible;
+    text-indent: 0;
+    text-indent: inherit;
+    text-transform: capitalize;
+}
+
+.capture_editCol {
+    margin: 10px 0 0 10px;
+}
+
+.janrain-capture-ui#returnTraditional {
+  .capture_backgroundColor {
+    padding: 25px 10px;
+  }
+  .capture_form_item
+  {
+    margin-bottom: 0;
+    min-height: 51px;
+  }
+}
+
+/*------------------------------------*\
+$MERGE ACCOUNTS
+\*------------------------------------*/
+/*
+* Makes merge account screen larger wider
+*/
+#janrainModal {
+  .janrain-capture-ui.capture-ui-content#mergeAccounts {
+    padding: 0 0 55px 0;
+    width: 510px;
+  }
+}
+
+/*
+* Makes merge header appear differently than standard as there's more content
+*/
+.janrain-capture-ui.capture-ui-content#mergeAccounts {
+  .capture_header {
+    background-color: #f6f6f6;
+    border: none;
+    color: inherit;
+    padding-bottom: 0;
+    text-align: left;
+    .capture_icon_col {
+      height: 25px;
+      overflow: hidden;
+      width: 25px;
+    }
+    img {
+      height: auto;
+      width: 25px;
+    }
+  }
+}
+/*
+* Unhides label for this screen
+*/
+.janrain-capture-ui#mergeAccounts .capture_form_item label {
+    height: auto;
+    text-indent: 0;
+    text-indent: inherit;
+    text-transform: capitalize;
+}
+
+.janrain-capture-ui {
+  .capture_displayName_col {
+    display: inline-block;
+    display: -moz-inline-box;
+    margin: 10px 0 10px 10px;
+    moz-box-orient: vertical;
+    vertical-align: auto;
+    vertical-align: middle;
+    vertical-align: top;
+    *display: inline;
+  }
+  .capture_mergeCol {
+    display: inline-block;
+    display: -moz-inline-box;
+    margin: 10px;
+    moz-box-orient: vertical;
+    padding: 10px;
+    position: relative;
+    vertical-align: auto;
+    vertical-align: middle;
+    width: 43%;
+  }
+  .capture_form_collection_merge_radioButtonCollection {
+    border: 1px solid #ccc;
+  }
+  .capture_mergeCol {
+    *display: inline;
+    .capture_popup_container .capture_popup-arrow {
+      left: 100px;
+    }
+  }
+  .capture_mergeCol .capture_mergeProvider,
+  .capture_header .capture_mergeProvider
+  {
+    position: absolute;
+    right: 30px;
+    top: 8px;
+  }
+  .capture_dashed .capture_backgroundColor
+  {
+    border-radius: 5px;
+    khtml-border-radius: 5px;
+    margin-top: 0;
+    moz-border-radius: 5px;
+    ms-border-radius: 5px;
+    o-border-radius: 5px;
+    webkit-border-radius: 5px;
+  }
+  .capture_mergeExisting_col {
+    padding: 0;
+    .capture_mergeProvider {
+      right: 10px;
+    }
+    .capture_icon_col {
+      margin-left: 0;
+      margin-top: 4px;
+    }
+    .capture_displayName_col {
+      margin-top: 0;
+    }
+  }
+  .capture_mergeProvider {
+    margin-right: 5px;
+  }
+  .capture_form_collection_merge_radioButtonCollection {
+    background-color: #f6f6f6;
+    border-radius: 5px;
+    box-sizing: content-box;
+    khtml-border-radius: 5px;
+    margin: 20px;
+    moz-border-radius: 5px;
+    moz-box-sizing: content-box;
+    ms-border-radius: 5px;
+    ms-box-sizing: content-box;
+    o-border-radius: 5px;
+    padding: 0px;
+    webkit-border-radius: 5px;
+    webkit-box-sizing: content-box;
+    width: auto;
+    .capture_form_item_mergeAccounts_mergeRadio {
+      padding: 0;
+      label {
+        font-size: 14px;
+        margin: 0;
+        padding: 15px 15px 15px 25px;
+        .capture_smallText {
+          display: block;
+        }
+        .capture_recommended {
+          font-weight: 100;
+          position: absolute;
+          right: 3px;
+          text-transform: uppercase;
+          top: 2px;
+        }
+      }
+      .capture_input_radio {
+        left: 6px;
+        position: absolute;
+        top: 17px;
+      }
+    }
+    .capture_form_item_mergeAccounts_mergeRadio.capture_toggled {
+      background-color: #009ddc;
+      border-radius: 5px 5px 0 0;
+      khtml-border-radius: 5px 5px 0 0;
+      moz-border-radius: 5px 5px 0 0;
+      ms-border-radius: 5px 5px 0 0;
+      o-border-radius: 5px 5px 0 0;
+      webkit-border-radius: 5px 5px 0 0;
+      label {
+        color: #fff;
+      }
+    }
+    .capture_form_item_mergeAccounts_mergeRadio.capture_toggled.capture_form_item_mergeAccounts_mergeRadio:first-child {
+      border-radius: 5px 5px 0 0;
+      khtml-border-radius: 5px 5px 0 0;
+      moz-border-radius: 5px 5px 0 0;
+      ms-border-radius: 5px 5px 0 0;
+      o-border-radius: 5px 5px 0 0;
+      webkit-border-radius: 5px 5px 0 0;
+    }
+    .capture_form_item_mergeAccounts_mergeRadio.capture_toggled.capture_form_item_mergeAccounts_mergeRadio:nth-of-type(2) {
+      border-radius: 0 0 5px 5px;
+      khtml-border-radius: 0 0 5px 5px;
+      moz-border-radius: 0 0 5px 5px;
+      ms-border-radius: 0 0 5px 5px;
+      o-border-radius: 0 0 5px 5px;
+      webkit-border-radius: 0 0 5px 5px;
+    }
+  }
+}
