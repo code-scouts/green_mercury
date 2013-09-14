@@ -51,6 +51,7 @@ $(document).ready(function() {
 
 function janrainCaptureWidgetOnLoad() {
   janrain.capture.ui.start();
+  $('#signInButton').removeClass('disabled');
 
   var acquireSession = function(result) {
     var url = '<%= acquire_session_path %>.json';
