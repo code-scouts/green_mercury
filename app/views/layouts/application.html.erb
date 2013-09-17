@@ -20,7 +20,7 @@
       <% if user_signed_in? %>
         <%= link_to("Log out", logout_path, method: :post) %>
       <% else %>
-        <button class="btn btn-primary disabled capture_modal_open" id='signInButton'>Log In</button>
+        <button class="btn btn-primary disabled capture_modal_open" id='startSignInButton'>Log In</button>
       <% end %>
     </div>
   </div>
@@ -60,8 +60,6 @@
   <h1>Almost done!</h1>
   <h2>Please confirm the information below before signing in.</h2>
   {* #SocialRegistrationForm *}
-    {* SocialRegistration_firstName *}
-    {* SocialRegistration_lastName *}
     {* SocialRegistration_emailAddress *}
     {* SocialRegistration_displayName *}
     {* backButton *}
@@ -79,8 +77,6 @@
   <h1>Almost done!</h1>
   <p>Please confirm the information below before signing in. already have an account? <a href="#" data-capturescreen="signin">sign in.</a> </p>
   {* #registrationForm *}
-    {* traditionalRegistration_firstName *}
-    {* traditionalRegistration_lastName *}
     {* traditionalRegistration_emailAddress *}
     {* traditionalRegistration_password *}
     {* traditionalRegistration_passwordConfirm *}
@@ -156,6 +152,14 @@
   janrain.settings.capture.flowVersion = '<%= @flow_version %>';
   janrain.settings.capture.flowName = '<%= @flow_name %>';
 </script>
+
+<!-- OK SO -->
+
+<!-- You are attempting to get login working in these cases -->
+<!-- twitter registration (error in console in compiled JS on return from rpx) -->
+<!-- trad registration (no errors, but it doesn't call get_result.jsonp??) -->
+<!-- trad signin (no errors, but no call to get_result.jsonp) -->
+<!-- It is being bullshsit tho >:( -->
 
 </body>
 </html>

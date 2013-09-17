@@ -38,9 +38,8 @@
   e.type = 'text/javascript';
   e.id = 'janrainAuthWidget';
 
-  var url = document.location.protocol === 'https:' ? 'https://' : 'http://';
-  url += 'd16s8pqtk4uodx.cloudfront.net/signin/load.js';
-  e.src = url;
+
+  e.src = 'http://widget-cdn.rpxnow.com/load/codescouts-dev';
   var s = document.getElementsByTagName('script')[0];
   s.parentNode.insertBefore(e, s);
 })();
@@ -51,7 +50,7 @@ $(document).ready(function() {
 
 function janrainCaptureWidgetOnLoad() {
   janrain.capture.ui.start();
-  $('#signInButton').removeClass('disabled');
+  $('#startSignInButton').removeClass('disabled');
 
   var acquireSession = function(result) {
     var url = '<%= acquire_session_path %>.json';
