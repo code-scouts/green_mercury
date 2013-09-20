@@ -28,5 +28,10 @@ class ApplicationController < ActionController::Base
     @janrain_capture_url = CAPTURE_URL
     @flow_version = FLOW_VERSION
     @flow_name = 'signinFlow'
+    @screen_to_render = if params[:verification_code].present?
+      'verifyEmail'
+    elsif params[:code].present?
+      'resetPasswordRequestCode'
+    end
   end
 end

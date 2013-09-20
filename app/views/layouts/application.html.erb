@@ -59,11 +59,11 @@
 <div style="display:none;" id="socialRegistration">
   <h1>Almost done!</h1>
   <h2>Please confirm the information below before signing in.</h2>
-  {* #SocialRegistrationForm *}
-    {* SocialRegistration_emailAddress *}
-    {* SocialRegistration_displayName *}
+  {* #socialRegistrationForm *}
+    {* socialRegistration_emailAddress *}
+    {* socialRegistration_displayName *}
     {* backButton *}
-    {* signinButton *}
+    {* signInButton *}
   {* /socialRegistrationForm *}
 </div>
 
@@ -117,6 +117,56 @@
 </div>
 
 
+<div style="display:none;" id="verifyEmail">
+  <div class="capture_header">
+    <h1>Resend Email Verification</h1>
+  </div>
+  <p>Sorry, we could not verify that email address. Enter your email below and we'll send you another email.</p>
+  {* #resendVerificationForm *}
+    {* traditionalSignIn_emailAddress *}
+    {* submitButton *}
+  {* /resendVerificationForm *}
+</div>
+
+<div style="display:none;" id="resendVerificationSuccess">
+  <h1>Your Verification Email Has Been Sent</h1>
+  <p>Check your email for a link to reset your password.</p>
+  <a href="#" data-capturescreen="signIn" class="capture_btn capture_primary">Sign in</a>
+</div>
+<div style="display:none;" id="verifyEmailSuccess">
+  <h1>You did it!</h1>
+  <p>Thank you for verifiying your email address.
+  <a href="/" class="capture_btn capture_primary">Log in</a>
+</div>
+
+<div style="display:none;" id="resetPassword">
+  <h1>Change password</h1>
+  {* newPasswordForm *}
+    {* newpassword *}
+    {* newpasswordConfirm *}
+    {* submitButton *}
+  {* /newPasswordForm *}
+</div>
+<div style="display:none;" id="resetPasswordSuccess">
+  <h1>Your password has been changed</h1>
+  <p>Password has been successfully updated.</p>
+  <a href="/" class="capture_btn capture_primary">Log in</a>
+</div>
+<div style="display:none;" id="resetPasswordRequestCode">
+  <h1>Create a new password</h1>
+  <p>We didn't recognize that password reset code. Enter your email address to get a new one.</p>
+  {* #resetPasswordForm *}
+    {* traditionalSignIn_emailAddress *}
+    {* forgotPassword_sendButton *}
+  {* /resetPasswordForm *}
+</div>
+<div style="display:none;" id="resetPasswordRequestCodeSuccess">
+  <h1>Create a new password</h1>
+  <p>We've sent an email with instructions to create a new password. Your existing password has not been changed.</p>
+  <a href="#" onclick="janrain.capture.ui.modal.close()" class="capture_btn capture_primary">Close</a>
+</div>
+
+
 <article>
   <div class="text-center">
     <%= link_to(image_tag('codescouts.png'), url_for(controller: '/index', action: 'index')) %>
@@ -144,6 +194,9 @@
   if (typeof window.janrain.settings !== 'object') window.janrain.settings = {};
   if (typeof window.janrain.settings.capture !== 'object') window.janrain.settings.capture = {};
 
+  <% if user_signed_in? %>
+    user_signed_in = true;
+  <% end %>
   janrain.settings.appUrl = '<%= @janrain_rpx_url %>';
   janrain.settings.capture.redirectUri = '<%= @janrain_capture_url %>';
   janrain.settings.capture.appId = '<%= @janrain_app_id %>';
@@ -151,15 +204,9 @@
   janrain.settings.capture.captureServer = '<%= @janrain_capture_url %>';
   janrain.settings.capture.flowVersion = '<%= @flow_version %>';
   janrain.settings.capture.flowName = '<%= @flow_name %>';
+  <% if @screen_to_render.present? %>
+    janrain.settings.capture.screenToRender = '<%= @screen_to_render %>';
+  <% end %>
 </script>
-
-<!-- OK SO -->
-
-<!-- You are attempting to get login working in these cases -->
-<!-- twitter registration (error in console in compiled JS on return from rpx) -->
-<!-- trad registration (no errors, but it doesn't call get_result.jsonp??) -->
-<!-- trad signin (no errors, but no call to get_result.jsonp) -->
-<!-- It is being bullshsit tho >:( -->
-
 </body>
 </html>

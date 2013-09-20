@@ -6,7 +6,6 @@
 
   janrain.settings.capture.recaptchaPublicKey = '6LeVKb4SAAAAAGv-hg5i6gtiOV4XrLuCDsJOnYoP';
   janrain.settings.capture.responseType = 'token';
-  janrain.settings.capture.transactionTimeout = 100;
   janrain.settings.capture.stylesheets = [];
   janrain.settings.capture.mobileStylesheets = [];
 
@@ -31,6 +30,7 @@
   janrain.settings.capture.modalCloseHtml = '<span class="janrain-icon-16 janrain-icon-ex2"></span>';
   janrain.settings.capture.modalBorderColor = '#7AB433';
   janrain.settings.capture.noModalBorderInlineCss = true;
+  janrain.settings.capture.registerFlow = 'socialRegistration';
 
   janrain.settings.packages = ['login', 'capture'];
 
@@ -54,6 +54,10 @@ function janrainCaptureWidgetOnLoad() {
 
   var acquireSession = function(result) {
     var url = '<%= acquire_session_path %>.json';
+
+    if (window.user_signed_in === true) {
+      return;
+    }
     $.ajax(url, {
       type: "POST",
       data: {access_token: result.accessToken},
@@ -67,5 +71,5 @@ function janrainCaptureWidgetOnLoad() {
   };
 
   janrain.events.onCaptureLoginSuccess.addHandler(acquireSession);
+  janrain.events.onCaptureSessionCreated.addHandler(acquireSession);
 }
-
