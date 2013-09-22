@@ -1,9 +1,10 @@
+require 'user'
 require 'spec_helper'
 
 describe EventsController do
   describe "when logged in" do
     before :each do
-      @user = FactoryGirl.build :user
+      @user = User.new
       controller.stub current_user: @user
     end
 
@@ -58,7 +59,7 @@ describe EventsController do
       get :index
 
       response.should be_redirect
-      response.headers['Location'].should == 'http://test.host/users/sign_in'
+      response.headers['Location'].should == 'http://test.host/'
     end
   end
 end

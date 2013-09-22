@@ -18,13 +18,154 @@
     </div>
     <div class="span2">
       <% if user_signed_in? %>
-        <%= link_to("Edit Profile", edit_user_registration_path) %> or <%= link_to("Sign out", destroy_user_session_path, method: :delete) %>
+        <%= link_to("Log out", logout_path, method: :post, class: "capture_end_session") %>
       <% else %>
-        <%= link_to("Sign up", new_user_registration_path) %> or <%= link_to("Sign in", new_user_session_path) %>
+        <button class="btn btn-primary disabled capture_modal_open" id='startSignInButton'>Log In</button>
       <% end %>
     </div>
   </div>
 </header>
+
+<div style="display:none;" id="signIn">
+  <h1>Sign Up / Sign In</h1>
+  <h2>With your existing account from...</h2>
+  {* loginWidget *} <br />
+  <h2>With a traditional account...</h2>
+  {* #userInformationForm *}
+    {* traditionalSignIn_emailAddress *}
+    {* traditionalSignIn_password *}
+    {* traditionalSignIn_signInButton *}{* traditionalSignIn_createButton *}
+  {* /userInformationForm *}
+</div>
+
+<div style="display:none;" id="returnSocial">
+  <h1>Sign In</h1>
+  <h2>Welcome Back, {* welcomeName *}!</h2>
+  {* loginWidget *}
+  <a href="#" data-cancelcapturereturnexperience="true">Use another account</a>
+</div>
+
+<div style="display:none;" id="returnTraditional">
+  <h1>Sign In</h1>
+  <h2>Welcome back, {* displayNameStorageData *}!</h2>
+  {* #userInformationForm *}
+    {* traditionalSignIn_emailAddress *}
+    {* traditionalSignIn_password *}
+    {* traditionalSignIn_signInButton *}
+  {* /userInformationForm *}
+  <a href="#" data-cancelcapturereturnexperience="true">Use another account</a>
+</div>
+
+<div style="display:none;" id="socialRegistration">
+  <h1>Almost done!</h1>
+  <h2>Please confirm the information below before signing in.</h2>
+  {* #socialRegistrationForm *}
+    {* socialRegistration_emailAddress *}
+    {* socialRegistration_displayName *}
+    {* backButton *}
+    {* signInButton *}
+  {* /socialRegistrationForm *}
+</div>
+
+<div style="display:none;" id="registrationNewVerification">
+  <h1>Thank you for registering!</h1>
+  <p>We have sent a confirmation email to {* emailAddressData *}. Please check your email and click on the link to activate your account.</p>
+  <a href="#" onclick="janrain.capture.ui.modal.close()">close</a>
+</div>
+
+<div style="display:none;" id="traditionalRegistration">
+  <h1>Almost done!</h1>
+  <p>Please confirm the information below before signing in. already have an account? <a href="#" data-capturescreen="signin">sign in.</a> </p>
+  {* #registrationForm *}
+    {* traditionalRegistration_emailAddress *}
+    {* traditionalRegistration_password *}
+    {* traditionalRegistration_passwordConfirm *}
+    {* traditionalRegistration_displayName *}
+    {* backButton *}
+    {* createAccountButton *}
+  {* /registrationForm *}
+</div>
+
+<div style="display:none;" id="forgotPassword">
+  <h1>Create a new password</h1>
+  <h2>We'll send you a link to create a new password.</h2>
+  {* #forgotPasswordForm *}
+    {* traditionalSignIn_emailAddress *}
+    {* backButton *}
+    {* forgotPassword_sendButton *}
+  {* /forgotPasswordForm *}
+</div>
+
+<div style="display:none;" id="forgotPasswordSuccess">
+  <h1>Create a new password</h1>
+  <p>We've sent an email with instructions to create a new password. your existing password has not been changed.</p>
+  <a href="#" onclick="janrain.capture.ui.modal.close()">close</a>
+</div>
+
+<div style="display:none;" id="mergeAccounts">
+  {* mergeAccounts *}
+</div>
+
+<div style="display:none;" id="traditionalAuthenticateMerge">
+  <h1>Sign in to complete account merge</h1>
+  {* #tradAuthenticateMergeForm *}
+    {* traditionalSignIn_emailAddress *}
+    {* mergePassword *}
+    {* backButton *}
+    {* signInButton *}
+  {* /tradAuthenticateMergeForm *}
+</div>
+
+<div style="display:none;" id="verifyEmail">
+  <div class="capture_header">
+    <h1>Resend Email Verification</h1>
+  </div>
+  <p>Sorry, we could not verify that email address. Enter your email below and we'll send you another email.</p>
+  {* #resendVerificationForm *}
+    {* traditionalSignIn_emailAddress *}
+    {* submitButton *}
+  {* /resendVerificationForm *}
+</div>
+
+<div style="display:none;" id="resendVerificationSuccess">
+  <h1>Your Verification Email Has Been Sent</h1>
+  <p>Check your email for a link to reset your password.</p>
+  <a href="#" data-capturescreen="signIn" class="capture_btn capture_primary">Sign in</a>
+</div>
+<div style="display:none;" id="verifyEmailSuccess">
+  <h1>You did it!</h1>
+  <p>Thank you for verifiying your email address.
+  <a href="#" onclick="janrain.capture.ui.modal.close()" class="capture_btn capture_primary">Close</a>
+</div>
+
+<div style="display:none;" id="resetPassword">
+  <h1>Change password</h1>
+  {* newPasswordForm *}
+    {* newpassword *}
+    {* newpasswordConfirm *}
+    {* submitButton *}
+  {* /newPasswordForm *}
+</div>
+<div style="display:none;" id="resetPasswordSuccess">
+  <h1>Your password has been changed</h1>
+  <p>Password has been successfully updated.</p>
+  <a href="/" class="capture_btn capture_primary">Log in</a>
+</div>
+<div style="display:none;" id="resetPasswordRequestCode">
+  <h1>Create a new password</h1>
+  <p>We didn't recognize that password reset code. Enter your email address to get a new one.</p>
+  {* #resetPasswordForm *}
+    {* traditionalSignIn_emailAddress *}
+    {* forgotPassword_sendButton *}
+  {* /resetPasswordForm *}
+</div>
+<div style="display:none;" id="resetPasswordRequestCodeSuccess">
+  <h1>Create a new password</h1>
+  <p>We've sent an email with instructions to create a new password. Your existing password has not been changed.</p>
+  <a href="#" onclick="janrain.capture.ui.modal.close()" class="capture_btn capture_primary">Close</a>
+</div>
+
+
 <article>
   <div class="text-center">
     <%= link_to(image_tag('codescouts.png'), url_for(controller: '/index', action: 'index')) %>
@@ -47,5 +188,24 @@
   </div>
 </div>
 
+<script>
+  if (typeof window.janrain !== 'object') window.janrain = {};
+  if (typeof window.janrain.settings !== 'object') window.janrain.settings = {};
+  if (typeof window.janrain.settings.capture !== 'object') window.janrain.settings.capture = {};
+
+  <% if user_signed_in? %>
+    user_signed_in = true;
+  <% end %>
+  janrain.settings.appUrl = '<%= @janrain_rpx_url %>';
+  janrain.settings.capture.redirectUri = '<%= @janrain_capture_url %>';
+  janrain.settings.capture.appId = '<%= @janrain_app_id %>';
+  janrain.settings.capture.clientId = '<%= @janrain_login_client_id %>';
+  janrain.settings.capture.captureServer = '<%= @janrain_capture_url %>';
+  janrain.settings.capture.flowVersion = '<%= @flow_version %>';
+  janrain.settings.capture.flowName = '<%= @flow_name %>';
+  <% if @screen_to_render.present? %>
+    janrain.settings.capture.screenToRender = '<%= @screen_to_render %>';
+  <% end %>
+</script>
 </body>
 </html>
