@@ -3,7 +3,7 @@ class EventsController < ApplicationController
 
   def index
     unless current_user.present?
-      redirect_to new_user_session_path
+      redirect_to root_path
       return
     end
     unless current_user.meetup_token.present?
@@ -31,7 +31,6 @@ class EventsController < ApplicationController
 
   def get_token
     current_user.meetup_token = exchange_code_for_token(params[:code])
-    current_user.save
 
     redirect_to events_path
   end
