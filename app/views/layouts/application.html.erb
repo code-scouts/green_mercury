@@ -18,7 +18,7 @@
     </div>
     <div class="span2">
       <% if user_signed_in? %>
-        <%= link_to("Log out", logout_path, method: :post) %>
+        <%= link_to("Log out", logout_path, method: :post, class: "capture_end_session") %>
       <% else %>
         <button class="btn btn-primary disabled capture_modal_open" id='startSignInButton'>Log In</button>
       <% end %>
@@ -116,7 +116,6 @@
   {* /tradAuthenticateMergeForm *}
 </div>
 
-
 <div style="display:none;" id="verifyEmail">
   <div class="capture_header">
     <h1>Resend Email Verification</h1>
@@ -136,7 +135,7 @@
 <div style="display:none;" id="verifyEmailSuccess">
   <h1>You did it!</h1>
   <p>Thank you for verifiying your email address.
-  <a href="/" class="capture_btn capture_primary">Log in</a>
+  <a href="#" onclick="janrain.capture.ui.modal.close()" class="capture_btn capture_primary">Close</a>
 </div>
 
 <div style="display:none;" id="resetPassword">
