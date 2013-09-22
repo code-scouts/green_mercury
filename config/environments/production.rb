@@ -85,9 +85,6 @@ GreenMercury::Application.configure do
   #This should be changed when the site goes live. I don't know how to guarantee that that happens :(
   config.action_mailer.default_url_options = { :host => 'green-mercury.codescouts.org' }
 
-  #API key for Janrain Engage
-  RPXNow.api_key = ENV['ENGAGE_API_KEY']
-
   MEETUP_API_KEY = ENV['MEETUP_API_KEY']
   MEETUP_API_SECRET = ENV['MEETUP_API_SECRET']
 
