@@ -15,9 +15,9 @@ FORGE
     ripienaar/concat (0.2.0)
 
 GIT
-  remote: https://github.com/dhutty/puppet-nginx.git
+  remote: https://github.com/AndrewLorente/puppet-nginx.git
   ref: master
-  sha: 595473ae4566b43f0756ec84e32fd4301fe46125
+  sha: d1848118e50eb97afef084e6d1ca9bef2968e58f
   specs:
     dhutty/nginx (0.0.2)
 

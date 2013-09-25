@@ -69,8 +69,8 @@ node default {
     www_root => '/u/apps/green_mercury/current/public',
     ssl => true,
     force_ssl => true,
-    ssl_cert => '/tmp/server.crt',
-    ssl_key => '/tmp/server.pem',
+    ssl_cert => '/etc/ssl/server.crt',
+    ssl_key => '/etc/ssl/privatekey.pem',
   }
 
 
