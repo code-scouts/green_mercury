@@ -1,8 +1,7 @@
 forge "http://forge.puppetlabs.com"
 
-# using my fork which has dhutty's fix for a compatibility problem with puppet 3
-# until https://github.com/puppetlabs/puppetlabs-nginx/pull/45 is merged
-mod 'puppetlabs/nginx', git: 'https://github.com/AndrewLorente/puppetlabs-nginx.git'
+#dhutty doesn't seem to be releasing to the forge with any frenquency
+mod 'dhutty/nginx', git: 'https://github.com/dhutty/puppet-nginx.git'
 
 mod 'puppetlabs/postgresql'
 mod 'maestrodev/rvm'
