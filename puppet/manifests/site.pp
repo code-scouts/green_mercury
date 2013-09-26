@@ -62,13 +62,20 @@ node default {
     },
   }
 
+  nginx::resource::vhost { 'green-mercury-nonssl.codescouts.org':
+    ensure => present,
+    server_names => ['green-mercury.codescouts.org'],
+    listen_port => 80,
+    force_ssl => true,
+    www_root => '/u/apps/green_mercury/current/public',
+  }
+
   nginx::resource::vhost { 'green-mercury.codescouts.org':
     ensure => present,
     server_names => ['green-mercury.codescouts.org'],
     listen_port => 443,
     www_root => '/u/apps/green_mercury/current/public',
     ssl => true,
-    force_ssl => true,
     ssl_cert => '/etc/ssl/server.crt',
     ssl_key => '/etc/ssl/privatekey.pem',
   }
