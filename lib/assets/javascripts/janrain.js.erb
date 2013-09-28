@@ -39,7 +39,7 @@
   e.id = 'janrainAuthWidget';
 
 
-  e.src = 'http://widget-cdn.rpxnow.com/load/codescouts-dev';
+  e.src = ('https:' === document.location.protocol ? 'https' : 'http') + '//d29usylhdk1xyu.cloudfront.net/load/codescouts-dev';
   var s = document.getElementsByTagName('script')[0];
   s.parentNode.insertBefore(e, s);
 })();
