@@ -15,15 +15,14 @@ FORGE
     ripienaar/concat (0.2.0)
 
 GIT
-  remote: https://github.com/AndrewLorente/puppetlabs-nginx.git
+  remote: https://github.com/AndrewLorente/puppet-nginx.git
   ref: master
-  sha: f6bb70ef513ad5222086941a7eb9650982c47fae
+  sha: d1848118e50eb97afef084e6d1ca9bef2968e58f
   specs:
-    puppetlabs/nginx (0.0.1)
-      puppetlabs/stdlib (>= 0.1.6)
+    dhutty/nginx (0.0.2)
 
 DEPENDENCIES
+  dhutty/nginx (>= 0)
   maestrodev/rvm (>= 0)
-  puppetlabs/nginx (>= 0)
   puppetlabs/postgresql (>= 0)
 

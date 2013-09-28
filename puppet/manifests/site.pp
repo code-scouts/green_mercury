@@ -38,17 +38,46 @@ node default {
     mode => '0644'
   }
 
-  class { 'nginx': }
+  class {'nginx':
+    nx_worker_processes => 1,
+    nx_worker_connections => 1024,
+    nx_client_max_body_size => '4G',
+    nx_gzip => 'on',
+  }
   nginx::resource::upstream { 'green_mercury':
-    ensure  => present,
+    ensure => present,
     members => [
-      'localhost:3000',
+      'localhost:3000 weight=1',
     ],
+  }
+  nginx::resource::location { 'green_mercury':
+    ensure => present,
+    vhost => 'green-mercury.codescouts.org',
+    location => '/',
+    match_type => '~',
+    proxy => 'http://green_mercury',
+    proxy_set_headers => {
+      'REMOTE_ADDR' => '$remote_addr',
+      'HTTP_HOST' => '$http_host',
+    },
+  }
+
+  nginx::resource::vhost { 'green-mercury-nonssl.codescouts.org':
+    ensure => present,
+    server_names => ['green-mercury.codescouts.org'],
+    listen_port => 80,
+    force_ssl => true,
+    www_root => '/u/apps/green_mercury/current/public',
   }
 
   nginx::resource::vhost { 'green-mercury.codescouts.org':
     ensure => present,
-    proxy  => 'http://green_mercury',
+    server_names => ['green-mercury.codescouts.org'],
+    listen_port => 443,
+    www_root => '/u/apps/green_mercury/current/public',
+    ssl => true,
+    ssl_cert => '/etc/ssl/server.crt',
+    ssl_key => '/etc/ssl/privatekey.pem',
   }
 
 
