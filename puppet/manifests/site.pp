@@ -19,6 +19,14 @@ node default {
     user => 'green_mercury',
   }
 
+  ssh_authorized_key { 'green_mercury_mrowley':
+    ensure => present,
+    key => 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDGBLN1VUKS+cJCvFEeDGtaVgm4tZ4gKMWHXT2nTXPg5SLQNUZAaqaqBxIUBUhqe0+cTaOVnpnrVnDIZlC2KjPMR3AcSIr7p44M8pPgi2Awy8H5cF9vEK8D/Tkrd8L89XkI/GVTewnB7L8hNK8eN13aHB3dD3du/eZIdp+IgnD2uwY3kqsg4xRRLdu/FtexM4boTl08ABfGTM5H6KBkGP+ISQ0T8u2nF2zoiHDH9706Dw3UETHshRAaqK6elRyUpAEfHML0+w1mK488Hr8lEFUapB0ZYbQGrheTygR8BKcg7MIvxKmJLKM4adCIRrNQpltbc5gTuCuu/Qop/zy4s3J3',
+    name => 'green_mercury_mrowley',
+    type => 'ssh-rsa',
+    user => 'green_mercury',
+  }
+
   file { ['/u', '/u/apps']:
     ensure => 'directory',
     owner => 'root',
