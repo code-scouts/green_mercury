@@ -25,11 +25,12 @@ namespace :deploy do
   desc "ask unicorn to restart gracefully"
   task :restart, :except => { :no_release => true } do
     run "kill -s USR2 `cat #{shared_path}/pids/unicorn.pid`"
+    run "kill -s QUIT `cat #{shared_path}/pids/unicorn.pid.oldbin`"
   end
 
   desc "Stop unicorn. Use with caution!"
   task :stop do
-    run "kill `cat #{shared_path}/pids/unicorn.pid`"
+    run "kill -s QUIT `cat #{shared_path}/pids/unicorn.pid`"
   end
 end
 
