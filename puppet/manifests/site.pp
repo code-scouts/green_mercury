@@ -67,6 +67,8 @@ node default {
     proxy_set_headers => {
       'REMOTE_ADDR' => '$remote_addr',
       'HTTP_HOST' => '$http_host',
+      'Host' => '$host',
+      'X-Forwarded-Proto' => '$scheme',
     },
   }
 
