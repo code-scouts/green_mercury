@@ -49,4 +49,4 @@ Fix Janrain/Turbolinks interaction [#26]
 I still have questions about contributing.
 ==========================================
 
-Well that's great; this is a Code Scouts project and we welcome questions! Try asking in the #codescouts channel [on Freenode](https://webchat.freenode.net/). If nobody seems to be around or you're not able to access IRC, you can also send an email to [technical lead Andrew Lorente](mailto:andrew.lorente@gmail.com).
+Well that's great; this is a Code Scouts project and we welcome questions! Try asking in the #codescouts channel [on Freenode](https://webchat.freenode.net/). If nobody seems to be around or you're not able to access IRC, you can also send an email to [technical lead Andrew Lorente](mailto:andrew@codescouts.org).
