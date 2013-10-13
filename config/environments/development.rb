@@ -36,5 +36,5 @@ GreenMercury::Application.configure do
   CAPTURE_APP_ID = 'dtdggxejjsvuhvfeqy59gn5dr2'
   RPX_URL = 'https://codescouts-dev.rpxnow.com'
   CAPTURE_URL = 'https://codescouts-dev.janraincapture.com'
-  FLOW_VERSION = '956e9833-edec-4536-8626-c5fe6e36ebf6'
+  FLOW_VERSION = '89942617-20c8-479f-a253-502f5b0f5bce'
 end
