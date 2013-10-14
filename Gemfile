@@ -48,11 +48,16 @@ group :development, :test do
   gem 'launchy'
 end
 
+group :test do 
+  gem 'shoulda-matchers'
+end
+
 group :development do
   gem 'puppet'
   gem 'librarian-puppet'
   gem 'capistrano'
   gem 'rvm-capistrano'
+  gem 'better_errors'
 end
 
 # Use ActiveModel has_secure_password

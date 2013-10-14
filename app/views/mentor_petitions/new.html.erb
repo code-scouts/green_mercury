@@ -1,0 +1,12 @@
+<h1>Apply to be a mentor</h1>
+
+<%= form_for @mentor_petition do |f| %>
+  <%= render 'shared/form_errors', object: @mentor_petition %>
+
+  <%= f.label :content, 'Tell us a little about yourself' %>
+  <%= f.text_area :content %>
+
+  <%= f.hidden_field :user_uuid, value: current_user.uuid %>
+
+  <%= f.submit 'Submit Application' %>
+<% end %>

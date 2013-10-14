@@ -1,5 +1,5 @@
 class User
-  attr_accessor :meetup_token, :email, :confirmed_at
+  attr_accessor :meetup_token, :email, :confirmed_at, :uuid
 
   def self.fetch_from_token(token)
     response = HTTParty.post(CAPTURE_URL + '/entity', {body:{
@@ -16,6 +16,7 @@ class User
     this.meetup_token = hash['meetup_token']
     this.email = hash['email']
     this.confirmed_at = hash['emailVerified']
+    this.uuid = hash['uuid']
     this
   end
 end
