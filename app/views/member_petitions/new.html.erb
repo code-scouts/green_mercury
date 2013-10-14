@@ -1,0 +1,12 @@
+<h1>Apply to be a member</h1>
+
+<%= form_for @member_petition do |f| %>
+  <%= render 'shared/form_errors', object: @member_petition %>
+
+  <%= f.label :content, 'Tell us a little about yourself' %>
+  <%= f.text_area :content %>
+
+  <%= f.hidden_field :user_uuid, value: current_user.uuid %>
+
+  <%= f.submit 'Submit Application' %>
+<% end %>

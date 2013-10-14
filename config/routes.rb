@@ -1,5 +1,6 @@
 GreenMercury::Application.routes.draw do
   resources :mentor_petitions
+  resources :member_petitions
   root 'index#index'
   get '/events', controller: :events, action: :index
   post '/events/rsvp/:id', controller: :events, action: :rsvp, as: :event_rsvp
