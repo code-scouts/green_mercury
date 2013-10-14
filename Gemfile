@@ -36,6 +36,10 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+group :test do
+  gem 'shoulda-matchers'  
+end
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'database_cleaner'

@@ -1,0 +1,18 @@
+<h1>Add A New Concept</h1>
+
+<%= form_for @concept do |f| %>
+  <% if @concept.errors.any? %>
+    <div class="error_messages">
+      <ul>
+        <% @concept.errors.full_messages.each do |message| %>
+          <div class='alert-box'><%= message %></div>
+        <% end %>
+      </ul>
+    </div> 
+  <% end %>
+  <div class="input-append">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+    <%= f.submit 'Add Concept', class: 'btn' %>
+  </div>
+<% end %>   

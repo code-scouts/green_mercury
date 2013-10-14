@@ -6,4 +6,6 @@ GreenMercury::Application.routes.draw do
 
   post '/session', controller: :session, action: :acquire_session, as: :acquire_session
   post '/logout', controller: :session, action: :logout, as: :logout
+
+  resources :concepts
 end

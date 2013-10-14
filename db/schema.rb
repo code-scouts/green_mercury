@@ -11,12 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130911003242) do
+ActiveRecord::Schema.define(version: 20131014172937) do
 
-  create_table "volunteer_blocks", force: true do |t|
-    t.integer  "user_id",    null: false
-    t.date     "on",         null: false
-    t.integer  "hours",      null: false
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "concept_contents", force: true do |t|
+    t.string   "user_uuid"
+    t.text     "content"
+    t.integer  "concept_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "concepts", force: true do |t|
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
