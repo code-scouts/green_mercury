@@ -43,7 +43,7 @@ Janrain
 -------
 This project uses Janrain Capture for signin and storing its user database. That has some implications when making additions to the user model or making models that reference a user (created-by, for example). See [the notes on user migrations](https://github.com/code-scouts/green_mercury/blob/master/user_migrations/README.md) for more on this.
 
-You should be able to sign into a development site with an out-of-the-box development page. However, you won't be able to e.g. view users' profile pages without a client_secret for the Dev Capture App. [Get in touch with technical lead Andrew Lorente](mailto:andrew@codescouts.org) if you need a client_secret.
+You should be able to sign into a development site with an out-of-the-box checkout of the code. However, you won't be able to e.g. view users' profile pages without a client_secret for the Dev Capture App. [Get in touch with technical lead Andrew Lorente](mailto:andrew@codescouts.org) if you need a client_secret.
 
 Meetup
 ------
