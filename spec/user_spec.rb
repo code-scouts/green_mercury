@@ -25,6 +25,57 @@ describe User do
     end
   end
 
+  describe "fetch_from_uuid" do
+    it "should initialize a User instance if the uuid exists" do
+      response = double
+      response.should_receive(:body).and_return('{
+        "result": {
+          "email": "granite@stone.co"
+        }
+      }')
+      HTTParty.should_receive(:post).with(
+        'https://codescouts.janraincapture.test.host/entity',
+        {
+          body: {
+            uuid: 'the-uuid',
+            type_name: 'user',
+            client_id: 'fakeclientidfortests',
+            client_secret: 'fakeclientsecretfortests',
+          }
+        }
+      ).and_return(response)
+
+      user = User.fetch_from_uuid('the-uuid')
+      user.should be_a(User)
+      user.email.should == 'granite@stone.co'
+    end
+
+    it "should return nil if the uuid doesn't exist" do
+      response = double
+      response.should_receive(:body).and_return('{
+        "code": 310,
+        "error": "record_not_found",
+        "error_description": "record not found",
+        "stat": "error"
+      }')
+      HTTParty.should_receive(:post).and_return(response)
+      user = User.fetch_from_uuid('nonexistent-uuid')
+      user.should be_nil
+    end
+
+    it "should puke if there is some unexpected error response" do
+      response = double
+      response.should_receive(:body).exactly(2).times.and_return('{
+        "code": 200,
+        "error": "invalid_argument",
+        "error_description": "you did something terrible",
+        "stat": "error"
+      }')
+      HTTParty.should_receive(:post).and_return(response)
+      lambda {User.fetch_from_uuid('wacky-times')}.should raise_error(StandardError)
+    end
+  end
+
   describe 'public and private attributes' do
     it 'should allow access to public attributes' do
       user = User.from_hash({

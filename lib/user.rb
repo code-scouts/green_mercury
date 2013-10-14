@@ -20,7 +20,15 @@ class User
     }})
 
     body = JSON.parse(response.body)
-    from_hash(body['result'])
+    if body.has_key?('result')
+      from_hash(body['result'])
+    elsif body['error'] == 'record_not_found'
+      nil
+    else
+      #this is an exceptional case. Something is wrong with our Capture
+      #integration. Just vomit the response and let the maintainers sort it out.
+      raise StandardError.new(response.body)
+    end
   end
 
   def self.from_hash(hash)
