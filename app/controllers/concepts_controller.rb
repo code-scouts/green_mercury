@@ -1,4 +1,8 @@
 class ConceptsController < ApplicationController
+  def index
+    @concepts = Concept.all
+  end
+
   def new
     @concept = Concept.new
   end
@@ -13,9 +17,8 @@ class ConceptsController < ApplicationController
     end
   end
 
-
 private
   def concept_params
-    params.require(:concept).permit(:name)
+    params.require(:concept).permit(:name, concept_contents_attributes: [:content])
   end
 end

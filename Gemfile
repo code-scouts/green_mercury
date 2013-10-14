@@ -56,6 +56,8 @@ group :development do
   gem 'librarian-puppet'
   gem 'capistrano'
   gem 'rvm-capistrano'
+  gem 'quiet_assets'
+  gem 'webrick', '1.3.1'
 end
 
 # Use ActiveModel has_secure_password

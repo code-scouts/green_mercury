@@ -10,9 +10,11 @@
       </ul>
     </div> 
   <% end %>
-  <div class="input-append">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
+  <div class="form-horizontal">
+    <%= f.text_field :name, placeholder: 'Name' %>
+    <%= f.fields_for :concept_contents, @concept.concept_contents.new do |builder| %>
+      <%= builder.text_field :content, placeholder: 'Description' %>
+    <% end %>  
     <%= f.submit 'Add Concept', class: 'btn' %>
   </div>
 <% end %>   

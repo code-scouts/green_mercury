@@ -1,1 +1,6 @@
 <h1>Concepts</h1>
+
+<ul>
+  <% @concepts.each do |concept| %>
+    <li class="concept"> <%= concept.name %> </li>
+  <% end %> 
