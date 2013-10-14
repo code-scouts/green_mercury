@@ -1,6 +1,6 @@
 class MemberPetitionsController < ApplicationController 
-  def new 
-    @member_petition = MemberPetition.new
+  def new
+    @member_petition = MemberPetition.new(user_uuid: current_user.uuid)
   end
 
   def create

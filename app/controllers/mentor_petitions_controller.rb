@@ -1,6 +1,6 @@
 class MentorPetitionsController < ApplicationController 
-  def new 
-    @mentor_petition = MentorPetition.new
+  def new
+    @mentor_petition = MentorPetition.new(user_uuid: current_user.uuid)
   end
 
   def create

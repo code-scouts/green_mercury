@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 20131014192841) do
   end
 
   create_table "mentor_petitions", force: true do |t|
-    t.integer  "user_uuid"
+    t.text     "user_uuid"
     t.text     "content"
     t.date     "approved_date"
     t.datetime "created_at"
