@@ -2,5 +2,5 @@
 
 <ul>
   <% @concepts.each do |concept| %>
-    <li class="concept"> <%= concept.name %> </li>
+    <li class="concept"> <%= link_to concept.name, concept_path(concept.id)  %> </li>
   <% end %> 

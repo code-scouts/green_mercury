@@ -1,0 +1,3 @@
+<h1><%= @concept.name %></h1>
+
+<p><%= @concept.concept_contents.order("created_at DESC").first.content %></p>

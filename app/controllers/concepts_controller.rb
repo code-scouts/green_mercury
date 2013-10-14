@@ -17,6 +17,10 @@ class ConceptsController < ApplicationController
     end
   end
 
+  def show
+    @concept = Concept.find(params[:id])
+  end
+
 private
   def concept_params
     params.require(:concept).permit(:name, concept_contents_attributes: [:content])
