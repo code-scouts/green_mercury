@@ -1,3 +1,19 @@
 <h1><%= @concept.name %></h1>
 
-<p><%= @concept.concept_contents.order("created_at DESC").first.content %></p>
+<div class='content'>
+  <p><%= @concept.latest.content %>  <%= link_to "Revert", concept_content_path(@concept.latest), method: :delete %></p>
+</div>
+
+<div class='history'>
+  <h4>Description history</h4>
+  <table class='table table-striped'>
+    <thead>
+      <tr><th>Time Added</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <% @concept.history.each do |history| %>
+        <tr><td><%= history.created_at.strftime("%B %d, %Y at %I:%M %p") %></td> <td><%= history.content %></td></tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
