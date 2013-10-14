@@ -39,6 +39,7 @@ end
 group :development, :test do
   gem 'rspec-rails'
   gem 'database_cleaner'
+  gem 'capybara'
   gem 'cucumber', '1.2.5', require: false
   gem 'cucumber-rails', require: false
   gem 'selenium-webdriver'

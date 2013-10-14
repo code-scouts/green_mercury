@@ -233,6 +233,7 @@ PLATFORMS
 DEPENDENCIES
   asset_sync
   capistrano
+  capybara
   cucumber (= 1.2.5)
   cucumber-rails
   database_cleaner
