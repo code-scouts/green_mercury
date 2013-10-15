@@ -1,19 +1,15 @@
 <h1>Add A New Concept</h1>
 
 <%= form_for @concept do |f| %>
-  <% if @concept.errors.any? %>
-    <div class="error_messages">
-      <ul>
-        <% @concept.errors.full_messages.each do |message| %>
-          <div class='alert-box'><%= message %></div>
-        <% end %>
-      </ul>
-    </div> 
-  <% end %>
-  <div class="form-horizontal">
-    <%= f.text_field :name, placeholder: 'Name' %>
+  <%= render 'shared/form_errors', object: @concept %>
+  <div role='form'>
+    <div class='form-group'>
+      <%= f.text_field :name, placeholder: 'Name' %>
+    </div>  
     <%= f.fields_for :concept_descriptions, @concept.concept_descriptions.new do |builder| %>
-      <%= builder.text_field :description, placeholder: 'Description' %>
+      <div class='form-group'>
+        <%= builder.text_area :description, placeholder: 'Description' %>
+      </div>  
     <% end %>  
     <%= f.submit 'Add Concept', class: 'btn' %>
   </div>

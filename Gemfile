@@ -50,6 +50,7 @@ group :development, :test do
   gem 'spork', '~> 1.0rc'
   gem 'factory_girl_rails'
   gem 'launchy'
+  gem 'pry'
 end
 
 group :development do
