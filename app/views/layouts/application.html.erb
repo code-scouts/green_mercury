@@ -171,25 +171,21 @@
     <%= link_to(image_tag('codescouts.png'), url_for(controller: '/index', action: 'index')) %>
   </div>
 </article>
-<% if notice.present? || alert.present? %>
-  <article class="flash">
-    <% if notice.present? %>
-      <p class="notice"><%= notice %></p>
-    <% end %>
-    <% if alert.present? %>
-      <p class="alert"><%= alert %></p>
-    <% end %>
-  </article>
-<% end %>
+
 
 <div class="container">
   <div class="row-fluid">
+    
     <% if flash[:alert] %>
       <div class='alert-box alert'> <%= flash[:alert] %> </div>
     <% elsif flash[:notice] %>
       <div class='alert-box alert'> <%= flash[:notice] %> </div>
     <% end %>
+
     <%= yield %>
+
+    <%= render 'shared/temp_links' %>
+
   </div>
 </div>
 

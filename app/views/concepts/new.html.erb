@@ -8,6 +8,7 @@
     </div>  
     <%= f.fields_for :concept_descriptions, @concept.concept_descriptions.new do |builder| %>
       <div class='form-group'>
+        <%= builder.hidden_field :user_uuid, value: @user.uuid %> 
         <%= builder.text_area :description, placeholder: 'Description' %>
       </div>  
     <% end %>  

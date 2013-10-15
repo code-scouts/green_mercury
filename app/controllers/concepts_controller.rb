@@ -4,6 +4,7 @@ class ConceptsController < ApplicationController
   end
 
   def new
+    @user = current_user
     @concept = Concept.new
   end
 
@@ -23,6 +24,6 @@ class ConceptsController < ApplicationController
 
 private
   def concept_params
-    params.require(:concept).permit(:name, concept_descriptions_attributes: [:description])
+    params.require(:concept).permit(:name, concept_descriptions_attributes: [:description, :user_uuid])
   end
 end

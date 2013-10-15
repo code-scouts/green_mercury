@@ -7,6 +7,6 @@ GreenMercury::Application.routes.draw do
   post '/session', controller: :session, action: :acquire_session, as: :acquire_session
   post '/logout', controller: :session, action: :logout, as: :logout
 
-  resources :concepts
-  resources :concept_descriptions
+  resources :concepts, except: [:destroy, :edit, :update]
+  resources :concept_descriptions, only: [:new, :create, :destroy]
 end

@@ -1,0 +1,15 @@
+<div class='row-fluid'>
+  <div class='span8'>
+    <%= form_for @concept_description do |f| %>
+      <%= render 'shared/form_errors', object: @concept_description %>
+
+      <%= f.text_area :description, value: @old_description, autofocus: true %>
+
+      <%= f.hidden_field :concept_id, value: @concept_id %>
+      <%= f.hidden_field :user_uuid, value: @user.uuid %>
+
+      <%= f.submit 'Submit New Description' %>
+    <% end %>
+  </div>
+</div>
+

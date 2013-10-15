@@ -1,22 +1,13 @@
 <h1><%= @concept.name %></h1>
 
-<div class='description'>
-  <p><%= @concept.latest.description %> 
+<div class='description' id="description-links">
+  <p id="latest-description"><%= @concept.latest.description %></p> 
     <% if @concept.concept_descriptions.count > 1 %>
-     <%= link_to "Revert", concept_description_path(@concept.latest), method: :delete %></p>
+     <p><%= link_to 'Delete and revert to previous description', concept_description_path(@concept.latest), method: :delete, data: { confirm: 'Are you sure?' } %></p>
     <% end %>
+    <p><%= link_to 'Edit description', new_concept_description_path(concept_id: @concept.id), remote: true, id: 'add-description-link' %></p>
 </div>
 
-<div class='history'>
-  <h4>Description history</h4>
-  <table class='table table-striped'>
-    <thead>
-      <tr><th>Time Added</th><th>Description</th></tr>
-    </thead>
-    <tbody>
-      <% @concept.history.each do |history| %>
-        <tr><td><%= history.created_at.strftime("%B %d, %Y at %I:%M %p") %></td> <td><%= history.description %></td></tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
+<div id="add-description-form"></div>
+
+<div id="description-history"><%= render 'description_history', concept: @concept %></div>
