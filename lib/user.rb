@@ -1,5 +1,5 @@
 class User
-  attr_accessor :meetup_token, :email, :confirmed_at, :uuid
+  attr_accessor :meetup_token, :email, :confirmed_at, :uuid, :is_admin
 
   def self.fetch_from_token(token)
     response = HTTParty.post(CAPTURE_URL + '/entity', {body:{
@@ -17,6 +17,50 @@ class User
     this.email = hash['email']
     this.confirmed_at = hash['emailVerified']
     this.uuid = hash['uuid']
+    this.is_admin = hash['is_admin']
     this
   end
+
+  def member_petition
+    MemberPetition.find_by(user_uuid: uuid)
+  end
+
+  def mentor_petition
+    MentorPetition.find_by(user_uuid: uuid)
+  end
+
+  def is_admin?
+    is_admin || false
+  end
+
+  def is_member?
+    member_petition && member_petition.approved_date
+  end
+
+  def is_mentor?
+    mentor_petition && mentor_petition.approved_date
+  end
+
+  def is_pending?
+    !is_admin? && ((member_petition && !is_member?) || (mentor_petition && !is_mentor?))
+  end
+
+  def is_new?
+    member_petition.nil? && mentor_petition.nil? && !is_admin?
+  end
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

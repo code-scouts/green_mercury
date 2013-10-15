@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
 
   helper_method :user_signed_in?, :current_user
   before_filter :load_janrain_facts
+  before_filter :member_or_mentor
 
   # Prevent CSRF attacks by raising an exception.
   protect_from_forgery with: :exception
@@ -33,5 +34,16 @@ class ApplicationController < ActionController::Base
     elsif params[:code].present?
       'resetPasswordRequestCode'
     end
+  end
+
+  def member_or_mentor
+    # if MemberPetition.find_by(user_uuid: current_user.uuid).first.approved_date.nil? 
+    #if !is_admin && (member_petition.approved_date.nil? || mentor_petition.approved_date.nil?)
+      #if member_petition.content.nil? && mentor_petition.content.nil?
+        #redirect_to submit_new_petition
+      #else
+        #redirect_to petition_status_path
+      #end
+    #end
   end
 end
