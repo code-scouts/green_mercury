@@ -1,5 +1,5 @@
 GreenMercury::Application.routes.draw do
-  resources :mentor_petitions
+  resources :mentor_applications
   resources :member_applications
   root 'index#index'
   get '/events', controller: :events, action: :index

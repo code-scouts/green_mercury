@@ -25,8 +25,8 @@ class User
     MemberApplication.find_by(user_uuid: uuid)
   end
 
-  def mentor_petition
-    MentorPetition.find_by(user_uuid: uuid)
+  def mentor_application
+    MentorApplication.find_by(user_uuid: uuid)
   end
 
   def is_admin?
@@ -38,15 +38,15 @@ class User
   end
 
   def is_mentor?
-    mentor_petition && mentor_petition.approved_date
+    mentor_application && mentor_application.approved_date
   end
 
   def is_pending?
-    !is_admin? && ((member_application && !is_member?) || (mentor_petition && !is_mentor?))
+    !is_admin? && ((member_application && !is_member?) || (mentor_application && !is_mentor?))
   end
 
   def is_new?
-    member_application.nil? && mentor_petition.nil? && !is_admin?
+    member_application.nil? && mentor_application.nil? && !is_admin?
   end
 end
 

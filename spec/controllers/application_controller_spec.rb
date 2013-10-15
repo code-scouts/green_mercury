@@ -28,7 +28,7 @@ describe ApplicationController do
   context "mentor" do 
     it "can view the page" do 
       user = User.new()
-      FactoryGirl.create(:mentor_petition, user_uuid: user.uuid)
+      FactoryGirl.create(:mentor_application, user_uuid: user.uuid)
       controller.stub(:current_user) { user }
       controller.member_or_mentor
       controller.performed?.should be_false
@@ -38,7 +38,7 @@ describe ApplicationController do
   context "petition submitted (not yet approved)" do 
     it "is redirected to another page" do 
       user = User.new()
-      FactoryGirl.create(:mentor_petition, user_uuid: user.uuid, approved_date: nil)
+      FactoryGirl.create(:mentor_application, user_uuid: user.uuid, approved_date: nil)
       controller.stub(:current_user) { user }
       controller.should_receive(:redirect_to).with('/')
       controller.member_or_mentor

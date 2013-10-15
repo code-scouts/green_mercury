@@ -41,13 +41,13 @@ describe User do
   describe 'is_mentor?' do
     it "should return true if the user is a mentor" do
       user = User.new()
-      MentorPetition.create(user_uuid: user.uuid, content: 'about me', approved_date: Date.today)
+      MentorApplication.create(user_uuid: user.uuid, content: 'about me', approved_date: Date.today)
       user.is_mentor?.should be_true
     end
 
     it "should return false if the user is not a mentor" do
       user = User.new()
-      MentorPetition.create(user_uuid: user.uuid, content: 'about me')
+      MentorApplication.create(user_uuid: user.uuid, content: 'about me')
       user.is_mentor?.should be_false
     end
   end

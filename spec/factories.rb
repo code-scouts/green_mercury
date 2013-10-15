@@ -5,7 +5,7 @@ FactoryGirl.define do
     approved_date Date.today
   end
 
-  factory :mentor_petition do 
+  factory :mentor_application do 
     user_uuid '1'
     content 'about me'
     approved_date Date.today

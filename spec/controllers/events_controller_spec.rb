@@ -5,7 +5,7 @@ describe EventsController do
   describe "when logged in" do
     before :each do
       @user = User.new
-      MentorPetition.create(user_uuid: @user.uuid, content: 'about me', approved_date: Date.today)
+      MentorApplication.create(user_uuid: @user.uuid, content: 'about me', approved_date: Date.today)
       controller.stub current_user: @user
     end
 
