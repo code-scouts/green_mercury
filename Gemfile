@@ -39,12 +39,18 @@ end
 group :development, :test do
   gem 'rspec-rails'
   gem 'database_cleaner'
+  gem 'capybara'
   gem 'cucumber', '1.2.5', require: false
   gem 'cucumber-rails', require: false
   gem 'selenium-webdriver'
   gem 'spork', '~> 1.0rc'
   gem 'factory_girl_rails'
   gem 'launchy'
+  gem 'pry'
+end
+
+group :test do 
+  gem 'shoulda-matchers'
 end
 
 group :development do
@@ -52,6 +58,7 @@ group :development do
   gem 'librarian-puppet'
   gem 'capistrano'
   gem 'rvm-capistrano'
+  gem 'better_errors'
 end
 
 # Use ActiveModel has_secure_password

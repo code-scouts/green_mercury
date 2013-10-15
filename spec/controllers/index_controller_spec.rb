@@ -7,6 +7,7 @@ describe IndexController do
       get 'index'
       response.should be_success
     end
+
   end
 
 end

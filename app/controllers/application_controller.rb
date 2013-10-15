@@ -5,8 +5,9 @@ class ApplicationController < ActionController::Base
   include ActionView::Helpers::UrlHelper
   alias_method :url_for, :original_url_for
 
-  helper_method :user_signed_in?
+  helper_method :user_signed_in?, :current_user
   before_filter :load_janrain_facts
+  before_filter :member_or_mentor
 
   # Prevent CSRF attacks by raising an exception.
   protect_from_forgery with: :exception
@@ -32,6 +33,14 @@ class ApplicationController < ActionController::Base
       'verifyEmail'
     elsif params[:code].present?
       'resetPasswordRequestCode'
+    end
+  end
+
+  def member_or_mentor
+    if user_signed_in? && current_user.is_pending?
+      redirect_to root_path
+    elsif user_signed_in? && current_user.is_new?
+      redirect_to root_path
     end
   end
 end

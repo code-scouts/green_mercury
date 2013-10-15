@@ -6,6 +6,7 @@ Spork.prefork do
   require File.expand_path("../../config/environment", __FILE__)
   require 'rspec/rails'
   require 'rspec/autorun'
+  require 'capybara/rspec'
   ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
   RSpec.configure do |config|
     # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
@@ -33,4 +34,5 @@ Spork.each_run do
   Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
   ActiveSupport::Dependencies.clear
   FactoryGirl.reload
+  require 'user'
 end
