@@ -1,0 +1,7 @@
+<h1><%= @display_name %></h1>
+<% if @profile_photo_url %>
+  <%= image_tag( @profile_photo_url ) %>
+<% end %>
+<p>
+  <%= @about_me %>
+</p>
