@@ -11,7 +11,7 @@ feature 'apply to be a member' do
     visit root_path
     click_link 'Apply to be a member'
     choose 'member_application_why_you_want_to_join_hobby'
-    choose 'member_application_gender_female'
+    fill_in 'member_application_gender', with: 'female'
     fill_in 'member_application_experience_level', with: 'Experience'
     choose 'member_application_confidence_technical_skills_1'
     choose 'member_application_basic_programming_knowledge_1'
