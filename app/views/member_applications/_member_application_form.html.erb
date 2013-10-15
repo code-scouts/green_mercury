@@ -1,0 +1,195 @@
+<%= form_for application do |f| %>
+  <%= render 'shared/form_errors', object: application %>
+  <div class="row">
+    <h4>Which of the following options best describes why you want to join Code Scouts?</h4>
+    <div class="radio">
+      <%= f.radio_button(:why_you_want_to_join, "hobby") %>
+      <%= f.label(:why_you_want_to_join_hobby, "This is an interesting hobby.") %>
+    </div>
+    <div class="radio">
+      <%= f.radio_button(:why_you_want_to_join, "current_career" ) %>
+      <%= f.label(:why_you_want_to_join_current_career, "I want to gain skills to advance my current career.") %>
+    </div>
+    <div class="radio">
+      <%= f.radio_button(:why_you_want_to_join, 'new_career') %>
+      <%= f.label(:why_you_want_to_join_new_career, "I want to start a new career.") %>
+    </div>
+    <div class="radio">
+      <%= f.radio_button(:why_you_want_to_join, "side_job") %>
+      <%= f.label(:why_you_want_to_join_side_job, "I want to do software development as a side job.") %>
+    </div>
+    <div class="radio">
+      <%= f.radio_button(:why_you_want_to_join, "new_business") %>
+      <%= f.label(:why_you_want_to_join_new_business, " I want to gain skills that will help in running a small business.") %>
+    </div>
+  </div>
+  <div class='row'>
+    <h4>Would you mind telling us what gender you identify with?</h4>
+    <div class='radio'>
+      <%= f.radio_button(:gender, "female") %>
+      <%= f.label(:gender_female, "Female") %>
+    </div>
+    <div class='radio'>
+      <%= f.radio_button(:gender, "male") %>
+      <%= f.label(:gender_male, "Male") %>
+    </div>
+  </div>
+  <div class='row'>
+    <div class="form-group">
+      <h4>How would you describe your current level of experience and knowledge in programming?</h4>
+      <%= f.text_area :experience_level, class: "form-control" %>
+    </div>
+  </div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th></th>
+        <th></th>
+        <th>1-Strongly Disagree</th>
+        <th>2</th>
+        <th>3</th>
+        <th>4 - Strongly Agree</th>
+        <th>Don't Know</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>I am confident in my ability to learn technical skills.<td>
+        <td>
+          <div class="radio">
+            <%= f.radio_button(:confidence_technical_skills, 1) %>
+          </div>
+        </td>
+        <td>
+          <div class="radio">
+            <%= f.radio_button(:confidence_technical_skills, 2) %>
+          </div>
+        </td>
+        <td>
+          <div class="radio">
+            <%= f.radio_button(:confidence_technical_skills, 3) %>
+          </div>
+        </td>
+        <td>
+          <div class="radio">
+            <%= f.radio_button(:confidence_technical_skills, 4) %>
+          </div>
+        </td>
+        <td>
+          <div class="radio">
+            <%= f.radio_button(:confidence_technical_skills, 5) %>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>I know how to do some basic programming.<td>
+        <td>
+         <div class="radio">
+           <%= f.radio_button(:basic_programming_knowledge, 1) %>
+         </div>
+        </td>
+        <td>
+         <div class="radio">
+           <%= f.radio_button(:basic_programming_knowledge, 2) %>
+         </div>
+        </td>
+        <td>
+         <div class="radio">
+           <%= f.radio_button(:basic_programming_knowledge, 3) %>
+         </div>
+        </td>
+        <td>
+         <div class="radio">
+           <%= f.radio_button(:basic_programming_knowledge, 4) %>
+         </div>
+        </td>
+        <td>
+         <div class="radio">
+           <%= f.radio_button(:basic_programming_knowledge, 5) %>
+         </div>
+        </td>
+      </tr>
+      <tr>
+        <td>I am comfortable learning how to code.<td>
+        <td>
+         <div class="radio">
+           <%= f.radio_button(:comfortable_learning, 1) %>
+         </div>
+        </td>
+        <td>
+         <div class="radio">
+           <%= f.radio_button(:comfortable_learning, 2) %>
+         </div>
+        </td>
+        <td>
+         <div class="radio">
+           <%= f.radio_button(:comfortable_learning, 3) %>
+         </div>
+        </td>
+        <td>
+         <div class="radio">
+           <%= f.radio_button(:comfortable_learning, 4) %>
+         </div>
+        </td>
+        <td>
+         <div class="radio">
+           <%= f.radio_button(:comfortable_learning, 5) %>
+         </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class='row'>
+    <div class="form-group">
+      <h4>Are you currently working on any projects or using any study materials?</h4>
+      <p class='muted'>If so, please describe them briefly.</p>
+      <%= f.text_area :current_projects, class: "form-control" %>
+    </div>
+  </div>
+  <div class="row">
+     <h4>How much time per week do you see yourself spending on your software development education and practice?</h4>
+     <div class="radio">
+       <%= f.radio_button(:time_commitment, "fewer than 2") %>
+       <%= f.label(:time_commitment_fewer_than_2, "Fewer than 2 hours") %>
+     </div>
+     <div class="radio">
+       <%= f.radio_button(:time_commitment, "2 to 5" ) %>
+       <%= f.label(:time_commitment_2_to_5, "2 - 5 hours") %>
+     </div>
+     <div class="radio">
+       <%= f.radio_button(:time_commitment, '6 to 19') %>
+       <%= f.label(:time_commitment_6_to_19, "6 - 19 hours") %>
+     </div>
+     <div class="radio">
+       <%= f.radio_button(:time_commitment, "20 to 30") %>
+       <%= f.label(:time_commitment_20_to_30, "20 - 30 hours") %>
+     </div>
+     <div class="radio">
+       <%= f.radio_button(:time_commitment, "at least 30") %>
+       <%= f.label(:time_commitment_at_least_30, " At least 30 hours") %>
+     </div>
+     <div class="radio">
+       <%= f.radio_button(:time_commitment, "unknown") %>
+       <%= f.label(:time_commitment_unknown, " I don't know") %>
+     </div>
+   </div>
+  <div class='row'>
+    <div class="form-group">
+      <h4>What hurdles do you think you may encounter in your quest to learn software development?</h4>
+      <%= f.text_area :hurdles, class: "form-control" %>
+    </div>
+  </div>
+  <div class='row'>
+   <div class="form-group">
+     <h4>We’re super excited about getting to know you and helping you achieve your goals through Code Scouts. What’s something you’re excited about with Code Scouts or learning software development?</h4>
+     <%= f.text_area :excited_about, class: "form-control" %>
+   </div>
+  </div>
+  <div class='row'>
+    <div class="form-group">
+      <h4>If there’s anything else you should think we should know about you or your membership, please let us know here:</h4>
+      <%= f.text_area :anything_else, class: "form-control" %>
+    </div>
+  </div>
+  <%= f.submit 'Submit', class: 'btn btn-primary' %>
+<% end %> 

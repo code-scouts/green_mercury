@@ -10,15 +10,25 @@ feature 'apply to be a member' do
   scenario 'submit a valid member application' do
     visit root_path
     click_link 'Apply to be a member'
-    fill_in 'member_application_content', with: 'stuff about me'
-    click_button 'Submit Application'
+    choose 'member_application_why_you_want_to_join_hobby'
+    choose 'member_application_gender_female'
+    fill_in 'member_application_experience_level', with: 'Experience'
+    choose 'member_application_confidence_technical_skills_1'
+    choose 'member_application_basic_programming_knowledge_1'
+    choose 'member_application_comfortable_learning_1'
+    fill_in 'member_application_current_projects', with: 'Projects'
+    choose 'member_application_time_commitment_fewer_than_2'
+    fill_in 'member_application_hurdles', with: 'Hurdles'
+    fill_in 'member_application_excited_about', with: 'Excited'
+    fill_in 'member_application_anything_else', with: 'Something Else'
+    click_on 'Submit'
     expect(page).to have_content 'Application Submitted'
   end
 
   scenario 'invalid member application' do 
     visit root_path
     click_link 'Apply to be a member'
-    click_button 'Submit Application'
+    click_on 'Submit'
     page.should have_content 'error'
   end
 end

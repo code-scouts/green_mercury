@@ -27,79 +27,74 @@ describe User do
 
   describe 'is_admin?' do
     it "should return true if the user is an admin" do
-      user = User.new()
+      user = FactoryGirl.build(:user)
       user.is_admin = true
       user.is_admin?.should be_true
     end
 
     it "should return false if the user is not an admin" do
-      user = User.new()
+      user = FactoryGirl.build(:user)
       user.is_admin?.should be_false
     end
   end
 
   describe 'is_mentor?' do
     it "should return true if the user is a mentor" do
-      user = User.new()
-      MentorApplication.create(user_uuid: user.uuid, content: 'about me', approved_date: Date.today)
+      user = new_mentor
       user.is_mentor?.should be_true
     end
 
     it "should return false if the user is not a mentor" do
-      user = User.new()
-      MentorApplication.create(user_uuid: user.uuid, content: 'about me')
+      user = FactoryGirl.build(:user)
       user.is_mentor?.should be_false
     end
   end
 
   describe 'is_member?' do
     it "should return true if the user is a member" do
-      user = User.new()
-      MemberApplication.create(user_uuid: user.uuid, content: 'about me', approved_date: Date.today)
+      user = new_member
       user.is_member?.should be_true
     end
 
     it "should return false if the user is not a member" do
-      user = User.new()
+      user = FactoryGirl.build(:user)
       user.is_member?.should be_false
     end
   end
 
   describe 'is_pending?' do
-    it "should return true if the user has a pending petition" do
-      user = User.new()
-      MemberApplication.create(user_uuid: user.uuid, content: 'about me')
+    it "should return true if the user has a pending application" do
+      user = FactoryGirl.build(:user)
+      FactoryGirl.create(:member_application, user_uuid: user.uuid, approved_date: nil)
       user.is_pending?.should be_true
     end
 
     it "should return false if the user is an admin" do
-      user = User.new()
+      user = FactoryGirl.build(:user)
       user.is_admin = true
       user.is_pending?.should be_false
     end
 
-    it "should return false if the user does not have a pending petition" do
-      user = User.new()
-      MemberApplication.create(user_uuid: user.uuid, content: 'about me', approved_date: Date.today)
+    it "should return false if the user does not have a pending application" do
+      user = FactoryGirl.build(:user)
       user.is_pending?.should be_false
     end
   end
 
   describe 'is_new?' do
-    it "should return true if the user is not an admin and has not submitted an petition to become a member or mentor" do
-      user = User.new()
+    it "should return true if the user is not an admin and has not submitted an application to become a member or mentor" do
+      user = FactoryGirl.build(:user)
       user.is_new?.should be_true
     end
 
     it "should return false if the user is an admin" do
-      user = User.new()
+      user = FactoryGirl.build(:user)
       user.is_admin = true
       user.is_new?.should be_false
     end
 
-    it "should return false if the user has submitted an petition to become a member or mentor" do
-      user = User.new()
-      MemberApplication.create(user_uuid: user.uuid, content: 'about me')
+    it "should return false if the user has submitted an application to become a member or mentor" do
+      user = new_member
       user.is_new?.should be_false
     end
   end

@@ -11,17 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131015165238) do
+ActiveRecord::Schema.define(version: 20131015193252) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "member_applications", force: true do |t|
     t.text     "user_uuid"
-    t.text     "content"
     t.date     "approved_date"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "why_you_want_to_join"
+    t.string   "gender"
+    t.text     "experience_level"
+    t.integer  "confidence_technical_skills"
+    t.integer  "basic_programming_knowledge"
+    t.integer  "comfortable_learning"
+    t.text     "current_projects"
+    t.text     "time_commitment"
+    t.text     "hurdles"
+    t.text     "excited_about"
+    t.text     "anything_else"
   end
 
   create_table "mentor_applications", force: true do |t|
