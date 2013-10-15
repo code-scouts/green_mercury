@@ -1,4 +1,6 @@
-class MemberPetitionsController < ApplicationController 
+class MemberPetitionsController < ApplicationController
+  skip_before_filter :member_or_mentor
+
   def new
     @member_petition = MemberPetition.new(user_uuid: current_user.uuid)
   end

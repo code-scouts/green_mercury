@@ -37,13 +37,10 @@ class ApplicationController < ActionController::Base
   end
 
   def member_or_mentor
-    # if MemberPetition.find_by(user_uuid: current_user.uuid).first.approved_date.nil? 
-    #if !is_admin && (member_petition.approved_date.nil? || mentor_petition.approved_date.nil?)
-      #if member_petition.content.nil? && mentor_petition.content.nil?
-        #redirect_to submit_new_petition
-      #else
-        #redirect_to petition_status_path
-      #end
-    #end
+    if user_signed_in? && current_user.is_pending?
+      redirect_to root_path
+    elsif user_signed_in? && current_user.is_new?
+      redirect_to root_path
+    end
   end
 end

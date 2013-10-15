@@ -18,7 +18,7 @@ describe ApplicationController do
   context "member" do 
     it "can view the page" do 
       user = User.new()
-      MemberPetition.new(user_uuid: user.uuid, content: 'about me', approved_date: Date.today)
+      FactoryGirl.create(:member_petition, user_uuid: user.uuid)
       controller.stub(:current_user) { user }
       controller.member_or_mentor
       controller.performed?.should be_false
@@ -28,33 +28,29 @@ describe ApplicationController do
   context "mentor" do 
     it "can view the page" do 
       user = User.new()
-      MentorPetition.new(user_uuid: user.uuid, content: 'about me', approved_date: Date.today)
+      FactoryGirl.create(:mentor_petition, user_uuid: user.uuid)
       controller.stub(:current_user) { user }
       controller.member_or_mentor
       controller.performed?.should be_false
     end
   end
 
-  # context "mentor petition submitted (not yet approved)" do 
-  #   it "is redirected to another page" do 
-  #     user = User.new()
-  #     MentorPetition.new(user_uuid: user.uuid, content: 'about me', approved_date: Date.today)
-  #     controller.stub(:current_user) { user }
-  #     controller.member_or_mentor
-  #     controller.performed?.should be_true
-  #   end    
-  # end
+  context "petition submitted (not yet approved)" do 
+    it "is redirected to another page" do 
+      user = User.new()
+      FactoryGirl.create(:mentor_petition, user_uuid: user.uuid, approved_date: nil)
+      controller.stub(:current_user) { user }
+      controller.should_receive(:redirect_to).with('/')
+      controller.member_or_mentor
+    end    
+  end
 
-  # context "member petition submitted (not yet approved)" do 
-  #   it "is redirected to another page" do 
-  #     user = User.new()
-  #     MemberPetition.new(user_uuid: user.uuid, content: 'about me', approved_date: Date.today)
-  #     controller.stub(:current_user) { user }
-  #     controller.member_or_mentor
-  #     controller.performed?.should be_true  
-  #   end
-  # end
-
-  #no petition submitted
-
+  context "no petition submitted" do 
+    it "is redirected to another page" do 
+      user = User.new()
+      controller.stub(:current_user) { user }
+      controller.should_receive(:redirect_to).with('/')
+      controller.member_or_mentor
+    end
+  end
 end
