@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def load_janrain_facts
-    @janrain_login_client_id = CAPTURE_CLIENT_ID
+    @janrain_login_client_id = CAPTURE_LOGIN_CLIENT_ID
     @janrain_app_id = CAPTURE_APP_ID
     @janrain_rpx_url = RPX_URL
     @janrain_capture_url = CAPTURE_URL
