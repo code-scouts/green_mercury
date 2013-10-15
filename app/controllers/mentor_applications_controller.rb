@@ -15,6 +15,10 @@ class MentorApplicationsController < ApplicationController
     end
   end
 
+  def show
+    @application = MentorApplication.find(params[:id])
+  end
+
 private
 
   def mentor_application_params

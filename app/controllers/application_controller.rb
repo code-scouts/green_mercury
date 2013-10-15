@@ -38,7 +38,7 @@ class ApplicationController < ActionController::Base
 
   def new_applicant?
     if user_signed_in? && current_user.is_pending?
-      redirect_to root_path
+      redirect_to new_applications_show_path
     elsif user_signed_in? && current_user.is_new?
       redirect_to new_application_path
     end

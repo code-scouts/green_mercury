@@ -1,0 +1,9 @@
+<h1>Application Status</h1>
+<% if @application.approved_date.nil? %>
+  <%= 'Status: Pending' %>
+<% else %>
+  <%= 'Status: Accepted' %>
+<% end %>
+
+Tell us about yourself
+<%= @application.content %>

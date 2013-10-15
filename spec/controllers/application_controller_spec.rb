@@ -38,7 +38,7 @@ describe ApplicationController do
       user = User.new()
       FactoryGirl.create(:mentor_application, user_uuid: user.uuid, approved_date: nil)
       controller.stub(:current_user) { user }
-      controller.should_receive(:redirect_to).with('/')
+      controller.should_receive(:redirect_to).with('/new_applications/show')
       controller.new_applicant?
     end    
   end
@@ -47,7 +47,7 @@ describe ApplicationController do
     it "is redirected to another page" do 
       user = User.new()
       controller.stub(:current_user) { user }
-      controller.should_receive(:redirect_to).with('/new_applications/show')
+      controller.should_receive(:redirect_to).with('/new_applications/index')
       controller.new_applicant?
     end
   end

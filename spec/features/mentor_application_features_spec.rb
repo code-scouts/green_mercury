@@ -23,3 +23,13 @@ feature 'apply to be a mentor' do
   end
 end
 
+feature 'see the status of an application' do 
+  scenario 'a user has a pending mentor application' do 
+    user = FactoryGirl.build(:user)
+    FactoryGirl.create(:mentor_application, approved_date: nil, user_uuid: user.uuid)
+    ApplicationController.any_instance.stub(:current_user) { user }
+    visit root_path 
+    page.should have_content "Status: Pending"
+  end
+end
+

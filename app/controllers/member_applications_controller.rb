@@ -15,6 +15,10 @@ class MemberApplicationsController < ApplicationController
     end
   end
 
+  def show
+    @application = MemberApplication.find(params[:id])
+  end
+
 private
 
   def member_application_params
