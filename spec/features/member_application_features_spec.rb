@@ -3,6 +3,7 @@ require 'spec_helper'
 feature 'apply to be a member' do
   before do
     user = User.new
+    ApplicationController.any_instance.stub(:current_user) { user }
     MemberApplicationsController.any_instance.stub(:current_user) { user }
   end
 

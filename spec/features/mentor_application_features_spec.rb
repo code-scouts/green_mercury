@@ -3,6 +3,7 @@ require 'spec_helper'
 feature 'apply to be a mentor' do
   before do
     user = User.new
+    ApplicationController.any_instance.stub(:current_user) { user }
     MentorApplicationsController.any_instance.stub(:current_user) { user }
   end
 

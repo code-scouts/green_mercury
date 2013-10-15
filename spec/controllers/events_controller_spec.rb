@@ -4,8 +4,7 @@ require 'spec_helper'
 describe EventsController do
   describe "when logged in" do
     before :each do
-      @user = User.new
-      MentorApplication.create(user_uuid: @user.uuid, content: 'about me', approved_date: Date.today)
+      @user = new_mentor
       controller.stub current_user: @user
     end
 

@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
 
   helper_method :user_signed_in?, :current_user
   before_filter :load_janrain_facts
-  before_filter :member_or_mentor
+  before_filter :new_applicant?
 
   # Prevent CSRF attacks by raising an exception.
   protect_from_forgery with: :exception
@@ -36,11 +36,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def member_or_mentor
+  def new_applicant?
     if user_signed_in? && current_user.is_pending?
       redirect_to root_path
     elsif user_signed_in? && current_user.is_new?
-      redirect_to root_path
+      redirect_to new_application_path
     end
   end
 end

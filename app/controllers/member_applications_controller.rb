@@ -1,5 +1,5 @@
 class MemberApplicationsController < ApplicationController
-  skip_before_filter :member_or_mentor
+  skip_before_filter :new_applicant?
 
   def new
     @member_application = MemberApplication.new(user_uuid: current_user.uuid)

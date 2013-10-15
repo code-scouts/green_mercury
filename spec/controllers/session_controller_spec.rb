@@ -13,7 +13,7 @@ describe SessionController do
 
   describe 'log out' do
     it 'should clear the session cookie' do
-      session[:user] = User.new
+      session[:user] = new_member
       post :logout
       response.should be_redirect
       response.header['Location'].should == 'http://test.host/'

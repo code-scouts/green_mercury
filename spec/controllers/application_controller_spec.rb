@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe ApplicationController do
   before do
-    ApplicationController.send :public, :member_or_mentor
+    ApplicationController.send :public, :new_applicant?
   end
 
   context "admin" do
@@ -10,27 +10,25 @@ describe ApplicationController do
       user = User.new()
       user.is_admin = true
       controller.stub(:current_user) { user }
-      controller.member_or_mentor
+      controller.new_applicant?
       controller.performed?.should be_false  
     end
   end
 
   context "member" do 
     it "can view the page" do 
-      user = User.new()
-      FactoryGirl.create(:member_application, user_uuid: user.uuid)
+      user = new_member
       controller.stub(:current_user) { user }
-      controller.member_or_mentor
+      controller.new_applicant?
       controller.performed?.should be_false
     end
   end
 
   context "mentor" do 
     it "can view the page" do 
-      user = User.new()
-      FactoryGirl.create(:mentor_application, user_uuid: user.uuid)
+      user = new_mentor
       controller.stub(:current_user) { user }
-      controller.member_or_mentor
+      controller.new_applicant?
       controller.performed?.should be_false
     end
   end
@@ -41,7 +39,7 @@ describe ApplicationController do
       FactoryGirl.create(:mentor_application, user_uuid: user.uuid, approved_date: nil)
       controller.stub(:current_user) { user }
       controller.should_receive(:redirect_to).with('/')
-      controller.member_or_mentor
+      controller.new_applicant?
     end    
   end
 
@@ -49,8 +47,8 @@ describe ApplicationController do
     it "is redirected to another page" do 
       user = User.new()
       controller.stub(:current_user) { user }
-      controller.should_receive(:redirect_to).with('/')
-      controller.member_or_mentor
+      controller.should_receive(:redirect_to).with('/new_applications/show')
+      controller.new_applicant?
     end
   end
 end

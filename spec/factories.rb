@@ -11,9 +11,7 @@ FactoryGirl.define do
     approved_date Date.today
   end
 
-  # factory :user do 
-  #   factory :member do 
-  #     member_petition
-  #   end
-  # end
+  factory :user do
+    sequence(:uuid) { |n| "user#{n}"} 
+  end
 end

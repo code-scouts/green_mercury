@@ -36,3 +36,15 @@ Spork.each_run do
   FactoryGirl.reload
   require 'user'
 end
+
+def new_member 
+  user = FactoryGirl.build(:user)
+  FactoryGirl.create(:member_application, user_uuid: user.uuid)
+  user
+end
+
+def new_mentor
+  user = FactoryGirl.build(:user)
+  FactoryGirl.create(:mentor_application, user_uuid: user.uuid)
+  user
+end
