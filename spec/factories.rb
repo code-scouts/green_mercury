@@ -3,8 +3,8 @@ FactoryGirl.define do
     name "Ruby"
   end 
 
-  factory :concept_content do
-    content "A programming language"
+  factory :concept_description do
+    description "A programming language"
     concept
   end
 end

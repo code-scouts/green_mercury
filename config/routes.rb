@@ -8,5 +8,5 @@ GreenMercury::Application.routes.draw do
   post '/logout', controller: :session, action: :logout, as: :logout
 
   resources :concepts
-  resources :concept_contents
+  resources :concept_descriptions
 end

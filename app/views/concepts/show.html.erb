@@ -1,7 +1,10 @@
 <h1><%= @concept.name %></h1>
 
-<div class='content'>
-  <p><%= @concept.latest.content %>  <%= link_to "Revert", concept_content_path(@concept.latest), method: :delete %></p>
+<div class='description'>
+  <p><%= @concept.latest.description %> 
+    <% if @concept.concept_descriptions.count > 1 %>
+     <%= link_to "Revert", concept_description_path(@concept.latest), method: :delete %></p>
+    <% end %>
 </div>
 
 <div class='history'>
@@ -12,7 +15,7 @@
     </thead>
     <tbody>
       <% @concept.history.each do |history| %>
-        <tr><td><%= history.created_at.strftime("%B %d, %Y at %I:%M %p") %></td> <td><%= history.content %></td></tr>
+        <tr><td><%= history.created_at.strftime("%B %d, %Y at %I:%M %p") %></td> <td><%= history.description %></td></tr>
       <% end %>
     </tbody>
   </table>

@@ -12,8 +12,8 @@
   <% end %>
   <div class="form-horizontal">
     <%= f.text_field :name, placeholder: 'Name' %>
-    <%= f.fields_for :concept_contents, @concept.concept_contents.new do |builder| %>
-      <%= builder.text_field :content, placeholder: 'Description' %>
+    <%= f.fields_for :concept_descriptions, @concept.concept_descriptions.new do |builder| %>
+      <%= builder.text_field :description, placeholder: 'Description' %>
     <% end %>  
     <%= f.submit 'Add Concept', class: 'btn' %>
   </div>

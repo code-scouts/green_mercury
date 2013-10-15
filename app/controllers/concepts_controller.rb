@@ -10,7 +10,7 @@ class ConceptsController < ApplicationController
   def create
     @concept = Concept.new(concept_params)
     if @concept.save
-      flash[:notice] = "Your concept as been added."
+      flash[:notice] = "Your concept has been added."
       redirect_to '/'
     else
       render 'new'
@@ -23,6 +23,6 @@ class ConceptsController < ApplicationController
 
 private
   def concept_params
-    params.require(:concept).permit(:name, concept_contents_attributes: [:content])
+    params.require(:concept).permit(:name, concept_descriptions_attributes: [:description])
   end
 end
