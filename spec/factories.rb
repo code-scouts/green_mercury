@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :member_petition do 
+  factory :member_application do 
     user_uuid '1'
     content 'about me'
     approved_date Date.today

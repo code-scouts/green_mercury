@@ -55,7 +55,7 @@ describe User do
   describe 'is_member?' do
     it "should return true if the user is a member" do
       user = User.new()
-      MemberPetition.create(user_uuid: user.uuid, content: 'about me', approved_date: Date.today)
+      MemberApplication.create(user_uuid: user.uuid, content: 'about me', approved_date: Date.today)
       user.is_member?.should be_true
     end
 
@@ -68,7 +68,7 @@ describe User do
   describe 'is_pending?' do
     it "should return true if the user has a pending petition" do
       user = User.new()
-      MemberPetition.create(user_uuid: user.uuid, content: 'about me')
+      MemberApplication.create(user_uuid: user.uuid, content: 'about me')
       user.is_pending?.should be_true
     end
 
@@ -80,7 +80,7 @@ describe User do
 
     it "should return false if the user does not have a pending petition" do
       user = User.new()
-      MemberPetition.create(user_uuid: user.uuid, content: 'about me', approved_date: Date.today)
+      MemberApplication.create(user_uuid: user.uuid, content: 'about me', approved_date: Date.today)
       user.is_pending?.should be_false
     end
   end
@@ -99,7 +99,7 @@ describe User do
 
     it "should return false if the user has submitted an petition to become a member or mentor" do
       user = User.new()
-      MemberPetition.create(user_uuid: user.uuid, content: 'about me')
+      MemberApplication.create(user_uuid: user.uuid, content: 'about me')
       user.is_new?.should be_false
     end
   end

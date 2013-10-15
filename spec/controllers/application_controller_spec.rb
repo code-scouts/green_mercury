@@ -18,7 +18,7 @@ describe ApplicationController do
   context "member" do 
     it "can view the page" do 
       user = User.new()
-      FactoryGirl.create(:member_petition, user_uuid: user.uuid)
+      FactoryGirl.create(:member_application, user_uuid: user.uuid)
       controller.stub(:current_user) { user }
       controller.member_or_mentor
       controller.performed?.should be_false
