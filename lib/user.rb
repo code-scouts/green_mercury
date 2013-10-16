@@ -31,6 +31,28 @@ class User
     end
   end
 
+  def self.from_uuids(uuids)
+    uuids.map! do |uuid|
+      "uuid='#{uuid}'"
+    end
+
+    uuid_string = uuids.join(' or ')
+
+    response = HTTParty.post(CAPTURE_URL + '/entity.find', {body:{
+      filter: uuid_string,
+      type_name: 'user',
+      client_id: CAPTURE_OWNER_CLIENT_ID,
+      client_secret: CAPTURE_OWNER_CLIENT_SECRET
+    }})
+
+    body = JSON.parse(response.body)
+    selected_users = {}
+    body['results'].each do |result|
+      selected_users[result['uuid']] = result['displayName']
+    end
+    selected_users
+  end
+
   def self.from_hash(hash)
     this = new
     this.meetup_token = hash['meetup_token']

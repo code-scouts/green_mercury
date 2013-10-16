@@ -20,6 +20,10 @@ class ConceptsController < ApplicationController
 
   def show
     @concept = Concept.find(params[:id])
+    uuids = @concept.history.map do |history|
+      history.user_uuid
+    end
+    @users = User.from_uuids(uuids)
   end
 
 private
@@ -27,3 +31,4 @@ private
     params.require(:concept).permit(:name, concept_descriptions_attributes: [:description, :user_uuid])
   end
 end
+

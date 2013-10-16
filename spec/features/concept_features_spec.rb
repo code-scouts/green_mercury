@@ -1,6 +1,12 @@
 require 'spec_helper'
 
-feature 'create concepts' do 
+feature 'create concepts' do
+  # before :each do
+  #   User.stub(:from_uuids, { '1' => 'Captain Awesome' })
+  #   @user = User.new
+  #   ConceptsController.stub current_user: @user
+  # end
+  
   scenario 'user fills out all fields correctly' do
     visit new_concept_path
     fill_in 'Name', with: 'New Concept'
@@ -74,7 +80,4 @@ feature 'delete a description' do
     page.should_not have_content description1.description
   end
 end
-
-
-
 
