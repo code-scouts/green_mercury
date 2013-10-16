@@ -76,6 +76,32 @@ describe User do
     end
   end
 
+  describe "from_uuids" do
+    it "should return a hash of uuids and names" do
+      response = double
+      response.should_receive(:body).and_return('{
+        "results": [{
+          "uuid": "4",
+          "displayName": "Bob"
+        }]
+      }')
+      HTTParty.should_receive(:post).with(
+        'https://codescouts.janraincapture.test.host/entity.find',
+        {
+          body: {
+            filter: "uuid='4'",
+            type_name: 'user',
+            client_id: 'fakeclientidfortests',
+            client_secret: 'fakeclientsecretfortests',
+          }
+        }
+      ).and_return(response)
+
+      users = User.from_uuids(['4'])
+      users['4'].should eq 'Bob'
+    end
+  end
+
   describe 'public and private attributes' do
     it 'should allow access to public attributes' do
       user = User.from_hash({

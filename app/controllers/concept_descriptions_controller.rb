@@ -1,7 +1,6 @@
 class ConceptDescriptionsController < ApplicationController
 
   def new
-    @user = current_user
     @concept_description = ConceptDescription.new
     @concept_id = params[:concept_id]
     @old_description = Concept.find(params[:concept_id]).latest.description
@@ -9,6 +8,8 @@ class ConceptDescriptionsController < ApplicationController
 
   def create
     @concept = Concept.find(params[:concept_description][:concept_id])
+    uuids = @concept.history.map { |history| history.user_uuid }
+    @users = User.from_uuids(uuids)
     @concept_description = @concept.concept_descriptions.new(concept_description_params)
     if @concept_description.save
       respond_to do |format|
@@ -17,7 +18,7 @@ class ConceptDescriptionsController < ApplicationController
       end
     else
       respond_to do |format|
-        format.html { render 'new' }
+        format.html { redirect_to 'new' }
       end
     end
   end

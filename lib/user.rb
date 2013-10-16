@@ -1,5 +1,5 @@
 class User
-  attr_accessor :meetup_token, :email, :confirmed_at, :uuid, :displayName, :profile_photo_url
+  attr_accessor :meetup_token, :email, :confirmed_at, :uuid, :name, :profile_photo_url
 
   def self.fetch_from_token(token)
     response = HTTParty.post(CAPTURE_URL + '/entity', {body:{
@@ -32,11 +32,7 @@ class User
   end
 
   def self.from_uuids(uuids)
-    uuids.map! do |uuid|
-      "uuid='#{uuid}'"
-    end
-
-    uuid_string = uuids.join(' or ')
+    uuid_string = uuids.map { |uuid| "uuid='#{uuid}'" }.join(' or ')
 
     response = HTTParty.post(CAPTURE_URL + '/entity.find', {body:{
       filter: uuid_string,
@@ -47,9 +43,7 @@ class User
 
     body = JSON.parse(response.body)
     selected_users = {}
-    body['results'].each do |result|
-      selected_users[result['uuid']] = result['displayName']
-    end
+    body['results'].each { |result| selected_users[result['uuid']] = result['displayName'] }
     selected_users
   end
 
@@ -59,7 +53,7 @@ class User
     this.email = hash['email']
     this.confirmed_at = hash['emailVerified']
     this.uuid = hash['uuid']
-    this.displayName = hash['displayName']
+    this.name = hash['displayName']
     if hash['photos']
       profile_photo = hash['photos'].find do |record|
         record['type'] == 'normal'

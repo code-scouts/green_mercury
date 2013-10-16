@@ -13,7 +13,7 @@
       <% concept.history.each_with_index do |history, index| %>
         <tr>
           <td><%= history.created_at.strftime("%B %d, %Y at %I:%M %p") %></td>
-          <td><%= @users[history.user_uuid] %></td>
+          <td><%= users[history.user_uuid] %></td>
           <td><%= history.description %></td>
           <td>
             <% if index > 0 %>

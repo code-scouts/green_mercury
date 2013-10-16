@@ -6,7 +6,7 @@
       <%= f.text_area :description, value: @old_description, autofocus: true %>
 
       <%= f.hidden_field :concept_id, value: @concept_id %>
-      <%= f.hidden_field :user_uuid, value: @user.uuid %>
+      <%= f.hidden_field :user_uuid, value: current_user.uuid %>
 
       <%= f.submit 'Submit New Description' %>
     <% end %>

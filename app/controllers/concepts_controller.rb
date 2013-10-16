@@ -4,7 +4,6 @@ class ConceptsController < ApplicationController
   end
 
   def new
-    @user = current_user
     @concept = Concept.new
   end
 
@@ -12,7 +11,7 @@ class ConceptsController < ApplicationController
     @concept = Concept.new(concept_params)
     if @concept.save
       flash[:notice] = "Your concept has been added."
-      redirect_to '/'
+      redirect_to @concept
     else
       render 'new'
     end
@@ -20,9 +19,7 @@ class ConceptsController < ApplicationController
 
   def show
     @concept = Concept.find(params[:id])
-    uuids = @concept.history.map do |history|
-      history.user_uuid
-    end
+    uuids = @concept.history.map { |history| history.user_uuid }
     @users = User.from_uuids(uuids)
   end
 

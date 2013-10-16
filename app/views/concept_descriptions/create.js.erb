@@ -1,4 +1,4 @@
 $('#add-description-form').empty();
 $('#description-links').show();
 $('#latest-description').empty().append('<%= j @concept_description.description %>');
-$('#description-history').empty().append('<%= j render("concepts/description_history", concept: @concept) %>');
+$('#description-history').empty().append('<%= j render("concepts/description_history", concept: @concept, users: @users) %>');
