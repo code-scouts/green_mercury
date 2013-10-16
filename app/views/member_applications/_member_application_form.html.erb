@@ -1,5 +1,6 @@
 <%= form_for application do |f| %>
   <%= render 'shared/form_errors', object: application %>
+  <%= f.hidden_field :user_uuid %>
   <div class="row">
     <h4>Which of the following options best describes why you want to join Code Scouts?</h4>
     <div class="radio">

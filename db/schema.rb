@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131015193252) do
+ActiveRecord::Schema.define(version: 20131015231956) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,10 +36,24 @@ ActiveRecord::Schema.define(version: 20131015193252) do
 
   create_table "mentor_applications", force: true do |t|
     t.text     "user_uuid"
-    t.text     "content"
     t.date     "approved_date"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "name"
+    t.string   "contact"
+    t.string   "geography"
+    t.string   "shirt_size"
+    t.string   "hear_about"
+    t.text     "motivation"
+    t.string   "time_commitment"
+    t.string   "mentor_one_on_one"
+    t.string   "mentor_group"
+    t.string   "mentor_online"
+    t.string   "volunteer_events"
+    t.string   "volunteer_teams"
+    t.string   "volunteer_solo"
+    t.string   "volunteer_technical"
+    t.string   "volunteer_online"
   end
 
 end

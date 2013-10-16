@@ -7,7 +7,7 @@ describe ApplicationController do
 
   context "admin" do
     it "can view the page" do 
-      user = User.new()
+      user = FactoryGirl.build(:user)
       user.is_admin = true
       controller.stub(:current_user) { user }
       controller.new_applicant?
@@ -35,7 +35,7 @@ describe ApplicationController do
 
   context "petition submitted (not yet approved)" do 
     it "is redirected to another page" do 
-      user = User.new()
+      user = FactoryGirl.build(:user)
       FactoryGirl.create(:mentor_application, user_uuid: user.uuid, approved_date: nil)
       controller.stub(:current_user) { user }
       controller.should_receive(:redirect_to).with('/new_applications/show')
@@ -45,7 +45,7 @@ describe ApplicationController do
 
   context "no petition submitted" do 
     it "is redirected to another page" do 
-      user = User.new()
+      user = FactoryGirl.build(:user)
       controller.stub(:current_user) { user }
       controller.should_receive(:redirect_to).with('/new_applications/index')
       controller.new_applicant?
