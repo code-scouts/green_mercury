@@ -1,5 +1,9 @@
 class MemberApplicationsController < ApplicationController
-  skip_before_filter :new_applicant?, only: [:new, :create]
+  skip_before_filter :new_applicant, only: [:new, :create]
+
+  def index
+    @pending_member_applications = MemberApplication.pending
+  end
 
   def new
     @member_application = MemberApplication.new(user_uuid: current_user.uuid)
@@ -19,9 +23,19 @@ class MemberApplicationsController < ApplicationController
     @application = MemberApplication.find(params[:id])
   end
 
+  def update
+    @application = MemberApplication.find(params[:id])
+    if params[:approve]
+      @application.approved_date = Date.today
+      @application.save
+      flash[:notice] = "Application approved"
+    end
+    redirect_to member_applications_path
+  end
+
 private
 
   def member_application_params
-    params.require(:member_application).permit(:why_you_want_to_join, :gender, :experience_level, :confidence_technical_skills, :basic_programming_knowledge, :comfortable_learning, :current_projects, :time_commitment, :hurdles, :excited_about, :anything_else, :user_uuid)
+    params.require(:member_application).permit(:name, :why_you_want_to_join, :gender, :experience_level, :confidence_technical_skills, :basic_programming_knowledge, :comfortable_learning, :current_projects, :time_commitment, :hurdles, :excited_about, :anything_else, :user_uuid)
   end
 end

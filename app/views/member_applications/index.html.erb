@@ -1,0 +1,9 @@
+<h1>Pending Member Applications</h1>
+
+<div class="row">
+  <% @pending_member_applications.each do |application| %>
+    <div class="row">
+      <%= link_to application.name, member_application_path(application) %>
+    </div>
+  <% end %>
+</div>

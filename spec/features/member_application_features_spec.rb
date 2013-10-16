@@ -9,6 +9,7 @@ feature 'apply to be a member' do
   scenario 'submit a valid member application' do
     visit root_path
     click_link 'Apply to be a member'
+    fill_in 'member_application_name', with: "Bob"
     choose 'member_application_why_you_want_to_join_hobby'
     fill_in 'member_application_gender', with: 'female'
     fill_in 'member_application_experience_level', with: 'Experience'
@@ -38,6 +39,38 @@ feature 'see the status of the application' do
     FactoryGirl.create(:member_application, approved_date: nil, user_uuid: user.uuid)
     ApplicationController.any_instance.stub(:current_user) { user }
     visit root_path
-    page.should have_content 'Status: Pending'
+    page.should have_content 'Thank you for applying'
   end
 end
+
+feature 'accept or reject a new member application' do 
+  scenario 'an admin accepts an application' do 
+    admin = FactoryGirl.build(:admin)
+    user = FactoryGirl.build(:user)
+    application = FactoryGirl.create(:member_application, user_uuid: user.uuid)
+    ApplicationController.any_instance.stub(:current_user) { admin }
+    visit member_applications_path
+    click_link application.name 
+    click_link 'Approve'
+    page.should have_content 'Application approved' 
+  end
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

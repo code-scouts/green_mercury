@@ -1,7 +1,8 @@
 require 'user'
 
 class SessionController < ApplicationController
-  skip_before_filter :member_or_mentor
+  skip_before_filter :new_applicant
+  skip_before_filter :pending_applicant
   
   def acquire_session
     respond_to do |format|

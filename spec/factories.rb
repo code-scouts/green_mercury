@@ -1,15 +1,20 @@
 FactoryGirl.define do
   factory :member_application do 
-    user_uuid '1'
+    name 'Bob'
+    sequence(:user_uuid) { |n| "member#{n}" }
     why_you_want_to_join "I don't know"
     experience_level "Advanced"
     comfortable_learning 2
     time_commitment 'All day'
-    approved_date Date.today
+
+    factory :approved_member_application do 
+      approved_date Date.today
+    end
+    
   end
 
   factory :mentor_application do 
-    user_uuid '1'
+    sequence(:user_uuid) { |n| "mentor#{n}" }
     name 'Bob'
     contact 'email'
     geography 'Portland'
@@ -29,5 +34,9 @@ FactoryGirl.define do
 
   factory :user do
     sequence(:uuid) { |n| "user#{n}"} 
+
+    factory :admin do 
+      is_admin true
+    end
   end
 end

@@ -39,7 +39,7 @@ end
 
 def new_member 
   user = FactoryGirl.build(:user)
-  FactoryGirl.create(:member_application, user_uuid: user.uuid)
+  FactoryGirl.create(:approved_member_application, user_uuid: user.uuid)
   user
 end
 

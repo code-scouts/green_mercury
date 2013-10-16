@@ -98,5 +98,4 @@ describe User do
       user.is_new?.should be_false
     end
   end
-
 end

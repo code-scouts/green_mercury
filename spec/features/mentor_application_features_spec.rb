@@ -42,7 +42,7 @@ feature 'see the status of an application' do
     FactoryGirl.create(:mentor_application, approved_date: nil, user_uuid: user.uuid)
     ApplicationController.any_instance.stub(:current_user) { user }
     visit root_path 
-    page.should have_content "Status: Pending"
+    page.should have_content "Thank you for applying"
   end
 end
 
