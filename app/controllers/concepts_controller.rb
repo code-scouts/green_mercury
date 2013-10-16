@@ -20,7 +20,7 @@ class ConceptsController < ApplicationController
   def show
     @concept = Concept.find(params[:id])
     uuids = @concept.history.map { |history| history.user_uuid }
-    @users = User.from_uuids(uuids)
+    @users = User.fetch_from_uuids(uuids)
   end
 
 private

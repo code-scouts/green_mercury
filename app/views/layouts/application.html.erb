@@ -183,7 +183,8 @@
     
     <% if flash[:alert] %>
       <div class='alert-box alert'> <%= flash[:alert] %> </div>
-    <% elsif flash[:notice] %>
+    <% end %>
+    <% if flash[:notice] %>
       <div class='alert-box alert'> <%= flash[:notice] %> </div>
     <% end %>
 

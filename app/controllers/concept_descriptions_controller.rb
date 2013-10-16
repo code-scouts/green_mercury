@@ -9,7 +9,7 @@ class ConceptDescriptionsController < ApplicationController
   def create
     @concept = Concept.find(params[:concept_description][:concept_id])
     uuids = @concept.history.map { |history| history.user_uuid }
-    @users = User.from_uuids(uuids)
+    @users = User.fetch_from_uuids(uuids)
     @concept_description = @concept.concept_descriptions.new(concept_description_params)
     if @concept_description.save
       respond_to do |format|
@@ -25,9 +25,11 @@ class ConceptDescriptionsController < ApplicationController
 
   def destroy
     @description = ConceptDescription.find(params[:id])
-    @description.destroy
-    flash[:notice] = "Description reverted."
-    redirect_to concept_path(@description.concept)
+    unless @description.concept.concept_descriptions.length == 1
+      @description.destroy
+      flash[:notice] = "Description updated."
+      redirect_to concept_path(@description.concept)
+    end
   end
 
 private

@@ -31,19 +31,9 @@ class User
     end
   end
 
-  def self.from_uuids(uuids)
-    uuid_string = uuids.map { |uuid| "uuid='#{uuid}'" }.join(' or ')
-
-    response = HTTParty.post(CAPTURE_URL + '/entity.find', {body:{
-      filter: uuid_string,
-      type_name: 'user',
-      client_id: CAPTURE_OWNER_CLIENT_ID,
-      client_secret: CAPTURE_OWNER_CLIENT_SECRET
-    }})
-
-    body = JSON.parse(response.body)
+  def self.fetch_from_uuids(uuids)
     selected_users = {}
-    body['results'].each { |result| selected_users[result['uuid']] = result['displayName'] }
+    uuids.each { |uuid| selected_users[uuid] = User.fetch_from_uuid(uuid) }
     selected_users
   end
 

@@ -1,16 +1,11 @@
 $(function() {
-
-  $('body').on('click', '#show-history-button', function() {
-    $('#toggle-history-button').empty().append(' <button class="toggle-history-button" id="hide-history-button">Hide</button>');
-    $('#description-history-table').show();
-    return false;
+  $('#toggle-history-container').on('click', '.toggle-history-button', function(event) {
+    event.preventDefault();
+    $('#description-history-table').toggle();
+    if ($(this).text() == 'Hide') {
+      $(this).text('Show');
+    } else {
+      $(this).text('Hide');
+    }
   });
-
-  $('body').on('click', '#hide-history-button', function() {
-    $('#toggle-history-button').empty().append(' <button class="toggle-history-button" id="show-history-button">Show</button>');
-    $('#description-history-table').hide();
-    return false;
-  });
-
-  return false;
 });

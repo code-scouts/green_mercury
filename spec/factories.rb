@@ -6,5 +6,6 @@ FactoryGirl.define do
   factory :concept_description do
     description "A programming language"
     concept
+    user_uuid '1'
   end
 end

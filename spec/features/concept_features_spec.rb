@@ -5,7 +5,7 @@ feature 'create concepts' do
     @user = User.new
     @user.uuid = '1'
     @user.name = 'Captain Awesome'
-    User.stub(:from_uuids).and_return({ @user.uuid => @user.name })
+    User.stub(:fetch_from_uuids).and_return({ @user.uuid => @user })
     ConceptsController.any_instance.stub(:current_user).and_return(@user)
   end
   
@@ -45,14 +45,14 @@ feature 'revert to older description' do
     @user = User.new
     @user.uuid = '1'
     @user.name = 'Captain Awesome'
-    User.stub(:from_uuids).and_return({ @user.uuid => @user.name })
+    User.stub(:fetch_from_uuids).and_return({ @user.uuid => @user })
     ConceptsController.any_instance.stub(:current_user).and_return(@user)
     @concept = FactoryGirl.create(:concept)
-    ConceptDescription.create(description: 'better description', concept_id: @concept.id, user_uuid: @user.uuid)
+    @concept.concept_descriptions.create(description: 'better description', user_uuid: @user.uuid)
   end
 
   scenario 'user reverts to previous description' do
-    description2 = ConceptDescription.create(description: 'get rid of this', concept_id: @concept.id, user_uuid: @user.uuid)
+    description2 = @concept.concept_descriptions.create(description: 'get rid of this', user_uuid: @user.uuid)
     visit concept_path(@concept)
     click_link 'Revert to previous description'
     page.should_not have_content description2.description
@@ -69,11 +69,11 @@ feature 'add a new description to existing concept' do
     @user = User.new
     @user.uuid = '1'
     @user.name = 'Captain Awesome'
-    User.stub(:from_uuids).and_return({ @user.uuid => @user.name })
+    User.stub(:fetch_from_uuids).and_return({ @user.uuid => @user })
     ConceptsController.any_instance.stub(:current_user).and_return(@user)
     ConceptDescriptionsController.any_instance.stub(:current_user).and_return(@user)
     @concept = FactoryGirl.create(:concept)
-    ConceptDescription.create(description: 'better description', concept_id: @concept.id, user_uuid: @user.uuid)
+    @concept.concept_descriptions.create(description: 'better description', user_uuid: @user.uuid)
     visit concept_path(@concept)
     click_link 'Edit description'
   end
@@ -96,11 +96,11 @@ feature 'delete a description' do
     @user = User.new
     @user.uuid = '1'
     @user.name = 'Captain Awesome'
-    User.stub(:from_uuids).and_return({ @user.uuid => @user.name })
+    User.stub(:fetch_from_uuids).and_return({ @user.uuid => @user })
     ConceptsController.any_instance.stub(:current_user).and_return(@user)
     concept = FactoryGirl.create(:concept)
-    description1 = ConceptDescription.create(description: 'better description', concept_id: concept.id, user_uuid: @user.uuid)
-    description2 = ConceptDescription.create(description: 'best description', concept_id: concept.id, user_uuid: @user.uuid)
+    description1 = concept.concept_descriptions.create(description: 'better description', user_uuid: @user.uuid)
+    description2 = concept.concept_descriptions.create(description: 'best description', user_uuid: @user.uuid)
     visit concept_path(concept)
     click_link 'Delete'
     page.should_not have_content description1.description
@@ -112,10 +112,10 @@ feature 'view all concepts' do
     @user = User.new
     @user.uuid = '1'
     @user.name = 'Captain Awesome'
-    User.stub(:from_uuids).and_return({ @user.uuid => @user.name })
+    User.stub(:fetch_from_uuids).and_return({ @user.uuid => @user })
     ConceptsController.any_instance.stub(:current_user).and_return(@user)
     concept = FactoryGirl.create(:concept)
-    description = ConceptDescription.create(description: 'better description', concept_id: concept.id, user_uuid: @user.uuid)
+    description = concept.concept_descriptions.create(description: 'better description', user_uuid: @user.uuid)
     visit concepts_path
     click_link concept.name
     page.should have_content description.description
