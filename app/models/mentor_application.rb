@@ -1,4 +1,6 @@
 class MentorApplication < ActiveRecord::Base
+  after_update :set_approved_date
+
   validates :user_uuid, presence: true
   validates :name, presence: true
   validates :contact, presence: true
@@ -17,5 +19,13 @@ class MentorApplication < ActiveRecord::Base
 
   def self.pending 
     MentorApplication.where(approved_date: nil)
+  end
+
+  private
+
+  def set_approved_date
+    if approved? && approved_date.nil?
+      self.approved_date = Date.today
+    end
   end
 end

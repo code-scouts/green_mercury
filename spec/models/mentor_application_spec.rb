@@ -25,4 +25,10 @@ describe MentorApplication do
       MentorApplication.pending.should eq [application]
     end
   end
+
+  it "sets the approved date when the application is approved" do 
+    application = FactoryGirl.create(:mentor_application)
+    application.update(approved: true)
+    application.approved_date.should eq Date.today
+  end
 end

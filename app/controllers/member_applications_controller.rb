@@ -28,32 +28,49 @@ class MemberApplicationsController < ApplicationController
     end
   end
 
-  def update
+  def update 
     @application = MemberApplication.find(params[:id])
-    if params[:approve]
-      @application.approved_date = Date.today
-      @application.approved = true
-      @application.save
-      flash[:notice] = "Application approved"
-    end
-    redirect_to member_applications_path
+    if can? :update, @application
+      @application.update(member_application_params)
+      redirect_to member_applications_path, notice: "Application approved"
+    else
+      redirect_to member_applications_path, alert: "Not authorized"
+    end   
   end
 
 private
 
   def member_application_params
-    params.require(:member_application).permit(:name, 
-                                               :why_you_want_to_join, 
-                                               :gender, 
-                                               :experience_level, 
-                                               :confidence_technical_skills, 
-                                               :basic_programming_knowledge, 
-                                               :comfortable_learning, 
-                                               :current_projects, 
-                                               :time_commitment, 
-                                               :hurdles, 
-                                               :excited_about, 
-                                               :anything_else, 
-                                               :user_uuid)
+    if can? :update, MemberApplication.new
+      params.require(:member_application).permit(:name,
+                                                 :approved, 
+                                                 :why_you_want_to_join, 
+                                                 :gender, 
+                                                 :experience_level, 
+                                                 :confidence_technical_skills, 
+                                                 :basic_programming_knowledge, 
+                                                 :comfortable_learning, 
+                                                 :current_projects, 
+                                                 :time_commitment, 
+                                                 :hurdles, 
+                                                 :excited_about, 
+                                                 :anything_else, 
+                                                 :user_uuid) 
+
+    else
+      params.require(:member_application).permit(:name, 
+                                                 :why_you_want_to_join, 
+                                                 :gender, 
+                                                 :experience_level, 
+                                                 :confidence_technical_skills, 
+                                                 :basic_programming_knowledge, 
+                                                 :comfortable_learning, 
+                                                 :current_projects, 
+                                                 :time_commitment, 
+                                                 :hurdles, 
+                                                 :excited_about, 
+                                                 :anything_else, 
+                                                 :user_uuid)
+    end
   end
 end

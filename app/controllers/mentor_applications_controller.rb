@@ -30,32 +30,51 @@ class MentorApplicationsController < ApplicationController
 
   def update
     @application = MentorApplication.find(params[:id])
-    if params[:approve]
-      @application.approved_date = Date.today
-      @application.approved = true
-      @application.save
-      flash[:notice] = "Application approved"
+    if can? :update, @application 
+      @application.update(mentor_application_params)
+      redirect_to mentor_applications_path, notice: "Application approved"
+    else
+      redirect_to mentor_applications_path, alert: "Not authorized"
     end
-    redirect_to member_applications_path
   end
 
 private
 
   def mentor_application_params
-    params.require(:mentor_application).permit(:user_uuid, 
-                                               :name, 
-                                               :contact, 
-                                               :geography, 
-                                               :hear_about, 
-                                               :motivation, 
-                                               :time_commitment, 
-                                               :mentor_one_on_one, 
-                                               :mentor_group, 
-                                               :mentor_online, 
-                                               :volunteer_events, 
-                                               :volunteer_teams, 
-                                               :volunteer_solo, 
-                                               :volunteer_technical, 
-                                               :volunteer_online)
+    if can? :update, MentorApplication.new
+      params.require(:mentor_application).permit(:approved,
+                                                 :user_uuid, 
+                                                 :name, 
+                                                 :contact, 
+                                                 :geography, 
+                                                 :hear_about, 
+                                                 :motivation, 
+                                                 :time_commitment, 
+                                                 :mentor_one_on_one, 
+                                                 :mentor_group, 
+                                                 :mentor_online, 
+                                                 :volunteer_events, 
+                                                 :volunteer_teams, 
+                                                 :volunteer_solo, 
+                                                 :volunteer_technical, 
+                                                 :volunteer_online)
+    else
+      params.require(:mentor_application).permit(:user_uuid, 
+                                                 :name, 
+                                                 :contact, 
+                                                 :geography, 
+                                                 :hear_about, 
+                                                 :motivation, 
+                                                 :time_commitment, 
+                                                 :mentor_one_on_one, 
+                                                 :mentor_group, 
+                                                 :mentor_online, 
+                                                 :volunteer_events, 
+                                                 :volunteer_teams, 
+                                                 :volunteer_solo, 
+                                                 :volunteer_technical, 
+                                                 :volunteer_online)
+    end
+    
   end
 end
