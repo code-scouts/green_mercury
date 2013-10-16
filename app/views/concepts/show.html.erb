@@ -1,11 +1,9 @@
 <h1><%= @concept.name %></h1>
 
 <div class='description' id="description-links">
-  <p id="latest-description"><%= @concept.latest.description %></p> 
-    <% if @concept.concept_descriptions.count > 1 %>
-     <p><%= link_to 'Revert to previous description', concept_description_path(@concept.latest), method: :delete, data: { confirm: 'This cannot be reversed. Are you sure?' } %></p>
-    <% end %>
-    <p><%= link_to 'Edit description', new_concept_description_path(concept_id: @concept.id), remote: true, id: 'add-description-link' %></p>
+  <p id="latest-description"><%= @concept.latest.description %></p>
+  <p id="revert-link"><%= render 'revert_link', concept: @concept %></p>
+  <p><%= link_to 'Edit description', new_concept_description_path(concept_id: @concept.id), remote: true, id: 'add-description-link' %></p>
 </div>
 
 <div id="add-description-form"></div>
