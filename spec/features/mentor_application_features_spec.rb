@@ -57,6 +57,14 @@ feature 'approve or reject mentor applications' do
     click_link 'Approve'
     page.should have_content 'Application approved'
   end
+
+  scenario 'non-admin tries to view application' do
+    user = new_mentor
+    application = FactoryGirl.create(:mentor_application)
+    ApplicationController.any_instance.stub(:current_user) { user }
+    visit mentor_application_path(application)
+    page.should have_content 'Not authorized'
+  end
 end
 
 

@@ -54,6 +54,14 @@ feature 'accept or reject a new member application' do
     click_link 'Approve'
     page.should have_content 'Application approved' 
   end
+
+  scenario 'a non-admin attempts to approve an application' do 
+    user = new_mentor
+    application = FactoryGirl.create(:member_application)
+    ApplicationController.any_instance.stub(:current_user) { user }
+    visit member_application_path(application)
+    page.should have_content 'Not authorized'
+  end
 end
 
 

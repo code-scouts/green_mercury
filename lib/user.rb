@@ -34,11 +34,11 @@ class User
   end
 
   def is_member?
-    member_application && member_application.approved_date
+    member_application && member_application.approved?
   end
 
   def is_mentor?
-    mentor_application && mentor_application.approved_date
+    mentor_application && mentor_application.approved?
   end
 
   def is_pending?

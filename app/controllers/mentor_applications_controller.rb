@@ -21,12 +21,18 @@ class MentorApplicationsController < ApplicationController
 
   def show
     @application = MentorApplication.find(params[:id])
+    if can? :read, @application
+      render 'show'
+    else
+      redirect_to root_path, alert: "Not authorized"
+    end
   end
 
   def update
     @application = MentorApplication.find(params[:id])
     if params[:approve]
       @application.approved_date = Date.today
+      @application.approved = true
       @application.save
       flash[:notice] = "Application approved"
     end
