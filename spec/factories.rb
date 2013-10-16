@@ -29,7 +29,10 @@ FactoryGirl.define do
     volunteer_solo 'very interested'
     volunteer_technical 'very interested'
     volunteer_online 'very interested'
-    approved_date Date.today
+
+    factory :approved_mentor_application do
+      approved_date Date.today
+    end
   end
 
   factory :user do

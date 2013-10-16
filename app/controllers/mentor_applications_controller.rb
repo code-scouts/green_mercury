@@ -1,6 +1,10 @@
 class MentorApplicationsController < ApplicationController
   skip_before_filter :new_applicant, only: [:new, :create]
   
+  def index 
+    @pending_mentor_applications = MentorApplication.pending
+  end
+
   def new
     @mentor_application = MentorApplication.new(user_uuid: current_user.uuid)
   end
@@ -17,6 +21,16 @@ class MentorApplicationsController < ApplicationController
 
   def show
     @application = MentorApplication.find(params[:id])
+  end
+
+  def update
+    @application = MentorApplication.find(params[:id])
+    if params[:approve]
+      @application.approved_date = Date.today
+      @application.save
+      flash[:notice] = "Application approved"
+    end
+    redirect_to member_applications_path
   end
 
 private

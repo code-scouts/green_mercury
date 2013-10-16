@@ -14,4 +14,8 @@ class MentorApplication < ActiveRecord::Base
   validates :volunteer_solo, presence: true
   validates :volunteer_technical, presence: true
   validates :volunteer_online, presence: true
+
+  def self.pending 
+    MentorApplication.where(approved_date: nil)
+  end
 end

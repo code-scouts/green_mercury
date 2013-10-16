@@ -1,6 +1,6 @@
 
 <%= link_to 'Approve', member_application_path(@application, approve: true), method: 'patch' %>
-<%= link_to 'Reject', member_application_path(@application, approve: false), method: 'patch' %>
+<% link_to 'Reject', member_application_path(@application, approve: false), method: 'patch' %>
 
 <%= render 'member_application_form', application: @application %>
 

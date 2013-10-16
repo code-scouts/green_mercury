@@ -18,4 +18,11 @@ describe MentorApplication do
   it { should validate_presence_of :volunteer_solo }
   it { should validate_presence_of :volunteer_technical }
   it { should validate_presence_of :volunteer_online }
+
+  describe "pending" do 
+    it "returns all pending mentor applications" do 
+      application = FactoryGirl.create(:mentor_application)
+      MentorApplication.pending.should eq [application]
+    end
+  end
 end

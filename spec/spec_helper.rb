@@ -45,6 +45,6 @@ end
 
 def new_mentor
   user = FactoryGirl.build(:user)
-  FactoryGirl.create(:mentor_application, user_uuid: user.uuid)
+  FactoryGirl.create(:approved_mentor_application, user_uuid: user.uuid)
   user
 end

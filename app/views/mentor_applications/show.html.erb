@@ -1,6 +1,4 @@
-<h1>Application Status</h1>
-<% if @application.approved_date.nil? %>
-  <%= 'Status: Pending' %>
-<% else %>
-  <%= 'Status: Accepted' %>
-<% end %>
+<%= link_to 'Approve', mentor_application_path(@application, approve: true), method: 'patch' %>
+<% link_to 'Reject', mentor_application_path(@application, approve: false), method: 'patch' %>
+
+<%= render 'mentor_application', application: @application %>
