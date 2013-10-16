@@ -181,6 +181,8 @@ GEM
       multi_json (~> 1.0)
       rubyzip
       websocket (~> 1.0.4)
+    shoulda-matchers (2.4.0)
+      activesupport (>= 3.0.0)
     spork (1.0.0rc3)
     sprockets (2.10.0)
       hike (~> 1.2)
@@ -243,6 +245,7 @@ DEPENDENCIES
   sass-rails (~> 4.0.0)
   sdoc
   selenium-webdriver
+  shoulda-matchers
   spork (~> 1.0rc)
   therubyracer
   twitter-bootstrap-rails

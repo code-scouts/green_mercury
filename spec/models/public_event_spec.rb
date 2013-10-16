@@ -1,4 +1,4 @@
-require 'spec-helper'
+require 'spec_helper'
 
 describe PublicEvent do
   
@@ -9,7 +9,7 @@ describe PublicEvent do
   it { should respond_to :start_time }
   it { should respond_to :end_time }
 
-  it { should have_many :organizers }
-  it { should have_many :rsvps }
+  # it { should have_many :public_event_organizers }
+  # it { should have_many :public_event_rsvps }
   
 end
