@@ -80,179 +80,181 @@
       <%= f.label(:time_commitment_week, "A few hours a week") %>
     </div>
   </div>
-  <h4>How interested are you to help out in each of the following ways?*</h4>
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th></th>
-        <th>Very interested</th>
-        <th>Somewhat interested</th>
-        <th>Not interested</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>
-          As a mentor to Code Scouts members, 1-on-1
-        </td>
-        <td>
-          <div class="radio">
-            <%= f.radio_button(:mentor_one_on_one, 'Very interested') %>
-          </div>
-        </td>
-        <td>
-          <div class="radio">
-            <%= f.radio_button(:mentor_one_on_one, 'Somewhat interested') %>
-          </div>
-        </td>
-        <td>
-          <div class="radio">
-            <%= f.radio_button(:mentor_one_on_one, 'Not interested') %>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          As a mentor to Code Scouts members, in a group setting
-        </td>
-        <td>
-          <div class="radio">
-            <%= f.radio_button(:mentor_group, 'Very interested') %>
-          </div>
-        </td>
-        <td>
-          <div class="radio">
-            <%= f.radio_button(:mentor_group, 'Somewhat interested') %>
-          </div>
-        </td>
-        <td>
-          <div class="radio">
-            <%= f.radio_button(:mentor_group, 'Not interested') %>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          As a mentor to Code Scouts members online (email and forums)
-        </td>
-        <td>
-          <div class="radio">
-            <%= f.radio_button(:mentor_online, 'Very interested') %>
-          </div>
-        </td>
-        <td>
-          <div class="radio">
-            <%= f.radio_button(:mentor_online, 'Somewhat interested') %>
-          </div>
-        </td>
-        <td>
-          <div class="radio">
-            <%= f.radio_button(:mentor_online, 'Not interested') %>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          As a volunteer at Code Scouts events
-        </td>
-        <td>
-          <div class="radio">
-            <%= f.radio_button(:volunteer_events, 'Very interested') %>
-          </div>
-        </td>
-        <td>
-          <div class="radio">
-            <%= f.radio_button(:volunteer_events, 'Somewhat interested') %>
-          </div>
-        </td>
-        <td>
-          <div class="radio">
-            <%= f.radio_button(:volunteer_events, 'Not interested') %>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          As a volunteer with Code Scouts program teams, in-person
-        </td>
-        <td>
-          <div class="radio">
-            <%= f.radio_button(:volunteer_teams, 'Very interested') %>
-          </div>
-        </td>
-        <td>
-          <div class="radio">
-            <%= f.radio_button(:volunteer_teams, 'Somewhat interested') %>
-          </div>
-        </td>
-        <td>
-          <div class="radio">
-            <%= f.radio_button(:volunteer_teams, 'Not interested') %>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          As a volunteer for Code Scouts doing something solo
-        </td>
-        <td>
-          <div class="radio">
-            <%= f.radio_button(:volunteer_solo, 'Very interested') %>
-          </div>
-        </td>
-        <td>
-          <div class="radio">
-            <%= f.radio_button(:volunteer_solo, 'Somewhat interested') %>
-          </div>
-        </td>
-        <td>
-          <div class="radio">
-            <%= f.radio_button(:volunteer_solo, 'Not interested') %>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          As a volunteer for Code Scouts doing programming or technical stuff
-        </td>
-        <td>
-          <div class="radio">
-            <%= f.radio_button(:volunteer_technical, 'Very interested') %>
-          </div>
-        </td>
-        <td>
-          <div class="radio">
-            <%= f.radio_button(:volunteer_technical, 'Somewhat interested') %>
-          </div>
-        </td>
-        <td>
-          <div class="radio">
-            <%= f.radio_button(:volunteer_technical, 'Not interested') %>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          As a volunteer for Code Scouts online only (writing, reseach, etc.)
-        </td>
-        <td>
-          <div class="radio">
-            <%= f.radio_button(:volunteer_online, 'Very interested') %>
-          </div>
-        </td>
-        <td>
-          <div class="radio">
-            <%= f.radio_button(:volunteer_online, 'Somewhat interested') %>
-          </div>
-        </td>
-        <td>
-          <div class="radio">
-            <%= f.radio_button(:volunteer_online, 'Not interested') %>
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div class='row'>
+    <h4>How interested are you to help out in each of the following ways?*</h4>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Very interested</th>
+          <th>Somewhat interested</th>
+          <th>Not interested</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            As a mentor to Code Scouts members, 1-on-1
+          </td>
+          <td>
+            <div class="radio">
+              <%= f.radio_button(:mentor_one_on_one, 'Very interested') %>
+            </div>
+          </td>
+          <td>
+            <div class="radio">
+              <%= f.radio_button(:mentor_one_on_one, 'Somewhat interested') %>
+            </div>
+          </td>
+          <td>
+            <div class="radio">
+              <%= f.radio_button(:mentor_one_on_one, 'Not interested') %>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            As a mentor to Code Scouts members, in a group setting
+          </td>
+          <td>
+            <div class="radio">
+              <%= f.radio_button(:mentor_group, 'Very interested') %>
+            </div>
+          </td>
+          <td>
+            <div class="radio">
+              <%= f.radio_button(:mentor_group, 'Somewhat interested') %>
+            </div>
+          </td>
+          <td>
+            <div class="radio">
+              <%= f.radio_button(:mentor_group, 'Not interested') %>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            As a mentor to Code Scouts members online (email and forums)
+          </td>
+          <td>
+            <div class="radio">
+              <%= f.radio_button(:mentor_online, 'Very interested') %>
+            </div>
+          </td>
+          <td>
+            <div class="radio">
+              <%= f.radio_button(:mentor_online, 'Somewhat interested') %>
+            </div>
+          </td>
+          <td>
+            <div class="radio">
+              <%= f.radio_button(:mentor_online, 'Not interested') %>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            As a volunteer at Code Scouts events
+          </td>
+          <td>
+            <div class="radio">
+              <%= f.radio_button(:volunteer_events, 'Very interested') %>
+            </div>
+          </td>
+          <td>
+            <div class="radio">
+              <%= f.radio_button(:volunteer_events, 'Somewhat interested') %>
+            </div>
+          </td>
+          <td>
+            <div class="radio">
+              <%= f.radio_button(:volunteer_events, 'Not interested') %>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            As a volunteer with Code Scouts program teams, in-person
+          </td>
+          <td>
+            <div class="radio">
+              <%= f.radio_button(:volunteer_teams, 'Very interested') %>
+            </div>
+          </td>
+          <td>
+            <div class="radio">
+              <%= f.radio_button(:volunteer_teams, 'Somewhat interested') %>
+            </div>
+          </td>
+          <td>
+            <div class="radio">
+              <%= f.radio_button(:volunteer_teams, 'Not interested') %>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            As a volunteer for Code Scouts doing something solo
+          </td>
+          <td>
+            <div class="radio">
+              <%= f.radio_button(:volunteer_solo, 'Very interested') %>
+            </div>
+          </td>
+          <td>
+            <div class="radio">
+              <%= f.radio_button(:volunteer_solo, 'Somewhat interested') %>
+            </div>
+          </td>
+          <td>
+            <div class="radio">
+              <%= f.radio_button(:volunteer_solo, 'Not interested') %>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            As a volunteer for Code Scouts doing programming or technical stuff
+          </td>
+          <td>
+            <div class="radio">
+              <%= f.radio_button(:volunteer_technical, 'Very interested') %>
+            </div>
+          </td>
+          <td>
+            <div class="radio">
+              <%= f.radio_button(:volunteer_technical, 'Somewhat interested') %>
+            </div>
+          </td>
+          <td>
+            <div class="radio">
+              <%= f.radio_button(:volunteer_technical, 'Not interested') %>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            As a volunteer for Code Scouts online only (writing, reseach, etc.)
+          </td>
+          <td>
+            <div class="radio">
+              <%= f.radio_button(:volunteer_online, 'Very interested') %>
+            </div>
+          </td>
+          <td>
+            <div class="radio">
+              <%= f.radio_button(:volunteer_online, 'Somewhat interested') %>
+            </div>
+          </td>
+          <td>
+            <div class="radio">
+              <%= f.radio_button(:volunteer_online, 'Not interested') %>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
   <%= f.submit 'Submit', class: 'btn btn-primary' %>
 <% end %>
 

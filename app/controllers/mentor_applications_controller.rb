@@ -1,5 +1,5 @@
 class MentorApplicationsController < ApplicationController
-  skip_before_filter :new_applicant?
+  skip_before_filter :new_applicant, only: [:new, :create]
   
   def new
     @mentor_application = MentorApplication.new(user_uuid: current_user.uuid)

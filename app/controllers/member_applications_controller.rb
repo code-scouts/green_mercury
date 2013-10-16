@@ -1,5 +1,5 @@
 class MemberApplicationsController < ApplicationController
-  skip_before_filter :new_applicant?
+  skip_before_filter :new_applicant?, only: [:new, :create]
 
   def new
     @member_application = MemberApplication.new(user_uuid: current_user.uuid)
