@@ -2,9 +2,8 @@ require 'spec_helper'
 
 feature 'apply to be a mentor' do
   before do
-    user = User.new
+    user = FactoryGirl.build(:user)
     ApplicationController.any_instance.stub(:current_user) { user }
-    MentorApplicationsController.any_instance.stub(:current_user) { user }
   end
 
   scenario 'submit a valid mentor application' do
@@ -12,9 +11,9 @@ feature 'apply to be a mentor' do
     click_link 'Apply to be a mentor'
     fill_in 'mentor_application_name', with: 'Name'
     fill_in 'mentor_application_contact', with: 'Email'
-    # check 'mentor_application_geography'
-    choose 'mentor_application_shirt_size_womens_xs'
-    # check 'mentor_application_hear_about'
+    choose 'mentor_application_geography_online'
+    select("Women's XL", :from => 'mentor_application_shirt_size')
+    choose 'mentor_application_hear_about_google'
     fill_in 'mentor_application_motivation', with: 'Stuff'
     choose 'mentor_application_time_commitment_bit'
     choose 'mentor_application_mentor_one_on_one_very_interested'

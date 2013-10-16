@@ -22,6 +22,20 @@ class MentorApplicationsController < ApplicationController
 private
 
   def mentor_application_params
-    params.require(:mentor_application).permit(:user_uuid, :name, :contact, :geography, :hear_about, :motivation, :time_commitment, :mentor_one_on_one, :mentor_group, :mentor_online, :volunteer_events, :volunteer_teams, :volunteer_solo, :volunteer_technical, :volunteer_online)
+    params.require(:mentor_application).permit(:user_uuid, 
+                                               :name, 
+                                               :contact, 
+                                               :geography, 
+                                               :hear_about, 
+                                               :motivation, 
+                                               :time_commitment, 
+                                               :mentor_one_on_one, 
+                                               :mentor_group, 
+                                               :mentor_online, 
+                                               :volunteer_events, 
+                                               :volunteer_teams, 
+                                               :volunteer_solo, 
+                                               :volunteer_technical, 
+                                               :volunteer_online)
   end
 end

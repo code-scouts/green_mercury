@@ -12,81 +12,52 @@
   </div>
   <div class='row'>
     <h4>Geographically speaking, where would you like to volunteer?*</h4>
-    <label class='checkbox'>Portland, OR
-      <%= check_box_tag "mentor_application[geography]", 'Portland' %>
-    </label>
-    <label class='checkbox'>Online
-      <%= check_box_tag "mentor_application[geography]", 'Online' %>
-    </label>
+    <div class='radio'>
+      <%= f.radio_button(:geography, "portland") %>
+      <%= f.label(:geography_portland, "Portland, OR") %>
+    </div>
+    <div class='radio'>
+      <%= f.radio_button(:geography, "online") %>
+      <%= f.label(:geography_online, "Online") %>
+    </div>
   </div>
   <div class='row'>
     <h4>What T-Shirt size would you prefer?</h4>
-    <div class='radio'>
-      <%= f.radio_button(:shirt_size, "womens XS") %>
-      <%= f.label(:shirt_size_womens_XS, "Women's XS") %>
-    </div>
-    <div class='radio'>
-      <%= f.radio_button(:shirt_size, "womens small") %>
-      <%= f.label(:shirt_size_womens_small, "Women's Small") %>
-    </div>
-    <div class='radio'>
-      <%= f.radio_button(:shirt_size, "womens medium") %>
-      <%= f.label(:shirt_size_womens_medium, "Women's Medium") %>
-    </div>
-    <div class='radio'>
-      <%= f.radio_button(:shirt_size, "womens large") %>
-      <%= f.label(:shirt_size_womens_large, "Women's Large") %>
-    </div>
-    <div class='radio'>
-      <%= f.radio_button(:shirt_size, "womens XL") %>
-      <%= f.label(:shirt_size_womens_XL, "Women's XL") %>
-    </div>
-    <div class='radio'>
-      <%= f.radio_button(:shirt_size, "womens XXL") %>
-      <%= f.label(:shirt_size_womens_XXL, "Men's XXL") %>
-    </div>
-    <div class='radio'>
-      <%= f.radio_button(:shirt_size, "mens XS") %>
-      <%= f.label(:shirt_size_mens_XS, "Men's XS") %>
-    </div>
-    <div class='radio'>
-      <%= f.radio_button(:shirt_size, "mens small") %>
-      <%= f.label(:shirt_size_mens_small, "Men's Small") %>
-    </div>
-    <div class='radio'>
-      <%= f.radio_button(:shirt_size, "mens medium") %>
-      <%= f.label(:shirt_size_mens_medium, "Men's Medium") %>
-    </div>
-    <div class='radio'>
-      <%= f.radio_button(:shirt_size, "mens large") %>
-      <%= f.label(:shirt_size_mens_large, "Men's Large") %>
-    </div>
-    <div class='radio'>
-      <%= f.radio_button(:shirt_size, "mens XL") %>
-      <%= f.label(:shirt_size_mens_XL, "Men's XL") %>
-    </div>
-    <div class='radio'>
-      <%= f.radio_button(:shirt_size, "mens XXL") %>
-      <%= f.label(:shirt_size_mens_XXL, "Men's XXL") %>
-    </div>
+    <%= f.select(:shirt_size, options_for_select(["Women's XS", 
+                                                    "Women's Small",
+                                                    "Women's Medium", 
+                                                    "Women's Large", 
+                                                    "Women's XL", 
+                                                    "Women's XXL", 
+                                                    "Men's XS", 
+                                                    "Men's Small", 
+                                                    "Men's Medium", 
+                                                    "Men's Large", 
+                                                    "Men's XL", 
+                                                    "Men's XXL"])) %>
   </div>
   <div class='row'>
     <h4>How did you hear about Code Scouts?*</h4>
-    <label class='checkbox'>codescouts.org Website
-      <%= check_box_tag "mentor_application[hear_about]", 'website' %>
-    </label>
-    <label class='checkbox'>From a friend
-      <%= check_box_tag "mentor_application[hear_about]",'friend' %>
-    </label>
-    <label class='checkbox'>Google
-      <%= check_box_tag "mentor_application[hear_about]",'google' %>
-    </label>
-    <label class='checkbox'>Twitter
-      <%= check_box_tag "mentor_application[hear_about]",'twitter' %>
-    </label>
-    <label class='checkbox'>Facebook
-      <%= check_box_tag "mentor_application[hear_about]",'facebook' %>
-    </label>
+    <div class='radio'>
+      <%= f.radio_button(:hear_about, "google") %>
+      <%= f.label(:hear_about_google, "Google") %>
+    </div>
+    <div class='radio'>
+      <%= f.radio_button(:hear_about, "website") %>
+      <%= f.label(:hear_about_website, "codescouts.org Website") %>
+    </div>
+    <div class='radio'>
+      <%= f.radio_button(:hear_about, "facebook") %>
+      <%= f.label(:hear_about_facebook, "Facebook") %>
+    </div>
+    <div class='radio'>
+      <%= f.radio_button(:hear_about, "friend") %>
+      <%= f.label(:hear_about_friend, "From a friend") %>
+    </div>
+    <div class='radio'>
+      <%= f.radio_button(:hear_about, "twitter") %>
+      <%= f.label(:hear_about_twitter, "Twitter") %>
+    </div>
   </div>
   <div class="row">
     <div class="form-group">
