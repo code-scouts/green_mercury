@@ -1,0 +1,33 @@
+<h1>Create Event</h1>
+
+<%= form_for @public_event do |f| %>
+  <%= render 'shared/form_errors', object: @public_event %>
+
+  <div role='form'>
+    <div class='form-group'>
+      <%= f.text_field :title, placeholder: 'Title' %>
+    </div>
+
+    <div class='form-group'>
+      <%= f.text_area :description, placeholder: 'Description' %>
+    </div>
+
+    <div class='form-group'>
+      <%= f.text_area :location, placeholder: 'Location' %>
+    </div>
+
+    <div class='form-group'>
+      <%= f.date_field :date, placeholder: 'Date' %>
+    </div>
+
+    <div class='form-group'>
+      <%= f.time_field :start_time, placeholder: 'Start Time' %>
+    </div>
+
+    <div class='form-group'>
+      <%= f.time_field :end_time, placeholder: 'End Time' %>
+    </div>
+
+    <%= f.submit 'Create Event', class: 'btn' %>
+  </div>
+<% end %>
