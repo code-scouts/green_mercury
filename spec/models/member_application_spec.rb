@@ -16,10 +16,4 @@ describe MemberApplication do
     FactoryGirl.create(:rejected_member_application)
     MemberApplication.pending.should eq [pending]
   end
-
-  it "sets the approved date when the application is approved" do 
-    application = FactoryGirl.create(:member_application)
-    application.update(approved: true)
-    application.approved_date.should eq Date.today
-  end
 end

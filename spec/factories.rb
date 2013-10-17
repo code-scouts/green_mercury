@@ -9,11 +9,12 @@ FactoryGirl.define do
     
     factory :approved_member_application do 
       approved_date Date.today
-      approved true
+      approved_by_user_uuid "admin"
     end
 
     factory :rejected_member_application do 
-      approved false
+      rejected_date Date.today
+      rejected_by_user_uuid "admin"
     end
     
   end
@@ -37,11 +38,12 @@ FactoryGirl.define do
 
     factory :approved_mentor_application do
       approved_date Date.today
-      approved true
+      approved_by_user_uuid "admin"
     end
 
     factory :rejected_mentor_application do 
-      approved false
+      rejected_date Date.today
+      rejected_by_user_uuid "admin"
     end
   end
 

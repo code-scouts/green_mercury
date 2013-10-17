@@ -8,7 +8,7 @@ private
   def application_params
     if can? :update, MemberApplication.new
       params.require(:member_application).permit(:name,
-                                                 :approved, 
+                                                 :approved_date, 
                                                  :why_you_want_to_join, 
                                                  :gender, 
                                                  :experience_level, 
@@ -19,7 +19,10 @@ private
                                                  :time_commitment, 
                                                  :hurdles, 
                                                  :excited_about, 
-                                                 :anything_else) 
+                                                 :anything_else,
+                                                 :rejected_date,
+                                                 :rejcted_by_user_uuid,
+                                                 :accepted_by_user_uuid)
 
     else
       params.require(:member_application).permit(:name, 

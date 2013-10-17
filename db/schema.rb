@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131016215503) do
+ActiveRecord::Schema.define(version: 20131017211402) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,7 +33,9 @@ ActiveRecord::Schema.define(version: 20131016215503) do
     t.text     "excited_about"
     t.text     "anything_else"
     t.string   "name"
-    t.boolean  "approved"
+    t.date     "rejected_date"
+    t.text     "rejected_by_user_uuid"
+    t.text     "approved_by_user_uuid"
   end
 
   create_table "mentor_applications", force: true do |t|
@@ -56,7 +58,9 @@ ActiveRecord::Schema.define(version: 20131016215503) do
     t.string   "volunteer_solo"
     t.string   "volunteer_technical"
     t.string   "volunteer_online"
-    t.boolean  "approved"
+    t.date     "rejected_date"
+    t.text     "rejected_by_user_uuid"
+    t.text     "approved_by_user_uuid"
   end
 
 end
