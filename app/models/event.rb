@@ -7,4 +7,17 @@ class Event < ActiveRecord::Base
   validates :date, presence: true
   validates :start_time, presence: true
   validates :end_time, presence: true
+  before_save :validate_date
+  before_save :validate_end_time
+
+
+private
+
+  def validate_date
+    self.date >= Date.today
+  end
+
+  def validate_end_time
+    self.end_time > self.start_time
+  end
 end

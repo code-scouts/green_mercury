@@ -14,9 +14,11 @@ class EventsController < ApplicationController
   end
 
   def show
+    @event = Event.find(params[:id])
   end
 
   def index
+    @events = Event.all
   end
 
   def edit
@@ -26,6 +28,10 @@ class EventsController < ApplicationController
   end
 
   def destroy
+    event = Event.find(params[:id])
+    event.destroy
+    flash[:notice] = "Event has been deleted"
+    redirect_to events_path
   end
 
 private

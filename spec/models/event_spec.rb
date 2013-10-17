@@ -21,4 +21,24 @@ describe Event do
   it { should validate_presence_of :start_time }
   it { should validate_presence_of :end_time }
 
+  it 'should save if date is equal to or later than today' do
+    event = FactoryGirl.build(:event)
+    event.save.should be_true
+  end
+
+  it 'should not save if date is before today' do
+    event = FactoryGirl.build(:event, date: Date.yesterday)
+    event.save.should be_false
+  end
+
+  it 'should save if end time is after start time' do
+    event = FactoryGirl.build(:event)
+    event.save.should be_true
+  end
+
+  it 'should not save if end time is equal to or before start time' do
+    time = Time.now
+    event = FactoryGirl.build(:event, start_time: time, end_time: time)
+    event.save.should be_false
+  end
 end
