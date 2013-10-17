@@ -31,16 +31,16 @@
   <div class='row'>
     <div class="form-group">
       <h4>Would you mind telling us what gender you identify with?</h4>
-      <%= f.text_field :gender, class: "form-control" %>
+      <%= f.text_field :gender, class: "form-control application-text-form" %>
     </div>
   </div>
   <div class='row'>
     <div class="form-group">
       <h4>How would you describe your current level of experience and knowledge in programming?</h4>
-      <%= f.text_area :experience_level, class: "form-control" %>
+      <%= f.text_area :experience_level, class: "form-control application-text-form" %>
     </div>
   </div>
-  <table class="table table-striped">
+  <table class="table table-striped application-table">
     <thead>
       <tr>
         <th></th>
@@ -143,7 +143,7 @@
     <div class="form-group">
       <h4>Are you currently working on any projects or using any study materials?</h4>
       <p class='muted'>If so, please describe them briefly.</p>
-      <%= f.text_area :current_projects, class: "form-control" %>
+      <%= f.text_area :current_projects, class: "form-control application-text-form" %>
     </div>
   </div>
   <div class="row">
@@ -176,19 +176,19 @@
   <div class='row'>
     <div class="form-group">
       <h4>What hurdles do you think you may encounter in your quest to learn software development?</h4>
-      <%= f.text_area :hurdles, class: "form-control" %>
+      <%= f.text_area :hurdles, class: "form-control application-text-form" %>
     </div>
   </div>
   <div class='row'>
    <div class="form-group">
      <h4>We’re super excited about getting to know you and helping you achieve your goals through Code Scouts. What’s something you’re excited about with Code Scouts or learning software development?</h4>
-     <%= f.text_area :excited_about, class: "form-control" %>
+     <%= f.text_area :excited_about, class: "form-control application-text-form" %>
    </div>
   </div>
   <div class='row'>
     <div class="form-group">
       <h4>If there’s anything else you should think we should know about you or your membership, please let us know here:</h4>
-      <%= f.text_area :anything_else, class: "form-control" %>
+      <%= f.text_area :anything_else, class: "form-control application-text-form" %>
     </div>
   </div>
   <%= f.submit 'Submit', class: 'btn btn-primary' %>
