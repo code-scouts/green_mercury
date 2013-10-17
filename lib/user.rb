@@ -32,9 +32,23 @@ class User
   end
 
   def self.fetch_from_uuids(uuids)
-    selected_users = {}
-    uuids.each { |uuid| selected_users[uuid] = User.fetch_from_uuid(uuid) }
-    selected_users
+    uuid_string = uuids.map { |uuid| "uuid='#{uuid}'" }.join(' or ')
+
+    response = HTTParty.post(CAPTURE_URL + '/entity.find', {body:{
+      filter: uuid_string,
+      type_name: 'user',
+      client_id: CAPTURE_OWNER_CLIENT_ID,
+      client_secret: CAPTURE_OWNER_CLIENT_SECRET
+    }})
+
+    body = JSON.parse(response.body)
+
+    users = body['results'].map { |user_hash| from_hash(user_hash) }
+    users_by_id = Hash[users.map { |user| [user.uuid, user] }]
+
+    # selected_users = {}
+    # uuids.each { |uuid| selected_users[uuid] = User.fetch_from_uuid(uuid) }
+    # selected_users
   end
 
   def self.from_hash(hash)

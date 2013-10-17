@@ -80,15 +80,16 @@ describe User do
     it "should return a hash of uuids and users" do
       response = double
       response.should_receive(:body).and_return('{
-        "result": {
-          "displayName": "Bob"
-        }
+        "results": [{
+          "uuid": "the-uuid",
+          "email": "granite@stone.co"
+        }]
       }')
       HTTParty.should_receive(:post).with(
-        'https://codescouts.janraincapture.test.host/entity',
+        'https://codescouts.janraincapture.test.host/entity.find',
         {
           body: {
-            uuid: 'the-uuid',
+            filter: "uuid='the-uuid'",
             type_name: 'user',
             client_id: 'fakeclientidfortests',
             client_secret: 'fakeclientsecretfortests',
@@ -98,7 +99,7 @@ describe User do
 
       users = User.fetch_from_uuids(['the-uuid'])
       users['the-uuid'].should be_a(User)
-      users['the-uuid'].name.should eq 'Bob'
+      users['the-uuid'].email.should == 'granite@stone.co'
     end
   end
 
