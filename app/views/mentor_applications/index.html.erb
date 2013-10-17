@@ -1,7 +1,7 @@
 <h1>Pending Mentor Applications</h1>
 
 <div class="row">
-  <% @pending_mentor_applications.each do |application| %>
+  <% @pending_applications.each do |application| %>
     <div class="row">
       <%= link_to application.name, mentor_application_path(application) %>
     </div>
