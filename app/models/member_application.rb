@@ -8,7 +8,7 @@ class MemberApplication < ActiveRecord::Base
   validates :name, presence: true
 
   def self.pending 
-    MemberApplication.where(approved_date: nil)
+    MemberApplication.where(approved_date: nil, approved: nil)
   end
 
 private 

@@ -13,6 +13,7 @@ describe MemberApplication do
   it 'should return all pending applications' do
     pending = FactoryGirl.create(:member_application)
     FactoryGirl.create(:approved_member_application)
+    FactoryGirl.create(:rejected_member_application)
     MemberApplication.pending.should eq [pending]
   end
 

@@ -11,6 +11,10 @@ FactoryGirl.define do
       approved_date Date.today
       approved true
     end
+
+    factory :rejected_member_application do 
+      approved false
+    end
     
   end
 
@@ -34,6 +38,10 @@ FactoryGirl.define do
     factory :approved_mentor_application do
       approved_date Date.today
       approved true
+    end
+
+    factory :rejected_mentor_application do 
+      approved false
     end
   end
 

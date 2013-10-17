@@ -22,6 +22,7 @@ describe MentorApplication do
   describe "pending" do 
     it "returns all pending mentor applications" do 
       application = FactoryGirl.create(:mentor_application)
+      FactoryGirl.create(:rejected_mentor_application)
       MentorApplication.pending.should eq [application]
     end
   end

@@ -1,4 +1,4 @@
-<%= link_to 'Approve', mentor_application_path(@application, mentor_application: {approve: true}), method: 'patch' %>
-<% link_to 'Reject', mentor_application_path(@application, mentor_application: {approve: false}), method: 'patch' %>
+<%= link_to 'Approve', mentor_application_path(@application, mentor_application: {approved: true}), method: 'patch' %>
+<%= link_to 'Reject', mentor_application_path(@application, mentor_application: {approved: false}), method: 'patch' %>
 
 <%= render 'mentor_application', application: @application %>

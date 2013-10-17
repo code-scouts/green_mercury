@@ -58,6 +58,17 @@ feature 'approve or reject mentor applications' do
     page.should have_content 'Application approved'
   end
 
+  scenario 'an admin rejects a new mentor application' do
+    admin = FactoryGirl.build(:admin)
+    user = FactoryGirl.build(:user)
+    application = FactoryGirl.create(:mentor_application, user_uuid: user.uuid)
+    ApplicationController.any_instance.stub(:current_user) { admin }
+    visit mentor_applications_path
+    click_link application.name
+    click_link 'Reject'
+    page.should have_content 'Application rejected'
+  end
+
   scenario 'non-admin tries to view application' do
     user = new_mentor
     application = FactoryGirl.create(:mentor_application)
