@@ -6,8 +6,8 @@ feature 'create events' do
     # @user.uuid = '1'
     # @user.name = 'Captain Awesome'
     # User.stub(:fetch_from_uuids).and_return({ @user.uuid => @user })
-    # PublicEventsController.any_instance.stub(:current_user).and_return(@user)
-    visit new_public_event_path
+    # EventsController.any_instance.stub(:current_user).and_return(@user)
+    visit new_event_path
   end
 
   scenario 'user creates an event with valid information' do  
