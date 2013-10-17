@@ -39,7 +39,6 @@ GreenMercury::Application.configure do
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
   MEETUP_API_KEY = 'Thisisnotreal'
   MEETUP_API_SECRET = 'Thiswillnotwork'
-  CAPTURE_LOGIN_CLIENT_ID = 'thisalsoisfake'
   CAPTURE_OWNER_CLIENT_ID = 'fakeclientidfortests'
   CAPTURE_OWNER_CLIENT_SECRET = 'fakeclientsecretfortests'
   CAPTURE_APP_ID = 'thiswillnotwork'

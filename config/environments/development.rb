@@ -32,7 +32,6 @@ GreenMercury::Application.configure do
   MEETUP_API_KEY = ENV['MEETUP_API_KEY']
   MEETUP_API_SECRET = ENV['MEETUP_API_SECRET']
 
-  CAPTURE_LOGIN_CLIENT_ID = 'b7ceaax84qmqch6ampjugwzscf7zyubq'
   CAPTURE_OWNER_CLIENT_ID = 'uxufbdmf4n9htrm6z7t8kmgwy3r5faa5'
   CAPTURE_OWNER_CLIENT_SECRET = ENV['CAPTURE_OWNER_CLIENT_SECRET']
   CAPTURE_APP_ID = 'dtdggxejjsvuhvfeqy59gn5dr2'

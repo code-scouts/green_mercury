@@ -5,7 +5,7 @@
   if (typeof window.janrain.settings.capture !== 'object') window.janrain.settings.capture = {};
 
   janrain.settings.capture.recaptchaPublicKey = '6LeVKb4SAAAAAGv-hg5i6gtiOV4XrLuCDsJOnYoP';
-  janrain.settings.capture.responseType = 'token';
+  janrain.settings.capture.responseType = 'code';
   janrain.settings.capture.stylesheets = [];
   janrain.settings.capture.mobileStylesheets = [];
 
@@ -60,8 +60,9 @@ function janrainCaptureWidgetOnLoad() {
     }
     $.ajax(url, {
       type: "POST",
-      data: {access_token: result.accessToken},
+      data: {code: result.authorizationCode},
       success: function(data, status, jqXHR) {
+        janrain.capture.ui.createCaptureSession(data.access_token);
         window.location.reload(true);
       },
       error: function(jqXHR, status, errorThrown) {

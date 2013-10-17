@@ -12,7 +12,9 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def current_user
-    session[:user]
+    return unless session[:access_token]
+
+    @user ||= User.fetch_from_token(session[:access_token])
   end
 
   def user_signed_in?
@@ -22,7 +24,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def load_janrain_facts
-    @janrain_login_client_id = CAPTURE_LOGIN_CLIENT_ID
+    @janrain_client_id = CAPTURE_OWNER_CLIENT_ID
     @janrain_app_id = CAPTURE_APP_ID
     @janrain_rpx_url = RPX_URL
     @janrain_capture_url = CAPTURE_URL
