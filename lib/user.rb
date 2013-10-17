@@ -70,6 +70,19 @@ class User
     [body['access_token'], body['refresh_token']]
   end
 
+  def self.acquire_token(code)
+    response = HTTParty.post(CAPTURE_URL+'/oauth/token', {body:{
+      code: code,
+      grant_type: 'code',
+      redirect_uri: CAPTURE_URL,
+      client_id: CAPTURE_OWNER_CLIENT_ID,
+      client_secret: CAPTURE_OWNER_CLIENT_SECRET,
+    }})
+
+    body = JSON.parse(response.body)
+    [body['access_token'], body['refresh_token']]
+  end
+
   def display_name
     if @display_rules['displayName'] == 'true'
       @display_name

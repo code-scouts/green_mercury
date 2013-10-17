@@ -171,6 +171,28 @@ describe User do
     end
   end
 
+  describe 'acquire_token' do
+    it 'should post to janrain capture' do
+      mock_response = double
+      mock_response.should_receive(:body).and_return('{
+        "access_token": "ofmyaffection",
+        "refresh_token": "insertcoin"
+      }')
+      HTTParty.should_receive(:post).
+        with('https://codescouts.janraincapture.test.host/oauth/token', {body:{
+          code: 'scouts',
+          grant_type: 'code',
+          redirect_uri: 'https://codescouts.janraincapture.test.host',
+          client_id: 'fakeclientidfortests',
+          client_secret: 'fakeclientsecretfortests',
+        }}).and_return(mock_response)
+
+      (access_token, refresh_token) = User.acquire_token('scouts')
+      access_token.should eq 'ofmyaffection'
+      refresh_token.should eq 'insertcoin'
+    end
+  end
+
   describe 'refresh_token' do
     it 'should post to janrain capture' do
       mock_response = double
