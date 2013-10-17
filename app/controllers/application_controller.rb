@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
 
   helper_method :user_signed_in?
   before_filter :load_janrain_facts
+  before_filter :current_user
 
   # Prevent CSRF attacks by raising an exception.
   protect_from_forgery with: :exception
@@ -14,7 +15,15 @@ class ApplicationController < ActionController::Base
   def current_user
     return unless session[:access_token]
 
-    @user ||= User.fetch_from_token(session[:access_token])
+    begin
+      @user ||= User.fetch_from_token(session[:access_token])
+    rescue AccessTokenExpired
+      access_token, refresh_token = User.refresh_token(session[:refresh_token])
+      session[:access_token] = access_token
+      session[:refresh_token] = refresh_token
+      @fresh_access_token = access_token
+      @user = User.fetch_from_token(access_token)
+    end
   end
 
   def user_signed_in?

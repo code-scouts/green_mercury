@@ -1,3 +1,5 @@
+class AccessTokenExpired < StandardError; end
+
 class User
   attr_accessor :meetup_token, :email, :confirmed_at, :profile_photo_url
 
@@ -8,7 +10,14 @@ class User
     }})
 
     body = JSON.parse(response.body)
-    from_hash(body['result'])
+
+    if body.has_key?('result')
+      from_hash(body['result'])
+    elsif body['error'] == 'access_token_expired'
+      raise AccessTokenExpired
+    else
+      raise StandardError.new(response.body)
+    end
   end
 
   def self.fetch_from_uuid(uuid)
@@ -46,6 +55,19 @@ class User
     this.instance_variable_set(:@display_name, hash['displayName'])
     this.instance_variable_set(:@about_me, hash['aboutMe'])
     this
+  end
+
+  def self.refresh_token(refresh_token)
+    response = HTTParty.post(CAPTURE_URL+'/oauth/token', {body:{
+      refresh_token: refresh_token,
+      grant_type: 'refresh_token',
+      redirect_uri: CAPTURE_URL,
+      client_id: CAPTURE_OWNER_CLIENT_ID,
+      client_secret: CAPTURE_OWNER_CLIENT_SECRET,
+    }})
+
+    body = JSON.parse(response.body)
+    [body['access_token'], body['refresh_token']]
   end
 
   def display_name

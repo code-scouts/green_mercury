@@ -28,6 +28,7 @@ describe SessionController do
     it 'should clear the session cookie' do
       session[:access_token] = 'my spoon is too big'
       session[:refresh_token] = 'I am a banana'
+      User.stub :fetch_from_token
       post :logout
       response.should be_redirect
       response.header['Location'].should eq 'http://test.host/'

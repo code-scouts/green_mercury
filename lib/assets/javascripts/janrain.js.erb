@@ -49,6 +49,9 @@ $(document).ready(function() {
 });
 
 function janrainCaptureWidgetOnLoad() {
+  if (typeof window.freshAccessToken !== 'undefined') {
+    janrain.capture.ui.createCaptureSession(freshAccessToken);
+  }
   janrain.capture.ui.start();
   $('#startSignInButton').removeClass('disabled');
 
