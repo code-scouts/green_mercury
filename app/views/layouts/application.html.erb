@@ -10,10 +10,15 @@
 
 <header>
   <div class="row-fluid">
-    <div class="span6"></div>
+    <div class="span4"></div>
     <div class="span2">
       <% if user_signed_in? %>
         <%= link_to("View events", events_path) %>
+      <% end %>
+    </div>
+    <div class="span2">
+      <% if user_signed_in? %>
+        <%= link_to("Coding concepts", concepts_path) %>
       <% end %>
     </div>
     <div class="span2">
@@ -176,20 +181,20 @@
     <%= link_to(image_tag('codescouts.png'), url_for(controller: '/index', action: 'index')) %>
   </div>
 </article>
-<% if notice.present? || alert.present? %>
-  <article class="flash">
-    <% if notice.present? %>
-      <p class="notice"><%= notice %></p>
-    <% end %>
-    <% if alert.present? %>
-      <p class="alert"><%= alert %></p>
-    <% end %>
-  </article>
-<% end %>
+
 
 <div class="container">
   <div class="row-fluid">
+    
+    <% if flash[:alert] %>
+      <div class='alert-box alert'> <%= flash[:alert] %> </div>
+    <% end %>
+    <% if flash[:notice] %>
+      <div class='alert-box alert'> <%= flash[:notice] %> </div>
+    <% end %>
+
     <%= yield %>
+
   </div>
 </div>
 

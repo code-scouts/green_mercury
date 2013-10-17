@@ -1,0 +1,3 @@
+<% if concept.concept_descriptions.count > 1 %>
+  <%= link_to 'Revert to previous description', concept_description_path(concept.latest), method: :delete, data: { confirm: 'This cannot be reversed. Are you sure?' } %>
+<% end %>
