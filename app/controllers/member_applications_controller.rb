@@ -19,8 +19,7 @@ private
                                                  :time_commitment, 
                                                  :hurdles, 
                                                  :excited_about, 
-                                                 :anything_else, 
-                                                 :user_uuid) 
+                                                 :anything_else) 
 
     else
       params.require(:member_application).permit(:name, 
@@ -34,8 +33,7 @@ private
                                                  :time_commitment, 
                                                  :hurdles, 
                                                  :excited_about, 
-                                                 :anything_else, 
-                                                 :user_uuid)
+                                                 :anything_else)
     end
   end
 

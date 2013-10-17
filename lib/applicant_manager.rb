@@ -5,11 +5,12 @@ module ApplicantManager
   end
 
   def new
-    @application = application_model.new(user_uuid: current_user.uuid)
+    @application = application_model.new
   end
 
   def create
     @application = application_model.new(application_params)
+    @application.user_uuid = current_user.uuid
     if @application.save
       flash[:notice] = 'Application Submitted'
       redirect_to root_path
