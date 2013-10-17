@@ -6,8 +6,7 @@ FactoryGirl.define do
     experience_level "Advanced"
     comfortable_learning 2
     time_commitment 'All day'
-    approved false
-
+    
     factory :approved_member_application do 
       approved_date Date.today
       approved true
@@ -31,7 +30,6 @@ FactoryGirl.define do
     volunteer_solo 'very interested'
     volunteer_technical 'very interested'
     volunteer_online 'very interested'
-    approved false
 
     factory :approved_mentor_application do
       approved_date Date.today

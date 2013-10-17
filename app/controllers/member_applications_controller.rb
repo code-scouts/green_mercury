@@ -32,7 +32,12 @@ class MemberApplicationsController < ApplicationController
     @application = MemberApplication.find(params[:id])
     if can? :update, @application
       @application.update(member_application_params)
-      redirect_to member_applications_path, notice: "Application approved"
+      if @application.approved?
+        flash[:notice] = "Application approved"
+      else
+        flash[:notice] = "Application rejected"
+      end
+      redirect_to member_applications_path
     else
       redirect_to member_applications_path, alert: "Not authorized"
     end   
