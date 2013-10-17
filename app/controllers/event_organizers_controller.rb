@@ -11,16 +11,9 @@ class EventOrganizersController < ApplicationController
     end
   end
 
-  def destroy
-    # event_organizer = EventOrganizer.find(params[:id])
-    # event_organizer.destroy
-    # flash[:notice] = "Event organizer has been removed"
-    #do AJAX stuff to indicate organizer has been removed
-  end
-
 private
 
   def event_organizer_params
-    params.require(:event).permit(:user_uuid)
+    params.require(:event_organizer).permit(:user_uuid)
   end
 end

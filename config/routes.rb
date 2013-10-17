@@ -2,7 +2,8 @@ GreenMercury::Application.routes.draw do
   root 'index#index'
 
   resources :events
-  resources :event_organizers, only: [:create, :destroy]
+  resources :event_organizers, only: [:create]
+  resources :event_rsvps, only: [:create, :destroy]
 
   post '/session', controller: :session, action: :acquire_session, as: :acquire_session
   post '/logout', controller: :session, action: :logout, as: :logout

@@ -10,7 +10,7 @@ describe Event do
   it { should respond_to :end_time }
 
   it { should have_many :event_organizers }
-  # it { should have_many :event_rsvps }
+  it { should have_many :event_rsvps }
   
   it { should validate_presence_of :title }
   it { should ensure_length_of(:title).is_at_most(100) }
