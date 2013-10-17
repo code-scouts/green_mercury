@@ -2,7 +2,7 @@
 
 <%= link_to "Create an event", new_event_path %>
 
-<div class='container'>
+<div class='container concepts-list'>
   <ul>
     <% @events.each do |event| %>
       <li><%= link_to event.title, event_path(event) %></li>

@@ -63,3 +63,23 @@ feature 'delete an event' do
     page.should_not have_content @event.title
   end
 end
+
+feature 'edit an event' do
+  before :each do
+    @event = FactoryGirl.create(:event)
+    visit event_path @event
+    click_link 'Edit event'
+  end
+
+  scenario 'user edits an event with valid information' do
+    fill_in 'event_location', with: 'That other place'
+    click_button('Confirm changes')
+    page.should have_content "That other place"
+  end
+
+  scenario 'user edit an event with invalid information' do
+    fill_in 'event_location', with: ""
+    click_button('Confirm changes')
+    page.should have_content "error"
+  end
+end

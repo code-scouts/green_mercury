@@ -15,4 +15,6 @@
   <p><%= @event.start_time %> - <%= @event.end_time %></p>
 </div>
 
-<%= link_to "Delete event", @event, method: :delete, data: { confirm: 'Are you sure you want to delete this event?'} %>
+<p><%= link_to "Edit event", edit_event_path(@event) %></p>
+
+<p><%= link_to "Delete event", @event, method: :delete, data: { confirm: 'Are you sure you want to delete this event?'} %></p>
