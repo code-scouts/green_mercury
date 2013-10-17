@@ -33,6 +33,11 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+group :test do
+  gem 'shoulda-matchers'  
+  gem 'capybara'
+end
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'database_cleaner'
@@ -42,6 +47,7 @@ group :development, :test do
   gem 'spork', '~> 1.0rc'
   gem 'factory_girl_rails'
   gem 'launchy'
+  gem 'pry'
 end
 
 group :development do
@@ -49,6 +55,8 @@ group :development do
   gem 'librarian-puppet'
   gem 'capistrano'
   gem 'rvm-capistrano'
+  gem 'quiet_assets'
+  gem 'webrick', '1.3.1'
 end
 
 # Use ActiveModel has_secure_password
