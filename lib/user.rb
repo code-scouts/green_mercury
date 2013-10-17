@@ -58,26 +58,20 @@ class User
   end
 
   def self.refresh_token(refresh_token)
-    response = HTTParty.post(CAPTURE_URL+'/oauth/token', {body:{
-      refresh_token: refresh_token,
-      grant_type: 'refresh_token',
-      redirect_uri: CAPTURE_URL,
-      client_id: CAPTURE_OWNER_CLIENT_ID,
-      client_secret: CAPTURE_OWNER_CLIENT_SECRET,
-    }})
-
-    body = JSON.parse(response.body)
-    [body['access_token'], body['refresh_token']]
+    get_token(grant_type: 'refresh_token', refresh_token: refresh_token)
   end
 
   def self.acquire_token(code)
-    response = HTTParty.post(CAPTURE_URL+'/oauth/token', {body:{
-      code: code,
-      grant_type: 'code',
+    get_token(grant_type: 'code', code: code)
+  end
+
+  def self.get_token(post_args)
+    body = {
       redirect_uri: CAPTURE_URL,
       client_id: CAPTURE_OWNER_CLIENT_ID,
       client_secret: CAPTURE_OWNER_CLIENT_SECRET,
-    }})
+    }.merge(post_args)
+    response = HTTParty.post(CAPTURE_URL+'/oauth/token', {body: body})
 
     body = JSON.parse(response.body)
     [body['access_token'], body['refresh_token']]
