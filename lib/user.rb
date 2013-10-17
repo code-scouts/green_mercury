@@ -45,10 +45,6 @@ class User
 
     users = body['results'].map { |user_hash| from_hash(user_hash) }
     users_by_id = Hash[users.map { |user| [user.uuid, user] }]
-
-    # selected_users = {}
-    # uuids.each { |uuid| selected_users[uuid] = User.fetch_from_uuid(uuid) }
-    # selected_users
   end
 
   def self.from_hash(hash)
