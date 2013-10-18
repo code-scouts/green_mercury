@@ -51,5 +51,9 @@ FactoryGirl.define do
     factory :admin do 
       is_admin true
     end
+  end 
+
+  factory :concept do
+    name "Ruby"
   end
 end

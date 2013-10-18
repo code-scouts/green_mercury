@@ -59,4 +59,16 @@ ActiveRecord::Schema.define(version: 20131016215503) do
     t.boolean  "approved"
   end
 
+  create_table "concept_descriptions", force: true do |t|
+    t.text     "description"
+    t.integer  "concept_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "user_uuid"
+  end
+
+  create_table "concepts", force: true do |t|
+    t.string   "name"    
+  end
+
 end

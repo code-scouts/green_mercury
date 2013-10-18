@@ -1,0 +1,17 @@
+<h1>Add A New Concept</h1>
+
+<%= form_for @concept do |f| %>
+  <%= render 'shared/form_errors', object: @concept %>
+  <div role='form'>
+    <div class='form-group'>
+      <%= f.text_field :name, placeholder: 'Name' %>
+    </div>  
+    <%= f.fields_for :concept_descriptions, @concept.concept_descriptions.new do |builder| %>
+      <div class='form-group'>
+        <%= builder.hidden_field :user_uuid, value: current_user.uuid %> 
+        <%= builder.text_area :description, placeholder: 'Description' %>
+      </div>  
+    <% end %>  
+    <%= f.submit 'Add Concept', class: 'btn' %>
+  </div>
+<% end %>   
