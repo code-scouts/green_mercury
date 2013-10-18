@@ -8,6 +8,11 @@ class ApplicationController < ActionController::Base
   helper_method :user_signed_in?
   helper_method :current_user
   before_filter :load_janrain_facts
+  # So, current_user is a helper method, not a filter. We're running it
+  # here as a before_filter so that @fresh_access_token can be set by the
+  # time template rendering starts. This is a hack and should be undone if
+  # current_user or user_signed_in? is being called for some legitimate
+  # reason on each page load.
   before_filter :current_user
 
   # Prevent CSRF attacks by raising an exception.
