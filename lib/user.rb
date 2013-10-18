@@ -83,4 +83,14 @@ class User
       '<hidden>'
     end
   end
+
+  def events
+    rsvps = EventRsvp.where(user_uuid: self.uuid)
+    rsvps.map { |rsvp| rsvp.event }
+  end
+
+  def not_events
+    my_events = self.events
+    Event.all.delete_if { |event| my_events.include?(event) }
+  end
 end

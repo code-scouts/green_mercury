@@ -3,8 +3,21 @@
 <%= link_to "Create an event", new_event_path %>
 
 <div class='container concepts-list'>
+  <p>Events you are attending</p>
+
   <ul>
-    <% @events.each do |event| %>
+    <% current_user.events.each do |event| %>
       <li><%= link_to event.title, event_path(event) %></li>
     <% end %>
   </ul>
+</div>
+
+<div class='container concepts-list'>
+  <p>Events you are not attending</p>
+
+  <ul>
+    <% current_user.not_events.each do |event| %>
+      <li><%= link_to event.title, event_path(event) %></li>
+    <% end %>
+  </ul>
+</div>

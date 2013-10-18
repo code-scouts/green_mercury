@@ -172,4 +172,24 @@ describe User do
       user.profile_photo_url.should be_nil
     end
   end
+
+  describe 'events' do
+    it 'should return all events the user has RSVPd to' do
+      event1 = FactoryGirl.create(:event, title: 'Event 1')
+      event2 = FactoryGirl.create(:event, title: 'Event 2')
+      user = FactoryGirl.build(:user)
+      event1.event_rsvps.create(user_uuid: user.uuid)
+      user.events.should eq [event1]
+    end
+  end
+
+  describe 'not_events' do
+    it 'should return all events the user has not RSVPd to' do
+      event1 = FactoryGirl.create(:event, title: 'Event 1')
+      event2 = FactoryGirl.create(:event, title: 'Event 2')
+      user = FactoryGirl.build(:user)
+      event1.event_rsvps.create(user_uuid: user.uuid)
+      user.not_events.should eq [event2]
+    end
+  end
 end

@@ -38,8 +38,8 @@ end
 
 feature 'view all events' do
   scenario 'user views all events' do
-    @event1 = FactoryGirl.create(:event)
-    @event2 = FactoryGirl.create(:event)
+    @event1 = FactoryGirl.create(:event, title: 'Event 1')
+    @event2 = FactoryGirl.create(:event, title: 'Event 2')
     visit events_path
     page.should have_content @event1.title
     page.should have_content @event2.title
