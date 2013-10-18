@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   alias_method :original_url_for, :url_for
   include ActionView::Helpers::UrlHelper
   alias_method :url_for, :original_url_for
+  include ApplicationHelper
 
   helper_method :user_signed_in?
   helper_method :current_user
@@ -11,6 +12,11 @@ class ApplicationController < ActionController::Base
 
   # Prevent CSRF attacks by raising an exception.
   protect_from_forgery with: :exception
+
+  before_filter :select_a_sponsor
+  def select_a_sponsor
+    @sponsor = sponsors.sample
+  end
 
   def current_user
     session[:user]
