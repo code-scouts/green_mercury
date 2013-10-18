@@ -1,10 +1,6 @@
 <%= form_for application do |f| %>
   <%= render 'shared/form_errors', object: application %>
   <div class='row'>
-    <h4>Name*</h4>
-    <%= f.text_field :name, class: "form-control" %>
-  </div>
-  <div class='row'>
     <h4>Preferred contact*</h4>
     <p class='muted'>Email address, Phone number, something else?</p>
     <%= f.text_field :contact, class: "form-control" %>

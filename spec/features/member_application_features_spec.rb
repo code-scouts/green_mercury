@@ -9,7 +9,6 @@ feature 'apply to be a member' do
   scenario 'submit a valid member application' do
     visit root_path
     click_link 'Apply to be a member'
-    fill_in 'member_application_name', with: "Bob"
     choose 'member_application_why_you_want_to_join_hobby'
     fill_in 'member_application_gender', with: 'female'
     fill_in 'member_application_experience_level', with: 'Experience'
@@ -43,24 +42,28 @@ feature 'see the status of the application' do
   end
 end
 
-feature 'accept or reject a new member application' do 
+feature 'accept or reject a new member application' do
+  before :each do 
+    @admin = FactoryGirl.build(:admin)
+    @applicant = FactoryGirl.build(:user)
+    User.stub(:fetch_from_uuids).and_return({ @applicant.uuid => @applicant })
+    User.stub(:fetch_from_uuid).and_return(@applicant)
+  end
+
   scenario 'an admin accepts an application' do 
-    admin = FactoryGirl.build(:admin)
-    user = FactoryGirl.build(:user)
-    application = FactoryGirl.create(:member_application, user_uuid: user.uuid)
-    ApplicationController.any_instance.stub(:current_user) { admin }
-    visit member_applications_path
-    click_link application.name 
+    application = FactoryGirl.create(:member_application, user_uuid: @applicant.uuid)
+    ApplicationController.any_instance.stub(:current_user) { @admin }
+    visit review_applications_index_path
+    click_link @applicant.name 
     click_link 'Approve'
     page.should have_content 'Application approved' 
   end
 
   scenario 'an admin rejects an application' do 
-    admin = FactoryGirl.build(:admin)
-    application = FactoryGirl.create(:member_application)
-    ApplicationController.any_instance.stub(:current_user) { admin }
-    visit member_applications_path
-    click_link application.name 
+    application = FactoryGirl.create(:member_application, user_uuid: @applicant.uuid)
+    ApplicationController.any_instance.stub(:current_user) { @admin }
+    visit review_applications_index_path
+    click_link @applicant.name 
     click_link 'Reject'
     page.should have_content 'Application rejected'
   end
@@ -74,12 +77,11 @@ feature 'accept or reject a new member application' do
   end
 
   scenario 'an admin accepts a previously rejected application' do
-    user = FactoryGirl.build(:admin)
-    application = FactoryGirl.create(:rejected_member_application)
-    ApplicationController.any_instance.stub(:current_user) { user }
+    application = FactoryGirl.create(:rejected_member_application, user_uuid: @applicant.uuid)
+    ApplicationController.any_instance.stub(:current_user) { @admin }
     visit review_applications_index_path
     click_link 'Review Rejected Applications'
-    click_link application.name
+    click_link @applicant.name
     click_link 'Approve'
     page.should have_content 'Application approved'
   end

@@ -1,9 +1,5 @@
 <%= form_for application do |f| %>
   <%= render 'shared/form_errors', object: application %>
-  <div class='row'>
-    <h4>Name*</h4>
-    <%= f.text_field :name, class: "form-control" %>
-  </div>
   <div class="row">
     <h4>Which of the following options best describes why you want to join Code Scouts?</h4>
     <% why_you_want_to_join.each do |key, description| %>

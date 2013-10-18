@@ -27,6 +27,13 @@ class ApplicationController < ActionController::Base
     ! current_user.nil?
   end
 
+  def associated_users(collection)
+    user_uuids = collection.map do |entry|
+      entry.user_uuid
+    end
+    User.fetch_from_uuids(user_uuids)
+  end
+
   protected
 
   def load_janrain_facts

@@ -4,7 +4,6 @@ describe MentorApplication do
   it { should respond_to :user_uuid }
   it { should respond_to :approved_date }
   it { should validate_presence_of :user_uuid }
-  it { should validate_presence_of :name }
   it { should validate_presence_of :contact }
   it { should validate_presence_of :geography }
   it { should validate_presence_of :hear_about }
@@ -18,6 +17,15 @@ describe MentorApplication do
   it { should validate_presence_of :volunteer_solo }
   it { should validate_presence_of :volunteer_technical }
   it { should validate_presence_of :volunteer_online }
+
+  describe 'user' do 
+    it "gets the user with a matching uuid" do 
+      user = FactoryGirl.build(:user)
+      application = FactoryGirl.create(:mentor_application, user_uuid: user.uuid)
+      User.stub(:fetch_from_uuid) { user }
+      application.user.should eq user
+    end
+  end
 
   describe "pending" do 
     it "returns all pending mentor applications" do 

@@ -5,8 +5,7 @@ class MentorApplicationsController < ApplicationController
 private
   def application_params
     if can? :update, MentorApplication.new
-      params.require(:mentor_application).permit(:approved_date, 
-                                                 :name, 
+      params.require(:mentor_application).permit(:approved_date,  
                                                  :contact, 
                                                  :geography, 
                                                  :hear_about, 
@@ -25,7 +24,6 @@ private
                                                  :accepted_by_user_uuid)
     else
       params.require(:mentor_application).permit( 
-                                                 :name, 
                                                  :contact, 
                                                  :geography, 
                                                  :hear_about, 

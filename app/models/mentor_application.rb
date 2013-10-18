@@ -2,7 +2,6 @@ class MentorApplication < ActiveRecord::Base
   include UserApplication
 
   validates :user_uuid, presence: true
-  validates :name, presence: true
   validates :contact, presence: true
   validates :geography, presence: true
   validates :hear_about, presence: true

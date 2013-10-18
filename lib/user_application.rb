@@ -9,6 +9,10 @@ module UserApplication
     end
   end
 
+  def user 
+    User.fetch_from_uuid(user_uuid)
+  end
+
   def rejected?
     !rejected_date.nil? && (approved_date.nil? || rejected_date > approved_date)
   end

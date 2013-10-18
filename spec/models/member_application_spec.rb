@@ -4,11 +4,19 @@ describe MemberApplication do
   it { should respond_to :user_uuid }
   it { should respond_to :approved_date }
 
-  it { should validate_presence_of :name }
   it { should validate_presence_of :why_you_want_to_join }
   it { should validate_presence_of :experience_level }
   it { should validate_presence_of :comfortable_learning }
   it { should validate_presence_of :time_commitment }
+
+  describe 'user' do 
+    it "gets the user with a matching uuid" do 
+      user = FactoryGirl.build(:user)
+      application = FactoryGirl.create(:member_application, user_uuid: user.uuid)
+      User.stub(:fetch_from_uuid) { user }
+      application.user.should eq user
+    end
+  end
 
   describe "pending" do 
     it "returns all pending mentor applications" do 

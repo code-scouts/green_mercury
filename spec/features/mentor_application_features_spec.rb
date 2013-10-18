@@ -9,7 +9,6 @@ feature 'apply to be a mentor' do
   scenario 'submit a valid mentor application' do
     visit root_path
     click_link 'Apply to be a mentor'
-    fill_in 'mentor_application_name', with: 'Name'
     fill_in 'mentor_application_contact', with: 'Email'
     choose 'mentor_application_geography_online'
     select("Women's XL", :from => 'mentor_application_shirt_size')
@@ -47,24 +46,27 @@ feature 'see the status of an application' do
 end
 
 feature 'approve or reject mentor applications' do
+  before :each do 
+    @admin = FactoryGirl.build(:admin)
+    @applicant = FactoryGirl.build(:user)
+    User.stub(:fetch_from_uuids).and_return({ @applicant.uuid => @applicant })
+    User.stub(:fetch_from_uuid).and_return(@applicant)
+  end
+
   scenario 'an admin accepts a new mentor application' do
-    admin = FactoryGirl.build(:admin)
-    user = FactoryGirl.build(:user)
-    application = FactoryGirl.create(:mentor_application, user_uuid: user.uuid)
-    ApplicationController.any_instance.stub(:current_user) { admin }
+    application = FactoryGirl.create(:mentor_application, user_uuid: @applicant.uuid)
+    ApplicationController.any_instance.stub(:current_user) { @admin }
     visit review_applications_index_path
-    click_link application.name
+    click_link @applicant.name
     click_link 'Approve'
     page.should have_content 'Application approved'
   end
 
   scenario 'an admin rejects a new mentor application' do
-    admin = FactoryGirl.build(:admin)
-    user = FactoryGirl.build(:user)
-    application = FactoryGirl.create(:mentor_application, user_uuid: user.uuid)
-    ApplicationController.any_instance.stub(:current_user) { admin }
+    application = FactoryGirl.create(:mentor_application, user_uuid: @applicant.uuid)
+    ApplicationController.any_instance.stub(:current_user) { @admin }
     visit review_applications_index_path
-    click_link application.name
+    click_link @applicant.name
     click_link 'Reject'
     page.should have_content 'Application rejected'
   end
@@ -78,12 +80,11 @@ feature 'approve or reject mentor applications' do
   end
 
   scenario 'an admin accepts a previously rejected applicaiton' do 
-    user = FactoryGirl.build(:admin)
-    application = FactoryGirl.create(:rejected_mentor_application)
-    ApplicationController.any_instance.stub(:current_user) { user }
+    application = FactoryGirl.create(:rejected_mentor_application, user_uuid: @applicant.uuid)
+    ApplicationController.any_instance.stub(:current_user) { @admin }
     visit review_applications_index_path
     click_link 'Review Rejected Applications'
-    click_link application.name
+    click_link @applicant.name
     click_link 'Approve'
     page.should have_content 'Application approved'
   end

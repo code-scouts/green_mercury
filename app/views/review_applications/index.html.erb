@@ -1,14 +1,18 @@
  <div class='row'>
   <div class='member-applications span5 offset1'>
     <h3>Member Applications</h3>
-    <% @member_applications.each do |member| %>
-      <%= link_to member.name, member_application_path(member) %>
+    <% if @member_applications.any? %>
+      <% @member_applications.each do |application| %>
+        <%= link_to @member_applicants[application.user_uuid].name, member_application_path(application) %>
+      <% end %>
     <% end %>
   </div>
   <div class='mentor-applications span5 offset1'>
     <h3>Mentor Applications</h3>
-    <% @mentor_applications.each do |mentor| %>
-      <%= link_to mentor.name, mentor_application_path(mentor) %>
+    <% if @mentor_applications.any? %>
+      <% @mentor_applications.each do |application| %>
+        <%= link_to @mentor_applicants[application.user_uuid].name, mentor_application_path(application) %>
+      <% end %>
     <% end %>
   </div>
 </div>

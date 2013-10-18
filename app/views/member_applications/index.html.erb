@@ -1,9 +1,11 @@
 <h1>Pending Member Applications</h1>
 
 <div class="row">
-  <% @pending_applications.each do |application| %>
-    <div class="row">
-      <%= link_to application.name, member_application_path(application) %>
-    </div>
+  <% if @pending_applications.any? %>
+    <% @pending_applications.each do |application| %>
+      <div class="row">
+        <%= link_to @pending_applicants[application.user_uuid].name, member_application_path(application) %>
+      </div>
+    <% end %>
   <% end %>
 </div>
