@@ -87,7 +87,6 @@ describe User do
     end
   end
 
-
   describe 'is_member?' do 
     it "should be true if the user has an approved application" do 
       user = User.new 
@@ -124,11 +123,7 @@ describe User do
       user.is_member?.should be_true
     end
   end
-
-
-
-
-
+  
   describe 'new_member factory' do
     it "should return true if the user is a member" do
       user = new_member

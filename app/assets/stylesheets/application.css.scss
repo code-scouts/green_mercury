@@ -12,13 +12,12 @@
  *= require_tree .
  */
 
-$green: #4c8f85;
-$mercury: #d1d1d1;
-
-.green {
-	color: $green;
+footer {
+  position: relative;
+  width: 370px;
+  padding: 2%;
 }
 
-.mercury {
-	color: $mercury;
+footer img {
+  max-width: 35%;
 }

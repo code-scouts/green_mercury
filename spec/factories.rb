@@ -16,7 +16,6 @@ FactoryGirl.define do
       rejected_date Time.now - 1.day
       rejected_by_user_uuid "admin"
     end
-    
   end
 
   factory :mentor_application do 
@@ -53,5 +52,15 @@ FactoryGirl.define do
     factory :admin do 
       is_admin true
     end
+  end 
+
+  factory :concept do
+    name "Ruby"
+  end
+
+  factory :concept_description do
+    description "A programming language"
+    concept
+    user_uuid '1'
   end
 end
