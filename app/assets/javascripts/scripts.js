@@ -10,12 +10,4 @@ $(function() {
     }
   });
 
-  $('.rsvp-container').on('click', '#rsvp-button', function(event) {
-    if ($(this).val() == 'RSVP for this event') {
-      $(this).val('Cancel RSVP');
-    } else {
-      $(this).val('RSVP for this event');
-    }
-  });
-
 });

@@ -1,0 +1,3 @@
+$('.display-attendees').empty().append('<%= j render("events/attendees", event: @event, users: @users) %>');
+
+$('.rsvp-container').empty().append('<%= j render("events/rsvp_button", event: @event, event_rsvp: @event_rsvp) %>');

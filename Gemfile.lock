@@ -31,6 +31,9 @@ GEM
       activemodel
       fog (>= 1.8.0)
     atomic (1.1.14)
+    better_errors (1.0.1)
+      coderay (>= 1.0.0)
+      erubis (>= 2.6.6)
     builder (3.1.4)
     capistrano (2.15.5)
       highline
@@ -237,6 +240,7 @@ PLATFORMS
 
 DEPENDENCIES
   asset_sync
+  better_errors
   capistrano
   capybara
   cucumber (= 1.2.5)

@@ -2,15 +2,13 @@ require 'spec_helper'
 
 feature 'create events' do
   before :each do
-    # @user = User.new
-    # @user.uuid = '1'
-    # @user.name = 'Captain Awesome'
-    # User.stub(:fetch_from_uuids).and_return({ @user.uuid => @user })
-    # EventsController.any_instance.stub(:current_user).and_return(@user)
+    @user = FactoryGirl.build(:user)
+    User.stub(:fetch_from_uuids).and_return({ @user.uuid => @user })
+    EventsController.any_instance.stub(:current_user).and_return(@user)
     visit new_event_path
   end
 
-  scenario 'user creates an event with valid information' do  
+  scenario 'user creates an event with valid information' do
     fill_in 'event_title', with: 'This Thing'
     fill_in 'event_description', with: 'We do things'
     fill_in 'event_location', with: 'That place'
@@ -29,9 +27,12 @@ end
 
 feature 'view an event'do
   scenario 'user views an event page' do
-    @event = FactoryGirl.create(:event)
-    visit event_path(@event)
-    page.should have_content @event.title
+    user = FactoryGirl.build(:user)
+    User.stub(:fetch_from_uuids).and_return({ user.uuid => user })
+    EventsController.any_instance.stub(:current_user).and_return(user)
+    event = FactoryGirl.create(:event)
+    visit event_path(event)
+    page.should have_content event.title
   end
 end
 
@@ -47,16 +48,22 @@ end
 
 feature 'delete an event' do
   scenario 'user deletes an event' do
-    @event = FactoryGirl.create(:event)
-    visit event_path @event
+    user = FactoryGirl.build(:user)
+    User.stub(:fetch_from_uuids).and_return({ user.uuid => user })
+    EventsController.any_instance.stub(:current_user).and_return(user)
+    event = FactoryGirl.create(:event)
+    visit event_path event
     click_link 'Delete event'
     visit events_path
-    page.should_not have_content @event.title
+    page.should_not have_content event.title
   end
 end
 
 feature 'edit an event' do
   before :each do
+    @user = FactoryGirl.build(:user)
+    User.stub(:fetch_from_uuids).and_return({ @user.uuid => @user })
+    EventsController.any_instance.stub(:current_user).and_return(@user)
     @event = FactoryGirl.create(:event)
     visit event_path @event
     click_link 'Edit event'

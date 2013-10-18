@@ -10,6 +10,22 @@ class Event < ActiveRecord::Base
   before_save :validate_date
   before_save :validate_end_time
 
+  def rsvp?(user)
+    EventRsvp.where(user_uuid: user.uuid, event_id: self.id).length > 0
+  end
+
+  def rsvp_for(user)
+    if self.rsvp?(user)
+      EventRsvp.where(user_uuid: user.uuid, event_id: self.id).first
+    else
+      EventRsvp.new
+    end
+  end
+
+  def all_rsvps
+    uuids = self.event_rsvps.map { |rsvp| rsvp.user_uuid }
+    User.fetch_from_uuids(uuids)
+  end
 
 private
 

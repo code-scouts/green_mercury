@@ -1,0 +1,5 @@
+<% if event.rsvp?(current_user) %>
+  <%= button_to "Cancel RSVP", event_rsvp_path(id: event_rsvp.id), method: :delete, remote: true %>
+<% else %>
+  <%= button_to "RSVP for this event", event_rsvps_path(id: event.id), remote: true %>
+<% end %>

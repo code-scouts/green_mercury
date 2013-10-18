@@ -4,22 +4,25 @@ class EventRsvpsController < ApplicationController
     @event = Event.find(params[:id])
     @event_rsvp = @event.event_rsvps.new
     @event_rsvp.user_uuid = current_user.uuid
-    if @event_rsvp.save
-      flash[:notice] = 'RSVP confirmed'
-      redirect_to event_path @event
-      # add AJAX
-    else
-      redirect_to event_path @event
-      # add AJAX
+    @event_rsvp.save
+    @users = @event.all_rsvps
+
+    respond_to do |format|
+      format.html { redirect_to event_path @event }
+      format.js
     end
   end
 
   def destroy
-    event = Event.find(params[:id])
-    event_rsvp = EventRsvp.where(event_id: params[:id], user_uuid: current_user.uuid).first
-    event_rsvp.destroy
-    flash[:notice] = "You have removed your RSVP for this event"
-    redirect_to event_path event
-    #do AJAX stuff to indicate RSVP has been removed
+    @event_rsvp = EventRsvp.find(params[:id])
+    @event_rsvp.destroy
+    @event = @event_rsvp.event
+    @users = @event.all_rsvps
+    @event_rsvp = @event.rsvp_for(current_user)
+    
+    respond_to do |format|
+      format.html { redirect_to event_path @event }
+      format.js
+    end
   end
 end

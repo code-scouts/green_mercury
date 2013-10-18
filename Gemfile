@@ -49,6 +49,7 @@ group :development, :test do
   gem 'launchy'
   gem 'shoulda-matchers'
   gem 'pry'
+  gem 'better_errors'
 end
 
 group :development do

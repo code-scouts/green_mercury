@@ -41,4 +41,53 @@ describe Event do
     event = FactoryGirl.build(:event, start_time: time, end_time: time)
     event.save.should be_false
   end
+
+  describe 'rsvp?' do
+    before do
+      @event = FactoryGirl.create(:event)
+      @user = FactoryGirl.build(:user)
+    end
+
+    it 'should return true if the user has RSVPd to the event' do
+      @event.event_rsvps.create(user_uuid: @user.uuid)
+      @event.rsvp?(@user).should be_true
+    end
+
+    it 'should return false if the user has not RSVPd to the event' do
+      @event.rsvp?(@user).should be_false
+    end
+  end
+
+  describe 'rsvp_for' do
+    before do
+      @event = FactoryGirl.create(:event)
+      @user = FactoryGirl.build(:user)
+    end
+
+    it 'should return the correct EventRsvp object if the user requested has RSVPd to the event' do
+      event_rsvp = @event.event_rsvps.create(user_uuid: @user.uuid)
+      @event.rsvp_for(@user).should eq event_rsvp
+    end
+
+    it 'should return a new EventRsvp object if the user requested has not RSVPd to the event' do
+      @event.rsvp_for(@user).should be_a(EventRsvp)
+    end
+  end
+
+  describe 'all_rsvps' do
+    it 'should return a hash of uuids and user objects for all users who have RSVPd to the event' do
+      event = FactoryGirl.create(:event)
+      user = FactoryGirl.build(:user)
+      User.stub(:fetch_from_uuids).and_return({ user.uuid => user })
+      event_rsvp = event.event_rsvps.create(user_uuid: user.uuid)
+      event.all_rsvps[user.uuid].should eq user
+    end
+  end
 end
+
+
+
+
+
+
+
