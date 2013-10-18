@@ -63,11 +63,11 @@ class User
   end
 
   def is_member?
-    member_application && member_application.approved?
+    !member_application.nil? && member_application.approved?
   end
 
   def is_mentor?
-    mentor_application && mentor_application.approved?
+    !mentor_application.nil? && mentor_application.approved?
   end
 
   def is_pending?
