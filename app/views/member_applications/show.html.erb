@@ -1,6 +1,6 @@
 
-<%= link_to 'Approve', member_application_path(@application, member_application: {approved_date: Date.today}), method: 'patch', class: "btn btn-success" %>
-<%= link_to 'Reject', member_application_path(@application, member_application: {rejected_date: Date.today}), method: 'patch', class: "btn btn-danger" %>
+<%= link_to 'Approve', member_application_path(@application, member_application: {approved_date: Date.today, approved_by_user_uuid: current_user.uuid}), method: 'patch', class: "btn btn-success" %>
+<%= link_to 'Reject', member_application_path(@application, member_application: {rejected_date: Date.today, rejected_by_user_uuid: current_user.uuid}), method: 'patch', class: "btn btn-danger" %>
 
 <%= render 'member_application_form', application: @application %>
 

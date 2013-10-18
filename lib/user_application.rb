@@ -3,10 +3,17 @@ module UserApplication
     def pending 
       self.where(approved_date: nil, rejected_date: nil)
     end
+
+    # def rejected
+    #   self.where(rejected_date: )
+  end
+
+  def rejected?
+    !rejected_date.nil? && (approved_date.nil? || rejected_date > approved_date)
   end
 
   def approved?
-    approved_date && (rejected_date.nil? || approved_date > rejected_date)
+    !approved_date.nil? && (rejected_date.nil? || approved_date > rejected_date)
   end
 
   def self.included(base)

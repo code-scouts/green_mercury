@@ -26,4 +26,63 @@ describe MentorApplication do
       MentorApplication.pending.should eq [application]
     end
   end
+
+  describe 'rejected?' do 
+    it "is true if the application has been rejected" do 
+      application = FactoryGirl.create(:rejected_mentor_application)
+      application.rejected?.should eq true
+    end
+
+    it "is true if the application was approved and then rejected" do
+      application = FactoryGirl.create(:mentor_application, rejected_date: Date.today, approved_date: Date.yesterday)
+      application.rejected?.should eq false
+    end
+
+    it "is false if the application has not been rejected" do 
+      application = FactoryGirl.create(:approved_mentor_application)
+      application.rejected?.should eq false
+    end
+
+    it "is false if the application is pending" do 
+      application = FactoryGirl.create(:mentor_application)
+      application.rejected?.should eq false
+    end
+
+    it "is false if the application was rejected and then approved" do
+      application = FactoryGirl.create(:mentor_application, rejected_date: Date.yesterday, approved_date: Date.today)
+      application.rejected?.should eq false
+    end
+  end
+
+  describe 'approved?' do
+    it "is true if the application has been approved" do
+      application = FactoryGirl.create(:approved_mentor_application)
+      application.approved?.should eq true
+    end
+
+    it "is true if the application was rejected and then approved" do
+      application = FactoryGirl.create(:mentor_application, rejected_date: Date.yesterday, approved_date: Date.today)
+      application.rejected?.should eq false
+    end
+    
+    it "is false if the application has been rejected" do
+      application = FactoryGirl.create(:rejected_mentor_application)
+      application.approved?.should eq false
+    end
+
+    it "is false if the application is pending" do
+      application = FactoryGirl.create(:mentor_application)
+      application.approved?.should eq false
+    end
+
+    it "is false if the application was approved and then rejected" do
+      application = FactoryGirl.create(:mentor_application, rejected_date: Date.today, approved_date: Date.yesterday)
+      application.approved?.should eq false
+    end
+  end
 end
+
+
+
+
+
