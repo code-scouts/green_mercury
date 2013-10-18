@@ -1,7 +1,7 @@
 class AccessTokenExpired < StandardError; end
 
 class User
-  attr_accessor :meetup_token, :email, :confirmed_at, :profile_photo_url
+  attr_accessor :meetup_token, :email, :confirmed_at, :uuid, :name, :profile_photo_url
 
   def self.fetch_from_token(token)
     response = HTTParty.post(CAPTURE_URL + '/entity', {body:{
@@ -40,11 +40,29 @@ class User
     end
   end
 
+  def self.fetch_from_uuids(uuids)
+    uuid_string = uuids.map { |uuid| "uuid='#{uuid}'" }.join(' or ')
+
+    response = HTTParty.post(CAPTURE_URL + '/entity.find', {body:{
+      filter: uuid_string,
+      type_name: 'user',
+      client_id: CAPTURE_OWNER_CLIENT_ID,
+      client_secret: CAPTURE_OWNER_CLIENT_SECRET
+    }})
+
+    body = JSON.parse(response.body)
+
+    users = body['results'].map { |user_hash| from_hash(user_hash) }
+    users_by_id = Hash[users.map { |user| [user.uuid, user] }]
+  end
+
   def self.from_hash(hash)
     this = new
     this.meetup_token = hash['meetup_token']
     this.email = hash['email']
     this.confirmed_at = hash['emailVerified']
+    this.uuid = hash['uuid']
+    this.name = hash['displayName']
     if hash['photos']
       profile_photo = hash['photos'].find do |record|
         record['type'] == 'normal'

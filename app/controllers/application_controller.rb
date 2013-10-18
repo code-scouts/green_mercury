@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   alias_method :url_for, :original_url_for
 
   helper_method :user_signed_in?
+  helper_method :current_user
   before_filter :load_janrain_facts
   before_filter :current_user
 
