@@ -4,8 +4,9 @@ module UserApplication
       self.where(approved_date: nil, rejected_date: nil)
     end
 
-    # def rejected
-    #   self.where(rejected_date: )
+    def rejected
+      self.where("rejected_date <= ? AND (approved_date IS NULL OR rejected_date >= approved_date)", Date.current)      
+    end
   end
 
   def rejected?

@@ -18,6 +18,13 @@ describe MemberApplication do
     end
   end
 
+  describe "rejected" do 
+    it "gets all members whose applications are rejected" do 
+      application = FactoryGirl.create(:rejected_member_application)
+      MemberApplication.rejected.should eq [application]
+    end
+  end
+
   describe 'rejected?' do 
     it "is true if the application has been rejected" do 
       application = FactoryGirl.create(:rejected_member_application)
@@ -25,8 +32,8 @@ describe MemberApplication do
     end
 
     it "is true if the application was approved and then rejected" do
-      application = FactoryGirl.create(:member_application, rejected_date: Date.today, approved_date: Date.yesterday)
-      application.rejected?.should eq false
+      application = FactoryGirl.create(:member_application, rejected_date: Date.current, approved_date: Date.yesterday)
+      application.rejected?.should eq true
     end
 
     it "is false if the application has not been rejected" do 
@@ -40,7 +47,7 @@ describe MemberApplication do
     end
 
     it "is false if the application was rejected and then approved" do
-      application = FactoryGirl.create(:member_application, rejected_date: Date.yesterday, approved_date: Date.today)
+      application = FactoryGirl.create(:member_application, rejected_date: Date.yesterday, approved_date: Date.current)
       application.rejected?.should eq false
     end
   end
@@ -52,8 +59,8 @@ describe MemberApplication do
     end
 
     it "is true if the application was rejected and then approved" do
-      application = FactoryGirl.create(:member_application, rejected_date: Date.yesterday, approved_date: Date.today)
-      application.rejected?.should eq false
+      application = FactoryGirl.create(:member_application, rejected_date: Date.yesterday, approved_date: Date.current)
+      application.approved?.should eq true
     end
     
     it "is false if the application has been rejected" do
@@ -67,7 +74,7 @@ describe MemberApplication do
     end
 
     it "is false if the application was approved and then rejected" do
-      application = FactoryGirl.create(:member_application, rejected_date: Date.today, approved_date: Date.yesterday)
+      application = FactoryGirl.create(:member_application, rejected_date: Date.current, approved_date: Date.yesterday)
       application.approved?.should eq false
     end
   end
