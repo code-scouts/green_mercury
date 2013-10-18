@@ -120,4 +120,9 @@ node default {
     ensure => present,
     require => Rvm_system_ruby['ruby-1.9.3-p448'];
   }
+
+
+  class { 'memcached':
+    max_memory => '10%'
+  }
 }
