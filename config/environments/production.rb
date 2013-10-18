@@ -83,21 +83,26 @@ GreenMercury::Application.configure do
 
   #Devise will use this when sending password reset emails.
   #This should be changed when the site goes live. I don't know how to guarantee that that happens :(
-  config.action_mailer.default_url_options = { :host => 'green-mercury.herokuapp.com' }
-
-  #API key for Janrain Engage
-  RPXNow.api_key = ENV['ENGAGE_API_KEY']
+  config.action_mailer.default_url_options = { :host => 'green-mercury.codescouts.org' }
 
   MEETUP_API_KEY = ENV['MEETUP_API_KEY']
   MEETUP_API_SECRET = ENV['MEETUP_API_SECRET']
 
   #Send emails via sendgrid
   ActionMailer::Base.smtp_settings = {
-    :address        => "smtp.sendgrid.net",
+    :address        => "email-smtp.us-east-1.amazonaws.com",
     :port           => "587",
-    :authentication => :plain,
-    :user_name      => ENV['SENDGRID_USERNAME'],
-    :password       => ENV['SENDGRID_PASSWORD'],
-    :domain         => 'heroku.com',
+    :authentication => :login,
+    :enable_starttls_auto => true,
+    :user_name      => ENV['SES_USERNAME'],
+    :password       => ENV['SES_PASSWORD'],
   }
+
+  CAPTURE_LOGIN_CLIENT_ID = 'wvy5ezp4mdypcrgp84kmtzanguqe3kf3'
+  CAPTURE_OWNER_CLIENT_ID = 'wtujnf669ttdacr8mk8mww8z7z2kbgtc'
+  CAPTURE_OWNER_CLIENT_SECRET = ENV['CAPTURE_OWNER_CLIENT_SECRET']
+  CAPTURE_APP_ID = 'kr2e8rz35hhgqeja6wvx9c6sjy'
+  RPX_URL = 'https://codescouts.rpxnow.com'
+  CAPTURE_URL = 'https://codescouts.janraincapture.com'
+  FLOW_VERSION = 'd1eeea56-513b-47cc-9a65-661d66bca9b9'
 end

@@ -1,0 +1,28 @@
+FORGE
+  remote: http://forge.puppetlabs.com
+  specs:
+    maestrodev/rvm (1.1.8)
+      puppetlabs/stdlib (>= 3.2.0)
+    puppetlabs/apt (1.2.0)
+      puppetlabs/stdlib (>= 2.2.1)
+    puppetlabs/firewall (0.4.1)
+    puppetlabs/postgresql (2.4.1)
+      puppetlabs/apt (< 2.0.0, >= 1.1.0)
+      puppetlabs/firewall (>= 0.0.4)
+      puppetlabs/stdlib (< 5.0.0, >= 3.2.0)
+      ripienaar/concat (>= 0.2.0)
+    puppetlabs/stdlib (4.1.0)
+    ripienaar/concat (0.2.0)
+
+GIT
+  remote: https://github.com/AndrewLorente/puppet-nginx.git
+  ref: master
+  sha: d1848118e50eb97afef084e6d1ca9bef2968e58f
+  specs:
+    dhutty/nginx (0.0.2)
+
+DEPENDENCIES
+  dhutty/nginx (>= 0)
+  maestrodev/rvm (>= 0)
+  puppetlabs/postgresql (>= 0)
+

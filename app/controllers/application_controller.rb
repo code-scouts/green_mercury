@@ -6,20 +6,34 @@ class ApplicationController < ActionController::Base
   alias_method :url_for, :original_url_for
   include ApplicationHelper
 
+  helper_method :user_signed_in?
+  helper_method :current_user
+  before_filter :load_janrain_facts
+
   # Prevent CSRF attacks by raising an exception.
   protect_from_forgery with: :exception
 
-  before_filter :select_a_sponsor
-    def select_a_sponsor
-      @sponsor = sponsors.sample
-    end
+  def current_user
+    session[:user]
+  end
 
-  before_filter :tell_users_to_have_an_email
+  def user_signed_in?
+    ! current_user.nil?
+  end
 
-  def tell_users_to_have_an_email
-    if user_signed_in? && current_user.email.blank?
-      flash[:alert] = "Please #{link_to('edit your profile',
-        edit_user_registration_path)} and add an email address.".html_safe
+  protected
+
+  def load_janrain_facts
+    @janrain_login_client_id = CAPTURE_LOGIN_CLIENT_ID
+    @janrain_app_id = CAPTURE_APP_ID
+    @janrain_rpx_url = RPX_URL
+    @janrain_capture_url = CAPTURE_URL
+    @flow_version = FLOW_VERSION
+    @flow_name = 'signinFlow'
+    @screen_to_render = if params[:verification_code].present?
+      'verifyEmail'
+    elsif params[:code].present?
+      'resetPasswordRequestCode'
     end
   end
 end

@@ -1,7 +1,11 @@
 FactoryGirl.define do
-  factory :social_user, class: User do
-  	rpx_identifier 'http://twitter.com/account/profile?user_id=123456'
-  end
+  factory :concept do
+    name "Ruby"
+  end 
 
-  factory :user, class: User
+  factory :concept_description do
+    description "A programming language"
+    concept
+    user_uuid '1'
+  end
 end

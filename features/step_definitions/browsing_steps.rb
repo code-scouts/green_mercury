@@ -1,6 +1,5 @@
 Given(/^I am on the "(.+)" page$/) do |page|
   page_map = {
-    signup: new_user_registration_path,
     home: root_path,
     events: events_path,
   }

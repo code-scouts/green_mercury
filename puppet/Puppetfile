@@ -1,0 +1,7 @@
+forge "http://forge.puppetlabs.com"
+
+#Using my fork until https://github.com/dhutty/puppet-nginx/pull/2 is merged
+mod 'dhutty/nginx', git: 'https://github.com/AndrewLorente/puppet-nginx.git'
+
+mod 'puppetlabs/postgresql'
+mod 'maestrodev/rvm'

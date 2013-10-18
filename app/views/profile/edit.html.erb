@@ -1,0 +1,62 @@
+<div id="editProfile" style="display:none">
+  <h1>Edit Your Account</h1>
+  <div>
+    <h3>Profile Photo</h3>
+    {* photoManager *}
+    <h3>Linked Accounts</h3>
+    <div>
+      {* linkedAccounts *}
+      {* linkAccountContainer *}
+        <h1>Link your accounts</h1>
+        <h2>Allows you to sign in to your account using that provider in the future.</h2>
+        <div class="capture_signin">
+          {* loginWidget *}
+        </div>
+      {* /linkAccountContainer *}
+    </div>
+    <h3>Public Profile</h3>
+    {* publicProfileLink *}
+    <h3 class="janrain_traditional_account_only">Password</h3>
+    <div class="janrain_traditional_account_only">
+      <a href="#" data-capturescreen="changePassword">Change Password</a>
+    </div>
+  </div>
+  <div>
+    <h3>Account Info</h3>
+    {* editProfileForm *}
+      {* displayName *}
+      {* profileBlurb *}
+      {* email *}
+      {* saveButton *}
+      {* savedProfileMessage *}
+    {* /editProfileForm *}
+  </div>
+</div>
+
+<div style="display:none;" id="changePassword">
+  <h1>Change password</h1>
+  {* newPasswordForm *}
+    {* oldpassword *}
+    {* newpassword *}
+    {* newpasswordConfirm *}
+    {* saveButton *}
+  {* /newPasswordFormProfile *}
+</div>
+
+<div style="display:none;" id="changePasswordSuccess">
+  <h1>You did it!</h1>
+  <p>Your password has been successfully changed.</p>
+  <a href="#" onclick="janrain.capture.ui.modal.close()" class="capture_btn capture_primary">Close</a>
+</div>
+
+<div style="display: none;" id="publicProfileModal">
+  <h1>My profile</h1>
+  <div class="capture_profile_pic">
+    <div id="profile_pic" class="capture_female">
+      {* profilePhotoCustom *}
+    </div>
+  </div>
+  <h2>{* public_displayName *}</h2>
+  {* public_profileBlurb *}
+  <a href="#" onclick="janrain.capture.ui.modal.close()" class="capture_btn capture_primary">Close</a>
+</div>

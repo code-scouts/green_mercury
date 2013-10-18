@@ -1,0 +1,36 @@
+<div class='history'>
+  <h4>
+    Description history<span id="toggle-history-container"> <button class="toggle-history-button" id="hide-history-button">Hide</button></span>
+  </h4>
+
+  <table class='table table-striped' id="description-history-table">
+
+    <thead>
+      <tr>
+        <th>Time Added</th>
+        <th>Edited By</th>
+        <th>Description</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody id="all-descriptions">
+      <% concept.history.each_with_index do |history, index| %>
+
+        <tr>
+          <td><%= history.created_at.strftime("%B %d, %Y at %I:%M %p") %></td>
+          <td><%= users[history.user_uuid].name %></td>
+          <td><%= history.description %></td>
+          <td>
+            <% if index > 0 %>
+              <%= link_to 'Delete', concept_description_path(history), method: :delete, data: { confirm: 'Are you sure?' } %>
+            <% end %>
+          </td>
+        </tr>
+
+      <% end %>
+    </tbody>
+
+  </table>
+  
+</div>
