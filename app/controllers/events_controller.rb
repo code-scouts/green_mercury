@@ -15,6 +15,8 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.find(params[:id])
+    uuids = @event.event_rsvps.map { |rsvp| rsvp.user_uuid }
+    @users = User.fetch_from_uuids(uuids)
   end
 
   def index

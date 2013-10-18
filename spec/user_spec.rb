@@ -101,6 +101,11 @@ describe User do
       users['the-uuid'].should be_a(User)
       users['the-uuid'].email.should == 'granite@stone.co'
     end
+
+    it "should return an empty array if no uuids are passed in" do
+      users = User.fetch_from_uuids([])
+      users.should eq []
+    end
   end
 
   describe 'public and private attributes' do

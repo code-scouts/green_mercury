@@ -32,6 +32,8 @@ class User
   end
 
   def self.fetch_from_uuids(uuids)
+    return [] if uuids.length == 0
+    
     uuid_string = uuids.map { |uuid| "uuid='#{uuid}'" }.join(' or ')
 
     response = HTTParty.post(CAPTURE_URL + '/entity.find', {body:{

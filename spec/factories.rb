@@ -17,4 +17,10 @@ FactoryGirl.define do
     concept
     user_uuid '1'
   end
+
+  factory :user do
+    uuid 'my-uuid'
+    name 'Bob'
+    email 'bob@example.com'
+  end
 end

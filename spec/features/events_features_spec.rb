@@ -28,36 +28,27 @@ feature 'create events' do
 end
 
 feature 'view an event'do
-  before :each do
+  scenario 'user views an event page' do
     @event = FactoryGirl.create(:event)
     visit event_path(@event)
-  end
-
-  scenario 'user views an event page' do
     page.should have_content @event.title
   end
 end
 
 feature 'view all events' do
-  before :each do
+  scenario 'user views all events' do
     @event1 = FactoryGirl.create(:event)
     @event2 = FactoryGirl.create(:event)
     visit events_path
-  end
-
-  scenario 'user views all events' do
     page.should have_content @event1.title
     page.should have_content @event2.title
   end
 end
 
 feature 'delete an event' do
-  before :each do
+  scenario 'user deletes an event' do
     @event = FactoryGirl.create(:event)
     visit event_path @event
-  end
-
-  scenario 'user deletes an event' do
     click_link 'Delete event'
     visit events_path
     page.should_not have_content @event.title
@@ -83,3 +74,36 @@ feature 'edit an event' do
     page.should have_content "error"
   end
 end
+
+feature 'RSVP to an event' do
+  before :each do
+    @user = FactoryGirl.build(:user)
+    User.stub(:fetch_from_uuids).and_return({ @user.uuid => @user })
+    EventsController.any_instance.stub(:current_user).and_return(@user)
+    EventRsvpsController.any_instance.stub(:current_user).and_return(@user)
+    @event = FactoryGirl.create(:event)
+    visit event_path @event
+    click_button 'RSVP for this event'
+  end
+
+  scenario 'user RSVPs for an event' do
+    page.should have_content @user.name
+  end
+
+  scenario 'user removes their RSVP for an event' do
+    click_button 'Cancel RSVP'
+    page.should_not have_content @user.name
+  end
+end
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,20 +1,30 @@
 <h1><%= @event.title %></h1>
 
+<span class="rsvp-container"><%= button_to "RSVP for this event", event_rsvps_path(id: @event.id), id: 'rsvp-button' %></span>
+
+<span class="cancel-container"><%= button_to "Cancel RSVP", event_rsvp_path, method: :delete %></span>
+
 <div class='container'>
   <p>What</p>
   <p><%= @event.description %></p>
 </div>
+<div class='row'>
+  <div class='span6'>
+    <div class='container'>
+      <p>Where</p>
+      <p><%= @event.location %></p>
+    </div>
 
-<div class='container'>
-  <p>Where</p>
-  <p><%= @event.location %></p>
+    <div class='container'>
+      <p>When</p>
+      <p><%= @event.start_time %> - <%= @event.end_time %></p>
+    </div>
+
+    <p><%= link_to "Edit event", edit_event_path(@event) %></p>
+
+    <p><%= link_to "Delete event", @event, method: :delete, data: { confirm: 'Are you sure you want to delete this event?' } %></p>
+  </div>
+  <div class='span6 display-attendees'>
+    <%= render "attendees" %>
+  </div>
 </div>
-
-<div class='container'>
-  <p>When</p>
-  <p><%= @event.start_time %> - <%= @event.end_time %></p>
-</div>
-
-<p><%= link_to "Edit event", edit_event_path(@event) %></p>
-
-<p><%= link_to "Delete event", @event, method: :delete, data: { confirm: 'Are you sure you want to delete this event?'} %></p>

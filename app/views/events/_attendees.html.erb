@@ -1,0 +1,6 @@
+<h4>Attending:</h4>
+  <ul>
+    <% @event.event_rsvps.each do |rsvp| %>
+      <li><%= @users[rsvp.user_uuid].name %></li>
+    <% end %>
+  </ul>
