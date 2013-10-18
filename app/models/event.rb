@@ -9,6 +9,7 @@ class Event < ActiveRecord::Base
   validates :end_time, presence: true
   before_save :validate_date
   before_save :validate_end_time
+  default_scope order: 'date ASC'
 
   def rsvp?(user)
     EventRsvp.where(user_uuid: user.uuid, event_id: self.id).length > 0

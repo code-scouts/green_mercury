@@ -38,6 +38,9 @@ end
 
 feature 'view all events' do
   scenario 'user views all events' do
+    user = FactoryGirl.build(:user)
+    User.stub(:fetch_from_uuids).and_return({ user.uuid => user })
+    EventsController.any_instance.stub(:current_user).and_return(user)
     @event1 = FactoryGirl.create(:event, title: 'Event 1')
     @event2 = FactoryGirl.create(:event, title: 'Event 2')
     visit events_path

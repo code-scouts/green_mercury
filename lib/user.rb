@@ -86,11 +86,11 @@ class User
 
   def events
     rsvps = EventRsvp.where(user_uuid: self.uuid)
-    rsvps.map { |rsvp| rsvp.event }
+    rsvps.map { |rsvp| rsvp.event }.delete_if { |event| event.date < Date.today }
   end
 
-  def not_events
+  def events_without_rsvp
     my_events = self.events
-    Event.all.delete_if { |event| my_events.include?(event) }
+    Event.all.delete_if { |event| event.date < Date.today || my_events.include?(event) }
   end
 end

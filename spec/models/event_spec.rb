@@ -42,6 +42,13 @@ describe Event do
     event.save.should be_false
   end
 
+  it 'should return events sorted by date' do
+    event1 = FactoryGirl.create(:event, date: Date.today)
+    event2 = FactoryGirl.create(:event, date: (Date.today + 2.days))
+    event3 = FactoryGirl.create(:event, date: (Date.today + 1.day))
+    Event.all.should eq [event1, event3, event2]
+  end
+
   describe 'rsvp?' do
     before do
       @event = FactoryGirl.create(:event)
