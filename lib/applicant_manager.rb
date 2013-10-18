@@ -37,7 +37,7 @@ module ApplicantManager
       else
         flash[:notice] = "Application rejected"
       end
-      redirect_to @application
+      redirect_to review_applications_index_path
     else
       redirect_to root_path, alert: "Not authorized"
     end   

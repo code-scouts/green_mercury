@@ -30,8 +30,8 @@ describe MentorApplication do
   describe "rejected" do 
     it "gets all mentors whose applications are rejected" do 
       application = FactoryGirl.create(:rejected_mentor_application)
-      application_b = FactoryGirl.create(:mentor_application, rejected_date: Date.current, approved_date: Date.yesterday)
-      application_c = FactoryGirl.create(:mentor_application, rejected_date: Date.yesterday, approved_date: Date.current)
+      application_b = FactoryGirl.create(:mentor_application, rejected_date: Time.now, approved_date: Time.now - 1.day)
+      application_c = FactoryGirl.create(:mentor_application, rejected_date: Time.now - 1.day, approved_date: Time.now)
       MentorApplication.rejected.should include(application, application_b)
       MentorApplication.rejected.should_not include(application_c)
     end
@@ -44,7 +44,7 @@ describe MentorApplication do
     end
 
     it "is true if the application was approved and then rejected" do
-      application = FactoryGirl.create(:mentor_application, rejected_date: Date.current, approved_date: Date.yesterday)
+      application = FactoryGirl.create(:mentor_application, rejected_date: Time.now, approved_date: Time.now - 1.day)
       application.rejected?.should eq true
     end
 
@@ -59,7 +59,7 @@ describe MentorApplication do
     end
 
     it "is false if the application was rejected and then approved" do
-      application = FactoryGirl.create(:mentor_application, rejected_date: Date.yesterday, approved_date: Date.current)
+      application = FactoryGirl.create(:mentor_application, rejected_date: Time.now - 1.day, approved_date: Time.now)
       application.rejected?.should eq false
     end
   end
@@ -71,7 +71,7 @@ describe MentorApplication do
     end
 
     it "is true if the application was rejected and then approved" do
-      application = FactoryGirl.create(:mentor_application, rejected_date: Date.yesterday, approved_date: Date.current)
+      application = FactoryGirl.create(:mentor_application, rejected_date: Time.now - 1.day, approved_date: Time.now)
       application.approved?.should eq true
     end
     
@@ -86,7 +86,7 @@ describe MentorApplication do
     end
 
     it "is false if the application was approved and then rejected" do
-      application = FactoryGirl.create(:mentor_application, rejected_date: Date.current, approved_date: Date.yesterday)
+      application = FactoryGirl.create(:mentor_application, rejected_date: Time.now, approved_date: Time.now - 1.day)
       application.approved?.should eq false
     end
   end

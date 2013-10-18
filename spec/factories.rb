@@ -8,12 +8,12 @@ FactoryGirl.define do
     time_commitment 'All day'
     
     factory :approved_member_application do 
-      approved_date Date.today
+      approved_date Time.now - 1.day
       approved_by_user_uuid "admin"
     end
 
     factory :rejected_member_application do 
-      rejected_date Date.today
+      rejected_date Time.now - 1.day
       rejected_by_user_uuid "admin"
     end
     
@@ -37,12 +37,12 @@ FactoryGirl.define do
     volunteer_online 'very interested'
 
     factory :approved_mentor_application do
-      approved_date Date.today
+      approved_date Time.now - 1.day
       approved_by_user_uuid "admin"
     end
 
     factory :rejected_mentor_application do 
-      rejected_date Date.today
+      rejected_date Time.now - 1.day
       rejected_by_user_uuid "admin"
     end
   end

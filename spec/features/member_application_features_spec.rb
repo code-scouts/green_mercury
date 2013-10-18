@@ -72,6 +72,17 @@ feature 'accept or reject a new member application' do
     visit member_application_path(application)
     page.should have_content 'Not authorized'
   end
+
+  scenario 'an admin accepts a previously rejected application' do
+    user = FactoryGirl.build(:admin)
+    application = FactoryGirl.create(:rejected_member_application)
+    ApplicationController.any_instance.stub(:current_user) { user }
+    visit review_applications_index_path
+    click_link 'Review Rejected Applications'
+    click_link application.name
+    click_link 'Approve'
+    page.should have_content 'Application approved'
+  end
 end
 
 

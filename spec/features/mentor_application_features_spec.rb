@@ -52,7 +52,7 @@ feature 'approve or reject mentor applications' do
     user = FactoryGirl.build(:user)
     application = FactoryGirl.create(:mentor_application, user_uuid: user.uuid)
     ApplicationController.any_instance.stub(:current_user) { admin }
-    visit mentor_applications_path
+    visit review_applications_index_path
     click_link application.name
     click_link 'Approve'
     page.should have_content 'Application approved'
@@ -63,7 +63,7 @@ feature 'approve or reject mentor applications' do
     user = FactoryGirl.build(:user)
     application = FactoryGirl.create(:mentor_application, user_uuid: user.uuid)
     ApplicationController.any_instance.stub(:current_user) { admin }
-    visit mentor_applications_path
+    visit review_applications_index_path
     click_link application.name
     click_link 'Reject'
     page.should have_content 'Application rejected'
@@ -75,6 +75,17 @@ feature 'approve or reject mentor applications' do
     ApplicationController.any_instance.stub(:current_user) { user }
     visit mentor_application_path(application)
     page.should have_content 'Not authorized'
+  end
+
+  scenario 'an admin accepts a previously rejected applicaiton' do 
+    user = FactoryGirl.build(:admin)
+    application = FactoryGirl.create(:rejected_mentor_application)
+    ApplicationController.any_instance.stub(:current_user) { user }
+    visit review_applications_index_path
+    click_link 'Review Rejected Applications'
+    click_link application.name
+    click_link 'Approve'
+    page.should have_content 'Application approved'
   end
 end
 

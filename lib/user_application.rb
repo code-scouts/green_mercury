@@ -5,7 +5,7 @@ module UserApplication
     end
 
     def rejected
-      self.where("rejected_date <= ? AND (approved_date IS NULL OR rejected_date >= approved_date)", Date.current)      
+      self.where("rejected_date <= ? AND (approved_date IS NULL OR rejected_date >= approved_date)", Time.now)      
     end
   end
 

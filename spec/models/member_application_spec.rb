@@ -32,7 +32,7 @@ describe MemberApplication do
     end
 
     it "is true if the application was approved and then rejected" do
-      application = FactoryGirl.create(:member_application, rejected_date: Date.current, approved_date: Date.yesterday)
+      application = FactoryGirl.create(:member_application, rejected_date: Time.now, approved_date: Time.now - 1.day)
       application.rejected?.should eq true
     end
 
@@ -47,7 +47,7 @@ describe MemberApplication do
     end
 
     it "is false if the application was rejected and then approved" do
-      application = FactoryGirl.create(:member_application, rejected_date: Date.yesterday, approved_date: Date.current)
+      application = FactoryGirl.create(:member_application, rejected_date: Time.now - 1.day, approved_date: Time.now)
       application.rejected?.should eq false
     end
   end
@@ -59,7 +59,7 @@ describe MemberApplication do
     end
 
     it "is true if the application was rejected and then approved" do
-      application = FactoryGirl.create(:member_application, rejected_date: Date.yesterday, approved_date: Date.current)
+      application = FactoryGirl.create(:member_application, rejected_date: Time.now - 1.day, approved_date: Time.now)
       application.approved?.should eq true
     end
     
@@ -74,7 +74,7 @@ describe MemberApplication do
     end
 
     it "is false if the application was approved and then rejected" do
-      application = FactoryGirl.create(:member_application, rejected_date: Date.current, approved_date: Date.yesterday)
+      application = FactoryGirl.create(:member_application, rejected_date: Time.now, approved_date: Time.now - 1.day)
       application.approved?.should eq false
     end
   end

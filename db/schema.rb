@@ -11,14 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131017211402) do
+ActiveRecord::Schema.define(version: 20131018171721) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "member_applications", force: true do |t|
     t.text     "user_uuid"
-    t.date     "approved_date"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "why_you_want_to_join"
@@ -33,14 +32,14 @@ ActiveRecord::Schema.define(version: 20131017211402) do
     t.text     "excited_about"
     t.text     "anything_else"
     t.string   "name"
-    t.date     "rejected_date"
     t.text     "rejected_by_user_uuid"
     t.text     "approved_by_user_uuid"
+    t.datetime "approved_date"
+    t.datetime "rejected_date"
   end
 
   create_table "mentor_applications", force: true do |t|
     t.text     "user_uuid"
-    t.date     "approved_date"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "name"
@@ -58,9 +57,10 @@ ActiveRecord::Schema.define(version: 20131017211402) do
     t.string   "volunteer_solo"
     t.string   "volunteer_technical"
     t.string   "volunteer_online"
-    t.date     "rejected_date"
     t.text     "rejected_by_user_uuid"
     t.text     "approved_by_user_uuid"
+    t.datetime "approved_date"
+    t.datetime "rejected_date"
   end
 
 end

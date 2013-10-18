@@ -7,6 +7,8 @@ GreenMercury::Application.routes.draw do
   get '/events/get_token', controller: :events
   get '/new_applications/index', controller: :new_applications, action: :index, as: :new_application
   get '/new_applications/show', controller: :new_applications, action: :show
+  get '/review_applications/index', controller: :review_applications, action: :index
+  get '/rejected_applications/index', controller: :rejected_applications, action: :index
 
   post '/session', controller: :session, action: :acquire_session, as: :acquire_session
   post '/logout', controller: :session, action: :logout, as: :logout
