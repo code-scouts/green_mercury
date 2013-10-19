@@ -27,6 +27,7 @@ gem 'unicorn'
 gem 'newrelic_rpm'
 gem 'httparty'
 gem 'dotenv-rails'
+gem 'dalli'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
@@ -34,7 +35,7 @@ group :doc do
 end
 
 group :test do
-  gem 'shoulda-matchers'  
+  gem 'shoulda-matchers'
   gem 'capybara'
 end
 

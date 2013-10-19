@@ -1,22 +1,25 @@
 class AccessTokenExpired < StandardError; end
 
 class User
+  CACHE_TTL = 5 * 60 #seconds
   attr_accessor :meetup_token, :email, :confirmed_at, :uuid, :name, :profile_photo_url
 
   def self.fetch_from_token(token)
-    response = HTTParty.post(CAPTURE_URL + '/entity', {body:{
-      access_token: token,
-      type_name: 'user',
-    }})
+    Rails.cache.fetch("user_token:#{token}", expires_in: CACHE_TTL) do
+      response = HTTParty.post(CAPTURE_URL + '/entity', {body:{
+        access_token: token,
+        type_name: 'user',
+      }})
 
-    body = JSON.parse(response.body)
+      body = JSON.parse(response.body)
 
-    if body.has_key?('result')
-      from_hash(body['result'])
-    elsif body['error'] == 'access_token_expired'
-      raise AccessTokenExpired
-    else
-      raise StandardError.new(response.body)
+      if body.has_key?('result')
+        from_hash(body['result'])
+      elsif body['error'] == 'access_token_expired'
+        raise AccessTokenExpired
+      else
+        raise StandardError.new(response.body)
+      end
     end
   end
 

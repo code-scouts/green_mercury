@@ -2,6 +2,12 @@ node default {
   package { "libpq-dev":
     ensure => installed,
   }
+  package { "libsasl2-dev":
+    ensure => installed,
+  }
+  package { "gettext":
+    ensure => installed,
+  }
 
 
   user { 'green_mercury':
