@@ -211,12 +211,15 @@
   janrain.settings.appUrl = '<%= @janrain_rpx_url %>';
   janrain.settings.capture.redirectUri = '<%= @janrain_capture_url %>';
   janrain.settings.capture.appId = '<%= @janrain_app_id %>';
-  janrain.settings.capture.clientId = '<%= @janrain_login_client_id %>';
+  janrain.settings.capture.clientId = '<%= @janrain_client_id %>';
   janrain.settings.capture.captureServer = '<%= @janrain_capture_url %>';
   janrain.settings.capture.flowVersion = '<%= @flow_version %>';
   janrain.settings.capture.flowName = '<%= @flow_name %>';
   <% if @screen_to_render.present? %>
     janrain.settings.capture.screenToRender = '<%= @screen_to_render %>';
+  <% end %>
+  <% if @fresh_access_token.present? %>
+    var freshAccessToken = '<%= @fresh_access_token %>';
   <% end %>
 </script>
 </body>

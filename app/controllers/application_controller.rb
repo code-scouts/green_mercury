@@ -9,6 +9,12 @@ class ApplicationController < ActionController::Base
   helper_method :user_signed_in?
   helper_method :current_user
   before_filter :load_janrain_facts
+  # So, current_user is a helper method, not a filter. We're running it
+  # here as a before_filter so that @fresh_access_token can be set by the
+  # time template rendering starts. This is a hack and should be undone if
+  # current_user or user_signed_in? is being called for some legitimate
+  # reason on each page load.
+  before_filter :current_user
 
   # Prevent CSRF attacks by raising an exception.
   protect_from_forgery with: :exception
@@ -19,7 +25,17 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
-    session[:user]
+    return unless session[:access_token]
+
+    begin
+      @user ||= User.fetch_from_token(session[:access_token])
+    rescue AccessTokenExpired
+      access_token, refresh_token = User.refresh_token(session[:refresh_token])
+      session[:access_token] = access_token
+      session[:refresh_token] = refresh_token
+      @fresh_access_token = access_token
+      @user = User.fetch_from_token(access_token)
+    end
   end
 
   def user_signed_in?
@@ -29,7 +45,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def load_janrain_facts
-    @janrain_login_client_id = CAPTURE_LOGIN_CLIENT_ID
+    @janrain_client_id = CAPTURE_OWNER_CLIENT_ID
     @janrain_app_id = CAPTURE_APP_ID
     @janrain_rpx_url = RPX_URL
     @janrain_capture_url = CAPTURE_URL

@@ -5,3 +5,4 @@ mod 'dhutty/nginx', git: 'https://github.com/AndrewLorente/puppet-nginx.git'
 
 mod 'puppetlabs/postgresql'
 mod 'maestrodev/rvm'
+mod 'saz/memcached'
