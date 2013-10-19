@@ -93,12 +93,10 @@ bundle install
 
 Create And Migrate Databases
 ----------------------------
-Now that you have the dependencies installed, it's time to create the databases for the site. At your terminal run `psql postgres -h localhost`. This will open a Psql prompt, where you should enter:
-```SQL
-create database green_mercury;
-create database green_mercury_test;
-commit;
-\q
+Now that you have the dependencies installed, it's time to create the databases for the site. At your terminal run these two commands:
+```
+rake db:create
+rake db:create RAILS_ENV=test
 ```
 That creates a pair of empty databases, so you just need to set them up with the proper tables:
 ```
