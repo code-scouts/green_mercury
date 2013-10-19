@@ -35,6 +35,7 @@ GEM
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
     builder (3.1.4)
+    cancan (1.6.10)
     capistrano (2.15.5)
       highline
       net-scp (>= 1.0.0)
@@ -241,6 +242,7 @@ PLATFORMS
 DEPENDENCIES
   asset_sync
   better_errors
+  cancan
   capistrano
   capybara
   cucumber (= 1.2.5)

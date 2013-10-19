@@ -18,11 +18,19 @@
       <p><%= @event.start_time %> - <%= @event.end_time %></p>
     </div>
 
-    <p><%= link_to "Edit event", edit_event_path(@event) %></p>
+    <% if can? :manage, @event %>
+      <p><%= link_to "Edit event", edit_event_path(@event) %></p>
 
-    <p><%= link_to "Delete event", @event, method: :delete, data: { confirm: 'Are you sure you want to delete this event?' } %></p>
+      <p><%= link_to "Delete event", @event, method: :delete, data: { confirm: 'Are you sure you want to delete this event?' } %></p>
+    <% end %>
   </div>
+
+  <div class='span6 display-organizers'>
+    <%= render "organizers", event: @event, organizers: @event.organizers %>
+  </div>
+
   <div class='span6 display-attendees'>
-    <%= render "attendees", event: @event, users: @users %>
+    <%= render "attendees", event: @event, attendees: @event.attendees %>
   </div>
+
 </div>

@@ -5,7 +5,6 @@ class EventRsvpsController < ApplicationController
     @event_rsvp = @event.event_rsvps.new
     @event_rsvp.user_uuid = current_user.uuid
     @event_rsvp.save
-    @users = @event.all_rsvps
 
     respond_to do |format|
       format.html { redirect_to event_path @event }
@@ -17,7 +16,6 @@ class EventRsvpsController < ApplicationController
     @event_rsvp = EventRsvp.find(params[:id])
     @event_rsvp.destroy
     @event = @event_rsvp.event
-    @users = @event.all_rsvps
     @event_rsvp = @event.rsvp_for(current_user)
     
     respond_to do |format|

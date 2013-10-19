@@ -24,7 +24,18 @@ class Event < ActiveRecord::Base
   end
 
   def all_rsvps
-    uuids = self.event_rsvps.map { |rsvp| rsvp.user_uuid }
+    uuids = event_rsvps.map { |rsvp| rsvp.user_uuid }
+    User.fetch_from_uuids(uuids)
+  end
+
+  def organizers
+    uuids = event_organizers.map { |organizer| organizer.user_uuid }
+    User.fetch_from_uuids(uuids)
+  end
+
+  def attendees
+    all_organizers = event_organizers.map { |organizer| organizer.user_uuid }
+    uuids = event_rsvps.map { |rsvp| rsvp.user_uuid }.delete_if { |attendee| all_organizers.include?(attendee) }
     User.fetch_from_uuids(uuids)
   end
 

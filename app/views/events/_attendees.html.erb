@@ -1,6 +1,11 @@
 <h4>Attending:</h4>
   <ul>
     <% event.event_rsvps.each do |rsvp| %>
-      <li><%= users[rsvp.user_uuid].name %></li>
+    <% if attendees.length > 0 && attendees[rsvp.user_uuid] %>
+        <li><%= attendees[rsvp.user_uuid].name %>
+          <% if can? :manage, @event %>
+             <%= button_to 'Make organizer', event_organizers_path(event_id: event.id, user_uuid: rsvp.user_uuid), remote: true %></li>
+          <% end %>
+      <% end %>
     <% end %>
   </ul>

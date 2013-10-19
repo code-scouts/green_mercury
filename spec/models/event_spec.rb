@@ -85,9 +85,32 @@ describe Event do
     it 'should return a hash of uuids and user objects for all users who have RSVPd to the event' do
       event = FactoryGirl.create(:event)
       user = FactoryGirl.build(:user)
-      User.stub(:fetch_from_uuids).and_return({ user.uuid => user })
-      event_rsvp = event.event_rsvps.create(user_uuid: user.uuid)
-      event.all_rsvps[user.uuid].should eq user
+      event.event_rsvps.create(user_uuid: user.uuid)
+      User.should_receive(:fetch_from_uuids).with([user.uuid])
+      event.all_rsvps
+    end
+  end
+
+  describe 'organizers' do
+    it 'should return an array of all organizers for the event' do
+      event = FactoryGirl.create(:event)
+      user = FactoryGirl.build(:user)
+      event.event_organizers.create(user_uuid: user.uuid)
+      User.should_receive(:fetch_from_uuids).with([user.uuid])
+      event.organizers
+    end
+  end
+
+  describe 'attendees' do
+    it 'should return an array of all attendees who are not organizers for the event' do
+      event = FactoryGirl.create(:event)
+      user1 = FactoryGirl.build(:user, name: 'User 1', uuid: 'one-uuid')
+      user2 = FactoryGirl.build(:user, name: 'User 2', uuid: 'two-uuid')
+      event.event_organizers.create(user_uuid: user1.uuid)
+      event.event_rsvps.create(user_uuid: user1.uuid)
+      event.event_rsvps.create(user_uuid: user2.uuid)
+      User.should_receive(:fetch_from_uuids).with([user2.uuid])
+      event.attendees
     end
   end
 end

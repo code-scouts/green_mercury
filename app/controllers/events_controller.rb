@@ -1,22 +1,28 @@
 class EventsController < ApplicationController
+
   def new
     @event = Event.new
   end
 
   def create
     @event = Event.new(event_params)
-    if @event.save
-      flash[:notice] = 'Your event has been created.'
-      redirect_to @event
-    else
-      render 'new'
+    if can? :create, @event
+      if @event.save
+        @event.event_organizers.create(user_uuid: current_user.uuid)
+        flash[:notice] = 'Your event has been created.'
+        redirect_to @event
+      else
+        render 'new'
+      end
     end
   end
 
   def show
     @event = Event.find(params[:id])
-    @event_rsvp = @event.rsvp_for(current_user)
-    @users = @event.all_rsvps
+    if can? :read, @event
+      @event_rsvp = @event.rsvp_for(current_user)
+      @users = @event.all_rsvps
+    end
   end
 
   def index
@@ -28,19 +34,23 @@ class EventsController < ApplicationController
   
   def update
     @event = Event.find(params[:id])
-    if @event.update(event_params)
-      flash[:notice] = "Edit confirmed"
-      redirect_to event_path @event
-    else
-      render 'edit'
+    if can? :manage, @event
+      if @event.update(event_params)
+        flash[:notice] = "Edit confirmed"
+        redirect_to event_path @event
+      else
+        render 'edit'
+      end
     end
   end
 
   def destroy
     event = Event.find(params[:id])
-    event.destroy
-    flash[:notice] = "Event has been deleted"
-    redirect_to events_path
+    if can? :manage, @event
+      event.destroy
+      flash[:notice] = "Event has been deleted"
+      redirect_to events_path
+    end
   end
 
 private

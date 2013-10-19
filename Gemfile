@@ -27,6 +27,7 @@ gem 'unicorn'
 gem 'newrelic_rpm'
 gem 'httparty'
 gem 'dotenv-rails'
+gem 'cancan'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
