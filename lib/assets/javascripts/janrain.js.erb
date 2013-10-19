@@ -61,6 +61,9 @@ function janrainCaptureWidgetOnLoad() {
     if (window.user_signed_in === true) {
       return;
     }
+    if (result.authorizationCode === undefined) {
+      return;
+    }
     $.ajax(url, {
       type: "POST",
       data: {code: result.authorizationCode},

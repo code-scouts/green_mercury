@@ -208,7 +208,7 @@ describe User do
       HTTParty.should_receive(:post).
         with('https://codescouts.janraincapture.test.host/oauth/token', {body:{
           code: 'scouts',
-          grant_type: 'code',
+          grant_type: 'authorization_code',
           redirect_uri: 'https://codescouts.janraincapture.test.host',
           client_id: 'fakeclientidfortests',
           client_secret: 'fakeclientsecretfortests',

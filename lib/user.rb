@@ -83,7 +83,7 @@ class User
   end
 
   def self.acquire_token(code)
-    get_token(grant_type: 'code', code: code)
+    get_token(grant_type: 'authorization_code', code: code)
   end
 
   def self.get_token(post_args)
