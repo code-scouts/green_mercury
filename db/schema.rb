@@ -13,12 +13,7 @@
 
 ActiveRecord::Schema.define(version: 20130911003242) do
 
-  create_table "volunteer_blocks", force: true do |t|
-    t.integer  "user_id",    null: false
-    t.date     "on",         null: false
-    t.integer  "hours",      null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
 end
