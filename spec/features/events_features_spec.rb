@@ -175,7 +175,7 @@ feature 'Add an organizer to an event' do
   end
 
   scenario 'event organizer adds a new organizer' do
-    click_button 'Make organizer'
+    click_link 'Make organizer'
     @user2.organizer?(@event).should be_true
   end
 
@@ -190,7 +190,7 @@ feature 'Add an organizer to an event' do
   end
 
   scenario 'existing organizers should display under Organizers instead of Attendees' do
-    click_button 'Make organizer'
+    click_link 'Make organizer'
     page.should have_content @user2.name
     page.should_not have_button 'Make organizer'
   end

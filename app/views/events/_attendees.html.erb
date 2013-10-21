@@ -4,7 +4,7 @@
       <li>
         <%= rsvp.name %>
         <% if !rsvp.organizer?(event) && can?(:manage, @event) %>
-           <%= button_to 'Make organizer', event_organizers_path(event_id: event.id, user_uuid: uuid), remote: true %>
+           | <%= link_to 'Make organizer', event_organizers_path(event_id: event.id, user_uuid: uuid), method: 'post', remote: true %>
         <% end %>
       </li>
     <% end %>
