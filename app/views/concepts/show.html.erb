@@ -1,0 +1,11 @@
+<h1><%= @concept.name %></h1>
+
+<div class='description' id="description-links">
+  <p id="latest-description"><%= @concept.latest.description %></p>
+  <p id="revert-link"><%= render 'revert_link', concept: @concept %></p>
+  <p><%= link_to 'Edit description', new_concept_description_path(concept_id: @concept.id), remote: true, id: 'add-description-link' %></p>
+</div>
+
+<div id="add-description-form"></div>
+
+<div id="description-history"><%= render 'description_history', concept: @concept, users: @users %></div>

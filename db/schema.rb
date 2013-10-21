@@ -16,6 +16,20 @@ ActiveRecord::Schema.define(version: 20131021230201) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "concept_descriptions", force: true do |t|
+    t.text     "description"
+    t.integer  "concept_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "user_uuid"
+  end
+
+  create_table "concepts", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "requests", force: true do |t|
     t.string   "title"
     t.text     "content"

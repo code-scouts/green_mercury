@@ -1,0 +1,11 @@
+<h1>Concepts</h1>
+
+<%= link_to("Add a new concept", new_concept_path) %>
+
+<div class='container concepts-list'>
+  <ul>
+    <% @concepts.each do |concept| %>
+      <li class="concept"> <%= link_to concept.name, concept_path(concept.id)  %> </li>
+    <% end %> 
+  </ul>
+</div>

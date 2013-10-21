@@ -2,18 +2,28 @@
 <html>
 <head>
   <title>GreenMercury</title>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= stylesheet_link_tag    "application", media: "all" %>
+  <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 
 <header>
   <div class="row-fluid">
-    <div class="span8"></div>
+    <div class="span4"></div>
     <div class="span2">
       <% if user_signed_in? %>
         <%= link_to("Manage events", events_path) %>
+      <% end %>
+    </div>
+    <div class="span2">
+      <% if user_signed_in? %>
+        <%= link_to("Coding concepts", concepts_path) %>
+      <% end %>
+    </div>
+    <div class="span2">
+      <% if user_signed_in? %>
+        <%= link_to("Edit profile", edit_profile_path) %>
       <% end %>
     </div>
     <div class="span2">
@@ -171,23 +181,25 @@
     <%= link_to(image_tag('codescouts.png'), url_for(controller: '/index', action: 'index')) %>
   </div>
 </article>
-<% if notice.present? || alert.present? %>
-  <article class="flash">
-    <% if notice.present? %>
-      <p class="notice"><%= notice %></p>
-    <% end %>
-    <% if alert.present? %>
-      <p class="alert"><%= alert %></p>
-    <% end %>
-  </article>
-<% end %>
+
 
 <div class="container">
   <div class="row-fluid">
+    
+    <% if flash[:alert] %>
+      <div class='alert-box alert'> <%= flash[:alert] %> </div>
+    <% end %>
+    <% if flash[:notice] %>
+      <div class='alert-box alert'> <%= flash[:notice] %> </div>
+    <% end %>
+
     <%= yield %>
+
   </div>
 </div>
-
+<footer>
+  Code Scouts is sponsored by <%= link_to image_tag(@sponsor[:logo]), @sponsor[:link] %>
+</footer>
 <script>
   if (typeof window.janrain !== 'object') window.janrain = {};
   if (typeof window.janrain.settings !== 'object') window.janrain.settings = {};
@@ -199,12 +211,15 @@
   janrain.settings.appUrl = '<%= @janrain_rpx_url %>';
   janrain.settings.capture.redirectUri = '<%= @janrain_capture_url %>';
   janrain.settings.capture.appId = '<%= @janrain_app_id %>';
-  janrain.settings.capture.clientId = '<%= @janrain_login_client_id %>';
+  janrain.settings.capture.clientId = '<%= @janrain_client_id %>';
   janrain.settings.capture.captureServer = '<%= @janrain_capture_url %>';
   janrain.settings.capture.flowVersion = '<%= @flow_version %>';
   janrain.settings.capture.flowName = '<%= @flow_name %>';
   <% if @screen_to_render.present? %>
     janrain.settings.capture.screenToRender = '<%= @screen_to_render %>';
+  <% end %>
+  <% if @fresh_access_token.present? %>
+    var freshAccessToken = '<%= @fresh_access_token %>';
   <% end %>
 </script>
 </body>

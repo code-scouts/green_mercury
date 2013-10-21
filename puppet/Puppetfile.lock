@@ -13,6 +13,7 @@ FORGE
       ripienaar/concat (>= 0.2.0)
     puppetlabs/stdlib (4.1.0)
     ripienaar/concat (0.2.0)
+    saz/memcached (2.2.4)
 
 GIT
   remote: https://github.com/AndrewLorente/puppet-nginx.git
@@ -25,4 +26,5 @@ DEPENDENCIES
   dhutty/nginx (>= 0)
   maestrodev/rvm (>= 0)
   puppetlabs/postgresql (>= 0)
+  saz/memcached (>= 0)
 
