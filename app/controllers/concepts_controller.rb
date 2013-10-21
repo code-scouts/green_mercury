@@ -9,9 +9,7 @@ class ConceptsController < ApplicationController
 
   def create
     @concept = Concept.new(concept_params)
-    if params[:cancel]
-      redirect_to @concept
-    elsif @concept.save
+    if @concept.save
       flash[:notice] = "Your concept has been added."
       redirect_to @concept
     else
