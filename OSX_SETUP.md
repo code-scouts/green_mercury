@@ -60,6 +60,8 @@ Install PostgreSQL
 ------------------
 This project relies on a PostgreSQL database. On a Mac the simplest way to install Postgres is with [Postgres.app](http://postgresapp.com/). You can install it according to the guide on that website.
 
+Postgres.app creates a postgresql configuration that is slightly different from the norm. It doesn't listen on a "unix domain socket," though you don't need to know what one of those is. The important takeaway is that many resources will tell you to interact with postgresql by running `psql`. When you see that, you need to actually interact with postgresql by running `psql -h localhost`.
+
 Depending on your version of OSX, your computer may complain that Postgres.app is not from the App Store. This is a well-intentioned move by Apple to make sure your computer isn't infected with malware...but in this case it's being too picky! If you encounter this dialog, right-click on Postgres.app and choose "Open", then choose the "Open" button on the dialog that asks you to confirm that you really want to run Postgres.
 
 Clone the Source
@@ -91,12 +93,10 @@ bundle install
 
 Create And Migrate Databases
 ----------------------------
-Now that you have the dependencies installed, it's time to create the databases for the site. At your terminal run `psql postgres -h localhost`. This will open a Psql prompt, where you should enter:
-```SQL
-create database green_mercury;
-create database green_mercury_test;
-commit;
-\q
+Now that you have the dependencies installed, it's time to create the databases for the site. At your terminal run these two commands:
+```
+rake db:create
+rake db:create RAILS_ENV=test
 ```
 That creates a pair of empty databases, so you just need to set them up with the proper tables:
 ```

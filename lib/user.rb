@@ -1,14 +1,26 @@
+class AccessTokenExpired < StandardError; end
+
 class User
+  CACHE_TTL = 5 * 60 #seconds
   attr_accessor :meetup_token, :email, :confirmed_at, :uuid, :name, :profile_photo_url
 
   def self.fetch_from_token(token)
-    response = HTTParty.post(CAPTURE_URL + '/entity', {body:{
-      access_token: token,
-      type_name: 'user',
-    }})
+    Rails.cache.fetch("user_token:#{token}", expires_in: CACHE_TTL) do
+      response = HTTParty.post(CAPTURE_URL + '/entity', {body:{
+        access_token: token,
+        type_name: 'user',
+      }})
 
-    body = JSON.parse(response.body)
-    from_hash(body['result'])
+      body = JSON.parse(response.body)
+
+      if body.has_key?('result')
+        from_hash(body['result'])
+      elsif body['error'] == 'access_token_expired'
+        raise AccessTokenExpired
+      else
+        raise StandardError.new(response.body)
+      end
+    end
   end
 
   def self.fetch_from_uuid(uuid)
@@ -66,6 +78,26 @@ class User
     this.instance_variable_set(:@display_name, hash['displayName'])
     this.instance_variable_set(:@about_me, hash['aboutMe'])
     this
+  end
+
+  def self.refresh_token(refresh_token)
+    get_token(grant_type: 'refresh_token', refresh_token: refresh_token)
+  end
+
+  def self.acquire_token(code)
+    get_token(grant_type: 'authorization_code', code: code)
+  end
+
+  def self.get_token(post_args)
+    body = {
+      redirect_uri: CAPTURE_URL,
+      client_id: CAPTURE_OWNER_CLIENT_ID,
+      client_secret: CAPTURE_OWNER_CLIENT_SECRET,
+    }.merge(post_args)
+    response = HTTParty.post(CAPTURE_URL+'/oauth/token', {body: body})
+
+    body = JSON.parse(response.body)
+    [body['access_token'], body['refresh_token']]
   end
 
   def display_name
