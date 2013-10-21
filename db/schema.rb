@@ -29,30 +29,4 @@ ActiveRecord::Schema.define(version: 20131017215601) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "event_organizers", force: true do |t|
-    t.text     "user_uuid"
-    t.integer  "event_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "event_rsvps", force: true do |t|
-    t.text     "user_uuid"
-    t.integer  "event_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "events", force: true do |t|
-    t.string   "title"
-    t.text     "description"
-    t.string   "location"
-    t.date     "date"
-    t.time     "start_time"
-    t.time     "end_time"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
 end
