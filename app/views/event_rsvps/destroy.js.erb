@@ -1,5 +1,5 @@
-$('.display-attendees').empty().append('<%= j render("events/attendees", event: @event, attendees: @event.attendees) %>');
+$('.display-attendees').empty().append('<%= j render("events/attendees", event: @event) %>');
 
-$('.display-organizers').empty().append('<%= j render("events/organizers", event: @event, organizers: @event.organizers) %>');
+$('.display-organizers').empty().append('<%= j render("events/organizers", event: @event) %>');
 
 $('.rsvp-container').empty().append('<%= j render("events/rsvp_button", event: @event, event_rsvp: @event_rsvp) %>');

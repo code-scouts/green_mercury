@@ -1,8 +1,6 @@
 <h4>Organizers:</h4>
   <ul>
-    <% event.event_rsvps.each do |rsvp| %>
-    <% if organizers.length > 0 && organizers[rsvp.user_uuid] %>
-        <li><%= organizers[rsvp.user_uuid].name %></li>
-      <% end %>
+    <% event.organizers.each do |uuid, organizer| %>
+      <li><%= organizer.name %></li>
     <% end %>
   </ul>

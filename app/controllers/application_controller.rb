@@ -12,18 +12,16 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   protect_from_forgery with: :exception
 
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to root_url, :alert => exception.message
+  end
+
   def current_user
     session[:user]
   end
 
   def user_signed_in?
     ! current_user.nil?
-  end
-
-  class ApplicationController < ActionController::Base
-    rescue_from CanCan::AccessDenied do |exception|
-      redirect_to root_url, :alert => exception.message
-    end
   end
 
   protected

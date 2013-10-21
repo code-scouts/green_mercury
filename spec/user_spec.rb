@@ -213,6 +213,22 @@ describe User do
       @user.events_without_rsvp.should eq [@event2]
     end
   end
+
+  describe 'organizer?' do
+    before do
+      @event = FactoryGirl.create(:event)
+      @user = FactoryGirl.build(:user)
+    end
+
+    it 'is true if the user is an organizer of the event' do
+      @event.event_organizers.create(user_uuid: @user.uuid)
+      @user.organizer?(@event).should be_true
+    end
+
+    it 'is false if the user is not an organizer of the event' do
+      @user.organizer?(@event).should be_false
+    end
+  end
 end
 
 

@@ -93,4 +93,11 @@ class User
     my_events = self.events
     Event.all.delete_if { |event| event.date < Date.today || my_events.include?(event) }
   end
+
+  def organizer?(event)
+    user_uuid = uuid
+    event.event_organizers.any? do |organizer|
+      organizer.user_uuid == user_uuid
+    end
+  end
 end

@@ -2,9 +2,9 @@ require 'spec_helper'
 
 feature 'create events' do
   before :each do
-    @user = FactoryGirl.build(:user)
-    User.stub(:fetch_from_uuids).and_return({ @user.uuid => @user })
-    EventsController.any_instance.stub(:current_user).and_return(@user)
+    @user1 = FactoryGirl.build(:user)
+    User.stub(:fetch_from_uuids).and_return({ @user1.uuid => @user1 })
+    EventsController.any_instance.stub(:current_user).and_return(@user1)
     visit new_event_path
   end
 
@@ -50,16 +50,25 @@ feature 'view all events' do
 end
 
 feature 'delete an event' do
-  scenario 'user deletes an event' do
-    user = FactoryGirl.build(:user)
-    User.stub(:fetch_from_uuids).and_return({ user.uuid => user })
-    EventsController.any_instance.stub(:current_user).and_return(user)
-    event = FactoryGirl.create(:event)
-    event.event_organizers.create(user_uuid: user.uuid)
-    visit event_path event
+  before :each do 
+    @user = FactoryGirl.build(:user)
+    User.stub(:fetch_from_uuids).and_return({ @user.uuid => @user })
+    EventsController.any_instance.stub(:current_user).and_return(@user)
+    @event = FactoryGirl.create(:event)
+  end
+
+  scenario 'an event organizer deletes an event' do
+    @event.event_organizers.create(user_uuid: @user.uuid)
+    visit event_path @event
     click_link 'Delete event'
-    visit events_path
-    page.should_not have_content event.title
+    page.should_not have_content @event.title
+  end
+
+  scenario 'a non-event organizer attempts to delete an event' do 
+    visit event_path @event
+    page.should_not have_content 'Delete event'
+    page.driver.submit :delete, event_path(@event), {}
+    page.should have_content 'Not authorized'
   end
 end
 
@@ -69,28 +78,48 @@ feature 'edit an event' do
     User.stub(:fetch_from_uuids).and_return({ @user.uuid => @user })
     EventsController.any_instance.stub(:current_user).and_return(@user)
     @event = FactoryGirl.create(:event)
+  end
+
+  scenario 'an event organizer edits an event with valid information' do
     @event.event_organizers.create(user_uuid: @user.uuid)
     visit event_path @event
     click_link 'Edit event'
-  end
-
-  scenario 'user edits an event with valid information' do
     fill_in 'event_location', with: 'That other place'
     click_button('Confirm changes')
     page.should have_content "That other place"
   end
 
-  scenario 'user edit an event with invalid information' do
+  scenario 'an event organizer edits an event with invalid information' do
+    @event.event_organizers.create(user_uuid: @user.uuid)
+    visit event_path @event
+    click_link 'Edit event'
     fill_in 'event_location', with: ""
     click_button('Confirm changes')
     page.should have_content "error"
+  end
+
+  scenario 'a non-event organizer tries to edit an event' do
+    visit event_path @event
+    page.should_not have_content 'Edit event'
+    visit edit_event_path @event
+    page.should have_content 'Not authorized'
+    page.driver.submit :patch, event_path(@event), {}
+    page.should have_content 'Not authorized'
   end
 end
 
 feature 'RSVP to an event' do
   before :each do
     @user = FactoryGirl.build(:user)
-    User.stub(:fetch_from_uuids).and_return({ @user.uuid => @user })
+
+    User.stub(:fetch_from_uuids) do |users|
+      if users == [@user.uuid]
+        { @user.uuid => @user }
+      else
+        []
+      end
+    end
+
     EventsController.any_instance.stub(:current_user).and_return(@user)
     EventRsvpsController.any_instance.stub(:current_user).and_return(@user)
     @event = FactoryGirl.create(:event)
@@ -110,21 +139,21 @@ end
 
 feature 'Add an organizer to an event' do
   before :each do
-    @user1 = FactoryGirl.build(:user, name: 'Captain Awesome', uuid: 'captain-uuid')
-    @user2 = FactoryGirl.build(:user, name: 'Lieutenant Okay', uuid: 'lieutenant-uuid')
-    
-    User.stub(:fetch_from_uuids) do |users|
-      if users == [@user1.uuid]
+
+    User.stub(:fetch_from_uuids) do |uuids|
+      if uuids == [@user1.uuid]
         { @user1.uuid => @user1 }
-      elsif users == [@user2.uuid]
+      elsif uuids == [@user2.uuid]
         { @user2.uuid => @user2 }
-      elsif users == []
+      elsif uuids == []
         []
       else
         { @user1.uuid => @user1, @user2.uuid => @user2 }
       end
     end
-    
+
+    @user1 = FactoryGirl.build(:user, name: 'Captain Awesome', uuid: 'captain-uuid')
+    @user2 = FactoryGirl.build(:user, name: 'Lieutenant Okay', uuid: 'lieutenant-uuid')
     EventsController.any_instance.stub(:current_user).and_return(@user1)
     EventRsvpsController.any_instance.stub(:current_user).and_return(@user1)
     EventOrganizersController.any_instance.stub(:current_user).and_return(@user1)
@@ -141,16 +170,26 @@ feature 'Add an organizer to an event' do
     visit event_path @event
   end
 
-  scenario 'Event creator should be an organizer by default' do
-    EventOrganizer.where(event_id: @event.id, user_uuid: @user1.uuid).length.should eq 1
+  scenario 'event creator should be an organizer by default' do
+    within('.display-organizers') { page.should have_content @user1.name }
   end
 
-  scenario 'Add a new organizer' do
+  scenario 'event organizer adds a new organizer' do
     click_button 'Make organizer'
-    EventOrganizer.where(event_id: @event.id, user_uuid: @user2.uuid).length.should eq 1
+    @user2.organizer?(@event).should be_true
   end
 
-  scenario 'Existing organizers should display under Organizers instead of Attendees' do
+  scenario 'non-event organizer tries to add a new organizer' do
+    event2 = FactoryGirl.create(:event)
+    event2.event_rsvps.create(user_uuid: @user1.uuid)
+    event2.event_rsvps.create(user_uuid: @user2.uuid)
+    visit event_path event2
+    page.should_not have_content 'Make organizer'
+    page.driver.submit :post, event_organizers_path(event_id: event2.id, user_uuid: @user1.uuid), {}
+    page.should have_content 'Not authorized'
+  end
+
+  scenario 'existing organizers should display under Organizers instead of Attendees' do
     click_button 'Make organizer'
     page.should have_content @user2.name
     page.should_not have_button 'Make organizer'
