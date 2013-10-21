@@ -44,7 +44,7 @@ class User
   end
 
   def self.fetch_from_uuids(uuids)
-    return [] if uuids.length == 0
+    return {} if uuids.length == 0
     
     uuid_string = uuids.map { |uuid| "uuid='#{uuid}'" }.join(' or ')
 

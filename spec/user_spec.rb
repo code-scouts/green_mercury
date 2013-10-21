@@ -134,7 +134,7 @@ describe User do
 
     it "should return an empty array if no uuids are passed in" do
       users = User.fetch_from_uuids([])
-      users.should eq []
+      users.should eq {}
     end
   end
 

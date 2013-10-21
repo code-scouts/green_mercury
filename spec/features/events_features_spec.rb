@@ -116,7 +116,7 @@ feature 'RSVP to an event' do
       if users == [@user.uuid]
         { @user.uuid => @user }
       else
-        []
+        {}
       end
     end
 
@@ -146,7 +146,7 @@ feature 'Add an organizer to an event' do
       elsif uuids == [@user2.uuid]
         { @user2.uuid => @user2 }
       elsif uuids == []
-        []
+        {}
       else
         { @user1.uuid => @user1, @user2.uuid => @user2 }
       end
