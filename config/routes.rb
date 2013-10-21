@@ -1,6 +1,6 @@
 GreenMercury::Application.routes.draw do
-  resources :mentor_applications
-  resources :member_applications
+  resources :mentor_applications, except: [:index, :edit, :destroy]
+  resources :member_applications, except: [:index, :edit, :destroy]
   root 'index#index'
   get '/events', controller: :events, action: :index
   post '/events/rsvp/:id', controller: :events, action: :rsvp, as: :event_rsvp

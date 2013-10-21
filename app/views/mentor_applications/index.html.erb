@@ -1,9 +1,0 @@
-<h1>Pending Mentor Applications</h1>
-
-<div class="row">
-  <% @pending_applications.each do |application| %>
-    <div class="row">
-      <%= link_to @pending_appicants[application.user_uuid].name , mentor_application_path(application) %>
-    </div>
-  <% end %>
-</div>

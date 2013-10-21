@@ -1,10 +1,5 @@
 module ApplicantManager
 
-  def index
-    @pending_applications = application_model.pending
-    @applicants = associated_users(@pending_applications)
-  end
-
   def new
     @application = application_model.new
   end
