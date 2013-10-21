@@ -7,7 +7,7 @@
 </div>
 
 <div class='row'>
-  <div class='span6'>
+  <div class='span8'>
     <% if can? :manage, @event %>
       <p>
         <%= link_to "Edit event", edit_event_path(@event) %>
@@ -22,13 +22,17 @@
     <p>When</p>
     <p><%= @event.date.strftime("%B %d, %Y") %></p>
     <p><%= @event.start_time.strftime("%I:%M %p") %> - <%= @event.end_time.strftime("%I:%M %p") %></p>
+
+    <img src="<%= "http://maps.googleapis.com/maps/api/staticmap?markers=#{URI.escape(@event.location)}&size=300x300&zoom=15&sensor=false"%>"></img>
   </div>
 
-  <div class='span6 display-organizers'>
-    <%= render "organizers", event: @event %>
-  </div>
+  <div class='span4'>
+    <div class='display-organizers'>
+      <%= render "organizers", event: @event %>
+    </div>
 
-  <div class='span6 display-attendees'>
-    <%= render "attendees", event: @event %>
+    <div class='display-attendees'>
+      <%= render "attendees", event: @event %>
+    </div>
   </div>
 </div>
