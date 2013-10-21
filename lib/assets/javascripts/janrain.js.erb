@@ -5,7 +5,7 @@
   if (typeof window.janrain.settings.capture !== 'object') window.janrain.settings.capture = {};
 
   janrain.settings.capture.recaptchaPublicKey = '6LeVKb4SAAAAAGv-hg5i6gtiOV4XrLuCDsJOnYoP';
-  janrain.settings.capture.responseType = 'token';
+  janrain.settings.capture.responseType = 'code';
   janrain.settings.capture.stylesheets = [];
   janrain.settings.capture.mobileStylesheets = [];
 
@@ -49,6 +49,9 @@ $(document).ready(function() {
 });
 
 function janrainCaptureWidgetOnLoad() {
+  if (typeof window.freshAccessToken !== 'undefined') {
+    janrain.capture.ui.createCaptureSession(freshAccessToken);
+  }
   janrain.capture.ui.start();
   $('#startSignInButton').removeClass('disabled');
 
@@ -58,10 +61,14 @@ function janrainCaptureWidgetOnLoad() {
     if (window.user_signed_in === true) {
       return;
     }
+    if (result.authorizationCode === undefined) {
+      return;
+    }
     $.ajax(url, {
       type: "POST",
-      data: {access_token: result.accessToken},
+      data: {code: result.authorizationCode},
       success: function(data, status, jqXHR) {
+        janrain.capture.ui.createCaptureSession(data.access_token);
         window.location.reload(true);
       },
       error: function(jqXHR, status, errorThrown) {

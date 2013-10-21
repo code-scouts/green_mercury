@@ -2,6 +2,12 @@ node default {
   package { "libpq-dev":
     ensure => installed,
   }
+  package { "libsasl2-dev":
+    ensure => installed,
+  }
+  package { "gettext":
+    ensure => installed,
+  }
 
 
   user { 'green_mercury':
@@ -119,5 +125,10 @@ node default {
   "ruby-1.9.3-p448@green_mercury":
     ensure => present,
     require => Rvm_system_ruby['ruby-1.9.3-p448'];
+  }
+
+
+  class { 'memcached':
+    max_memory => '10%'
   }
 }

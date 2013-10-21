@@ -23,6 +23,36 @@ describe User do
       user.should be_a(User)
       user.email.should == 'marble@stone.co'
     end
+
+    it 'should raise something useful if the token is expired' do
+      response = double
+      response.should_receive(:body).and_return('{
+        "request_id":"h7yyk55jjnc39bw2",
+        "code":414,
+        "error_description":"access_token expired",
+        "error":"access_token_expired",
+        "stat":"error"
+      }')
+      HTTParty.should_receive(:post).and_return(response)
+
+      lambda { User.fetch_from_token('bellbottoms') }.
+        should raise_error(AccessTokenExpired)
+    end
+
+    it 'should puke something debuggable if there is an error response' do
+      error_json = '{
+        "code": 500,
+        "error_description": "A cataclysm occurred",
+        "error": "cataclysm_error",
+        "stat": "error"
+      }'
+      response = double
+      response.should_receive(:body).exactly(2).times.and_return(error_json)
+      HTTParty.should_receive(:post).and_return(response)
+
+      lambda { User.fetch_from_token('tunguska') }.
+        should raise_error(StandardError, error_json)
+    end
   end
 
   describe 'is_admin? factory' do
@@ -313,6 +343,50 @@ describe User do
       })
 
       user.profile_photo_url.should be_nil
+    end
+  end
+
+  describe 'acquire_token' do
+    it 'should post to janrain capture' do
+      mock_response = double
+      mock_response.should_receive(:body).and_return('{
+        "access_token": "ofmyaffection",
+        "refresh_token": "insertcoin"
+      }')
+      HTTParty.should_receive(:post).
+        with('https://codescouts.janraincapture.test.host/oauth/token', {body:{
+          code: 'scouts',
+          grant_type: 'authorization_code',
+          redirect_uri: 'https://codescouts.janraincapture.test.host',
+          client_id: 'fakeclientidfortests',
+          client_secret: 'fakeclientsecretfortests',
+        }}).and_return(mock_response)
+
+      (access_token, refresh_token) = User.acquire_token('scouts')
+      access_token.should eq 'ofmyaffection'
+      refresh_token.should eq 'insertcoin'
+    end
+  end
+
+  describe 'refresh_token' do
+    it 'should post to janrain capture' do
+      mock_response = double
+      mock_response.should_receive(:body).and_return('{
+        "access_token": "ofmyaffection",
+        "refresh_token": "insertcoin"
+      }')
+      HTTParty.should_receive(:post).
+        with('https://codescouts.janraincapture.test.host/oauth/token', {body:{
+          refresh_token: 'fresssh_attire',
+          grant_type: 'refresh_token',
+          redirect_uri: 'https://codescouts.janraincapture.test.host',
+          client_id: 'fakeclientidfortests',
+          client_secret: 'fakeclientsecretfortests',
+        }}).and_return(mock_response)
+
+      (access_token, refresh_token) = User.refresh_token('fresssh_attire')
+      access_token.should eq 'ofmyaffection'
+      refresh_token.should eq 'insertcoin'
     end
   end
 end

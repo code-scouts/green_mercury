@@ -6,15 +6,22 @@ class SessionController < ApplicationController
   
   def acquire_session
     respond_to do |format|
+      params.require :code
+      code = params[:code]
+
+      access_token, refresh_token = User.acquire_token(code)
+      session[:access_token] = access_token
+      session[:refresh_token] = refresh_token
+
       format.json do
-        session[:user] = User.fetch_from_token(params[:access_token])
-        render json: { stat: :ok }
+        render json: {access_token: session[:access_token]}
       end
     end
   end
 
   def logout
-    session[:user] = nil
+    session[:access_token] = nil
+    session[:refresh_token] = nil
     redirect_to root_path
   end
 end
