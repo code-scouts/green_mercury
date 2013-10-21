@@ -1,9 +1,5 @@
 <div class='row'>
   <h1><%= @event.title %></h1>
-
-  <span class="rsvp-container">
-    <%= render "rsvp_button", event: @event, event_rsvp: @event_rsvp %>
-  </span>
 </div>
 
 <div class='row'>
@@ -29,6 +25,11 @@
   </div>
 
   <div class='span4'>
+
+    <div class="rsvp-container">
+      <%= render "rsvp_button", event: @event, event_rsvp: @event_rsvp %>
+    </div>
+
     <div class='display-organizers'>
       <%= render "organizers", event: @event %>
     </div>

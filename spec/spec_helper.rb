@@ -7,7 +7,6 @@ Spork.prefork do
   require 'rspec/rails'
   require 'rspec/autorun'
   require 'cancan/matchers'
-  require 'helpers'
   ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
   RSpec.configure do |config|
     # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
