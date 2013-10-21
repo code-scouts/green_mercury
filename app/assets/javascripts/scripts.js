@@ -10,4 +10,14 @@ $(function() {
     }
   });
 
+  $('#toggle-map-container').on('click', '#toggle-map-button', function(event) {
+    event.preventDefault();
+    $('#location-map').toggle();
+    if ($(this).text() == 'Hide map') {
+      $(this).text('Show map');
+    } else {
+      $(this).text('Hide map');
+    }
+  });
+
 });
