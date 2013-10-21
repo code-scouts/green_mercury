@@ -37,6 +37,8 @@ end
 group :test do
   gem 'shoulda-matchers'
   gem 'capybara'
+  gem 'phantomjs'
+  gem 'poltergeist'
 end
 
 group :development, :test do
