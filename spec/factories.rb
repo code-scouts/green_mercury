@@ -62,4 +62,11 @@ FactoryGirl.define do
     concept
     user_uuid '1'
   end
+
+  factory :request do
+    title 'help me I need help'
+    content 'need help learning ruby'
+    contact_info 'call my cell all hours'
+    member_uuid 'member-uuid'
+  end
 end

@@ -1,1 +1,8 @@
 <h1>Requests</h1>
+<ul>
+  <% @requests.each do |request| %>
+    <li>
+      <%= request.title %>
+    </li>
+  <% end %>
+</ul>

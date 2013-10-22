@@ -13,6 +13,25 @@ class RequestsController < ApplicationController
     end
   end
 
+  def edit
+    @request = Request.find(params[:id])
+  end
+
+  def update
+    @request = Request.find(params[:id])
+    if @request.update(request_params)
+      flash[:notice] = "Request has been updated"
+      redirect_to requests_path
+    else
+      render 'edit'
+    end
+  end
+
+  def index
+    @requests = Request.all
+  end
+
+
   private
   def request_params
     params.require(:request).permit(:title, :content, :contact_info, :member_uuid)
