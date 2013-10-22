@@ -1,7 +1,7 @@
 <h1><%= @concept.name %></h1>
-
+<p id='edit-notice' class='alert hiding'>Please note you may use markdown in your description.</p>
 <div class='description' id="description-links">
-  <p id="latest-description"><%= @concept.latest.description %></p>
+  <div id="latest-description"><%= markdown @concept.latest.description %></div>
   <p id="revert-link"><%= render 'revert_link', concept: @concept %></p>
   <p><%= link_to 'Edit description', new_concept_description_path(concept_id: @concept.id), remote: true, id: 'add-description-link' %></p>
 </div>
