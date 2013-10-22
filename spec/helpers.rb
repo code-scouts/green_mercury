@@ -13,3 +13,7 @@ end
 def stub_requests_controllers
   RequestsController.any_instance.stub(:current_user).and_return(@user1)
 end
+
+def stub_user_fetch_from_uuid
+  User.stub(:fetch_from_uuid).and_return(@user1)
+end

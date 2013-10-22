@@ -1,0 +1,13 @@
+<h2><%= @request.title %></h2>
+
+<p>
+  <%= @request.created_at.strftime("%B %d, %Y") %>
+   - <%= @creator.name %>
+  <% if current_user == @creator %>
+   - <%= link_to 'Edit', edit_request_path(@request) %>
+   - <%= link_to 'Delete', request_path(@request), method: :delete, data: { confirm: 'Are you sure?' } %>
+  <% end %>
+</p>
+
+<p><%= @request.content %></p>
+

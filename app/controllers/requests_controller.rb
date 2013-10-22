@@ -25,7 +25,7 @@ class RequestsController < ApplicationController
     authorize! :update, @request
     if @request.update(request_params)
       flash[:notice] = "Request has been updated"
-      redirect_to requests_path
+      redirect_to request_path(@request)
     else
       render 'edit'
     end
@@ -34,6 +34,19 @@ class RequestsController < ApplicationController
   def index
     @requests = Request.all
     authorize! :read, Request
+  end
+
+  def show
+    @request = Request.find(params[:id])
+    @creator = User.fetch_from_uuid(@request.member_uuid)
+  end
+
+  def destroy
+    @request = Request.find(params[:id])
+    authorize! :destroy, @request
+    @request.destroy
+    flash[:notice] = "Request has been deleted"
+    redirect_to requests_path
   end
 
 
