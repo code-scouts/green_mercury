@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131021213314) do
+ActiveRecord::Schema.define(version: 20131022174546) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,5 +78,24 @@ ActiveRecord::Schema.define(version: 20131021213314) do
   end
 
   add_index "mentor_applications", ["user_uuid"], name: "index_mentor_applications_on_user_uuid", using: :btree
+
+  create_table "participations", force: true do |t|
+    t.integer  "project_id"
+    t.text     "user_uuid"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "projects", force: true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.text     "user_uuid"
+    t.integer  "max_members"
+    t.integer  "max_mentors"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end
