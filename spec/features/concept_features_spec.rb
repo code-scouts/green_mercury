@@ -81,16 +81,24 @@ feature 'add a new description to existing concept' do
     click_link 'Edit description'
   end
 
-  scenario 'user adds a valid description' do
+  scenario 'user adds a valid description', js: true do
     fill_in 'concept_description_description', with: 'latest description'
     click_button('Submit New Description')
-    page.should have_content 'latest description'
+    within('#description-history-table') { page.should have_content 'latest description' }
   end
 
-  scenario 'user adds an invalid description' do
+  scenario 'user adds an invalid description', js: true do
     fill_in 'concept_description_description', with: ''
     click_button('Submit New Description')
     page.should_not have_link 'Revert to previous description'
+  end
+
+  scenario 'a user adds a valid description with markdown', js: true do 
+    fill_in 'concept_description_description', with: "Look what I can do:\n\n ```ruby \n puts 'Hello World!' \n ```"
+    click_button 'Submit New Description'
+    expect(page).to have_css('.highlight')
+    
+    # within('#latest-description') { expect(page).to have_css('.highlight') }
   end
 end
 
