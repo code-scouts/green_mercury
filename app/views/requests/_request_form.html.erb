@@ -1,0 +1,9 @@
+<%= form_for request do |f| %>
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+  <%= f.label :contact_method %>
+  <%= f.text_area :contact_info %>
+  <%= f.label :content, "What's the nature of your need?" %>
+  <%= f.text_area :content %>
+  <%= f.submit 'Post Request', class: 'btn btn-primary' %>
+<% end %>
