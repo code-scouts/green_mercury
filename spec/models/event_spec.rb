@@ -113,6 +113,17 @@ describe Event do
       event.attendees
     end
   end
+
+  describe 'upcoming_events' do
+    it 'should return an array of all events occuring today or later' do
+      @event1 = FactoryGirl.create(:event, title: 'Event 1')
+      Date.stub(:today).and_return(Date.yesterday)
+      event2 = FactoryGirl.create(:event, title: 'Event 2', date: Date.today)
+      Date.unstub(:today)
+      @event3 = FactoryGirl.create(:event, title: 'Event 3')
+      Event.upcoming_events.should eq [@event1, @event3]
+    end
+  end
 end
 
 

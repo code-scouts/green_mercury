@@ -39,6 +39,10 @@ class Event < ActiveRecord::Base
     User.fetch_from_uuids(uuids)
   end
 
+  def self.upcoming_events
+    Event.where("date >= ?", Date.today)
+  end
+
 private
 
   def validate_date
