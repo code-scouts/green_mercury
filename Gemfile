@@ -43,6 +43,7 @@ end
 group :development, :test do
   gem 'rspec-rails'
   gem 'database_cleaner'
+  gem 'capybara'
   gem 'cucumber', '1.2.5', require: false
   gem 'cucumber-rails', require: false
   gem 'selenium-webdriver'
@@ -54,11 +55,16 @@ group :development, :test do
   gem 'better_errors'
 end
 
+group :test do 
+  gem 'shoulda-matchers'
+end
+
 group :development do
   gem 'puppet'
   gem 'librarian-puppet'
   gem 'capistrano'
   gem 'rvm-capistrano'
+  gem 'better_errors'
   gem 'quiet_assets'
   gem 'webrick', '1.3.1'
 end

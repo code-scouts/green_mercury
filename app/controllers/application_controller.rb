@@ -6,9 +6,10 @@ class ApplicationController < ActionController::Base
   alias_method :url_for, :original_url_for
   include ApplicationHelper
 
-  helper_method :user_signed_in?
-  helper_method :current_user
+  helper_method :user_signed_in?, :current_user
   before_filter :load_janrain_facts
+  before_filter :new_applicant
+  before_filter :pending_applicant
   # So, current_user is a helper method, not a filter. We're running it
   # here as a before_filter so that @fresh_access_token can be set by the
   # time template rendering starts. This is a hack and should be undone if
@@ -47,6 +48,13 @@ class ApplicationController < ActionController::Base
     ! current_user.nil?
   end
 
+  def associated_users(collection)
+    user_uuids = collection.map do |entry|
+      entry.user_uuid
+    end
+    User.fetch_from_uuids(user_uuids)
+  end
+
   protected
 
   def load_janrain_facts
@@ -60,6 +68,18 @@ class ApplicationController < ActionController::Base
       'verifyEmail'
     elsif params[:code].present?
       'resetPasswordRequestCode'
+    end
+  end
+
+  def new_applicant
+    if user_signed_in? && current_user.is_new?
+      redirect_to new_application_path
+    end
+  end
+
+  def pending_applicant
+    if user_signed_in? && current_user.is_pending?
+      redirect_to new_applications_show_path
     end
   end
 end

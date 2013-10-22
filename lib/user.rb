@@ -2,7 +2,7 @@ class AccessTokenExpired < StandardError; end
 
 class User
   CACHE_TTL = 5 * 60 #seconds
-  attr_accessor :meetup_token, :email, :confirmed_at, :uuid, :name, :profile_photo_url
+  attr_accessor :meetup_token, :email, :confirmed_at, :profile_photo_url, :uuid, :is_admin, :name
 
   def self.fetch_from_token(token)
     Rails.cache.fetch("user_token:#{token}", expires_in: CACHE_TTL) do
@@ -67,6 +67,7 @@ class User
     this.email = hash['email']
     this.confirmed_at = hash['emailVerified']
     this.uuid = hash['uuid']
+    this.is_admin = hash['is_admin']
     this.name = hash['displayName']
     if hash['photos']
       profile_photo = hash['photos'].find do |record|
@@ -78,6 +79,34 @@ class User
     this.instance_variable_set(:@display_name, hash['displayName'])
     this.instance_variable_set(:@about_me, hash['aboutMe'])
     this
+  end
+
+  def member_application
+    MemberApplication.find_by(user_uuid: uuid)
+  end
+
+  def mentor_application
+    MentorApplication.find_by(user_uuid: uuid)
+  end
+
+  def is_admin?
+    is_admin || false
+  end
+
+  def is_member?
+    !member_application.nil? && member_application.approved?
+  end
+
+  def is_mentor?
+    !mentor_application.nil? && mentor_application.approved?
+  end
+
+  def is_pending?
+    !is_admin? && ((member_application && !is_member?) || (mentor_application && !is_mentor?))
+  end
+
+  def is_new?
+    member_application.nil? && mentor_application.nil? && !is_admin?
   end
 
   def self.refresh_token(refresh_token)
@@ -133,3 +162,18 @@ class User
     end
   end
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

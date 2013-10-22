@@ -1,0 +1,1 @@
+curl -X POST -d client_id=$CLIENT_ID -d client_secret=$CLIENT_SECRET -d type_name=user --data-urlencode attr_def='{"name":"is_admin","type":"boolean"}' https://codescouts$DEV.janraincapture.com/entityType.addAttribute

@@ -1,0 +1,88 @@
+<%= form_for application do |f| %>
+  <%= render 'shared/form_errors', object: application %>
+  <div class="row">
+    <h4>Which of the following options best describes why you want to join Code Scouts?</h4>
+    <% why_you_want_to_join.each do |key, description| %>
+      <div class='radio'>
+        <%= f.radio_button(:why_you_want_to_join, key) %>
+        <%= f.label(('why_you_want_to_join_' + key).to_sym, description) %>
+      </div>
+    <% end %>
+  </div>
+  <div class='row'>
+    <div class="form-group">
+      <h4>Would you mind telling us what gender you identify with?</h4>
+      <%= f.text_field :gender, class: "form-control application-text-form" %>
+    </div>
+  </div>
+  <div class='row'>
+    <div class="form-group">
+      <h4>How would you describe your current level of experience and knowledge in programming?</h4>
+      <%= f.text_area :experience_level, class: "form-control application-text-form" %>
+    </div>
+  </div>
+  <table class="table table-striped application-table">
+    <thead>
+      <tr>
+        <th></th>
+        <th></th>
+        <th>1-Strongly Disagree</th>
+        <th>2</th>
+        <th>3</th>
+        <th>4 - Strongly Agree</th>
+        <th>Don't Know</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tbody>
+        <% confidence_level_questions.each do |symbol, question| %>
+          <tr>
+            <td><%= question %></td>
+            <td></td>
+            <% confidence_levels.each do |level| %>
+              <td>
+                <div class="radio">
+                  <%= f.radio_button(symbol, level) %>
+                </div>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+  </table>
+  <div class='row'>
+    <div class="form-group">
+      <h4>Are you currently working on any projects or using any study materials?</h4>
+      <p class='muted'>If so, please describe them briefly.</p>
+      <%= f.text_area :current_projects, class: "form-control application-text-form" %>
+    </div>
+  </div>
+  <div class="row">
+    <h4>How much time per week do you see yourself spending on your software development education and practice?</h4>
+    <% time_commitment_member.each do |value, description| %>
+      <div class="radio">
+        <%= f.radio_button(:time_commitment, value) %>
+        <%= f.label(("time_commitment_" + value).to_sym, description) %>
+      </div>
+    <% end %> 
+  </div>
+  <div class='row'>
+    <div class="form-group">
+      <h4>What hurdles do you think you may encounter in your quest to learn software development?</h4>
+      <%= f.text_area :hurdles, class: "form-control application-text-form" %>
+    </div>
+  </div>
+  <div class='row'>
+   <div class="form-group">
+     <h4>We’re super excited about getting to know you and helping you achieve your goals through Code Scouts. What’s something you’re excited about with Code Scouts or learning software development?</h4>
+     <%= f.text_area :excited_about, class: "form-control application-text-form" %>
+   </div>
+  </div>
+  <div class='row'>
+    <div class="form-group">
+      <h4>If there’s anything else you should think we should know about you or your membership, please let us know here:</h4>
+      <%= f.text_area :anything_else, class: "form-control application-text-form" %>
+    </div>
+  </div>
+  <%= f.submit 'Submit', class: 'btn btn-primary' %>
+<% end %> 
