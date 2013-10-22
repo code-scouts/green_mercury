@@ -1,4 +1,9 @@
 <h1>Requests</h1>
+
+<% if current_user.is_member? %>
+  <p><%= link_to 'Create a request', new_request_path %></p>
+<% end %>
+
 <ul>
   <% @requests.each do |request| %>
     <li>
