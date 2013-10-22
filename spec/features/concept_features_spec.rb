@@ -93,7 +93,6 @@ feature 'add a new description to existing concept' do
   scenario 'user clicks cancel button', js: true do
     
     click_button('Cancel')
-    save_and_open_page
     page.should have_content 'Edit description'
   end
 end
