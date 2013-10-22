@@ -10,7 +10,6 @@ describe Ability do
     ability.should_not be_able_to(:destroy, Event.new)
   end
 
-describe Ability do 
   it 'lets an admin approve a mentor application' do 
     user = FactoryGirl.build(:admin)
     ability = Ability.new(user)

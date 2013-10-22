@@ -255,30 +255,29 @@ describe User do
   end
 
   describe "fetch_from_uuids" do
-      it "should return a hash of uuids and users" do
-        response = double
-        response.should_receive(:body).and_return('{
-          "results": [{
-            "uuid": "the-uuid",
-            "email": "granite@stone.co"
-          }]
-        }')
-        HTTParty.should_receive(:post).with(
-          'https://codescouts.janraincapture.test.host/entity.find',
-          {
-            body: {
-              filter: "uuid='the-uuid'",
-              type_name: 'user',
-              client_id: 'fakeclientidfortests',
-              client_secret: 'fakeclientsecretfortests',
-            }
+    it "should return a hash of uuids and users" do
+      response = double
+      response.should_receive(:body).and_return('{
+        "results": [{
+          "uuid": "the-uuid",
+          "email": "granite@stone.co"
+        }]
+      }')
+      HTTParty.should_receive(:post).with(
+        'https://codescouts.janraincapture.test.host/entity.find',
+        {
+          body: {
+            filter: "uuid='the-uuid'",
+            type_name: 'user',
+            client_id: 'fakeclientidfortests',
+            client_secret: 'fakeclientsecretfortests',
           }
-        ).and_return(response)
+        }
+      ).and_return(response)
 
-        users = User.fetch_from_uuids(['the-uuid'])
-        users['the-uuid'].should be_a(User)
-        users['the-uuid'].email.should == 'granite@stone.co'
-      end
+      users = User.fetch_from_uuids(['the-uuid'])
+      users['the-uuid'].should be_a(User)
+      users['the-uuid'].email.should == 'granite@stone.co'
     end
 
     it "should return an empty array if no uuids are passed in" do

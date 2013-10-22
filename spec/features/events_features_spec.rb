@@ -2,7 +2,7 @@ require 'spec_helper'
 
 feature 'create events' do
   before :each do
-    @user1 = FactoryGirl.build(:user)
+    @user1 = new_mentor
     User.stub(:fetch_from_uuids).and_return({ @user1.uuid => @user1 })
     EventsController.any_instance.stub(:current_user).and_return(@user1)
     visit new_event_path
@@ -27,7 +27,7 @@ end
 
 feature 'view an event'do
   scenario 'user views an event page' do
-    user = FactoryGirl.build(:user)
+    user = new_mentor
     User.stub(:fetch_from_uuids).and_return({ user.uuid => user })
     EventsController.any_instance.stub(:current_user).and_return(user)
     event = FactoryGirl.create(:event)
@@ -38,7 +38,7 @@ end
 
 feature 'view all events' do
   scenario 'user views all events' do
-    user = FactoryGirl.build(:user)
+    user = new_mentor
     User.stub(:fetch_from_uuids).and_return({ user.uuid => user })
     EventsController.any_instance.stub(:current_user).and_return(user)
     @event1 = FactoryGirl.create(:event, title: 'Event 1')
@@ -51,7 +51,7 @@ end
 
 feature 'delete an event' do
   before :each do 
-    @user = FactoryGirl.build(:user)
+    @user = new_mentor
     User.stub(:fetch_from_uuids).and_return({ @user.uuid => @user })
     EventsController.any_instance.stub(:current_user).and_return(@user)
     @event = FactoryGirl.create(:event)
@@ -74,7 +74,7 @@ end
 
 feature 'edit an event' do
   before :each do
-    @user = FactoryGirl.build(:user)
+    @user = new_mentor
     User.stub(:fetch_from_uuids).and_return({ @user.uuid => @user })
     EventsController.any_instance.stub(:current_user).and_return(@user)
     @event = FactoryGirl.create(:event)
@@ -110,7 +110,7 @@ end
 
 feature 'RSVP to an event' do
   before :each do
-    @user = FactoryGirl.build(:user)
+    @user = new_mentor
 
     User.stub(:fetch_from_uuids) do |users|
       if users == [@user.uuid]
@@ -152,8 +152,8 @@ feature 'Add an organizer to an event' do
       end
     end
 
-    @user1 = FactoryGirl.build(:user, name: 'Captain Awesome', uuid: 'captain-uuid')
-    @user2 = FactoryGirl.build(:user, name: 'Lieutenant Okay', uuid: 'lieutenant-uuid')
+    @user1 = new_mentor
+    @user2 = new_mentor
     EventsController.any_instance.stub(:current_user).and_return(@user1)
     EventRsvpsController.any_instance.stub(:current_user).and_return(@user1)
     EventOrganizersController.any_instance.stub(:current_user).and_return(@user1)
