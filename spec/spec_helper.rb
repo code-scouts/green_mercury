@@ -6,6 +6,8 @@ Spork.prefork do
   require File.expand_path("../../config/environment", __FILE__)
   require 'rspec/rails'
   require 'rspec/autorun'
+  require 'capybara/rspec'
+  require 'cancan/matchers'
   require 'shoulda/matchers/integrations/rspec'
   ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
   RSpec.configure do |config|
@@ -34,4 +36,17 @@ Spork.each_run do
   Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
   ActiveSupport::Dependencies.clear
   FactoryGirl.reload
+  require 'user'
+end
+
+def new_member 
+  user = FactoryGirl.build(:user)
+  FactoryGirl.create(:approved_member_application, user_uuid: user.uuid)
+  user
+end
+
+def new_mentor
+  user = FactoryGirl.build(:user)
+  FactoryGirl.create(:approved_mentor_application, user_uuid: user.uuid)
+  user
 end

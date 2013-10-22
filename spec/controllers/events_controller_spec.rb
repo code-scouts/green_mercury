@@ -4,7 +4,7 @@ require 'spec_helper'
 describe EventsController do
   describe "when logged in" do
     before :each do
-      @user = User.new
+      @user = new_mentor
       controller.stub current_user: @user
     end
 

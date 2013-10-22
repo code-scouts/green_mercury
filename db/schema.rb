@@ -30,6 +30,55 @@ ActiveRecord::Schema.define(version: 20131021230201) do
     t.datetime "updated_at"
   end
 
+  create_table "member_applications", force: true do |t|
+    t.text     "user_uuid"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "why_you_want_to_join"
+    t.string   "gender"
+    t.text     "experience_level"
+    t.integer  "confidence_technical_skills"
+    t.integer  "basic_programming_knowledge"
+    t.integer  "comfortable_learning"
+    t.text     "current_projects"
+    t.text     "time_commitment"
+    t.text     "hurdles"
+    t.text     "excited_about"
+    t.text     "anything_else"
+    t.text     "rejected_by_user_uuid"
+    t.text     "approved_by_user_uuid"
+    t.datetime "approved_date"
+    t.datetime "rejected_date"
+  end
+
+  add_index "member_applications", ["user_uuid"], name: "index_member_applications_on_user_uuid", using: :btree
+
+  create_table "mentor_applications", force: true do |t|
+    t.text     "user_uuid"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "contact"
+    t.string   "geography"
+    t.string   "shirt_size"
+    t.string   "hear_about"
+    t.text     "motivation"
+    t.string   "time_commitment"
+    t.string   "mentor_one_on_one"
+    t.string   "mentor_group"
+    t.string   "mentor_online"
+    t.string   "volunteer_events"
+    t.string   "volunteer_teams"
+    t.string   "volunteer_solo"
+    t.string   "volunteer_technical"
+    t.string   "volunteer_online"
+    t.text     "rejected_by_user_uuid"
+    t.text     "approved_by_user_uuid"
+    t.datetime "approved_date"
+    t.datetime "rejected_date"
+  end
+
+  add_index "mentor_applications", ["user_uuid"], name: "index_mentor_applications_on_user_uuid", using: :btree
+
   create_table "requests", force: true do |t|
     t.string   "title"
     t.text     "content"
