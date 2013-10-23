@@ -77,11 +77,13 @@ FactoryGirl.define do
 
   factory :mentor_participation do 
     sequence(:user_uuid) { |n| "user#{n}" }
+    role 'Mentor'
     project
   end
 
   factory :member_participation do 
     sequence(:user_uuid) { |n| "user#{n}" }
+    role 'Member'
     project
   end 
 

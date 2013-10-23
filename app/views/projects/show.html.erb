@@ -19,9 +19,14 @@
                   <div class='span4 photo'></div>
                   <div class='span8'>
                     <%= User.fetch_from_uuid(participation.user_uuid).name %>
+                    <p class='muted'><%= participation.role %></p>
+                  </div>
+                <% else %>
+                  <div class='span4 photo'></div>
+                  <div class='span8'>
+                    <%= link_to participation.role, mentor_participation_path(participation), method: 'patch' %>
                   </div>
                 <% end %>
-                <%= participation.role %>
               </div>
             </li>
           <% end %>
@@ -37,9 +42,10 @@
                   <div class='span4 photo'></div>
                   <div class='span8'>
                     <% User.fetch_from_uuid(participation.user_uuid).name %>
+                    <%= participation.role %>
                   </div>
                 <% end %>
-                <%= participation.role %>
+                  <%= participation.role %>
               </div>
             </li>
           <% end %>

@@ -74,5 +74,59 @@ feature 'create project team', js: true do
     click_on 'Create'
     within('#members') { page.should have_content 'Front-end' }
   end
-
 end
+
+feature 'join a project' do 
+  before :each do 
+    @project = FactoryGirl.create(:project)
+    @mentor_participation = FactoryGirl.create(:mentor_participation, user_uuid: nil, project: @project)
+  end
+
+  scenario 'a mentor successfully joins a project' do 
+    user = new_mentor
+    ApplicationController.any_instance.stub(:current_user) { user }
+    User.should_receive(:fetch_from_uuid).with(user.uuid).and_return(user)
+    visit root_path
+    click_link 'Projects'
+    click_link @project.title 
+    click_link @mentor_participation.role
+    page.should have_content 'successfully'
+    within('#mentors') { page.should have_content user.name }
+  end
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
