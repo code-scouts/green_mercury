@@ -47,7 +47,7 @@ feature 'create project team', js: true do
     ApplicationController.any_instance.stub(:current_user) { user }
   end
 
-  scenario 'a project organizer adds mentors when creating the project' do
+  scenario 'a project organizer adds mentors when creating a project' do
     visit root_path
     click_link 'Projects'
     click_link 'Create a Project'
@@ -58,7 +58,21 @@ feature 'create project team', js: true do
     click_link 'Add new mentor'
     fill_in 'Role', with: 'Front-end'
     click_on 'Create'
-    within('#team') { page.should have_content 'Front-end' }
+    within('#mentors') { page.should have_content 'Front-end' }
+  end
+
+  scenario 'a project organizer adds members when creating a project' do
+    visit root_path
+    click_link 'Projects'
+    click_link 'Create a Project'
+    fill_in 'project_title', with: 'Things to do'
+    fill_in 'project_start_date', with: Date.today
+    fill_in 'project_end_date', with: Date.today + 1.month
+    fill_in_ckeditor 'project_description', with: 'We are going to do things'
+    click_link 'Add new member'
+    fill_in 'Role', with: 'Front-end'
+    click_on 'Create'
+    within('#members') { page.should have_content 'Front-end' }
   end
 
 end

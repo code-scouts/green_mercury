@@ -16,7 +16,7 @@ GreenMercury::Application.routes.draw do
   resources :concepts, except: [:destroy, :edit, :update]
   resources :concept_descriptions, only: [:new, :create, :destroy]
   resources :projects
-  resources :mentor_participations, only: [:new, :create]
+
   get '/profile/edit', controller: :profile, action: :edit, as: :edit_profile
   get '/profile/:uuid', controller: :profile, action: :show, as: :show_profile
 end

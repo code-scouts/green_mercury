@@ -5,5 +5,6 @@ class Project < ActiveRecord::Base
   validates :description, presence: true
 
   accepts_nested_attributes_for :mentor_participations
+  accepts_nested_attributes_for :member_participations
 
 end

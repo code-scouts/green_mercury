@@ -6,5 +6,6 @@ describe Project do
   it { should validate_presence_of :title }
   it { should validate_presence_of :description }
   it { should accept_nested_attributes_for :mentor_participations }
+  it { should accept_nested_attributes_for :member_participations }
 end
 

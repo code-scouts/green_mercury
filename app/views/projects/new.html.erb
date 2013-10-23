@@ -1,33 +1,61 @@
-<h1>New Project</h1>
-
+<div class='row'>
+  <h1>New Project</h1>
+</div>
 <div class="row">
-  <div class='details'>
-    <h2>Project Details</h2>
-    <%= form_for @project do |f| %>
+  <div class='details offset1'>
+    <h5>Project Details</h5>
+    <%= form_for @project, html: { class: 'form-horizontal' } do |f| %>
 
       <%= render 'shared/form_errors', object: @project %>    
-    
-      <%= f.label :title, 'Project Name' %>
-      <%= f.text_field :title %>
-
-      <%= f.label :start_date , 'Start Date' %>
-      <%= f.date_field :start_date %>
-
-      <%= f.label :end_date, 'End Date' %>
-      <%= f.date_field :end_date %>
-      <div class="row">
-        <div class='span6'>
-          <%= f.label :description, 'Information' %>
-          <%= f.text_area :description, class: 'ckeditor' %>
+      <div class='control-group'>
+        <%= f.label :title, 'Project Name', class: "control-label" %>
+        <div class='controls'>
+          <%= f.text_field :title %>
         </div>
       </div>
-      <div class='row'>
-        <div id='mentor-display'>
-          <h3>Mentors</h3>
-          <div class='project-mentors'>
 
+      <div class='control-group'>
+        <%= f.label :start_date , 'Start Date', class: "control-label" %>
+        <div class='controls'>
+          <%= f.date_field :start_date %>
+        </div>
+      </div>
+
+      <div class='control-group'>
+        <%= f.label :end_date, 'End Date', class: "control-label" %>
+        <div class='controls'> 
+          <%= f.date_field :end_date %>
+        </div>
+      </div>
+      <div class="row">
+        <div class='span6'>
+          <div class='control-group'>
+            <%= f.label :description, 'Information', class: 'control-label' %>
+            <div class='controls'>
+              <%= f.text_area :description, class: 'ckeditor' %>
+            </div>
           </div>
-          <%= link_to_add_fields('Add new mentor', f, :mentor_participations) %>
+        </div>
+      </div>
+      <div id='team' class='row'>
+        <div id='team-preview' class='span4'>
+          <h4>Team Preview</h4>
+        </div>
+        <div id='add-team' class="span8">
+          <div id='add-mentors' class='row'>
+            <h3>Mentors</h3>
+            <div class='project-mentors'>
+
+            </div>
+            <%= link_to_add_fields('Add new mentor', f, :mentor_participations) %>
+          </div>
+          <div id='add-members' class='row'>
+            <h3>Members</h3>
+            <div class='project-members'>
+
+            </div>
+            <%= link_to_add_fields('Add new member', f, :member_participations) %>
+          </div>
         </div>
       </div>
       <%= f.submit 'Create', class: 'btn btn-primary' %>
