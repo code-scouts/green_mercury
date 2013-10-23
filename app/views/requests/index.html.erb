@@ -1,13 +1,5 @@
-<h1>Requests</h1>
-
 <% if current_user.is_member? %>
-  <p><%= link_to 'Create a request', new_request_path %></p>
+  <%= render 'member_requests_view', user_requests: @user_requests %>
+<% else %>
+  <%= render 'mentor_requests_view', user_requests: @user_requests, open_requests: @open_requests %>
 <% end %>
-
-<ul>
-  <% @requests.each do |request| %>
-    <li>
-      <%= link_to request.title, request_path(request) %>
-    </li>
-  <% end %>
-</ul>

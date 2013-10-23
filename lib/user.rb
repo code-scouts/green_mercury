@@ -142,6 +142,14 @@ class User
       '<hidden>'
     end
   end
+
+  def requests
+    if is_mentor?
+      Request.where(mentor_uuid: self.uuid)
+    else
+      Request.where(member_uuid: self.uuid)
+    end
+  end
 end
 
 

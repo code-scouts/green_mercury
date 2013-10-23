@@ -9,7 +9,7 @@ class RequestsController < ApplicationController
     authorize! :create, @request
     if @request.save
       flash[:notice] = "Request successfully created"
-      redirect_to requests_path
+      redirect_to request_path @request
     else
       render 'new'
     end
@@ -32,7 +32,8 @@ class RequestsController < ApplicationController
   end
 
   def index
-    @requests = Request.all
+    @user_requests = current_user.requests
+    @open_requests = Request.open_requests
     authorize! :read, Request
   end
 
@@ -48,7 +49,6 @@ class RequestsController < ApplicationController
     flash[:notice] = "Request has been deleted"
     redirect_to requests_path
   end
-
 
   private
   def request_params

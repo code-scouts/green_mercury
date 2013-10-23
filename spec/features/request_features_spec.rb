@@ -3,6 +3,7 @@ require 'spec_helper'
 feature 'create a request' do
   before :each do
     @user1 = new_member
+    stub_user_fetch_from_uuid
     stub_requests_controllers
     visit requests_path
   end
@@ -113,5 +114,40 @@ feature 'delete a request' do
     page.should_not have_link 'Delete'
     page.driver.submit :delete, request_path(@request), {}
     page.should have_content 'not authorized'
+  end
+end
+
+feature 'requests index page' do
+  before :each do
+    @user1 = new_member
+    stub_user_fetch_from_uuid
+    stub_requests_controllers
+    @request1 = FactoryGirl.create(:request)
+    @request2 = FactoryGirl.create(:request)
+    @request3 = FactoryGirl.create(:request, member_uuid: @user1.uuid)
+    @request4 = FactoryGirl.create(:request, member_uuid: @user1.uuid)
+  end
+
+  scenario 'a member visits the page' do
+    stub_user_fetch_from_uuid
+    stub_requests_controllers
+    visit requests_path
+    page.should_not have_content @request1.title
+    page.should_not have_content @request2.title
+    page.should have_content @request3.title
+    page.should have_content @request4.title
+  end
+
+  scenario 'a mentor visits the page' do
+    @user1 = new_mentor
+    @request1.update(mentor_uuid: @user1.uuid)
+    @request3.update(mentor_uuid: 'other-mentor-uuid')
+    stub_user_fetch_from_uuid
+    stub_requests_controllers
+    visit requests_path
+    page.should have_content @request1.title
+    page.should have_content @request2.title
+    page.should_not have_content @request3.title
+    page.should have_content @request4.title
   end
 end

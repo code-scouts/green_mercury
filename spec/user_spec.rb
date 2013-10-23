@@ -389,4 +389,20 @@ describe User do
       refresh_token.should eq 'insertcoin'
     end
   end
+
+  describe 'requests' do
+    it 'returns the requests created by the member (if user is a member)' do
+      user = new_member
+      FactoryGirl.create(:request)
+      request = FactoryGirl.create(:request, member_uuid: user.uuid)
+      user.requests.should eq [request]
+    end
+    
+    it 'returns the requests claimed by the mentor (if user is a mentor)' do
+      user = new_mentor
+      request = FactoryGirl.create(:request, mentor_uuid: user.uuid)
+      FactoryGirl.create(:request, mentor_uuid: 'other-mentor-uuid')
+      user.requests.should eq [request]
+    end
+  end
 end
