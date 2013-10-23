@@ -458,14 +458,17 @@ describe User do
       FactoryGirl.create(:request)
       request1 = FactoryGirl.create(:request, member_uuid: user.uuid)
       request2 = FactoryGirl.create(:request, member_uuid: user.uuid, mentor_uuid: 'mentor-uuid')
+      request3 = FactoryGirl.create(:request, member_uuid: 'other-member-uuid')
+      request4 = FactoryGirl.create(:request, member_uuid: 'other-member-uuid', mentor_uuid: 'mentor-uuid')
       user.claimed_requests.should eq [request2]
     end
     
     it 'returns the requests claimed by the mentor (if user is a mentor)' do
       user = new_mentor
-      request = FactoryGirl.create(:request, mentor_uuid: user.uuid)
-      FactoryGirl.create(:request, mentor_uuid: 'other-mentor-uuid')
-      user.claimed_requests.should eq [request]
+      request1 = FactoryGirl.create(:request, member_uuid: 'member-uuid')
+      request2 = FactoryGirl.create(:request, member_uuid: 'member-uuid', mentor_uuid: user.uuid)
+      request4 = FactoryGirl.create(:request, member_uuid: 'member-uuid', mentor_uuid: 'mentor-uuid')
+      user.claimed_requests.should eq [request2]
     end
   end
 
@@ -473,15 +476,17 @@ describe User do
     it 'returns any unclaimed requests user has created (if user is a member)' do
       user = new_member
       request1 = FactoryGirl.create(:request, member_uuid: user.uuid)
-      request2 = FactoryGirl.create(:request, member_uuid: user.uuid, mentor_uuid: user.uuid)
-      request3 = FactoryGirl.create(:request, member_uuid: 'other-user-uuid')
+      request2 = FactoryGirl.create(:request, member_uuid: user.uuid, mentor_uuid: 'mentor-uuid')
+      request3 = FactoryGirl.create(:request, member_uuid: 'other-member-uuid')
+      request4 = FactoryGirl.create(:request, member_uuid: 'other-member-uuid', mentor_uuid: 'mentor-uuid')
       user.open_requests.should eq [request1]
     end
     
     it 'returns all unclaimed requests (if user is a mentor)' do
       user = new_mentor
-      request1 = FactoryGirl.create(:request)
-      request2 = FactoryGirl.create(:request, mentor_uuid: user.uuid)
+      request1 = FactoryGirl.create(:request, member_uuid: 'member-uuid')
+      request2 = FactoryGirl.create(:request, member_uuid: 'member-uuid', mentor_uuid: user.uuid)
+      request4 = FactoryGirl.create(:request, member_uuid: 'member-uuid', mentor_uuid: 'mentor-uuid')
       user.open_requests.should eq [request1]
     end
   end

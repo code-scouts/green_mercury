@@ -2,8 +2,8 @@
 
 <h3>Your Open Requests</h3>
 
-<%= render 'requests_list', requests: current_user.claimed_requests %>
+<%= render 'requests_list', requests: current_user.open_requests %>
 
 <h3>Your Claimed Requests</h3>
 
-<%= render 'requests_list', requests: current_user.open_requests %>
+<%= render 'requests_list', requests: current_user.claimed_requests %>

@@ -149,7 +149,7 @@ class User
     if is_mentor?
       Request.where(mentor_uuid: self.uuid)
     else
-      Request.where(member_uuid: self.uuid) - open_requests
+      Request.where(member_uuid: self.uuid) - Request.where(member_uuid: self.uuid, mentor_uuid: nil)
     end
   end
 
