@@ -7,6 +7,9 @@ class Ability
     user ||= User.new # guest user (not logged in)
     if user.is_admin?
       can :manage, :all
+
+    elsif user.is_mentor? 
+      can :create, Project
     end
 
     #   else

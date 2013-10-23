@@ -20,6 +20,11 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   protect_from_forgery with: :exception
 
+  rescue_from CanCan::AccessDenied do |exception|
+     redirect_to root_url, :alert => exception.message
+  end
+
+
   before_filter :select_a_sponsor
   def select_a_sponsor
     @sponsor = sponsors.sample

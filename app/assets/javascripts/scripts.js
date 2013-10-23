@@ -8,4 +8,9 @@ $(function() {
       $(this).text('Hide');
     }
   });
+
+  $('.ckeditor').ckeditor({
+    
+  });
 });
+

@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require ckeditor-jquery
 //= require twitter/bootstrap
 //= require janrain.js
 //= require_tree .

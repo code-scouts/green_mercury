@@ -62,4 +62,11 @@ FactoryGirl.define do
     concept
     user_uuid '1'
   end
+
+  factory :project do
+    title "Thing"
+    description "Stuff"
+    start_date Time.now
+    end_date Time.now + 1.month
+  end
 end

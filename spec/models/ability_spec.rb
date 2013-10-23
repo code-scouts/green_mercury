@@ -12,4 +12,16 @@ describe Ability do
     ability = Ability.new(user)
     ability.should be_able_to(:update, FactoryGirl.create(:member_application))
   end
+
+  it 'allows a mentor to create a project' do
+    user = new_mentor
+    ability = Ability.new(user)
+    ability.should be_able_to(:create, Project.new)
+  end
+
+  it 'does not allow a non-mentor to create a project' do
+    user = new_member
+    ability = Ability.new(user)
+    ability.should_not be_able_to(:create, Project.new)
+  end
 end
