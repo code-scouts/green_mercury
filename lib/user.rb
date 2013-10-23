@@ -44,6 +44,8 @@ class User
   end
 
   def self.fetch_from_uuids(uuids)
+    return {} if uuids.length == 0
+    
     uuid_string = uuids.map { |uuid| "uuid='#{uuid}'" }.join(' or ')
 
     response = HTTParty.post(CAPTURE_URL + '/entity.find', {body:{
@@ -140,6 +142,26 @@ class User
       @about_me
     else
       '<hidden>'
+    end
+  end
+
+  def events
+    if @events.nil?
+      rsvped_event_ids = Set.new(EventRsvp.where(user_uuid: self.uuid).map(&:event_id))
+      @events = Event.upcoming_events.keep_if { |event| rsvped_event_ids.include?(event.id) }
+    else
+      @events
+    end
+  end
+
+  def events_without_rsvp
+    Event.upcoming_events - events
+  end
+
+  def organizer?(event)
+    user_uuid = uuid
+    event.event_organizers.any? do |organizer|
+      organizer.user_uuid == user_uuid
     end
   end
 end
