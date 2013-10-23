@@ -117,6 +117,59 @@ feature 'delete a request' do
   end
 end
 
+feature 'view request page' do
+  before :each do
+    @request1 = FactoryGirl.create(:request)
+    @request2 = FactoryGirl.create(:request, mentor_uuid: 'mentor-uuid')
+  end
+
+  scenario 'a member views an open request' do
+    @user1 = new_member
+    stub_requests_controllers
+    stub_user_fetch_from_uuid
+    stub_user_fetch_from_uuids
+    visit request_path(@request1)
+    page.should have_content 'not yet been claimed'
+  end
+
+  scenario 'a member views a request that has been claimed' do
+    @user1 = new_member
+    stub_requests_controllers
+    stub_user_fetch_from_uuid
+    stub_user_fetch_from_uuids
+    visit request_path(@request2)
+    page.should have_content 'has been claimed'
+  end
+
+  scenario 'a mentor views an open request' do
+    @user1 = new_mentor
+    stub_requests_controllers
+    stub_user_fetch_from_uuid
+    stub_user_fetch_from_uuids
+    visit request_path(@request1)
+    page.should have_link 'Claim request'
+  end
+
+  scenario 'a mentor views a request they have claimed' do
+    @user1 = new_mentor
+    @request2.update(mentor_uuid: @user1.uuid)
+    stub_requests_controllers
+    stub_user_fetch_from_uuid
+    stub_user_fetch_from_uuids
+    visit request_path(@request2)
+    page.should have_content 'You claimed this request'
+  end
+
+  scenario 'a mentor views a request that has been claimed by someone else' do
+    @user1 = new_mentor
+    stub_requests_controllers
+    stub_user_fetch_from_uuid
+    stub_user_fetch_from_uuids
+    visit request_path(@request2)
+    page.should have_content 'has already been claimed'
+  end
+end
+
 feature 'requests index page' do
   before :each do
     @user1 = new_member
