@@ -29,10 +29,10 @@ feature 'create a request' do
     visit requests_path
     page.should_not have_content 'Create a request'
     visit new_request_path
-    page.should have_content 'not authorized'
+    page.should have_content 'Not authorized'
     visit requests_path
     page.driver.submit :post, requests_path(request: {title: 'my title', content: 'some content', contact_info: 'get in touch', member_uuid: @user1.uuid}), {}
-    page.should have_content 'not authorized'
+    page.should have_content 'Not authorized'
   end
 end
 
@@ -65,10 +65,10 @@ feature 'edit a request' do
     visit request_path @request
     within('.container') {page.should_not have_link 'Edit'}
     visit edit_request_path @request
-    page.should have_content 'not authorized'
+    page.should have_content 'Not authorized'
     visit requests_path
     page.driver.submit :patch, request_path(@request), {}
-    page.should have_content 'not authorized'
+    page.should have_content 'Not authorized'
   end
 
   scenario 'a mentor attempts to edit a request' do
@@ -77,10 +77,10 @@ feature 'edit a request' do
     visit request_path @request
     within('.container') {page.should_not have_link 'Edit'}
     visit edit_request_path @request
-    page.should have_content 'not authorized'
+    page.should have_content 'Not authorized'
     visit requests_path
     page.driver.submit :patch, request_path(@request), {}
-    page.should have_content 'not authorized'
+    page.should have_content 'Not authorized'
   end
 end
 
@@ -104,7 +104,7 @@ feature 'delete a request' do
     visit request_path @request
     page.should_not have_link 'Delete'
     page.driver.submit :delete, request_path(@request), {}
-    page.should have_content 'not authorized'
+    page.should have_content 'Not authorized'
   end
 
   scenario 'a mentor attempts to delete a request' do
@@ -113,7 +113,7 @@ feature 'delete a request' do
     visit request_path @request
     page.should_not have_link 'Delete'
     page.driver.submit :delete, request_path(@request), {}
-    page.should have_content 'not authorized'
+    page.should have_content 'Not authorized'
   end
 end
 

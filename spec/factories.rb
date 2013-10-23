@@ -1,4 +1,13 @@
 FactoryGirl.define do
+  factory :event do
+    title 'Awesome Party'
+    description 'We will do crazy stuff together'
+    location '701 E Burnside St  Portland, OR 97214'
+    date Date.tomorrow
+    start_time Time.now
+    end_time (Time.now + 3.hours)
+  end
+
   factory :member_application do 
     sequence(:user_uuid) { |n| "member#{n}" }
     why_you_want_to_join "I don't know"

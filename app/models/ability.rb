@@ -16,5 +16,13 @@ class Ability
     if user.is_mentor?
       can :read, Request
     end
+
+    can :manage, Event do |event|
+      user.organizer?(event)
+    end
+
+    if !user.uuid.nil?
+      can [:read, :create], Event
+    end
   end
 end
