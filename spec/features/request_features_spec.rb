@@ -124,10 +124,22 @@ feature 'a member views a request' do
     stub_user_fetch_from_uuid
   end
 
+  scenario 'their own request' do
+    request = FactoryGirl.create(:request, member_uuid: @user1.uuid)
+    visit request_path(request)
+    page.should have_content 'Contact Info:'
+  end
+
+  scenario 'another member\'s request' do
+    request = FactoryGirl.create(:request)
+    visit request_path(request)
+    page.should_not have_content 'Contact Info:'
+  end
+
   scenario 'open request' do
     request = FactoryGirl.create(:request)
     visit request_path(request)
-    page.should have_content 'not yet been claimed'
+    page.should have_content 'not been claimed'
   end
 
   scenario 'a request that has been claimed' do
@@ -150,18 +162,21 @@ feature 'a mentor views a request' do
     request = FactoryGirl.create(:request)
     visit request_path(request)
     page.should have_button 'Claim request'
+    page.should_not have_content 'Contact Info:'
   end
 
   scenario 'a request they have claimed' do
     request = FactoryGirl.create(:request, mentor_uuid: @user1.uuid)
     visit request_path(request)
     page.should have_content 'You claimed this request'
+    page.should have_content 'Contact Info:'
   end
 
   scenario 'a request that has been claimed by someone else' do
     request = FactoryGirl.create(:request, mentor_uuid: 'mentor-uuid')
     visit request_path(request)
     page.should have_content 'has already been claimed'
+    page.should_not have_content 'Contact Info:'
   end
 end
 
@@ -178,6 +193,7 @@ feature 'requests index page' do
 
   scenario 'a member visits the page' do
     stub_user_fetch_from_uuid
+    stub_user_fetch_from_uuids
     stub_requests_controllers
     visit requests_path
     page.should_not have_content @request1.title
@@ -188,9 +204,11 @@ feature 'requests index page' do
 
   scenario 'a mentor visits the page' do
     @user1 = new_mentor
+    @user2 = new_member
     @request1.update(mentor_uuid: @user1.uuid)
     @request3.update(mentor_uuid: 'other-mentor-uuid')
     stub_user_fetch_from_uuid
+    User.stub(:fetch_from_uuids).and_return({@request3.member_uuid => @user2, @user1.uuid => @user1, 'member-uuid' => @user2})
     stub_requests_controllers
     visit requests_path
     page.should have_content @request1.title

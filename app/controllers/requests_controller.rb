@@ -33,11 +33,18 @@ class RequestsController < ApplicationController
 
   def index
     authorize! :read, Request
+    open_uuids = current_user.open_requests.map { |open_request| open_request.member_uuid }
+    claimed_uuids = current_user.claimed_requests.map { |claimed_request| claimed_request.member_uuid }
+    @open_users = User.fetch_from_uuids(open_uuids)
+    @claimed_users = User.fetch_from_uuids(claimed_uuids)
   end
 
   def show
     @request = Request.find(params[:id])
-    @creator = User.fetch_from_uuid(@request.member_uuid)
+    @member = User.fetch_from_uuid(@request.member_uuid)
+    unless @request.mentor_uuid.nil?
+      @mentor = User.fetch_from_uuid(@request.mentor_uuid)
+    end
   end
 
   def destroy
@@ -47,15 +54,6 @@ class RequestsController < ApplicationController
     flash[:notice] = "Request has been deleted"
     redirect_to requests_path
   end
-
-  # def claim
-  #   @request = Request.find(params[:id])
-  #   @request.update(mentor_uuid: current_user.uuid)
-  #   respond_to do |format|
-  #     format.html { redirect_to request_path(@request) }
-  #     format.js
-  #   end
-  # end
 
   private
   def request_params

@@ -5,7 +5,12 @@
 <% elsif current_user.is_mentor? %>
   <h5>This request has already been claimed</h5>
 <% elsif request.mentor_uuid.nil? %>
-  <h5>Your request has not yet been claimed by a mentor</h5>
+  <h5>Your request has not been claimed by a mentor</h5>
 <% else %>
-  <h5>Your request has been claimed! The mentor should be in touch with you soon.</h5>
+  <h5>
+    Your request has been claimed by <%= mentor.name %>! The mentor should be in touch with you soon.
+  </h5>
+  <p>
+    Your mentor: <%= mentor.name %> | <%= mentor.email %>
+  </p>
 <% end %>
