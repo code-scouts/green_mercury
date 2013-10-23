@@ -42,6 +42,11 @@ feature 'create a project' do
 end
 
 feature 'create project team', js: true do
+  before :each do 
+    user = new_mentor
+    ApplicationController.any_instance.stub(:current_user) { user }
+  end
+
   scenario 'a project organizer adds mentors when creating the project' do
     visit root_path
     click_link 'Projects'
@@ -49,11 +54,11 @@ feature 'create project team', js: true do
     fill_in 'project_title', with: 'Things to do'
     fill_in 'project_start_date', with: Date.today
     fill_in 'project_end_date', with: Date.today + 1.month
-    fill_in 'project_description', with: 'We are going to do things'
-    click_link 'Add New Mentor'
-    within('#team-preview') { page.should have_content 'Mentor' }
+    fill_in_ckeditor 'project_description', with: 'We are going to do things'
+    click_link 'Add new mentor'
+    fill_in 'Role', with: 'Front-end'
     click_on 'Create'
-    within('#team') { page.should have_content 'Mentor' }
+    within('#team') { page.should have_content 'Front-end' }
   end
 
 end

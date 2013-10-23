@@ -5,7 +5,7 @@ class ProjectsController < ApplicationController
 
   def new
     @project = Project.new
-    @participation = @project.participations.new
+    @project.mentor_participations.build
     authorize! :create, @project 
   end
 
@@ -21,11 +21,11 @@ class ProjectsController < ApplicationController
   end
 
   def show
-
+    @project = Project.find(params[:id])
   end
 
 private 
   def project_params
-    params.require(:project).permit(:title, :start_date, :end_date, :description)
+    params.require(:project).permit(:title, :start_date, :end_date, :description, :mentor_participations_attributes => [:role])
   end
 end

@@ -27,7 +27,7 @@
           <div class='project-mentors'>
 
           </div>
-          <%= link_to 'Add new mentor', new_participation_path, remote: true %>
+          <%= link_to_add_fields('Add new mentor', f, :mentor_participations) %>
         </div>
       </div>
       <%= f.submit 'Create', class: 'btn btn-primary' %>

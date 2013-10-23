@@ -1,0 +1,17 @@
+<h2><%= @project.title %></h2>
+<h4><%= @project.start_date %> - <%= @project.end_date %></h4>
+<br>
+<p><%= @project.description %></p>
+<div id='team'>
+  <div id='mentors'>
+    <h4>Mentors</h4>
+    <% @project.mentor_participations.each do |participation| %>
+      <% if !participation.user_uuid.nil? %>
+        <%= User.fetch_from_uuid(participation.user_uuid).name %>
+      <% end %>
+      <%= participation.role %>
+    <% end %>
+  </div>
+</div>
+
+

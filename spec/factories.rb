@@ -69,4 +69,49 @@ FactoryGirl.define do
     start_date Time.now
     end_date Time.now + 1.month
   end
+
+  factory :participation do 
+    sequence(:user_uuid) { |n| "user#{n}" }
+    project
+  end
+
+  factory :mentor_participation do 
+    sequence(:user_uuid) { |n| "user#{n}" }
+    project
+  end
+
+  factory :member_participation do 
+    sequence(:user_uuid) { |n| "user#{n}" }
+    project
+  end 
+
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
