@@ -20,4 +20,6 @@ GreenMercury::Application.routes.draw do
   resources :requests
   get '/profile/edit', controller: :profile, action: :edit, as: :edit_profile
   get '/profile/:uuid', controller: :profile, action: :show, as: :show_profile
+
+  resources :claim_requests, only: [:create]
 end

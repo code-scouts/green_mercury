@@ -43,4 +43,32 @@ describe Ability do
     ability.should_not be_able_to(:update, Request.new)
     ability.should be_able_to(:read, Request.new)
   end
+
+  it 'lets a mentor (not member) claim an open request' do
+    user = new_mentor
+    ability = Ability.new(user)
+    ability.should be_able_to(:claim, Request.new)
+  end
+
+  it 'prevents a member (not mentor) from claiming a request' do
+    user = new_member
+    ability = Ability.new(user)
+    ability.should_not be_able_to(:claim, Request.new)
+  end
+
+  it 'prevents a mentor from claiming an already-claimed request' do
+    user = new_mentor
+    ability = Ability.new(user)
+    ability.should_not be_able_to(:claim, FactoryGirl.create(:request, mentor_uuid: 'mentor-uuid'))
+  end
 end
+
+
+
+
+
+
+
+
+
+

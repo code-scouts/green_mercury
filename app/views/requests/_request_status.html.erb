@@ -1,0 +1,11 @@
+<% if current_user.is_mentor? && request.mentor_uuid.nil? %>
+  <%= button_to 'Claim request', controller: :claim_requests, action: :create, remote: true, request_id: request.id %>
+<% elsif current_user.uuid == request.mentor_uuid %>
+  <h5>You claimed this request!</h5>
+<% elsif current_user.is_mentor? %>
+  <h5>This request has already been claimed</h5>
+<% elsif request.mentor_uuid.nil? %>
+  <h5>Your request has not yet been claimed by a mentor</h5>
+<% else %>
+  <h5>Your request has been claimed! The mentor should be in touch with you soon.</h5>
+<% end %>

@@ -48,6 +48,15 @@ class RequestsController < ApplicationController
     redirect_to requests_path
   end
 
+  # def claim
+  #   @request = Request.find(params[:id])
+  #   @request.update(mentor_uuid: current_user.uuid)
+  #   respond_to do |format|
+  #     format.html { redirect_to request_path(@request) }
+  #     format.js
+  #   end
+  # end
+
   private
   def request_params
     params.require(:request).permit(:title, :content, :contact_info, :member_uuid)

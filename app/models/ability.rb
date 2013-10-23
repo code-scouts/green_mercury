@@ -17,6 +17,10 @@ class Ability
       can :read, Request
     end
 
+    can :claim, Request do |request|
+      user.is_mentor? && request.mentor_uuid.nil?
+    end
+
     can :manage, Event do |event|
       user.organizer?(event)
     end
