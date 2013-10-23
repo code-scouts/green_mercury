@@ -1,5 +1,5 @@
 <% if current_user.is_member? %>
-  <%= render 'member_requests_view', user_requests: @user_requests %>
+  <%= render 'member_requests_view' %>
 <% else %>
-  <%= render 'mentor_requests_view', user_requests: @user_requests, open_requests: @open_requests %>
+  <%= render 'mentor_requests_view' %>
 <% end %>

@@ -32,8 +32,6 @@ class RequestsController < ApplicationController
   end
 
   def index
-    @user_requests = current_user.requests
-    @open_requests = Request.open_requests
     authorize! :read, Request
   end
 

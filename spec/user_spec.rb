@@ -452,19 +452,37 @@ describe User do
     end
   end
 
-  describe 'requests' do
+  describe 'claimed_requests' do
     it 'returns the requests created by the member (if user is a member)' do
       user = new_member
       FactoryGirl.create(:request)
-      request = FactoryGirl.create(:request, member_uuid: user.uuid)
-      user.requests.should eq [request]
+      request1 = FactoryGirl.create(:request, member_uuid: user.uuid)
+      request2 = FactoryGirl.create(:request, member_uuid: user.uuid, mentor_uuid: 'mentor-uuid')
+      user.claimed_requests.should eq [request2]
     end
     
     it 'returns the requests claimed by the mentor (if user is a mentor)' do
       user = new_mentor
       request = FactoryGirl.create(:request, mentor_uuid: user.uuid)
       FactoryGirl.create(:request, mentor_uuid: 'other-mentor-uuid')
-      user.requests.should eq [request]
+      user.claimed_requests.should eq [request]
+    end
+  end
+
+  describe 'open_requests' do
+    it 'returns any unclaimed requests user has created (if user is a member)' do
+      user = new_member
+      request1 = FactoryGirl.create(:request, member_uuid: user.uuid)
+      request2 = FactoryGirl.create(:request, member_uuid: user.uuid, mentor_uuid: user.uuid)
+      request3 = FactoryGirl.create(:request, member_uuid: 'other-user-uuid')
+      user.open_requests.should eq [request1]
+    end
+    
+    it 'returns all unclaimed requests (if user is a mentor)' do
+      user = new_mentor
+      request1 = FactoryGirl.create(:request)
+      request2 = FactoryGirl.create(:request, mentor_uuid: user.uuid)
+      user.open_requests.should eq [request1]
     end
   end
 end
