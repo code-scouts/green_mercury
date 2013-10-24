@@ -1,0 +1,13 @@
+<div class='row'>
+  <h4><%= post.title %></h4>
+</div>
+
+<div class='row'>
+  <div class='span4 poster'></div>
+  <div class='span8'>
+    <p><%= post.content %></p>
+    <% if can? :participate, @project %>
+      <%= link_to 'Reply', '', class: 'btn btn-small' %>
+    <% end %>
+  </div>
+</div>

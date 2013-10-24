@@ -18,5 +18,9 @@ class Ability
         participation.user_uuid.nil? && !participation.project.member_participant?(user)
       end
     end
+
+    can :participate, Project do |project|
+      project.mentor_participant?(user) || project.member_participant?(user)
+    end
   end
 end

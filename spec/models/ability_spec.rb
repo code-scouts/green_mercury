@@ -58,4 +58,20 @@ describe Ability do
     available_participation = FactoryGirl.create(:member_participation, project: project2, user_uuid: nil)
     ability.should_not be_able_to(:update, available_participation)
   end
+
+  it 'allows a participant of a project to participate' do
+    user = new_member
+    ability = Ability.new(user)
+    project = FactoryGirl.create(:project)
+    FactoryGirl.create(:member_participation, project: project, user_uuid: user.uuid)
+    ability.should be_able_to(:participate, project)
+  end
 end
+
+
+
+
+
+
+
+

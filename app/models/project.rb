@@ -1,6 +1,7 @@
 class Project < ActiveRecord::Base
   has_many :member_participations
   has_many :mentor_participations
+  has_many :posts
   validates :title, presence: true
   validates :description, presence: true
 

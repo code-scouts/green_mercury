@@ -7,6 +7,7 @@ describe Project do
   it { should validate_presence_of :description }
   it { should accept_nested_attributes_for :mentor_participations }
   it { should accept_nested_attributes_for :member_participations }
+  it { should have_many :posts }
 
   describe 'mentor_participant?' do 
     it 'is true if the user is a mentor participant in the project' do 

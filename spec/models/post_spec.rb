@@ -7,5 +7,6 @@ describe Post do
   it { should ensure_length_of(:title).is_at_most(100) }
   it { should respond_to :content }
   it { should validate_presence_of :content }
+  it { should belong_to :project }
   it { should have_many :replies }
 end

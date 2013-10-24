@@ -20,6 +20,24 @@
       </div>
     </div>
   </div>
+  <div class='span9'>
+    <div class='row'>
+      <div class='span9'>
+        <h5>Discussion</h5>
+      </div>
+      <div class='span3'>
+        <% if can? :participate, @project %>
+          <%= link_to 'New Post', new_post_path(project_id: @project.id) %>
+        <% end %>
+      </div>
+    </div>
+
+    <div id='discussion' class='row'>
+      <% @project.posts.each do |post| %>
+        <%= render 'post', post: post %>
+      <% end %>
+    </div>
+  </div>
 </div>
 
 
