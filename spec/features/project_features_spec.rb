@@ -93,6 +93,16 @@ feature 'join a project' do
     page.should have_content 'successfully'
     within('#mentors') { page.should have_content user.name }
   end
+
+  scenario 'a non-mentor tries to join a project as a mentor' do
+    user = new_member
+    ApplicationController.any_instance.stub(:current_user) { user }
+    visit root_path
+    click_link 'Projects'
+    click_link @project_title
+    click_link @mentor_participation.role
+    page.shoud have_content 'Not authorized'
+  end
 end
 
 

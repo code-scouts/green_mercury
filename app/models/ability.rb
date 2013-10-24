@@ -10,6 +10,9 @@ class Ability
 
     elsif user.is_mentor? 
       can :create, Project
+      can :update, Participation do |participation|
+        participation.user_uuid.nil? && !participation.project.mentor_participant?(user)
+      end
     end
 
     #   else
