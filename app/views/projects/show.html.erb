@@ -2,7 +2,7 @@
   <div class='span2'></div>
   <div class='span10'>
     <h2><%= @project.title %></h2>
-    <h4><%= @project.start_date %> - <%= @project.end_date %></h4>
+    <h4><%= @project.start_date.strftime("%B %d, %Y") %> - <%= @project.end_date.strftime("%B %d, %Y") %></h4>
     <%= simple_format(@project.description) %>
   </div>
 </div>
