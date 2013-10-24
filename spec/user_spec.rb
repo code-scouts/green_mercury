@@ -255,32 +255,37 @@ describe User do
   end
 
   describe "fetch_from_uuids" do
-      it "should return a hash of uuids and users" do
-        response = double
-        response.should_receive(:body).and_return('{
-          "results": [{
-            "uuid": "the-uuid",
-            "email": "granite@stone.co"
-          }]
-        }')
-        HTTParty.should_receive(:post).with(
-          'https://codescouts.janraincapture.test.host/entity.find',
-          {
-            body: {
-              filter: "uuid='the-uuid'",
-              type_name: 'user',
-              client_id: 'fakeclientidfortests',
-              client_secret: 'fakeclientsecretfortests',
-            }
+    it "should return a hash of uuids and users" do
+      response = double
+      response.should_receive(:body).and_return('{
+        "results": [{
+          "uuid": "the-uuid",
+          "email": "granite@stone.co"
+        }]
+      }')
+      HTTParty.should_receive(:post).with(
+        'https://codescouts.janraincapture.test.host/entity.find',
+        {
+          body: {
+            filter: "uuid='the-uuid'",
+            type_name: 'user',
+            client_id: 'fakeclientidfortests',
+            client_secret: 'fakeclientsecretfortests',
           }
-        ).and_return(response)
+        }
+      ).and_return(response)
 
-        users = User.fetch_from_uuids(['the-uuid'])
-        users['the-uuid'].should be_a(User)
-        users['the-uuid'].email.should == 'granite@stone.co'
-      end
+      users = User.fetch_from_uuids(['the-uuid'])
+      users['the-uuid'].should be_a(User)
+      users['the-uuid'].email.should == 'granite@stone.co'
     end
-  
+
+    it "should return an empty array if no uuids are passed in" do
+      users = User.fetch_from_uuids([])
+      users.should eq ({})
+    end
+  end
+
   describe 'public and private attributes' do
     it 'should allow access to public attributes' do
       user = User.from_hash({
@@ -346,6 +351,63 @@ describe User do
     end
   end
 
+  describe 'events' do
+    before do
+      @event1 = FactoryGirl.create(:event, title: 'Event 1')
+      @event2 = FactoryGirl.create(:event, title: 'Event 2')
+      @user = FactoryGirl.build(:user)
+      @event1.event_rsvps.create(user_uuid: @user.uuid)
+    end
+
+    it 'should return all events the user has RSVPd to' do
+      @user.events.should eq [@event1]
+    end
+
+    it 'should not return any events that have already occurred' do
+      Date.stub(:today).and_return(Date.yesterday)
+      event3 = FactoryGirl.create(:event, title: 'Event 3', date: Date.today)
+      Date.unstub(:today)
+      event3.event_rsvps.create(user_uuid: @user.uuid)
+      @user.events.should eq [@event1]
+    end
+  end
+
+  describe 'events_without_rsvp' do
+    before do
+      @event1 = FactoryGirl.create(:event, title: 'Event 1')
+      @event2 = FactoryGirl.create(:event, title: 'Event 2')
+      @user = FactoryGirl.build(:user)
+      @event1.event_rsvps.create(user_uuid: @user.uuid)
+    end
+
+    it 'should return all events the user has not RSVPd to' do
+      @user.events_without_rsvp.should eq [@event2]
+    end
+
+    it 'should not return any events that have already occurred' do
+      Date.stub(:today).and_return(Date.yesterday)
+      event3 = FactoryGirl.create(:event, title: 'Event 3', date: Date.today)
+      Date.unstub(:today)
+      @user.events_without_rsvp.should eq [@event2]
+    end
+  end
+
+  describe 'organizer?' do
+    before do
+      @event = FactoryGirl.create(:event)
+      @user = FactoryGirl.build(:user)
+    end
+
+    it 'is true if the user is an organizer of the event' do
+      @event.event_organizers.create(user_uuid: @user.uuid)
+      @user.organizer?(@event).should be_true
+    end
+
+    it 'is false if the user is not an organizer of the event' do
+      @user.organizer?(@event).should be_false
+    end
+  end
+
   describe 'acquire_token' do
     it 'should post to janrain capture' do
       mock_response = double
@@ -390,3 +452,6 @@ describe User do
     end
   end
 end
+
+
+

@@ -55,7 +55,9 @@ group :development, :test do
   gem 'spork', '~> 1.0rc'
   gem 'factory_girl_rails'
   gem 'launchy'
+  gem 'shoulda-matchers'
   gem 'pry'
+  gem 'better_errors'
 end
 
 group :test do 
