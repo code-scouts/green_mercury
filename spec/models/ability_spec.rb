@@ -41,4 +41,21 @@ describe Ability do
     available_participation = FactoryGirl.create(:mentor_participation, project: project2, user_uuid: nil)
     ability.should_not be_able_to(:update, available_participation)
   end
+
+  it 'allows a member to join a project that has an open member slot as long as they are not already a participant' do 
+    user = new_member
+    ability = Ability.new(user)
+
+    project1 = FactoryGirl.create(:project)
+    valid_participation = FactoryGirl.create(:member_participation, project: project1, user_uuid: nil)
+    ability.should be_able_to(:update, valid_participation)
+
+    full_participation = FactoryGirl.create(:member_participation, project: project1)
+    ability.should_not be_able_to(:update, full_participation)
+
+    project2 = FactoryGirl.create(:project)
+    user_participation = FactoryGirl.create(:member_participation, project: project2, user_uuid: user.uuid)
+    available_participation = FactoryGirl.create(:member_participation, project: project2, user_uuid: nil)
+    ability.should_not be_able_to(:update, available_participation)
+  end
 end

@@ -6,50 +6,17 @@
     <%= simple_format(@project.description) %>
   </div>
 </div>
+
 <div class='row'>
   <div id='sidebar' class='span3'>
     <div id='team'>
       <div id='mentors'>
         <h4>Mentors</h4>
-        <ul class='unstyled'>
-          <% @project.mentor_participations.each do |participation| %>
-            <li>
-              <div class='row'>
-                <% if !participation.user_uuid.nil? %>
-                  <div class='span4 photo'></div>
-                  <div class='span8'>
-                    <%= User.fetch_from_uuid(participation.user_uuid).name %>
-                    <p class='muted'><%= participation.role %></p>
-                  </div>
-                <% else %>
-                  <div class='span4 photo'></div>
-                  <div class='span8'>
-                    <%= link_to participation.role, mentor_participation_path(participation), method: 'patch' %>
-                  </div>
-                <% end %>
-              </div>
-            </li>
-          <% end %>
-        </ul>
+        <%= render 'participants', participants: @project.mentor_participations, role: 'mentor' %>
       </div>
       <div id='members'>
         <h4>Members</h4>
-        <ul class='unstyled'>
-          <% @project.member_participations.each do |participation| %>
-            <li>
-              <div class='row'>
-                <% if !participation.user_uuid.nil? %>
-                  <div class='span4 photo'></div>
-                  <div class='span8'>
-                    <% User.fetch_from_uuid(participation.user_uuid).name %>
-                    <%= participation.role %>
-                  </div>
-                <% end %>
-                  <%= participation.role %>
-              </div>
-            </li>
-          <% end %>
-        </ul>
+        <%= render 'participants', participants: @project.member_participations, role: 'member' %>
       </div>
     </div>
   </div>
