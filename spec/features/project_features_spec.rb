@@ -98,45 +98,30 @@ feature 'join a project' do
     user = new_member
     ApplicationController.any_instance.stub(:current_user) { user }
     User.stub(:fetch_from_uuid).and_return(user)
-    visit root_path
-    click_link 'Projects'
-    within('#projects-listing') { click_link @project_title }
+    visit project_path @project
     click_link @mentor_participation.role
     page.should have_content 'Not authorized'
   end
+
+  scenario 'a mentor tries to join a project they have already joined' do
+    user = new_mentor
+    ApplicationController.any_instance.stub(:current_user) { user }
+    User.stub(:fetch_from_uuid).and_return(user)
+    FactoryGirl.create(:mentor_participation, project: @project, user_uuid: user.uuid)
+    visit project_path @project
+    click_link @mentor_participation.role
+    page.should have_content 'Not authorized'
+  end
+
+  scenario 'a mentor tries to join a project that has no open mentor slots' do
+    user = new_mentor
+    ApplicationController.any_instance.stub(:current_user) { user }
+    User.stub(:fetch_from_uuid).and_return(user)
+    @mentor_participation.update(user_uuid: 'taken-uuid')
+    page.driver.submit :patch, mentor_participation_path(@mentor_participation), {}
+    page.should have_content 'Not authorized'
+  end
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
