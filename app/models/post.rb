@@ -3,4 +3,5 @@ class Post < ActiveRecord::Base
   validates :content, presence: true
   has_many :replies
   belongs_to :project
+  default_scope { order('created_at DESC') }
 end

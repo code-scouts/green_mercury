@@ -389,4 +389,22 @@ describe User do
       refresh_token.should eq 'insertcoin'
     end
   end
+
+  describe 'project_role' do
+    it 'should return a user\'s role for the requested project' do
+      user = new_member
+      project = FactoryGirl.create(:project)
+      participation = FactoryGirl.create(:member_participation, project: project, user_uuid: user.uuid)
+      user.project_role(project).should eq participation.role
+    end
+
+    it 'should return nil if the user is not participating in the project' do
+      user = new_member
+      project = FactoryGirl.create(:project)
+      user.project_role(project).should eq nil
+    end
+  end
 end
+
+
+

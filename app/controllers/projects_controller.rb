@@ -22,8 +22,8 @@ class ProjectsController < ApplicationController
 
   def show
     @project = Project.find(params[:id])
-    participant_uuids = (@project.mentor_participations + @project.member_participations).delete_if { |participation| participation.user_uuid.nil? }
-    @users = associated_users(participant_uuids)    
+    participants = (@project.mentor_participations + @project.member_participations).delete_if { |participation| participation.user_uuid.nil? }
+    @users = associated_users(participants)
   end
 
 private 

@@ -15,8 +15,9 @@ GreenMercury::Application.routes.draw do
 
   resources :concepts, except: [:destroy, :edit, :update]
   resources :concept_descriptions, only: [:new, :create, :destroy]
-  resources :projects
+  resources :projects, except: [:edit, :update, :destroy]
   resources :posts, only: [:new, :create]
+  resources :replies, only: [:new, :create]
   resources :mentor_participations, only: [:update]
   resources :member_participations, only: [:update]
 

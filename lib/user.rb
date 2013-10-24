@@ -145,6 +145,15 @@ class User
       '<hidden>'
     end
   end
+
+  def project_role(project)
+    participation = Participation.where(user_uuid: uuid, project_id: project.id).take
+    if !participation.nil?
+      participation.role
+    else
+      nil
+    end
+  end
 end
 
 
