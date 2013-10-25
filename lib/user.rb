@@ -149,7 +149,7 @@ class User
     if is_mentor?
       Request.where(mentor_uuid: self.uuid)
     else
-      Request.where(member_uuid: self.uuid) - Request.where(member_uuid: self.uuid, mentor_uuid: nil)
+      Request.where(["member_uuid = ? AND mentor_UUID IS NOT null", self.uuid])
     end
   end
 
