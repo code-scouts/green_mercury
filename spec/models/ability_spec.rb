@@ -66,6 +66,13 @@ describe Ability do
     FactoryGirl.create(:member_participation, project: project, user_uuid: user.uuid)
     ability.should be_able_to(:participate, project)
   end
+
+  it 'allows a project owner to update a project' do 
+    user = new_mentor
+    ability = Ability.new(user)
+    project = FactoryGirl.create(:project, user_uuid: user.uuid)
+    ability.should be_able_to(:update, project)
+  end 
 end
 
 

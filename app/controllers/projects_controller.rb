@@ -27,6 +27,18 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def edit
+    @project = Project.find(params[:id])
+    authorize! :update, @project
+  end
+
+  def update 
+    @project = Project.find(params[:id])
+    authorize! :update, @project
+    @project.update(project_params)
+    redirect_to @project, notice: 'Changes saved!'
+  end
+
   def show
     @project = Project.find(params[:id])
     participants = (@project.mentor_participations + @project.member_participations).delete_if { |participation| participation.user_uuid.nil? }
