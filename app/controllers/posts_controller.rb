@@ -6,13 +6,23 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new(post_params)
-    authorize! :participate, @post.project
+    @project = Project.find(params[:post][:project_id])
+    @post = @project.posts.new(post_params)
+    authorize! :participate, @project
     @post.user_uuid = current_user.uuid
     if @post.save
-      redirect_to project_path @post.project
+      participants = (@project.mentor_participations + @project.member_participations).delete_if { |participation| participation.user_uuid.nil? }
+      @users = associated_users(participants)
+
+      respond_to do |format|
+        format.html { redirect_to project_path @project }
+        format.js  
+      end
     else
-      render 'new'
+      respond_to do |format|
+        format.html { render 'new' }
+        format.js { render 'new.js' }
+      end
     end
   end
 

@@ -1,28 +1,30 @@
-<div class='row'>
-  <h4><%= post.title %></h4>
-</div>
-
-<div class='row'>
-  <div class='span2 poster'>
-    <p><%= @users[post.user_uuid].name %></p>
-    <p><%= @users[post.user_uuid].project_role(post.project) %></p>
-    <p><%= post.created_at.strftime("%B %d, %Y") %></p>
+<div class='post'>  
+  <div class='row post-header'>
+    <h4><%= post.title %></h4>
   </div>
 
-  <div class='span10'>
-    <p><%= post.content %></p>
-  </div>
-</div>
+  <div class='row'>
+    <div class='span2 poster'>
+      <p><%= @users[post.user_uuid].name %></p>
+      <p><%= @users[post.user_uuid].project_role(post.project) %></p>
+      <p><%= post.created_at.strftime("%B %d, %Y") %></p>
+    </div>
 
-<div class="row">
-  <div class="span10"></div>
-  <div class="span2">
-    <% if can? :participate, @project %>
-      <%= link_to 'Reply', new_reply_path(post_id: post.id), class: 'btn btn-small' %>
-    <% end %>
+    <div class='span10 post-content'>
+      <p><%= post.content %></p>
+    </div>
   </div>
-</div>
 
-<% if post.replies.any? %>
-  <%= render 'replies/replies', replies: post.replies %>  
-<% end %>
+  <div class="row">
+    <div class="span10"></div>
+    <div class="span2">
+      <% if can? :participate, @project %>
+        <%= link_to 'Reply', new_reply_path(post_id: post.id), class: 'btn btn-primary btn-small' %>
+      <% end %>
+    </div>
+  </div>
+
+  <% if post.replies.any? %>
+    <%= render 'replies/replies', replies: post.replies %>  
+  <% end %>
+</div>

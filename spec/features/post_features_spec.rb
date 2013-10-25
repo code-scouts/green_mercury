@@ -10,7 +10,7 @@ feature 'posting on a project' do
   end
 
   context 'a project team member' do 
-    scenario 'they create a valid post on a project' do 
+    scenario 'they create a valid post on a project', js: true do 
       visit project_path(@project)
       click_link 'New Post'
       fill_in 'post_title', with: 'Does this thing work?'
@@ -19,7 +19,7 @@ feature 'posting on a project' do
       within('#discussion') { page.should have_content 'Does this thing work?'}
     end
 
-    scenario 'they create an invalid post on a project' do 
+    scenario 'they create an invalid post on a project', js: true do 
       visit project_path(@project)
       click_link 'New Post'
       within('form') { click_on 'Submit' }

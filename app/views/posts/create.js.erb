@@ -1,0 +1,3 @@
+$('#new-post').empty();
+$('#new-post-button').show();
+$('#posts').prepend("<%= j render 'posts/post', post: @post %>");

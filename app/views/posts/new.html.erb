@@ -1,17 +1,1 @@
-<%= form_for @post do |f| %>
-  <%= render 'shared/form_errors', object: @post %>
-
-  <div role='form'>
-    <div class='form-group'>
-      <%= f.text_field :title, placeholder: 'Post title' %>
-    </div>
-
-    <div class='form-group'>
-      <%= f.text_area :content, placeholder: 'Content' %>
-    </div>
-
-    <%= f.hidden_field :project_id %>
-
-    <%= f.submit 'Submit', class: 'btn' %>
-  </div>
-<% end %>   
+<%= render 'posts/new', post: @post %>
