@@ -1,5 +1,5 @@
-<%= form_for request do |f| %>
-  <%= render 'shared/form_errors', object: @request %>
+<%= form_for meeting_request do |f| %>
+  <%= render 'shared/form_errors', object: @meeting_request %>
 
   <%= f.label :title %>
   <%= f.text_field :title %>

@@ -145,19 +145,19 @@ class User
     end
   end
 
-  def claimed_requests
+  def claimed_meeting_requests
     if is_mentor?
-      Request.where(mentor_uuid: self.uuid)
+      MeetingRequest.where(mentor_uuid: self.uuid)
     else
-      Request.where(["member_uuid = ? AND mentor_UUID IS NOT null", self.uuid])
+      MeetingRequest.where(["member_uuid = ? AND mentor_UUID IS NOT null", self.uuid])
     end
   end
 
-  def open_requests
+  def open_meeting_requests
     if is_mentor?
-      Request.where(mentor_uuid: nil)
+      MeetingRequest.where(mentor_uuid: nil)
     else
-      Request.where(member_uuid: self.uuid, mentor_uuid: nil)
+      MeetingRequest.where(member_uuid: self.uuid, mentor_uuid: nil)
     end
   end
 

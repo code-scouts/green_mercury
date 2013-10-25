@@ -9,16 +9,16 @@ class Ability
     end
 
     if user.is_member?
-      can :manage, Request, member_uuid: user.uuid
-      can :read, Request
+      can :manage, MeetingRequest, member_uuid: user.uuid
+      can :read, MeetingRequest
     end
 
     if user.is_mentor?
-      can :read, Request
+      can :read, MeetingRequest
     end
 
-    can :claim, Request do |request|
-      user.is_mentor? && request.mentor_uuid.nil?
+    can :claim, MeetingRequest do |meeting_request|
+      user.is_mentor? && meeting_request.mentor_uuid.nil?
     end
 
     can :manage, Event do |event|

@@ -1,4 +1,4 @@
-class Request < ActiveRecord::Base
+class MeetingRequest < ActiveRecord::Base
   has_many :tags, as: :tagable
   has_many :concepts, through: :tags
   validates :content, presence: true

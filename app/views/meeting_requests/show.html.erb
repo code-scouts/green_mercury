@@ -1,0 +1,22 @@
+<h2><%= @meeting_request.title %></h2>
+
+<div id="request-status-field">
+  <%= render 'request_status', meeting_request: @meeting_request, mentor: @mentor %>
+</div>
+
+<p>
+  <%= @meeting_request.created_at.strftime("%B %d, %Y") %>
+   - <%= @member.name %>
+  <% if current_user.uuid == @member.uuid %>
+   - <%= link_to 'Edit', edit_meeting_request_path(@meeting_request) %>
+   - <%= link_to 'Delete', meeting_request_path(@meeting_request), method: :delete, data: { confirm: 'Are you sure?' } %>
+  <% end %>
+</p>
+
+<% if current_user.uuid == @meeting_request.member_uuid || current_user.uuid == @meeting_request.mentor_uuid %>
+  <h4>Contact Info:</h4>
+  <p><%= @meeting_request.contact_info %></p>
+<% end %>
+
+  <p><%= @meeting_request.content %></p>
+

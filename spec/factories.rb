@@ -73,7 +73,7 @@ FactoryGirl.define do
     user_uuid '1'
   end
 
-  factory :request do
+  factory :meeting_request do
     sequence(:title) { |n| "help me #{n} I need help" }
     content 'need help learning ruby'
     contact_info 'call my cell all hours'
