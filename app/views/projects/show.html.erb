@@ -1,6 +1,8 @@
 <div id='project-info' class='row'>
-  <div class='span2'></div>
-  <div class='span9 offset1'>
+  <div class='span3'>
+    <%= image_tag @project.image.url(:medium) %>
+  </div>
+  <div class='span8 offset1'>
     <h2><%= @project.title %></h2>
     <h4><%= @project.start_date.strftime("%B %d, %Y") %> - <%= @project.end_date.strftime("%B %d, %Y") %></h4>
     <%= simple_format(@project.description) %>

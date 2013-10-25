@@ -8,6 +8,7 @@ describe Project do
   it { should accept_nested_attributes_for :mentor_participations }
   it { should accept_nested_attributes_for :member_participations }
   it { should have_many :posts }
+  it { should have_attached_file(:image) }
 
   describe 'mentor_participant?' do 
     it 'is true if the user is a mentor participant in the project' do 
