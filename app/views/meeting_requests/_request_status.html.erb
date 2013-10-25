@@ -1,16 +1,67 @@
 <% if current_user.is_mentor? && meeting_request.mentor_uuid.nil? %>
-  <%= button_to 'Claim request', controller: :claim_meeting_requests, action: :create, remote: true, meeting_request_id: meeting_request.id %>
+  <div class="row">
+    <h4 class="center-text">
+      Unclaimed
+    </h4>
+  </div>
+  <div class="row">
+    <%= button_to 'Claim request', controller: :claim_meeting_requests, action: :create, remote: true, meeting_request_id: meeting_request.id %>
+  </div>
+
 <% elsif current_user.uuid == meeting_request.mentor_uuid %>
-  <h5>You claimed this request!</h5>
+  <div class="row">
+    <h4 class="center-text">
+      Claimed!
+    </h4>
+  </div>
+  <div class="row muted">
+    Congratulations on claiming this request! The next step is to get in touch with the member and arrange a meeting:
+  </div>
+  <div class="row">
+    <h4>
+      <%= member.name %>
+    </h4>
+  </div>
+  <div class="row">
+    Email: <%= member.email %>
+  </div>
+  <div class="row">
+    Other: <%= @meeting_request.contact_info %>
+  </div>
+
 <% elsif current_user.is_mentor? %>
-  <h5>This request has already been claimed</h5>
+  <div class="row">
+    <h4 class="center-text">
+      Claimed!
+    </h4>
+  </div>
+  <div class="row muted">
+    This request has already been claimed by another mentor.
+  </div>
+
 <% elsif meeting_request.mentor_uuid.nil? %>
-  <h5>Your request has not been claimed by a mentor</h5>
-<% else %>
-  <h5>
-    Your request has been claimed by <%= mentor.name %>! The mentor should be in touch with you soon.
-  </h5>
-  <p>
-    Your mentor: <%= mentor.name %> | <%= mentor.email %>
+  <h4 class="center-text">
+    Unclaimed
+  </h4>
+  <p class="muted">
+    Mentors can see your request and claim it to arrange a 1-on-1 meeting with you.
   </p>
+
+<% else %>
+  <div class="row">
+    <h4 class="center-text">
+      Claimed!
+    </h4>
+  </div>
+  <div class="row muted">
+    Your request has been claimed by <%= mentor.name %>! This mentor should be contacting you soon.
+  </div>
+  <div class="row">
+    <h4>
+      <%= mentor.name %>
+    </h4>
+  </div>
+  <div class="row">
+    Email: <%= mentor.email %>
+  </div>
 <% end %>

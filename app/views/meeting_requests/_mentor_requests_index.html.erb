@@ -1,7 +1,17 @@
-<h3>Your Claimed Requests</h3>
+<div class="row">
+  <div class="span12">
+    <h3>My Claimed Requests</h3>
+    <%= render 'requests_list', meeting_requests: current_user.claimed_meeting_requests, users: @claimed_users %>
+  </div>
+</div>
 
-<%= render 'requests_list', meeting_requests: current_user.claimed_meeting_requests, users: @claimed_users %>
+<div class="row">
+  <div class="span8">
+    <h3>Open Requests</h3>
+    <%= render 'requests_list', meeting_requests: current_user.open_meeting_requests, users: @open_users %>
+  </div>
 
-<h3>Open Requests</h3>
-
-<%= render 'requests_list', meeting_requests: current_user.open_meeting_requests, users: @open_users %>
+  <div class="span4">
+    <h4>Concepts</h4>
+  </div>
+</div>

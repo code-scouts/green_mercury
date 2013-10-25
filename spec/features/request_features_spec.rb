@@ -46,14 +46,14 @@ feature 'edit a request' do
   end
 
   scenario 'a member edits a request with valid information' do
-    click_link 'Edit'
+    click_link 'Edit Request'
     fill_in 'Title', with: 'new request title'
     click_button 'Submit'
     page.should have_content 'new request title'
   end
 
   scenario 'a member attempts to edit a request with invalid information' do
-    click_link 'Edit'
+    click_link 'Edit Request'
     fill_in 'Title', with: ''
     click_button 'Submit'
     page.should have_content 'error'
@@ -139,13 +139,13 @@ feature 'a member views a request' do
   scenario 'open request' do
     request = FactoryGirl.create(:meeting_request)
     visit meeting_request_path(request)
-    page.should have_content 'not been claimed'
+    page.should have_content 'Unclaimed'
   end
 
   scenario 'a request that has been claimed' do
     request = FactoryGirl.create(:meeting_request, mentor_uuid: 'mentor-uuid')
     visit meeting_request_path(request)
-    page.should have_content 'has been claimed'
+    page.should have_content 'Claimed!'
   end
 end
 
@@ -162,21 +162,21 @@ feature 'a mentor views a request' do
     request = FactoryGirl.create(:meeting_request)
     visit meeting_request_path(request)
     page.should have_button 'Claim request'
-    page.should_not have_content 'Contact Info:'
+    page.should_not have_content request.contact_info
   end
 
   scenario 'a request they have claimed' do
     request = FactoryGirl.create(:meeting_request, mentor_uuid: @user.uuid)
     visit meeting_request_path(request)
-    page.should have_content 'You claimed this request'
-    page.should have_content 'Contact Info:'
+    page.should have_content 'Claimed!'
+    page.should have_content request.contact_info
   end
 
-  scenario 'a request that has been claimed by someone else' do
+  scenario 'a request that Claimed! by someone else' do
     request = FactoryGirl.create(:meeting_request, mentor_uuid: 'mentor-uuid')
     visit meeting_request_path(request)
     page.should have_content 'has already been claimed'
-    page.should_not have_content 'Contact Info:'
+    page.should_not have_content request.contact_info
   end
 end
 
@@ -229,7 +229,7 @@ feature 'claim a request' do
   scenario 'a mentor claims an open request' do
     visit meeting_request_path(@meeting_request)
     click_button 'Claim request'
-    page.should have_content 'You claimed this request'
+    page.should have_content 'Claimed!'
   end
 
   scenario 'a mentor tries to claim an already-claimed request' do
