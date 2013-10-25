@@ -154,6 +154,16 @@ class User
       nil
     end
   end
+
+  def projects
+    if is_member?
+      project_ids = MemberParticipation.where(user_uuid: self.uuid).map(&:project_id)
+    else
+      project_ids = MentorParticipation.where(user_uuid: self.uuid).map(&:project_id)
+    end
+
+    Project.all.keep_if { |project| project_ids.include?(project.id) }
+  end
 end
 
 

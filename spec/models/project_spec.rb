@@ -39,5 +39,41 @@ describe Project do
       project.member_participant?(user).should be_false
     end
   end
+
+  describe 'available' do
+    it 'returns an array of projects a member can join' do
+      project1 = FactoryGirl.create(:project)
+      project2 = FactoryGirl.create(:project)
+      FactoryGirl.create(:member_participation, project: project1, user_uuid: nil)
+      FactoryGirl.create(:mentor_participation, project: project2, user_uuid: nil)
+      Project.available('member').should eq [project1]
+    end
+
+    it 'returns an array of projects a mentor can join' do
+      project1 = FactoryGirl.create(:project)
+      project2 = FactoryGirl.create(:project)
+      FactoryGirl.create(:mentor_participation, project: project1, user_uuid: nil)
+      FactoryGirl.create(:member_participation, project: project2, user_uuid: nil)
+      Project.available('mentor').should eq [project1]
+    end
+  end
+
+  describe 'unavailable' do
+    it 'returns an array of projects with no spaces left for members' do
+      project1 = FactoryGirl.create(:project)
+      project2 = FactoryGirl.create(:project)
+      FactoryGirl.create(:member_participation, project: project1, user_uuid: nil)
+      FactoryGirl.create(:mentor_participation, project: project2, user_uuid: nil)
+      Project.unavailable('member').should eq [project2]
+    end
+
+    it 'returns an array of projects with no spaces left for mentors' do
+      project1 = FactoryGirl.create(:project)
+      project2 = FactoryGirl.create(:project)
+      FactoryGirl.create(:mentor_participation, project: project1, user_uuid: nil)
+      FactoryGirl.create(:member_participation, project: project2, user_uuid: nil)
+      Project.unavailable('mentor').should eq [project2]
+    end
+  end
 end
 

@@ -2,10 +2,14 @@
   <%= link_to 'Create a Project', new_project_path %>
 <% end %>
 
-<div id='projects-listing'>
-  <ul>
-    <% @projects.each do |project| %>
-      <li><%= link_to project.title, project_path(project) %></li>
-    <% end %>
-  </ul>
-</div>
+<h3>Your Projects</h3>
+
+<%= render 'project_list', projects: @user_projects %>
+
+<h3>Available Projects</h3>
+
+<%= render 'project_list', projects: @available_projects %>
+
+<h3>Full Projects</h3>
+
+<%= render 'project_list', projects: @unavailable_projects %>

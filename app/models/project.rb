@@ -19,4 +19,18 @@ class Project < ActiveRecord::Base
       participation.user_uuid == user.uuid
     end
   end
+
+  def self.available(user)
+    if user == 'member'
+      project_ids = MemberParticipation.where(user_uuid: nil).map(&:project_id)
+    else
+      project_ids = MentorParticipation.where(user_uuid: nil).map(&:project_id)
+    end
+
+    Project.all.keep_if { |project| project_ids.include?(project.id) }
+  end
+
+  def self.unavailable(user)
+    Project.all - Project.available(user)
+  end
 end

@@ -404,6 +404,17 @@ describe User do
       user.project_role(project).should eq nil
     end
   end
+
+  describe 'projects' do
+    it 'returns all projects the user is participating in' do
+      user = new_member
+      project1 = FactoryGirl.create(:project)
+      project2 = FactoryGirl.create(:project)
+      FactoryGirl.create(:member_participation, project: project1, user_uuid: user.uuid)
+      FactoryGirl.create(:mentor_participation, project: project2, user_uuid: nil)
+      user.projects.should eq [project1]
+    end
+  end
 end
 
 
