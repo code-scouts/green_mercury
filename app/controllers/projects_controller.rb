@@ -12,7 +12,6 @@ class ProjectsController < ApplicationController
 
   def new
     @project = Project.new
-    @project.mentor_participations.build
     authorize! :create, @project 
   end
 
