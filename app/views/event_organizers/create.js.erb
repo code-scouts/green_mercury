@@ -1,0 +1,3 @@
+$('.display-attendees').empty().append('<%= j render("events/attendees", event: @event) %>');
+
+$('.display-organizers').empty().append('<%= j render("events/organizers", event: @event) %>');
