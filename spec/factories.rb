@@ -55,7 +55,8 @@ FactoryGirl.define do
 
   factory :user do
     sequence(:name) { |n| "user#{n}" }
-    sequence(:uuid) { |n| "user#{n}" } 
+    sequence(:uuid) { |n| "user#{n}" }
+    sequence(:email) { |n| "user#{n}@example.com" }
 
     factory :admin do 
       is_admin true
@@ -70,5 +71,12 @@ FactoryGirl.define do
     description "A programming language"
     concept
     user_uuid '1'
+  end
+
+  factory :meeting_request do
+    sequence(:title) { |n| "help me #{n} I need help" }
+    content 'need help learning ruby'
+    contact_info 'call my cell all hours'
+    member_uuid 'member-uuid'
   end
 end

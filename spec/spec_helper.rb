@@ -39,10 +39,3 @@ Spork.each_run do
   FactoryGirl.reload
   require 'user'
 end
-
-
-
-
-
-
-

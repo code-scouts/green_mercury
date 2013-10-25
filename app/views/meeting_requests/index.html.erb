@@ -1,0 +1,5 @@
+<% if current_user.is_member? %>
+  <%= render 'member_requests_index' %>
+<% else %>
+  <%= render 'mentor_requests_index' %>
+<% end %>

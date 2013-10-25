@@ -8,6 +8,19 @@ class Ability
       can :manage, :all
     end
 
+    if user.is_member?
+      can :manage, MeetingRequest, member_uuid: user.uuid
+      can :read, MeetingRequest
+    end
+
+    if user.is_mentor?
+      can :read, MeetingRequest
+    end
+
+    can :claim, MeetingRequest do |meeting_request|
+      user.is_mentor? && meeting_request.mentor_uuid.nil?
+    end
+
     can :manage, Event do |event|
       user.organizer?(event)
     end

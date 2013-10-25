@@ -87,21 +87,3 @@ feature 'accept or reject a new member application' do
   end
 end
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,0 +1,16 @@
+<%= form_for meeting_request do |f| %>
+  <%= render 'shared/form_errors', object: @meeting_request %>
+
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+
+  <%= f.label :contact_method, "What is the best way to contact you?" %>
+  <%= f.text_area :contact_info %>
+
+  <%= f.label :content, "What assistance do you need?" %>
+  <%= f.text_area :content %>
+
+  <%= f.hidden_field :member_uuid %>
+
+  <%= f.submit 'Submit', class: 'btn btn-primary' %>
+<% end %>
