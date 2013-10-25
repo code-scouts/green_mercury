@@ -29,7 +29,7 @@ gem 'httparty'
 gem 'dotenv-rails'
 gem 'cancan'
 gem 'dalli'
-gem 'bootstrap-wysihtml5-rails'
+gem 'bootstrap-wysihtml5-rails', :git => "https://github.com/steven-ferguson/bootstrap-wysihtml5-rails"
 gem 'paperclip'
 
 group :doc do

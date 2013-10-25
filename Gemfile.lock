@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/steven-ferguson/bootstrap-wysihtml5-rails
+  revision: 0e41774f0b3ae5e9c3b82f05b9d0b92c38b3c83f
+  specs:
+    bootstrap-wysihtml5-rails (0.3.1.23)
+      railties (>= 3.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -34,8 +41,6 @@ GEM
     better_errors (1.0.1)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
-    bootstrap-wysihtml5-rails (0.3.1.23)
-      railties (>= 3.0)
     builder (3.1.4)
     cancan (1.6.10)
     capistrano (2.15.5)
@@ -265,7 +270,7 @@ PLATFORMS
 DEPENDENCIES
   asset_sync
   better_errors
-  bootstrap-wysihtml5-rails
+  bootstrap-wysihtml5-rails!
   cancan
   capistrano
   capybara

@@ -26,18 +26,27 @@ feature 'create a project' do
     page.should have_content 'error'
   end
 
-  scenario "a non-mentor user tries to create a project" do 
-    user = new_member
-    ApplicationController.any_instance.stub(:current_user) { user }
-    visit root_path
-    click_link 'Projects'
-    page.should_not have_content 'Create a Project'
+  context "a non-mentor user tries to create a project" do
+    before do
+      user = new_member
+      ApplicationController.any_instance.stub(:current_user) { user }
+    end
 
-    visit new_project_path
-    page.should have_content 'Not authorized'
+    scenario "they can't see the link" do
+      visit root_path
+      click_link 'Projects'
+      page.should_not have_content 'Create a Project'
+    end
 
-    page.driver.submit :post, projects_path(project: {:title => 'Hello', :description => 'Goodbye', :start_date => Time.now, :end_date => Time.now + 1.month }), {}
-    page.should have_content 'Not authorized'
+    scenario "they can't visit the path directly" do
+      visit new_project_path
+      page.should have_content 'Not authorized'
+    end
+
+    scenario "they can't make a POST request directly" do
+      page.driver.submit :post, projects_path(project: {:title => 'Hello', :description => 'Goodbye', :start_date => Time.now, :end_date => Time.now + 1.month }), {}
+      page.should have_content 'Not authorized'
+    end
   end
 end
 
