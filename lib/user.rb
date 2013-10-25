@@ -145,6 +145,22 @@ class User
     end
   end
 
+  def claimed_meeting_requests
+    if is_mentor?
+      MeetingRequest.where(mentor_uuid: self.uuid)
+    else
+      MeetingRequest.where(["member_uuid = ? AND mentor_UUID IS NOT null", self.uuid])
+    end
+  end
+
+  def open_meeting_requests
+    if is_mentor?
+      MeetingRequest.where(mentor_uuid: nil)
+    else
+      MeetingRequest.where(member_uuid: self.uuid, mentor_uuid: nil)
+    end
+  end
+
   def events
     if @events.nil?
       rsvped_event_ids = Set.new(EventRsvp.where(user_uuid: self.uuid).map(&:event_id))

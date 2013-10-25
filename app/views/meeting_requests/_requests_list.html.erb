@@ -1,0 +1,16 @@
+<ul class="plain-list">
+  <% meeting_requests.each do |meeting_request| %>
+    <li class="extra-margin-bottom">
+      <div class="row">
+        <%= link_to meeting_request.title, meeting_request_path(meeting_request) %>
+      </div>
+
+      <div class="row muted">
+        <%= meeting_request.created_at.strftime("%B %d, %Y") %>
+        <% if current_user.is_mentor? %>
+           | <%= users[meeting_request.member_uuid].name %>
+        <% end %>
+      </div>
+    </li>
+  <% end %>
+</ul>

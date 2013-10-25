@@ -30,6 +30,10 @@ class ApplicationController < ActionController::Base
     @sponsor = sponsors.sample
   end
 
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to root_url, :alert => exception.message
+  end
+
   def current_user
     return unless session[:access_token]
 

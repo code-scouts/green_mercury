@@ -10,10 +10,17 @@
 
 <header>
   <div class="row-fluid">
-    <div class="span4"></div>
+    <div class="span2"></div>
     <div class="span2">
       <% if user_signed_in? %>
         <%= link_to("View events", events_path) %>
+      <% end %>
+    </div>
+    <div class="span2">
+      <% if user_signed_in? && current_user.is_member? %>
+        <%= link_to("Find a mentor", meeting_requests_path) %>
+      <% elsif user_signed_in? && current_user.is_mentor? %>
+        <%= link_to("Mentor requests", meeting_requests_path) %>
       <% end %>
     </div>
     <div class="span2">
