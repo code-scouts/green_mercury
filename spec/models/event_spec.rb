@@ -27,7 +27,7 @@ describe Event do
   end
 
   it 'should not save if date is before today' do
-    event = FactoryGirl.build(:event, date: Date.yesterday)
+    event = FactoryGirl.build(:event, date: (Date.today - 1.day))
     event.save.should be_false
   end
 
@@ -117,7 +117,7 @@ describe Event do
   describe 'upcoming_events' do
     it 'should return an array of all events occuring today or later' do
       @event1 = FactoryGirl.create(:event, title: 'Event 1')
-      Date.stub(:today).and_return(Date.yesterday)
+      Date.stub(:today).and_return(Date.yesterday - 1.day)
       event2 = FactoryGirl.create(:event, title: 'Event 2', date: Date.today)
       Date.unstub(:today)
       @event3 = FactoryGirl.create(:event, title: 'Event 3')

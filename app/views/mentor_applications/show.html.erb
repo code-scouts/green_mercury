@@ -1,5 +1,5 @@
-<%= link_to 'Approve', mentor_application_path(@application, mentor_application: {approved_date: Date.today}), method: 'patch' %>
-<%= link_to 'Reject', mentor_application_path(@application, mentor_application: {rejected_date: Date.today}), method: 'patch' %>
+<%= link_to 'Approve', mentor_application_path(@application, mentor_application: {approved_date: Time.now}), method: 'patch' %>
+<%= link_to 'Reject', mentor_application_path(@application, mentor_application: {rejected_date: Time.now}), method: 'patch' %>
 
 <h4><%= @application.user.name %></h4>
 <%= render 'mentor_application', application: @application %>
