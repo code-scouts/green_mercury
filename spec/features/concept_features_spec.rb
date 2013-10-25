@@ -2,16 +2,13 @@ require 'spec_helper'
 
 feature 'create concepts' do
   before :each do
-    @user = User.new
-    @user.uuid = '1'
-    @user.name = 'Captain Awesome'
-    FactoryGirl.create(:approved_mentor_application, user_uuid: @user.uuid)
-    User.stub(:fetch_from_uuids).and_return({ @user.uuid => @user })
-    ConceptsController.any_instance.stub(:current_user).and_return(@user)
+    @user = new_mentor
+    stub_user_fetch_from_uuids
+    stub_application_controller
+    visit new_concept_path
   end
   
   scenario 'user fills out all fields correctly' do
-    visit new_concept_path
     fill_in 'concept_name', with: 'New Concept'
     fill_in 'Description', with: 'This does stuff'
     click_button('Add Concept')
@@ -19,14 +16,12 @@ feature 'create concepts' do
   end
 
   scenario 'user does not fill in description' do
-    visit new_concept_path
     fill_in 'concept_name', with: 'New Concept'
     click_button('Add Concept')
     page.should have_content 'error'
   end
 
   scenario 'user does not fill in name' do
-    visit new_concept_path
     fill_in 'Description', with: 'This does stuff'
     click_button('Add Concept')
     page.should have_content 'error'
@@ -43,14 +38,11 @@ end
 
 feature 'revert to older description' do
   before do
-    @user = User.new
-    @user.uuid = '1'
-    @user.name = 'Captain Awesome'
-    FactoryGirl.create(:approved_mentor_application, user_uuid: @user.uuid)
-    User.stub(:fetch_from_uuids).and_return({ @user.uuid => @user })
-    ConceptsController.any_instance.stub(:current_user).and_return(@user)
-    @concept = FactoryGirl.create(:concept)
-    @concept.concept_descriptions.create(description: 'better description', user_uuid: @user.uuid)
+    @user = new_mentor
+    stub_user_fetch_from_uuids
+    stub_application_controller
+    @concept_description = FactoryGirl.create(:concept_description, user_uuid: @user.uuid)
+    @concept = @concept_description.concept
   end
 
   scenario 'user reverts to previous description' do
@@ -68,33 +60,34 @@ end
 
 feature 'add a new description to existing concept' do
   before do
-    @user = User.new
-    @user.uuid = '1'
-    @user.name = 'Captain Awesome'
-    FactoryGirl.create(:approved_mentor_application, user_uuid: @user.uuid)
-    User.stub(:fetch_from_uuids).and_return({ @user.uuid => @user })
-    ConceptsController.any_instance.stub(:current_user).and_return(@user)
-    ConceptDescriptionsController.any_instance.stub(:current_user).and_return(@user)
-    @concept = FactoryGirl.create(:concept)
-    @concept.concept_descriptions.create(description: 'better description', user_uuid: @user.uuid)
+    @user = new_mentor
+    stub_user_fetch_from_uuids
+    stub_application_controller
+    @concept_description = FactoryGirl.create(:concept_description, user_uuid: @user.uuid)
+    @concept = @concept_description.concept
     visit concept_path(@concept)
     click_link 'Edit description'
   end
 
-  scenario 'user adds a valid description' do
+  scenario 'user adds a valid description', js: true do
     fill_in 'concept_description_description', with: 'latest description'
     click_button('Save')
     page.should have_content 'latest description'
   end
 
-  scenario 'user adds an invalid description' do
+  scenario 'user adds an invalid description', js: true do
     fill_in 'concept_description_description', with: ''
     click_button('Save')
     page.should_not have_link 'Revert to previous description'
   end
 
+  scenario 'a user adds a valid description with markdown', js: true do 
+    fill_in 'concept_description_description', with: "Look what I can do:\n\n ```ruby \n puts 'Hello World!' \n ```"
+    click_button 'Save'  
+    within('#latest-description') { expect(page).to have_css('.highlight') }
+  end
+
   scenario 'user clicks cancel button', js: true do
-    
     click_button('Cancel')
     page.should have_content 'Edit description'
   end
@@ -102,12 +95,9 @@ end
 
 feature 'delete a description' do
   scenario 'user deletes a description' do
-    @user = User.new
-    @user.uuid = '1'
-    @user.name = 'Captain Awesome'
-    FactoryGirl.create(:approved_mentor_application, user_uuid: @user.uuid)
-    User.stub(:fetch_from_uuids).and_return({ @user.uuid => @user })
-    ConceptsController.any_instance.stub(:current_user).and_return(@user)
+    @user = new_mentor
+    stub_user_fetch_from_uuids
+    stub_application_controller
     concept = FactoryGirl.create(:concept)
     description1 = concept.concept_descriptions.create(description: 'better description', user_uuid: @user.uuid)
     description2 = concept.concept_descriptions.create(description: 'best description', user_uuid: @user.uuid)
@@ -118,18 +108,16 @@ feature 'delete a description' do
 end
 
 feature 'view all concepts' do  
-  scenario 'click on concept name' do 
-    @user = User.new
-    @user.uuid = '1'
-    @user.name = 'Captain Awesome'
-    FactoryGirl.create(:approved_mentor_application, user_uuid: @user.uuid)
-    User.stub(:fetch_from_uuids).and_return({ @user.uuid => @user })
-    ConceptsController.any_instance.stub(:current_user).and_return(@user)
-    concept = FactoryGirl.create(:concept)
-    description = concept.concept_descriptions.create(description: 'better description', user_uuid: @user.uuid)
+  scenario 'click on concept name' do
+    Concept.all.each { |concept| concept.destroy }
+    @user = new_mentor
+    stub_user_fetch_from_uuids
+    stub_application_controller
+    concept_description = FactoryGirl.create(:concept_description, user_uuid: @user.uuid)
+    concept = concept_description.concept
     visit concepts_path
     click_link concept.name
-    page.should have_content description.description
+    page.should have_content concept_description.description
   end
 end
 
