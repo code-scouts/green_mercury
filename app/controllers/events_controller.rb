@@ -1,37 +1,58 @@
 class EventsController < ApplicationController
-  include EventsHelper
+
+  def new
+    @event = Event.new
+  end
+
+  def create
+    @event = Event.new(event_params)
+    authorize! :create, @event
+    if @event.save
+      @event.event_organizers.create(user_uuid: current_user.uuid)
+      flash[:notice] = 'Your event has been created.'
+      redirect_to @event
+    else
+      render 'new'
+    end
+  end
+
+  def show
+    @event = Event.find(params[:id])
+    authorize! :read, @event
+    @event_rsvp = @event.rsvp_for(current_user)
+    @users = @event.all_rsvps
+  end
 
   def index
-    unless current_user.present?
-      redirect_to root_path
-      return
-    end
-    unless current_user.meetup_token.present?
-      redirect_to meetup_login_url
-      return
-    end
-
-    begin
-      @events = get_events(current_user.meetup_token)
-    rescue NeedNewToken
-      redirect_to meetup_login_url
-    end
   end
 
-  def rsvp
-    begin
-      #TODO: answer questions if the event has some
-      rsvp_to_event(params[:id], current_user.meetup_token)
-    rescue NeedNewToken
-      redirect_to meetup_login_url
+  def edit
+    @event = Event.find(params[:id])
+    authorize! :update, @event
+  end
+  
+  def update
+    @event = Event.find(params[:id])
+    authorize! :update, @event
+    if @event.update(event_params)
+      flash[:notice] = "Edit confirmed"
+      redirect_to event_path @event
     else
-      redirect_to events_path
+      render 'edit'
     end
   end
 
-  def get_token
-    current_user.meetup_token = exchange_code_for_token(params[:code])
-
+  def destroy
+    event = Event.find(params[:id])
+    authorize! :destroy, event 
+    event.destroy
+    flash[:notice] = "Event has been deleted"
     redirect_to events_path
+  end
+
+private
+
+  def event_params
+    params.require(:event).permit(:title, :description, :location, :date, :start_time, :end_time)
   end
 end

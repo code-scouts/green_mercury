@@ -14,6 +14,7 @@ describe SessionController do
 
   describe 'log out' do
     it 'should clear the session cookie' do
+      session[:user] = new_member
       session[:access_token] = 'my spoon is too big'
       session[:refresh_token] = 'I am a banana'
       User.stub :fetch_from_token

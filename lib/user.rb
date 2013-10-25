@@ -2,7 +2,7 @@ class AccessTokenExpired < StandardError; end
 
 class User
   CACHE_TTL = 5 * 60 #seconds
-  attr_accessor :meetup_token, :email, :confirmed_at, :uuid, :name, :profile_photo_url
+  attr_accessor :meetup_token, :email, :confirmed_at, :profile_photo_url, :uuid, :is_admin, :name
 
   def self.fetch_from_token(token)
     Rails.cache.fetch("user_token:#{token}", expires_in: CACHE_TTL) do
@@ -44,6 +44,8 @@ class User
   end
 
   def self.fetch_from_uuids(uuids)
+    return {} if uuids.length == 0
+    
     uuid_string = uuids.map { |uuid| "uuid='#{uuid}'" }.join(' or ')
 
     response = HTTParty.post(CAPTURE_URL + '/entity.find', {body:{
@@ -65,6 +67,7 @@ class User
     this.email = hash['email']
     this.confirmed_at = hash['emailVerified']
     this.uuid = hash['uuid']
+    this.is_admin = hash['is_admin']
     this.name = hash['displayName']
     if hash['photos']
       profile_photo = hash['photos'].find do |record|
@@ -76,6 +79,34 @@ class User
     this.instance_variable_set(:@display_name, hash['displayName'])
     this.instance_variable_set(:@about_me, hash['aboutMe'])
     this
+  end
+
+  def member_application
+    MemberApplication.find_by(user_uuid: uuid)
+  end
+
+  def mentor_application
+    MentorApplication.find_by(user_uuid: uuid)
+  end
+
+  def is_admin?
+    is_admin || false
+  end
+
+  def is_member?
+    !member_application.nil? && member_application.approved?
+  end
+
+  def is_mentor?
+    !mentor_application.nil? && mentor_application.approved?
+  end
+
+  def is_pending?
+    !is_admin? && ((member_application && !is_member?) || (mentor_application && !is_mentor?))
+  end
+
+  def is_new?
+    member_application.nil? && mentor_application.nil? && !is_admin?
   end
 
   def self.refresh_token(refresh_token)
@@ -113,4 +144,55 @@ class User
       '<hidden>'
     end
   end
+
+  def claimed_meeting_requests
+    if is_mentor?
+      MeetingRequest.where(mentor_uuid: self.uuid)
+    else
+      MeetingRequest.where(["member_uuid = ? AND mentor_UUID IS NOT null", self.uuid])
+    end
+  end
+
+  def open_meeting_requests
+    if is_mentor?
+      MeetingRequest.where(mentor_uuid: nil)
+    else
+      MeetingRequest.where(member_uuid: self.uuid, mentor_uuid: nil)
+    end
+  end
+
+  def events
+    if @events.nil?
+      rsvped_event_ids = Set.new(EventRsvp.where(user_uuid: self.uuid).map(&:event_id))
+      @events = Event.upcoming_events.keep_if { |event| rsvped_event_ids.include?(event.id) }
+    else
+      @events
+    end
+  end
+
+  def events_without_rsvp
+    Event.upcoming_events - events
+  end
+
+  def organizer?(event)
+    user_uuid = uuid
+    event.event_organizers.any? do |organizer|
+      organizer.user_uuid == user_uuid
+    end
+  end
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

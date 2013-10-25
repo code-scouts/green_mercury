@@ -1,5 +1,7 @@
 class Concept < ActiveRecord::Base
   has_many :concept_descriptions, :inverse_of => :concept
+  has_many :tags
+  has_many :requests, :through => :tags
   accepts_nested_attributes_for :concept_descriptions, allow_destroy: true
   validates :name, presence: true, length: {maximum: 100}
 

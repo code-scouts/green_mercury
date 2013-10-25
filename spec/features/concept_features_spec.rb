@@ -5,6 +5,7 @@ feature 'create concepts' do
     @user = User.new
     @user.uuid = '1'
     @user.name = 'Captain Awesome'
+    FactoryGirl.create(:approved_mentor_application, user_uuid: @user.uuid)
     User.stub(:fetch_from_uuids).and_return({ @user.uuid => @user })
     ConceptsController.any_instance.stub(:current_user).and_return(@user)
   end
@@ -45,6 +46,7 @@ feature 'revert to older description' do
     @user = User.new
     @user.uuid = '1'
     @user.name = 'Captain Awesome'
+    FactoryGirl.create(:approved_mentor_application, user_uuid: @user.uuid)
     User.stub(:fetch_from_uuids).and_return({ @user.uuid => @user })
     ConceptsController.any_instance.stub(:current_user).and_return(@user)
     @concept = FactoryGirl.create(:concept)
@@ -69,6 +71,7 @@ feature 'add a new description to existing concept' do
     @user = User.new
     @user.uuid = '1'
     @user.name = 'Captain Awesome'
+    FactoryGirl.create(:approved_mentor_application, user_uuid: @user.uuid)
     User.stub(:fetch_from_uuids).and_return({ @user.uuid => @user })
     ConceptsController.any_instance.stub(:current_user).and_return(@user)
     ConceptDescriptionsController.any_instance.stub(:current_user).and_return(@user)
@@ -102,6 +105,7 @@ feature 'delete a description' do
     @user = User.new
     @user.uuid = '1'
     @user.name = 'Captain Awesome'
+    FactoryGirl.create(:approved_mentor_application, user_uuid: @user.uuid)
     User.stub(:fetch_from_uuids).and_return({ @user.uuid => @user })
     ConceptsController.any_instance.stub(:current_user).and_return(@user)
     concept = FactoryGirl.create(:concept)
@@ -118,6 +122,7 @@ feature 'view all concepts' do
     @user = User.new
     @user.uuid = '1'
     @user.name = 'Captain Awesome'
+    FactoryGirl.create(:approved_mentor_application, user_uuid: @user.uuid)
     User.stub(:fetch_from_uuids).and_return({ @user.uuid => @user })
     ConceptsController.any_instance.stub(:current_user).and_return(@user)
     concept = FactoryGirl.create(:concept)
