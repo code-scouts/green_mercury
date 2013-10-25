@@ -10,38 +10,31 @@ def new_mentor
   user
 end
 
-def stub_requests_controllers
-  RequestsController.any_instance.stub(:current_user).and_return(@user1)
-  ClaimRequestsController.any_instance.stub(:current_user).and_return(@user1)
+def stub_application_controller
+  ApplicationController.any_instance.stub(:current_user).and_return(@user)
 end
 
 def stub_user_fetch_from_uuid
-  User.stub(:fetch_from_uuid).and_return(@user1)
+  User.stub(:fetch_from_uuid).and_return(@user)
 end
 
 def stub_user_fetch_from_uuids
   @user2 ||= User.new
 
   User.stub(:fetch_from_uuids) do |uuids|
-    if uuids == [@user1.uuid]
-      { @user1.uuid => @user1 }
+    if uuids == [@user.uuid]
+      { @user.uuid => @user }
     elsif uuids == [@user2.uuid]
       { @user2.uuid => @user2 }
     elsif uuids == []
       {}
     else
-      { @user1.uuid => @user1, @user2.uuid => @user2 }
+      { @user.uuid => @user, @user2.uuid => @user2 }
     end
   end
 end
 
-def stub_events_controllers
-  EventsController.any_instance.stub(:current_user).and_return(@user1)
-  EventRsvpsController.any_instance.stub(:current_user).and_return(@user1)
-  EventOrganizersController.any_instance.stub(:current_user).and_return(@user1)
-end
-
 def create_mentor_and_event
-  @user1 = new_mentor
+  @user = new_mentor
   @event = FactoryGirl.create(:event)
 end
