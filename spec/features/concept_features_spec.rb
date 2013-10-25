@@ -83,14 +83,20 @@ feature 'add a new description to existing concept' do
 
   scenario 'user adds a valid description' do
     fill_in 'concept_description_description', with: 'latest description'
-    click_button('Submit New Description')
+    click_button('Save')
     page.should have_content 'latest description'
   end
 
   scenario 'user adds an invalid description' do
     fill_in 'concept_description_description', with: ''
-    click_button('Submit New Description')
+    click_button('Save')
     page.should_not have_link 'Revert to previous description'
+  end
+
+  scenario 'user clicks cancel button', js: true do
+    
+    click_button('Cancel')
+    page.should have_content 'Edit description'
   end
 end
 
