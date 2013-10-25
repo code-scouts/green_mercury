@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="span12">
+    <%= link_to 'Create a request', new_meeting_request_path %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span12">
+    <h3>My Open Requests</h3>
+    <%= render 'requests_list', meeting_requests: current_user.open_meeting_requests, users: @open_users %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span12">
+    <h3>My Closed Requests</h3>
+    <%= render 'requests_list', meeting_requests: current_user.claimed_meeting_requests, users: @claimed_users %>
+  </div>
+</div>

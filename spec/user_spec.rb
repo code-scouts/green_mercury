@@ -255,32 +255,37 @@ describe User do
   end
 
   describe "fetch_from_uuids" do
-      it "should return a hash of uuids and users" do
-        response = double
-        response.should_receive(:body).and_return('{
-          "results": [{
-            "uuid": "the-uuid",
-            "email": "granite@stone.co"
-          }]
-        }')
-        HTTParty.should_receive(:post).with(
-          'https://codescouts.janraincapture.test.host/entity.find',
-          {
-            body: {
-              filter: "uuid='the-uuid'",
-              type_name: 'user',
-              client_id: 'fakeclientidfortests',
-              client_secret: 'fakeclientsecretfortests',
-            }
+    it "should return a hash of uuids and users" do
+      response = double
+      response.should_receive(:body).and_return('{
+        "results": [{
+          "uuid": "the-uuid",
+          "email": "granite@stone.co"
+        }]
+      }')
+      HTTParty.should_receive(:post).with(
+        'https://codescouts.janraincapture.test.host/entity.find',
+        {
+          body: {
+            filter: "uuid='the-uuid'",
+            type_name: 'user',
+            client_id: 'fakeclientidfortests',
+            client_secret: 'fakeclientsecretfortests',
           }
-        ).and_return(response)
+        }
+      ).and_return(response)
 
-        users = User.fetch_from_uuids(['the-uuid'])
-        users['the-uuid'].should be_a(User)
-        users['the-uuid'].email.should == 'granite@stone.co'
-      end
+      users = User.fetch_from_uuids(['the-uuid'])
+      users['the-uuid'].should be_a(User)
+      users['the-uuid'].email.should == 'granite@stone.co'
     end
-  
+
+    it "should return an empty array if no uuids are passed in" do
+      users = User.fetch_from_uuids([])
+      users.should eq ({})
+    end
+  end
+
   describe 'public and private attributes' do
     it 'should allow access to public attributes' do
       user = User.from_hash({
@@ -343,6 +348,63 @@ describe User do
       })
 
       user.profile_photo_url.should be_nil
+    end
+  end
+
+  describe 'events' do
+    before do
+      @event1 = FactoryGirl.create(:event, title: 'Event 1')
+      @event2 = FactoryGirl.create(:event, title: 'Event 2')
+      @user = FactoryGirl.build(:user)
+      @event1.event_rsvps.create(user_uuid: @user.uuid)
+    end
+
+    it 'should return all events the user has RSVPd to' do
+      @user.events.should eq [@event1]
+    end
+
+    it 'should not return any events that have already occurred' do
+      Date.stub(:today).and_return(Date.yesterday)
+      event3 = FactoryGirl.create(:event, title: 'Event 3', date: Date.today)
+      Date.unstub(:today)
+      event3.event_rsvps.create(user_uuid: @user.uuid)
+      @user.events.should eq [@event1]
+    end
+  end
+
+  describe 'events_without_rsvp' do
+    before do
+      @event1 = FactoryGirl.create(:event, title: 'Event 1')
+      @event2 = FactoryGirl.create(:event, title: 'Event 2')
+      @user = FactoryGirl.build(:user)
+      @event1.event_rsvps.create(user_uuid: @user.uuid)
+    end
+
+    it 'should return all events the user has not RSVPd to' do
+      @user.events_without_rsvp.should eq [@event2]
+    end
+
+    it 'should not return any events that have already occurred' do
+      Date.stub(:today).and_return(Date.yesterday)
+      event3 = FactoryGirl.create(:event, title: 'Event 3', date: Date.today)
+      Date.unstub(:today)
+      @user.events_without_rsvp.should eq [@event2]
+    end
+  end
+
+  describe 'organizer?' do
+    before do
+      @event = FactoryGirl.create(:event)
+      @user = FactoryGirl.build(:user)
+    end
+
+    it 'is true if the user is an organizer of the event' do
+      @event.event_organizers.create(user_uuid: @user.uuid)
+      @user.organizer?(@event).should be_true
+    end
+
+    it 'is false if the user is not an organizer of the event' do
+      @user.organizer?(@event).should be_false
     end
   end
 
@@ -413,6 +475,45 @@ describe User do
       FactoryGirl.create(:member_participation, project: project1, user_uuid: user.uuid)
       FactoryGirl.create(:mentor_participation, project: project2, user_uuid: nil)
       user.projects.should eq [project1]
+    end
+  end
+
+  describe 'claimed_meeting_requests' do
+    it 'returns the requests created by the member (if user is a member)' do
+      user = new_member
+      FactoryGirl.create(:meeting_request)
+      request1 = FactoryGirl.create(:meeting_request, member_uuid: user.uuid)
+      request2 = FactoryGirl.create(:meeting_request, member_uuid: user.uuid, mentor_uuid: 'mentor-uuid')
+      request3 = FactoryGirl.create(:meeting_request, member_uuid: 'other-member-uuid')
+      request4 = FactoryGirl.create(:meeting_request, member_uuid: 'other-member-uuid', mentor_uuid: 'mentor-uuid')
+      user.claimed_meeting_requests.should eq [request2]
+    end
+    
+    it 'returns the requests claimed by the mentor (if user is a mentor)' do
+      user = new_mentor
+      request1 = FactoryGirl.create(:meeting_request, member_uuid: 'member-uuid')
+      request2 = FactoryGirl.create(:meeting_request, member_uuid: 'member-uuid', mentor_uuid: user.uuid)
+      request4 = FactoryGirl.create(:meeting_request, member_uuid: 'member-uuid', mentor_uuid: 'mentor-uuid')
+      user.claimed_meeting_requests.should eq [request2]
+    end
+  end
+
+  describe 'open_meeting_requests' do
+    it 'returns any unclaimed requests user has created (if user is a member)' do
+      user = new_member
+      request1 = FactoryGirl.create(:meeting_request, member_uuid: user.uuid)
+      request2 = FactoryGirl.create(:meeting_request, member_uuid: user.uuid, mentor_uuid: 'mentor-uuid')
+      request3 = FactoryGirl.create(:meeting_request, member_uuid: 'other-member-uuid')
+      request4 = FactoryGirl.create(:meeting_request, member_uuid: 'other-member-uuid', mentor_uuid: 'mentor-uuid')
+      user.open_meeting_requests.should eq [request1]
+    end
+    
+    it 'returns all unclaimed requests (if user is a mentor)' do
+      user = new_mentor
+      request1 = FactoryGirl.create(:meeting_request, member_uuid: 'member-uuid')
+      request2 = FactoryGirl.create(:meeting_request, member_uuid: 'member-uuid', mentor_uuid: user.uuid)
+      request4 = FactoryGirl.create(:meeting_request, member_uuid: 'member-uuid', mentor_uuid: 'mentor-uuid')
+      user.open_meeting_requests.should eq [request1]
     end
   end
 end

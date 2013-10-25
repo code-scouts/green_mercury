@@ -12,7 +12,8 @@ Spork.prefork do
   require 'paperclip/matchers'
   require 'capybara/poltergeist'
   Capybara.javascript_driver = :poltergeist
-  
+  require 'helpers'
+
   ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
   RSpec.configure do |config|
     # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
@@ -43,24 +44,3 @@ Spork.each_run do
   FactoryGirl.reload
   require 'user'
 end
-
-def new_member 
-  user = FactoryGirl.build(:user)
-  FactoryGirl.create(:approved_member_application, user_uuid: user.uuid)
-  user
-end
-
-def new_mentor
-  user = FactoryGirl.build(:user)
-  FactoryGirl.create(:approved_mentor_application, user_uuid: user.uuid)
-  user
-end
-
-
-
-
-
-
-
-
-

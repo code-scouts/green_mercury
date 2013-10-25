@@ -10,6 +10,7 @@ describe Concept do
   it { should have_many :concept_descriptions }
   it { should validate_presence_of :name }
   it { should ensure_length_of(:name).is_at_most(100) }
+  it { should have_many :tags }
 
   it 'returns the latest description' do
     @concept.latest.description.should eq @concept_descriptions2.description

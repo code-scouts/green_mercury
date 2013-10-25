@@ -9,10 +9,19 @@ class RepliesController < ApplicationController
     @reply = Reply.new(reply_params)
     authorize! :participate, @reply.post.project
     @reply.user_uuid = current_user.uuid
-    if @reply.save 
-      redirect_to project_path(@reply.post.project)
+    if @reply.save
+      participants = (@reply.post.project.mentor_participations + @reply.post.project.member_participations).delete_if { |participation| participation.user_uuid.nil? }
+      @users = associated_users(participants)
+
+      respond_to do |format|
+        format.html { redirect_to project_path @reply.post.project }
+        format.js
+      end
     else
-      render 'new'
+      respond_to do |format|
+        format.html { render 'new' }
+        format.js
+      end
     end
   end
 

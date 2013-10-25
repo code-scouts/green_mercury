@@ -1,0 +1,6 @@
+<h4>Organizers:</h4>
+  <ul>
+    <% event.organizers.each do |uuid, organizer| %>
+      <li><%= organizer.name %></li>
+    <% end %>
+  </ul>

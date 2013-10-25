@@ -2,12 +2,18 @@
   <div class='span3'></div>
   <div class='span9'>
     <div class='row'>
-      <div class='span2'>
-        <p><%= @users[reply.user_uuid].name %></p>
-        <p><%= @users[reply.user_uuid].project_role(reply.post.project) %></p>
-        <p><%= reply.created_at.strftime("%B %d, %Y") %></p>
+      <div class='span3'>
+        <div class="row">
+          <%= @users[reply.user_uuid].name %>
+        </div>
+        <div class="row muted">
+          <%= @users[reply.user_uuid].project_role(reply.post.project) %>
+        </div>
+        <div class="row muted">
+          <%= reply.created_at.strftime("%B %d, %Y") %>
+        </div>
       </div>
-      <div class='span10'>
+      <div class='span8 offset1'>
         <%= reply.content %>
       </div>
     </div>

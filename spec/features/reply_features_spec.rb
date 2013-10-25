@@ -10,7 +10,7 @@ feature 'replying to a post' do
     mentor_participation = FactoryGirl.create(:mentor_participation, user_uuid: user.uuid, project: @project)
   end
 
-  scenario 'a project team member creates a valid reply to a post' do 
+  scenario 'a project team member creates a valid reply to a post', js: true do 
     visit project_path(@project)
     click_link 'Reply'
     fill_in 'reply_content', with: 'Hey does this thing work?'

@@ -1,0 +1,46 @@
+<div class="row">
+  <div class="span8">
+    <div class="row">
+      <h3>
+        <%= @meeting_request.title %>
+      </h3>
+    </div>
+    <div class="row muted">
+      <%= @meeting_request.created_at.strftime("%B %d, %Y") %>
+       - <%= @member.name %>
+    </div>
+    <div class="row">
+      <%= simple_format(@meeting_request.content) %>
+    </div>
+
+    <% if current_user.uuid == @meeting_request.member_uuid %>
+      <div class="row">
+        <h4>Contact Info:</h4>
+      </div>
+      <div class="row">
+        <%= @meeting_request.contact_info %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="span3 offset1">
+    <div id="request-status-field">
+      <div class="row">
+        <%= render 'request_status', meeting_request: @meeting_request, mentor: @mentor, member: @member %>
+      </div>
+
+      <% if current_user.uuid == @member.uuid %>
+        <% if @meeting_request.mentor_uuid.nil? %>
+          <div class="row">
+            <%= link_to 'Edit Request', edit_meeting_request_path(@meeting_request), class: 'btn btn-wide' %>
+          </div>
+        <% end %>
+
+        <div class="row">
+          <%= link_to 'Delete Request', meeting_request_path(@meeting_request), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-wide' %>
+        </div>
+      <% end %>
+
+    </div>
+  </div>
+</div>

@@ -4,13 +4,19 @@
   </div>
 
   <div class='row'>
-    <div class='span2 poster'>
-      <p><%= @users[post.user_uuid].name %></p>
-      <p><%= @users[post.user_uuid].project_role(post.project) %></p>
-      <p><%= post.created_at.strftime("%B %d, %Y") %></p>
+    <div class='span3 poster'>
+      <div class="row">
+        <%= @users[post.user_uuid].name %>
+      </div>
+      <div class="row muted">
+        <%= @users[post.user_uuid].project_role(post.project) %>
+      </div>
+      <div class="row muted">
+        <%= post.created_at.strftime("%B %d, %Y") %>
+      </div>
     </div>
 
-    <div class='span10 post-content'>
+    <div class='span8 offset1 post-content'>
       <p><%= post.content %></p>
     </div>
   </div>
@@ -18,13 +24,19 @@
   <div class="row">
     <div class="span10"></div>
     <div class="span2">
-      <% if can? :participate, @project %>
-        <%= link_to 'Reply', new_reply_path(post_id: post.id), class: 'btn btn-primary btn-small' %>
+      <% if can? :participate, post.project %>
+        <div id="new-reply-button-<%= post.id %>">
+          <%= link_to 'Reply', new_reply_path(post_id: post.id), remote: true, class: 'btn btn-primary btn-small' %>
+        </div>
       <% end %>
     </div>
   </div>
 
-  <% if post.replies.any? %>
-    <%= render 'replies/replies', replies: post.replies %>  
-  <% end %>
+  <div id="new-reply-form-<%= post.id %>"></div>
+
+  <div id="list-replies-<%= post.id %>">
+    <% if post.replies.any? %>
+      <%= render 'replies/replies', replies: post.replies %>
+    <% end %>
+  </div> 
 </div>

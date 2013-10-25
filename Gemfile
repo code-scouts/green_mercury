@@ -21,6 +21,10 @@ gem 'jquery-rails'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 
+# Markdown
+gem 'redcarpet'
+gem 'pygments.rb'
+
 gem "twitter-bootstrap-rails"
 gem 'asset_sync'
 gem 'unicorn'
@@ -40,6 +44,7 @@ end
 group :test do
   gem 'shoulda-matchers'
   gem 'capybara'
+  gem 'phantomjs'
   gem 'poltergeist'
 end
 
@@ -53,7 +58,9 @@ group :development, :test do
   gem 'spork', '~> 1.0rc'
   gem 'factory_girl_rails'
   gem 'launchy'
+  gem 'shoulda-matchers'
   gem 'pry'
+  gem 'better_errors'
 end
 
 group :development do

@@ -1,4 +1,5 @@
 $(function() {
+
   $('#toggle-history-container').on('click', '.toggle-history-button', function(event) {
     event.preventDefault();
     $('#description-history-table').toggle();
@@ -13,5 +14,15 @@ $(function() {
     $(elem).wysihtml5();
   });
   
+  $('#toggle-map-container').on('click', '#toggle-map-button', function(event) {
+    event.preventDefault();
+    $('#location-map').toggle();
+    if ($(this).text() == 'Hide map') {
+      $(this).text('Show map');
+    } else {
+      $(this).text('Hide map');
+    }
+  });
+
 });
 

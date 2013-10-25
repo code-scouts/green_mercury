@@ -79,7 +79,7 @@ feature 'approve or reject mentor applications' do
     page.should have_content 'Not authorized'
   end
 
-  scenario 'an admin accepts a previously rejected applicaiton' do 
+  scenario 'an admin accepts a previously rejected application' do
     application = FactoryGirl.create(:rejected_mentor_application, user_uuid: @applicant.uuid)
     ApplicationController.any_instance.stub(:current_user) { @admin }
     visit review_applications_index_path

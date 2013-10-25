@@ -14,6 +14,34 @@
   min-height: 300px;
 }
 
+.meeting-contact-form {
+  min-height: 60px;
+  min-width: 500px;
+}
+
+.meeting-text-form {
+  min-height: 200px;
+  min-width: 500px;
+}
+
+.btn-wide {
+  width: 100%;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.plain-list {
+  list-style-type: none;
+}
+
+.extra-margin-bottom {
+  margin-bottom: 10px;
+}
+
+.center-text {
+  text-align: center;
+}
+
 $green: #4c8f85;
 $mercury: #d1d1d1;
 
@@ -29,6 +57,7 @@ $mercury: #d1d1d1;
   margin-top: 20px;
 }
 
+
 .role-field {
   padding: 5px;
 }
@@ -41,4 +70,25 @@ footer {
 
 footer img {
   max-width: 35%;
+}
+
+.hiding {
+  display: none;
+}
+
+.concept-description {
+  width: 512px;
+  height: 250px;
+}
+
+#description-history-table {
+  display: none;
+}
+
+.button-container {
+  text-align: right;
+}
+
+#location-map {
+  display: none;
 }
