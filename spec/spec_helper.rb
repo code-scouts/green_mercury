@@ -12,6 +12,7 @@ Spork.prefork do
   require 'capybara/poltergeist'
   Capybara.javascript_driver = :poltergeist
   require 'helpers'
+  
   ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
   RSpec.configure do |config|
     # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
