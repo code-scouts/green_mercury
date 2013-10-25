@@ -34,6 +34,8 @@ GEM
     better_errors (1.0.1)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
+    bootstrap-wysihtml5-rails (0.3.1.23)
+      railties (>= 3.0)
     builder (3.1.4)
     cancan (1.6.10)
     capistrano (2.15.5)
@@ -50,8 +52,6 @@ GEM
       xpath (~> 2.0)
     childprocess (0.3.9)
       ffi (~> 1.0, >= 1.0.11)
-    ckeditor_rails (4.2.2)
-      railties (>= 3.0)
     cliver (0.2.2)
     coderay (1.1.0)
     cucumber (1.2.5)
@@ -256,10 +256,10 @@ PLATFORMS
 DEPENDENCIES
   asset_sync
   better_errors
+  bootstrap-wysihtml5-rails
   cancan
   capistrano
   capybara
-  ckeditor_rails
   cucumber (= 1.2.5)
   cucumber-rails
   dalli

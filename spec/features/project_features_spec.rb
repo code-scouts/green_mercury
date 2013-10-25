@@ -6,14 +6,14 @@ feature 'create a project' do
     ApplicationController.any_instance.stub(:current_user) { user }
   end
 
-  scenario 'a mentor creates a valid project' do
+  scenario 'a mentor creates a valid project', js: true do
     visit root_path
     click_link 'Projects'
     click_link 'Create a Project'
     fill_in 'project_title', with: 'Things to do'
     fill_in 'project_start_date', with: Date.today
     fill_in 'project_end_date', with: Date.today + 1.month
-    fill_in 'project_description', with: 'We are going to do things'
+    page.execute_script("$('#project_description').data('wysihtml5').editor.setValue('We are going');")
     click_on 'Create'
     page.should have_content "successfully"
   end
@@ -47,42 +47,42 @@ feature 'create project team', js: true do
     ApplicationController.any_instance.stub(:current_user) { user }
   end
 
-  scenario 'a project organizer adds mentors when creating a project' do
+  scenario 'a project organizer adds mentors when creating a project', js: true do
     visit root_path
     click_link 'Projects'
     click_link 'Create a Project'
     fill_in 'project_title', with: 'Things to do'
     fill_in 'project_start_date', with: Date.today
     fill_in 'project_end_date', with: Date.today + 1.month
-    fill_in_ckeditor 'project_description', with: 'We are going to do things'
+    page.execute_script("$('#project_description').data('wysihtml5').editor.setValue('We are going');")
     click_link 'Add new mentor'
     fill_in 'Role', with: 'Front-end'
     click_on 'Create'
     within('#mentors') { page.should have_content 'Front-end' }
   end
 
-  scenario 'a project organizer adds members when creating a project' do
+  scenario 'a project organizer adds members when creating a project', js: true do
     visit root_path
     click_link 'Projects'
     click_link 'Create a Project'
     fill_in 'project_title', with: 'Things to do'
     fill_in 'project_start_date', with: Date.today
     fill_in 'project_end_date', with: Date.today + 1.month
-    fill_in_ckeditor 'project_description', with: 'We are going to do things'
+    page.execute_script("$('#project_description').data('wysihtml5').editor.setValue('We are going');")
     click_link 'Add new member'
     fill_in 'Role', with: 'Front-end'
     click_on 'Create'
     within('#members') { page.should have_content 'Front-end' }
   end
 
-  scenario 'a project organizer adds an invalid mentor when creating a project' do 
+  scenario 'a project organizer adds an invalid mentor when creating a project', js: true do 
     visit root_path
     click_link 'Projects'
     click_link 'Create a Project'
     fill_in 'project_title', with: 'Things to do'
     fill_in 'project_start_date', with: Date.today
     fill_in 'project_end_date', with: Date.today + 1.month
-    fill_in_ckeditor 'project_description', with: 'We are going to do things'
+    page.execute_script("$('#project_description').data('wysihtml5').editor.setValue('We are going');")
     click_link 'Add new mentor'
     click_on 'Create'
     page.should have_content 'error' 

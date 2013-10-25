@@ -9,6 +9,11 @@
   min-width: 500px;
 }
 
+.project-text-form {
+  width: 40em;
+  min-height: 300px;
+}
+
 $green: #4c8f85;
 $mercury: #d1d1d1;
 
@@ -26,4 +31,14 @@ $mercury: #d1d1d1;
 
 .role-field {
   padding: 5px;
+}
+
+footer {
+  position: relative;
+  width: 370px;
+  padding: 2%;
+}
+
+footer img {
+  max-width: 35%;
 }

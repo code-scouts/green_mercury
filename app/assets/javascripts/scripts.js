@@ -9,8 +9,9 @@ $(function() {
     }
   });
 
-  $('.ckeditor').ckeditor({
-    
+  $('.wysihtml5').each(function(i, elem) {
+    $(elem).wysihtml5();
   });
+  
 });
 
