@@ -190,19 +190,35 @@ feature 'join a project as a member' do
 end
 
 feature 'edit a project' do 
-  before do 
-    user = new_mentor
-    ApplicationController.any_instance.stub(:current_user) { user }
-    @project = FactoryGirl.create(:project, user_uuid: user.uuid)
-    User.stub(:fetch_from_uuids).and_return({ user.uuid => user })
-  end
+  context 'the project owner edits the project' do 
+    before do 
+      user = new_mentor
+      ApplicationController.any_instance.stub(:current_user) { user }
+      @project = FactoryGirl.create(:project, user_uuid: user.uuid)
+      User.stub(:fetch_from_uuids).and_return({ user.uuid => user })
+      visit project_path @project
+      click_link 'Edit Project'
+    end
 
-  scenario 'the project owner edits the project' do 
-    visit project_path @project
-    click_link 'Edit Project'
-    fill_in 'project_title', with: "New Project Name"
-    click_on 'Submit'
-    within('#project-info') { page.should have_content "New Project Name" }
+    scenario 'they edit the project details' do 
+      fill_in 'project_title', with: "New Project Name"
+      click_on 'Submit'
+      within('#project-info') { page.should have_content "New Project Name" }
+    end
+
+    scenario 'they edit the mentor participations', js: true do 
+      click_link 'Add new mentor'
+      fill_in 'Role', with: 'Front-end'
+      click_on 'Submit'
+      within('#mentors') { page.should have_content 'Front-end' }
+    end
+
+    scenario 'they edit the member participations', js: true do 
+      click_link 'Add new member'
+      fill_in 'Role', with: 'Front-end'
+      click_on 'Submit'
+      within('#members') { page.should have_content 'Front-end' }
+    end
   end
 
   context 'a non-project owner tries to edit a project' do 
