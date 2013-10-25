@@ -54,7 +54,9 @@
         <div class="add-team span4">
           <div id='add-mentors' class='row'>
             <h4>Mentors</h4>
-            <div class='project-mentors'></div>
+            <div class='project-mentors'>
+              <%= render 'projects/edit_mentor_roles', f: f, project: project %>
+            </div>
             <%= link_to_add_fields('Add new mentor', f, :mentor_participations) %>
           </div>
         </div>
@@ -62,7 +64,9 @@
         <div class="add-team span4">
           <div id='add-members' class='row'>
             <h4>Members</h4>
-            <div class='project-members'></div>
+            <div class='project-members'>
+              <%= render 'projects/edit_member_roles', f: f, project: project %>
+            </div>
             <%= link_to_add_fields('Add new member', f, :member_participations) %>
           </div>
         </div>
