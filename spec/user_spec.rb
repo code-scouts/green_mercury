@@ -364,7 +364,7 @@ describe User do
     end
 
     it 'should not return any events that have already occurred' do
-      Date.stub(:today).and_return(Date.yesterday)
+      Date.stub(:today).and_return(Date.yesterday - 1.day)
       event3 = FactoryGirl.create(:event, title: 'Event 3', date: Date.today)
       Date.unstub(:today)
       event3.event_rsvps.create(user_uuid: @user.uuid)
@@ -385,7 +385,7 @@ describe User do
     end
 
     it 'should not return any events that have already occurred' do
-      Date.stub(:today).and_return(Date.yesterday)
+      Date.stub(:today).and_return(Date.yesterday - 1.day)
       event3 = FactoryGirl.create(:event, title: 'Event 3', date: Date.today)
       Date.unstub(:today)
       @user.events_without_rsvp.should eq [@event2]
