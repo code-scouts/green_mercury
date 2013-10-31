@@ -44,8 +44,8 @@ end
 group :test do
   gem 'shoulda-matchers'
   gem 'capybara'
-  gem 'phantomjs'
   gem 'poltergeist'
+  gem 'phantomjs', require: 'phantomjs/poltergeist'
 end
 
 group :development, :test do
