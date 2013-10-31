@@ -131,7 +131,7 @@ GEM
       treetop (~> 1.4.8)
     method_source (0.8.2)
     mime-types (1.25)
-    mini_portile (0.5.1)
+    mini_portile (0.5.2)
     minitest (4.7.5)
     multi_json (1.8.2)
     multi_xml (0.5.5)
@@ -151,8 +151,6 @@ GEM
       cocaine (~> 0.5.0)
       mime-types
     pg (0.17.0)
-    phantomjs (1.8.1.1)
-      poltergeist
     poltergeist (1.4.1)
       capybara (~> 2.1.0)
       cliver (~> 0.2.1)
@@ -296,7 +294,6 @@ DEPENDENCIES
   newrelic_rpm
   paperclip
   pg
-  phantomjs
   poltergeist
   pry
   puppet
