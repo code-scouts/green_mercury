@@ -38,7 +38,7 @@
       </div>
       <div class='span3'>
         <% if can? :participate, @project %>
-          <%= link_to 'New Post', new_comment_path(project_id: @project.id, class: 'btn btn-primary btn-small', id: 'new-post-button') %>
+          <%= link_to 'New Post', new_comment_path(commentable_id: @project.id, commentable_type: 'Project'), class: 'btn btn-primary btn-small', id: 'new-post-button' %>
         <% end %>
       </div>
     </div>

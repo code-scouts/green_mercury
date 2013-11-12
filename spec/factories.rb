@@ -78,6 +78,23 @@ FactoryGirl.define do
     description "Stuff"
     start_date Time.now
     end_date Time.now + 1.month
+
+    factory :project_with_comment do 
+      ignore do 
+        comment_count 1
+      end
+
+      after(:create) do |project, evaluator|
+        FactoryGirl.create_list(:comment, evaluator.comment_count, commentable: project)
+      end
+    end
+  end
+
+  factory :comment do 
+    title "Comment Title"
+    comment "Comment body"
+    user_uuid '1'
+    association :commentable, factory: :project
   end
 
   factory :participation do 
