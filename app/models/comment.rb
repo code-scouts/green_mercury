@@ -4,4 +4,5 @@ class Comment < ActiveRecord::Base
   has_many :comments, as: :commentable 
   default_scope -> { order('created_at ASC') }
   validates :title, length: { maximum: 50 }
+  validates :comment, presence: true
 end

@@ -37,6 +37,7 @@ gem 'bootstrap-wysihtml5-rails', :git => "https://github.com/steven-ferguson/boo
 gem 'paperclip'
 gem 'acts_as_commentable'
 
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
