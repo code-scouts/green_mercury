@@ -1,3 +1,0 @@
-$('#new-reply-button-<%= @reply.post.id %>').show();
-$('#new-reply-form-<%= @reply.post.id %>').empty();
-$('#list-replies-<%= @reply.post.id %>').empty().append('<%= j render "replies", replies: @reply.post.replies %>');

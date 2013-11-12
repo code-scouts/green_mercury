@@ -35,6 +35,7 @@ gem 'cancan'
 gem 'dalli'
 gem 'bootstrap-wysihtml5-rails', :git => "https://github.com/steven-ferguson/bootstrap-wysihtml5-rails"
 gem 'paperclip'
+gem 'acts_as_commentable'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

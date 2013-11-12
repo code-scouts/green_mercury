@@ -7,7 +7,7 @@ describe Project do
   it { should validate_presence_of :description }
   it { should accept_nested_attributes_for :mentor_participations }
   it { should accept_nested_attributes_for :member_participations }
-  it { should have_many :posts }
+  it { should have_many :comments }
   it { should have_attached_file(:image) }
 
   describe 'mentor_participant?' do 

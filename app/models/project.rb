@@ -1,7 +1,7 @@
 class Project < ActiveRecord::Base
   has_many :member_participations
   has_many :mentor_participations
-  has_many :posts
+  has_many :comments, as: :commentable
   validates :title, presence: true
   validates :description, presence: true
   has_attached_file :image, styles: { medium: "250x250>", thumb: "75x75>" },

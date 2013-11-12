@@ -80,19 +80,6 @@ FactoryGirl.define do
     end_date Time.now + 1.month
   end
 
-  factory :post do
-    title 'About Thing'
-    content 'Comments about the Thing project'
-    user_uuid 'user-uuid'
-    project
-  end
-
-  factory :reply do
-    content 'Reply to comment about Thing project'
-    user_uuid 'user-uuid'
-    post
-  end
-
   factory :participation do 
     sequence(:user_uuid) { |n| "user#{n}" }
     project

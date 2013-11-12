@@ -15,6 +15,7 @@ feature 'create a project' do
     fill_in 'project_end_date', with: Date.today + 1.month
     page.execute_script("$('#project_description').data('wysihtml5').editor.setValue('We are going');")
     click_on 'Submit'
+    save_and_open_page
     page.should have_content "successfully"
   end
 
