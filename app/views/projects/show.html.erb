@@ -45,7 +45,9 @@
 
     <section id='discussion' class='row'>
       <div id='new-post'></div>
-      <%= render 'comments/comments', parent: @project %>
+      <div class='row'>
+        <%= render 'comments/comments', parent: @project %>
+      </div>
     </section>
   </div>
 </div>

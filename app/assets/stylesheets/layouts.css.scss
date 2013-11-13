@@ -92,3 +92,16 @@ footer img {
 #location-map {
   display: none;
 }
+
+.comment {
+  border-style: solid;
+  border-width: small;
+  margin-bottom: 5px;
+  .row {
+    margin: 5px;
+  }
+}
+
+.text-right {
+  text-align: right;
+}

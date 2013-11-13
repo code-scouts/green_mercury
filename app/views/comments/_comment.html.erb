@@ -1,8 +1,32 @@
-<%= comment.title %>
-<%= comment.comment %>
-<% if can? :participate, comment.get_project %>
-  <%= link_to 'Reply', new_comment_path(commentable_id: comment.id, commentable_type: 'Comment') %>
-<% end %>
-<% if comment.comments.any? %>
-  <%= render 'comments/comments', parent: comment %>
-<% end %>
+<div class='comment'>
+  <div class='row'>
+    <h4><%= comment.title %></h4>
+  </div>
+  <div class='row'>
+    <div class='span4 poster'>
+      <div class='row'>
+        <%= @users[comment.user_uuid].name %>
+      </div>
+      <div class='row muted'>
+        <%= comment.created_at.strftime("%B %d, %Y") %>
+      </div>
+    </div>
+    <div class='span8'>
+      <%= comment.comment %>
+    </div>
+  </div>
+  <div class='row'>
+    <% if can? :participate, comment.get_project %>
+      <div class='text-right'>
+        <%= link_to 'Reply', new_comment_path(commentable_id: comment.id, commentable_type: 'Comment'), class: 'btn btn-primary' %>
+      </div>
+    <% end %>
+  </div>
+</div>
+<div class='row'>
+  <div class='offset2'>
+    <% if comment.comments.any? %>
+      <%= render 'comments/comments', parent: comment %>
+    <% end %>
+  </div>
+</div>
