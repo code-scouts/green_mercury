@@ -54,7 +54,7 @@ feature 'reply to a comment' do
       @user = new_mentor
       ApplicationController.any_instance.stub(:current_user) { @user }
       @project = FactoryGirl.create(:project_with_comment)
-      User.stub(:fetch_from_uuids).and_return({ @user.uuid => @user })
+      User.stub(:fetch_from_uuids).and_return({ @user.uuid => @user, '1' => new_member })
     end
 
     context 'as a project team member' do 
