@@ -82,6 +82,20 @@ class User
     this
   end
 
+  def self.fetch_inactives 
+    inactive_cutoff = Time.now - 2.weeks
+    response = HTTParty.post(CAPTURE_URL + '/entity.find', {body:{
+      filter: "last_logged_in<'#{inactive_cutoff}'",
+      type_name: 'user',
+      client_id: CAPTURE_OWNER_CLIENT_ID,
+      client_secret: CAPTURE_OWNER_CLIENT_SECRET
+    }})
+
+    body = JSON.parse(response.body)
+    users = body['results'].map { |user_hash| from_hash(user_hash) }
+    users.keep_if { |user| user.is_member? || user.is_mentor? }
+  end
+
   def member_application
     MemberApplication.find_by(user_uuid: uuid)
   end

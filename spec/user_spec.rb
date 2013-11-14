@@ -490,6 +490,72 @@ describe User do
       user.open_meeting_requests.should eq [request1]
     end
   end
+
+  describe 'fetch_inactives' do 
+    it 'gets all of the inactive members' do
+      approved_application = FactoryGirl.create(:approved_member_application, user_uuid: "the-uuid")
+      mock_response = double
+      mock_response.should_receive(:body).and_return('{
+        "results": [{
+          "uuid": "the-uuid",
+          "email": "granite@stone.co"
+        }]
+      }')
+
+      HTTParty.should_receive(:post).with(
+        'https://codescouts.janraincapture.test.host/entity.find',
+        {
+          body: {
+            filter: "last_logged_in<'#{Time.now - 2.weeks}'",
+            type_name: 'user',
+            client_id: 'fakeclientidfortests',
+            client_secret: 'fakeclientsecretfortests',
+          }
+        }
+      ).and_return(mock_response)
+
+      users = User.fetch_inactives
+      users.first.email.should eq "granite@stone.co"
+    end
+
+    it 'gets all of the inactive mentors' do
+      approved_application = FactoryGirl.create(:approved_mentor_application, user_uuid: "the-uuid")
+      mock_response = double
+      mock_response.should_receive(:body).and_return('{
+        "results": [{
+          "uuid": "the-uuid",
+          "email": "granite@stone.co"
+        }]
+      }')
+
+      HTTParty.should_receive(:post).with(
+        'https://codescouts.janraincapture.test.host/entity.find',
+        {
+          body: {
+            filter: "last_logged_in<'#{Time.now - 2.weeks}'",
+            type_name: 'user',
+            client_id: 'fakeclientidfortests',
+            client_secret: 'fakeclientsecretfortests',
+          }
+        }
+      ).and_return(mock_response)
+
+      users = User.fetch_inactives
+      users.first.email.should eq "granite@stone.co"
+    end
+
+    it 'does not include users that are not a member or mentor' do 
+      mock_response = double
+      mock_response.should_receive(:body).and_return('{
+        "results": [{
+          "uuid": "the-uuid",
+          "email": "granite@stone.co"
+        }]
+      }')
+      HTTParty.should_receive(:post).and_return(mock_response)
+      users = User.fetch_inactives.should eq []
+    end
+  end
 end
 
 

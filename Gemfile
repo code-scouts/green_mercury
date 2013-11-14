@@ -44,6 +44,7 @@ group :test do
   gem 'capybara'
   gem 'poltergeist'
   gem 'phantomjs', require: 'phantomjs/poltergeist'
+  gem 'connection_pool'
 end
 
 group :development, :test do
