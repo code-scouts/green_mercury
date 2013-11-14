@@ -2,7 +2,7 @@ class AccessTokenExpired < StandardError; end
 
 class User
   CACHE_TTL = 5 * 60 #seconds
-  attr_accessor :meetup_token, :email, :confirmed_at, :profile_photo_url, :uuid, :is_admin, :name
+  attr_accessor :meetup_token, :email, :confirmed_at, :profile_photo_url, :uuid, :is_admin, :name, :last_logged_in
 
   def self.fetch_from_token(token)
     Rails.cache.fetch("user_token:#{token}", expires_in: CACHE_TTL) do
@@ -69,6 +69,7 @@ class User
     this.uuid = hash['uuid']
     this.is_admin = hash['is_admin']
     this.name = hash['displayName']
+    this.last_logged_in = hash['last_logged_in']
     if hash['photos']
       profile_photo = hash['photos'].find do |record|
         record['type'] == 'normal'
