@@ -83,7 +83,7 @@ class User
   end
 
   def self.fetch_inactives 
-    inactive_cutoff = Time.now - 2.weeks
+    inactive_cutoff = Time.now - ACTIVE_TIMESPAN
     response = HTTParty.post(CAPTURE_URL + '/entity.find', {body:{
       filter: "last_logged_in<'#{inactive_cutoff}'",
       type_name: 'user',
