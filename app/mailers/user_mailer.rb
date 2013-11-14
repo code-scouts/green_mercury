@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default from: "staff@codescouts.org"
+  default from: "green_mercury@codescouts.org"
 
   def miss_you(user)
     @user = user

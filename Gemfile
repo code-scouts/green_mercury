@@ -69,6 +69,7 @@ group :development do
   gem 'better_errors'
   gem 'quiet_assets'
   gem 'webrick', '1.3.1'
+  gem 'letter_opener'
 end
 
 # Use ActiveModel has_secure_password
