@@ -556,6 +556,15 @@ describe User do
       users = User.fetch_inactives.should eq []
     end
   end
+
+  describe 'email_inactives' do 
+    it 'emails all inactive members and mentors' do 
+      inactives = [new_mentor, new_member, new_member]
+      User.stub(:fetch_inactives).and_return(inactives)
+      User.email_inactives
+      ActionMailer::Base.deliveries.count.should == 3
+    end
+  end
 end
 
 

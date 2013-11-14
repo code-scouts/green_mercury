@@ -96,6 +96,13 @@ class User
     users.keep_if { |user| user.is_member? || user.is_mentor? }
   end
 
+  def self.email_inactives 
+    inactives = fetch_inactives
+    inactives.each do |user|
+      UserMailer.miss_you(user).deliver
+    end
+  end
+
   def member_application
     MemberApplication.find_by(user_uuid: uuid)
   end
