@@ -2,7 +2,7 @@ class AccessTokenExpired < StandardError; end
 
 class User
   CACHE_TTL = 5 * 60 #seconds
-  attr_accessor :meetup_token, :email, :confirmed_at, :profile_photo_url, :uuid, :is_admin, :name, :last_logged_in
+  attr_accessor :meetup_token, :email, :confirmed_at, :profile_photo_url, :uuid, :is_admin, :name, :last_logged_in, :last_emailed_on
 
   def self.fetch_from_token(token)
     Rails.cache.fetch("user_token:#{token}", expires_in: CACHE_TTL) do
@@ -69,6 +69,7 @@ class User
     this.uuid = hash['uuid']
     this.is_admin = hash['is_admin']
     this.name = hash['displayName']
+    this.last_emailed_on = hash['last_emailed_on']
     this.last_logged_in = hash['last_logged_in']
     if hash['photos']
       profile_photo = hash['photos'].find do |record|
@@ -85,7 +86,7 @@ class User
   def self.fetch_inactives 
     inactive_cutoff = Time.now - ACTIVE_TIMESPAN
     response = HTTParty.post(CAPTURE_URL + '/entity.find', {body:{
-      filter: "last_logged_in<'#{inactive_cutoff}'",
+      filter: "last_logged_in<'#{inactive_cutoff}'and last_emailed_on>'#{inactive_cutoff}'",
       type_name: 'user',
       client_id: CAPTURE_OWNER_CLIENT_ID,
       client_secret: CAPTURE_OWNER_CLIENT_SECRET
@@ -100,6 +101,7 @@ class User
     inactives = fetch_inactives
     inactives.each do |user|
       UserMailer.miss_you(user).deliver
+      user.update_attribute(last_emailed: "#{Time.now}")
     end
   end
 
@@ -201,6 +203,16 @@ class User
     event.event_organizers.any? do |organizer|
       organizer.user_uuid == user_uuid
     end
+  end
+
+  def update_attribute(attribute_hash)
+    response = HTTParty.post(CAPTURE_URL + '/entity.update', {body:{
+      uuid: uuid,
+      type_name: 'user',
+      attributes: attribute_hash,
+      client_id: CAPTURE_OWNER_CLIENT_ID,
+      client_secret: CAPTURE_OWNER_CLIENT_SECRET
+    }}) 
   end
 end
 

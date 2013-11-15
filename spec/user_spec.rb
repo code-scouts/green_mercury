@@ -506,7 +506,7 @@ describe User do
         'https://codescouts.janraincapture.test.host/entity.find',
         {
           body: {
-            filter: "last_logged_in<'#{Time.now - ACTIVE_TIMESPAN}'",
+            filter: "last_logged_in<'#{Time.now - ACTIVE_TIMESPAN}'and last_emailed_on>'#{Time.now - ACTIVE_TIMESPAN}'",
             type_name: 'user',
             client_id: 'fakeclientidfortests',
             client_secret: 'fakeclientsecretfortests',
@@ -532,7 +532,7 @@ describe User do
         'https://codescouts.janraincapture.test.host/entity.find',
         {
           body: {
-            filter: "last_logged_in<'#{Time.now - ACTIVE_TIMESPAN}'",
+            filter: "last_logged_in<'#{Time.now - ACTIVE_TIMESPAN}'and last_emailed_on>'#{Time.now - ACTIVE_TIMESPAN}'",
             type_name: 'user',
             client_id: 'fakeclientidfortests',
             client_secret: 'fakeclientsecretfortests',
@@ -558,11 +558,38 @@ describe User do
   end
 
   describe 'email_inactives' do 
+
     it 'emails all inactive members and mentors' do 
       inactives = [new_mentor, new_member, new_member]
       User.stub(:fetch_inactives).and_return(inactives)
+      allow_any_instance_of(User).to receive(:update_attribute)
       User.email_inactives
       ActionMailer::Base.deliveries.count.should == 3
+    end
+
+    it 'updates the users last emailed attribute' do 
+      User.stub(:fetch_inactives).and_return([new_member])
+      expect_any_instance_of(User).to receive(:update_attribute).once
+      User.email_inactives
+    end
+  end
+
+  describe 'update_attribute' do 
+    it 'updates the user in the Janrain capture' do 
+      user = new_member
+      HTTParty.should_receive(:post).with(
+        'https://codescouts.janraincapture.test.host/entity.update',
+        {
+          body: {
+            uuid: user.uuid,
+            type_name: 'user',
+            attributes: {email: "example.com"},
+            client_id: 'fakeclientidfortests',
+            client_secret: 'fakeclientsecretfortests'
+          }
+        }
+      )
+      user.update_attribute(email: 'example.com')
     end
   end
 end

@@ -61,14 +61,7 @@ class ApplicationController < ActionController::Base
 
   def update_last_logged_in
     return unless current_user
-
-    response = HTTParty.post(CAPTURE_URL + '/entity.update', {body:{
-      uuid: current_user.uuid,
-      type_name: 'user',
-      attributes: {last_logged_in: "#{Time.now}"},
-      client_id: CAPTURE_OWNER_CLIENT_ID,
-      client_secret: CAPTURE_OWNER_CLIENT_SECRET
-    }}) 
+    current_user.update_attribute(last_logged_in: "#{Time.now}") 
   end
 
   protected
