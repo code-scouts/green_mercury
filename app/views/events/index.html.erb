@@ -1,23 +1,29 @@
 <h1>Events</h1>
 
 <%= link_to "Create an event", new_event_path %>
-
-<div class='row'>
+<div class='calendar'>
+  <div class='row'>
+    <h2 id="month" class='text-center'>
+      <%= link_to "<", date: @date.prev_month %>
+      <%= @date.strftime("%B %Y") %>
+      <%= link_to ">", date: @date.next_month %>
+    </h2>
+  </div>
   <div class='row'>
     <label class="checkbox">
       <%= check_box_tag 'attending' %>Show only events I am attending
     </label>
   </div>
-  <div class='calendar'>
-    <%= bootstrap_calendar do |date| %>
+  <div class='row'>
+    <%= bootstrap_calendar @date do |date| %>
       <%= date.day %>
       <% if @events_by_date[date] %>
-        <ul>
+        <ul class='unstyled'>
           <% @events_by_date[date].each do |event| %>
             <% if event.rsvp?(current_user) %>
-              <li data-attending="true"><%= event.title %></li>
+              <li data-attending="true"><%= link_to event.title, event_path(event) %>(Attending)</li>
             <% else %>
-              <li data-attending="false"><%= event.title %></li>
+              <li data-attending="false"><%= link_to event.title, event_path(event) %></li>
             <% end %>
           <% end %>
         </ul>
