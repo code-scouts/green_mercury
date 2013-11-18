@@ -24,6 +24,7 @@ class EventsController < ApplicationController
   end
 
   def index
+    @events_by_date = Event.all.group_by(&:date)
   end
 
   def edit

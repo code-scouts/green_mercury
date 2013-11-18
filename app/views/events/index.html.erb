@@ -2,22 +2,26 @@
 
 <%= link_to "Create an event", new_event_path %>
 
-<div class='container concepts-list'>
-  <p>Events you are attending</p>
-
-  <ul>
-    <% current_user.events.each do |event| %>
-      <li><%= link_to event.title, event_path(event) %></li>
+<div class='row'>
+  <div class='row'>
+    <label class="checkbox">
+      <%= check_box_tag 'attending' %>Show only events I am attending
+    </label>
+  </div>
+  <div class='calendar'>
+    <%= bootstrap_calendar do |date| %>
+      <%= date.day %>
+      <% if @events_by_date[date] %>
+        <ul>
+          <% @events_by_date[date].each do |event| %>
+            <% if event.rsvp?(current_user) %>
+              <li data-attending="true"><%= event.title %></li>
+            <% else %>
+              <li data-attending="false"><%= event.title %></li>
+            <% end %>
+          <% end %>
+        </ul>
+      <% end %>
     <% end %>
-  </ul>
-</div>
-
-<div class='container concepts-list'>
-  <p>Events you are not attending</p>
-
-  <ul>
-    <% current_user.events_without_rsvp.each do |event| %>
-      <li><%= link_to event.title, event_path(event) %></li>
-    <% end %>
-  </ul>
+  </div>
 </div>
