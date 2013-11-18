@@ -532,7 +532,7 @@ describe User do
         'https://codescouts.janraincapture.test.host/entity.find',
         {
           body: {
-            filter: "last_logged_in<'#{Time.now - ACTIVE_TIMESPAN}'and last_emailed_on<'#{Time.now - ACTIVE_TIMESPAN}'",
+            filter: "last_logged_in<'#{Time.now - ACTIVE_TIMESPAN}'and last_emailed_on>'#{Time.now - ACTIVE_TIMESPAN}'",
             type_name: 'user',
             client_id: 'fakeclientidfortests',
             client_secret: 'fakeclientsecretfortests',

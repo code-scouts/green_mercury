@@ -86,7 +86,7 @@ class User
   def self.fetch_inactives 
     inactive_cutoff = Time.now - ACTIVE_TIMESPAN
     response = HTTParty.post(CAPTURE_URL + '/entity.find', {body:{
-      filter: "last_logged_in<'#{inactive_cutoff}'and last_emailed_on<'#{inactive_cutoff}'",
+      filter: "last_logged_in<'#{inactive_cutoff}'and last_emailed_on>'#{inactive_cutoff}'",
       type_name: 'user',
       client_id: CAPTURE_OWNER_CLIENT_ID,
       client_secret: CAPTURE_OWNER_CLIENT_SECRET
