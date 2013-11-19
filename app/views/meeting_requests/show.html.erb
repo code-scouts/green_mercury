@@ -5,6 +5,13 @@
         <%= @meeting_request.title %>
       </h3>
     </div>
+    <div id='related-concepts' class='row'>
+      <% if @meeting_request.concepts.any? %>
+        <% @meeting_request.concepts.each do |concept| %>
+          <p><%= concept.name %></p>
+        <% end %>
+      <% end %>
+    </div>
     <div class="row muted">
       <%= @meeting_request.created_at.strftime("%B %d, %Y") %>
        - <%= @member.name %>
