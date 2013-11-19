@@ -5,16 +5,22 @@
         <%= @meeting_request.title %>
       </h3>
     </div>
-    <div id='related-concepts' class='row'>
-      <% if @meeting_request.concepts.any? %>
-        <% @meeting_request.concepts.each do |concept| %>
-          <p><%= concept.name %></p>
-        <% end %>
-      <% end %>
-    </div>
     <div class="row muted">
-      <%= @meeting_request.created_at.strftime("%B %d, %Y") %>
-       - <%= @member.name %>
+      <div class='span5'>
+        <%= @meeting_request.created_at.strftime("%b %d ") %>
+        - <%= @member.name %>
+      </div>
+      <div class='span7'>
+        <div id='related-concepts'>
+          <% if @meeting_request.concepts.any? %>
+            <ul class='inline'>
+              <% @meeting_request.concepts.each do |concept| %>
+                <li><%= link_to concept.name, concept_path(concept), class: 'label' %></li>
+              <% end %>
+            </ul>
+          <% end %>
+        </div>
+      </div>
     </div>
     <div class="row">
       <%= simple_format(@meeting_request.content) %>
@@ -47,7 +53,6 @@
           <%= link_to 'Delete Request', meeting_request_path(@meeting_request), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-wide' %>
         </div>
       <% end %>
-
     </div>
   </div>
 </div>
