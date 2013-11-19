@@ -17,6 +17,17 @@ feature 'create a request' do
     page.should have_content 'successfully'
   end
 
+  scenario 'a member creates a valid request and tags it with concepts' do 
+    concept = FactoryGirl.create(:concept)
+    click_link 'Create a request'
+    fill_in 'meeting_request_title', with: 'need help with rails'
+    fill_in 'meeting_request_content', with: 'understanding the basics'
+    fill_in 'meeting_request_contact_info', with: 'my cell phone for sure'
+    check(concept.name)
+    click_button 'Submit'
+    within('#related-concepts') { page.should have_content concept.name }
+  end
+
   scenario 'a member attempts to create an invalid request' do
     click_link 'Create a request'
     click_button 'Submit'
