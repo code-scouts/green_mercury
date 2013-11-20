@@ -210,30 +210,65 @@ feature 'requests index page' do
     @meeting_request4 = FactoryGirl.create(:meeting_request, member_uuid: @user.uuid)
   end
 
-  scenario 'a member visits the page' do
-    stub_user_fetch_from_uuid
-    stub_user_fetch_from_uuids
-    stub_application_controller
-    visit meeting_requests_path
-    page.should_not have_content @meeting_request1.title
-    page.should_not have_content @meeting_request2.title
-    page.should have_content @meeting_request3.title
-    page.should have_content @meeting_request4.title
+  context 'as a member' do 
+    scenario 'a member visits the page' do
+      stub_user_fetch_from_uuid
+      stub_user_fetch_from_uuids
+      stub_application_controller
+      visit meeting_requests_path
+      page.should_not have_content @meeting_request1.title
+      page.should_not have_content @meeting_request2.title
+      page.should have_content @meeting_request3.title
+      page.should have_content @meeting_request4.title
+    end
   end
 
-  scenario 'a mentor visits the page' do
-    @user = new_mentor
-    @user2 = new_member
-    @meeting_request1.update(mentor_uuid: @user.uuid)
-    @meeting_request3.update(mentor_uuid: 'other-mentor-uuid')
-    stub_user_fetch_from_uuid
-    User.stub(:fetch_from_uuids).and_return({@meeting_request3.member_uuid => @user2, @user.uuid => @user, 'member-uuid' => @user2})
-    stub_application_controller
-    visit meeting_requests_path
-    page.should have_content @meeting_request1.title
-    page.should have_content @meeting_request2.title
-    page.should_not have_content @meeting_request3.title
-    page.should have_content @meeting_request4.title
+  context 'as a mentor' do
+    before do 
+      @user = new_mentor
+      @user2 = new_member
+      @meeting_request1.update(mentor_uuid: @user.uuid)
+      @meeting_request3.update(mentor_uuid: 'other-mentor-uuid')
+      stub_user_fetch_from_uuid
+      User.stub(:fetch_from_uuids).and_return({@meeting_request3.member_uuid => @user2, @user.uuid => @user, 'member-uuid' => @user2})
+      stub_application_controller
+    end
+
+    scenario 'a mentor visits the page' do
+      visit meeting_requests_path
+      page.should have_content @meeting_request1.title
+      page.should have_content @meeting_request2.title
+      page.should_not have_content @meeting_request3.title
+      page.should have_content @meeting_request4.title
+    end
+
+    scenario 'they filter requests by concepts', js: true do 
+      concept = FactoryGirl.create(:concept)
+      @meeting_request4.concepts << concept
+      visit meeting_requests_path
+      within('.concepts') { find('.concept-search').click }
+      within('#open-requests') { page.should_not have_content @meeting_request2.title }
+    end
+
+    scenario 'they unfilter requests', js: true do 
+      concept = FactoryGirl.create(:concept)
+      @meeting_request4.concepts << concept
+      visit meeting_requests_path
+      within('.concepts') { find('.concept-search').click }
+      within('.concepts') { find('.concept-search').click }
+      within('#open-requests') { page.should have_content @meeting_request2.title }
+    end
+
+    scenario 'they filter multiple concepts', js: true do 
+      concept = FactoryGirl.create(:concept)
+      concept2 = FactoryGirl.create(:concept, name: 'Javascript')
+      @meeting_request4.concepts << concept
+      @meeting_request3.concepts << concept2
+      visit meeting_requests_path
+      within('.concepts') { find('.concept-search:first-of-type').click }
+      within('.concepts') { find('.concept-search:nth-of-type(2)').click }
+      within('#open-requests') { page.should have_content @meeting_request4.title }
+    end
   end
 end
 

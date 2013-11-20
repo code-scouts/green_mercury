@@ -72,3 +72,17 @@ $mercury: #d1d1d1;
 #location-map {
   display: none;
 }
+
+.request {
+  border: solid;
+  margin-left: 0px;
+  margin-bottom: 5px;
+  .row {
+    margin: 0px;
+    padding: 2px;
+  }
+}
+
+.concept-search {
+  cursor: pointer;
+}

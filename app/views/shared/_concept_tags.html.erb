@@ -1,0 +1,7 @@
+<% if object.concepts.any? %>
+  <ul class='inline'>
+    <% object.concepts.each do |concept| %>
+      <li><%= link_to concept.name, concept_path(concept), class: 'label' %></li>
+    <% end %>
+  </ul>
+<% end %>

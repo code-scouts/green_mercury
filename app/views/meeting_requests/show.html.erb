@@ -12,13 +12,7 @@
       </div>
       <div class='span7'>
         <div id='related-concepts'>
-          <% if @meeting_request.concepts.any? %>
-            <ul class='inline'>
-              <% @meeting_request.concepts.each do |concept| %>
-                <li><%= link_to concept.name, concept_path(concept), class: 'label' %></li>
-              <% end %>
-            </ul>
-          <% end %>
+          <%= render 'shared/concept_tags', object: @meeting_request %>
         </div>
       </div>
     </div>
