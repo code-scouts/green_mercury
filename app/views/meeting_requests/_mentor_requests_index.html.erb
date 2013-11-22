@@ -1,28 +1,20 @@
-<div class="row">
-  <div class='row'>
-    <h3>My Claimed Requests</h3>
-  </div>
-  <div class='row'>
-    <%= render 'requests_list', meeting_requests: current_user.claimed_meeting_requests, users: @claimed_users %>
-  </div>
-</div>
-
-<div class="row">
-  <div class='span9'>
-    <div class='row'>
-      <h3>Open Requests</h3>
-    </div>
-    <div id='open-requests' class='row'>
-      <%= render 'requests_list', meeting_requests: current_user.open_meeting_requests, users: @open_users %>
-    </div>
+<section id='my-requests' class='span12'>
+  <h3>My Claimed Requests</h3>
+  <%= render 'requests_list', meeting_requests: current_user.claimed_meeting_requests, users: @claimed_users %>
+</section>
+<section class='row-fluid'>
+  <div id='open-requests' class='span9'>
+    <h3>Open Requests</h3>
+    <%= render 'requests_list', meeting_requests: current_user.open_meeting_requests, users: @open_users %>
   </div>
   <div class="span3 concepts">
-    <h4>Concepts</h4>
+    <h3>Concepts</h3>
     <p>Click on a concept to see related requests</p>
     <ul class='inline'>
       <% Concept.all.each do |concept| %>
-        <li class='badge concept-search' data-name='<%= escape_dots(concept.name) %>'><%= concept.name %></li>
+        <li class='badge concept-search' data-name='<%= escape_attribute_name(concept.name) %>'><%= concept.name %></li>
       <% end %>
     </ul>
   </div>
-</div>
+</section>
+

@@ -75,14 +75,25 @@ $mercury: #d1d1d1;
 
 .request {
   border: solid;
-  margin-left: 0px;
+  border-color: grey;
   margin-bottom: 5px;
-  .row {
-    margin: 0px;
-    padding: 2px;
+  padding: 2px;
+}
+
+.no-left-margin {
+  margin-left: 0px;
+}
+
+.concept {
+  cursor: pointer;
+  &:hover {
+    background-color: blue;
   }
 }
 
 .concept-search {
   cursor: pointer;
+  &:hover {
+    background-color: green;
+  }
 }

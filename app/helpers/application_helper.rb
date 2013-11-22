@@ -8,8 +8,8 @@ module ApplicationHelper
     ]
   end
 
-  def escape_dots(string)
-    string.gsub(/[.]/, '')
+  def escape_attribute_name(string)
+    string.gsub(/\W|_/, '-').downcase
   end
 
   class HTMLwithPygments < Redcarpet::Render::HTML
