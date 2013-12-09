@@ -124,6 +124,29 @@ describe Event do
       Event.upcoming_events.should eq [@event1, @event3]
     end
   end
+
+  describe '.for_month' do
+    before do 
+      Timecop.freeze(Date.new(2013, 1, 1))
+    end
+
+    after do
+      Timecop.return
+    end
+
+    context 'when there are events in the month' do 
+      it "gets the month's events" do 
+        february_event = FactoryGirl.create(:event, date: Date.new(2013, 2, 3))
+        expect(Event.for_month(2, 2013)).to eq [february_event]
+      end
+    end
+
+    context 'when there are no events in the month' do 
+      it 'returns an empty array' do 
+        expect(Event.for_month(3, 2013)).to eq []
+      end
+    end 
+  end
 end
 
 

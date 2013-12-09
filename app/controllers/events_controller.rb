@@ -24,8 +24,8 @@ class EventsController < ApplicationController
   end
 
   def index
-    @events_by_date = Event.all.group_by(&:date)
     @date = params[:date] ? Date.parse(params[:date]) : Date.today
+    @events_by_date = Event.for_month(@date.month, @date.year).group_by(&:date)
   end
 
   def edit

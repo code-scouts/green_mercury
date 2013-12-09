@@ -45,6 +45,7 @@ group :test do
   gem 'capybara'
   gem 'poltergeist'
   gem 'phantomjs', require: 'phantomjs/poltergeist'
+  gem 'timecop'
 end
 
 group :development, :test do

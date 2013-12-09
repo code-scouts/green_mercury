@@ -43,6 +43,11 @@ class Event < ActiveRecord::Base
     Event.where("date >= ?", Date.today)
   end
 
+  def self.for_month(month, year)
+    first_of_month = Date.new(year, month)
+    where("date >= ? AND date <= ?", first_of_month, first_of_month + 1.month)
+  end
+
 private
 
   def validate_date

@@ -14,20 +14,7 @@
       <%= check_box_tag 'attending' %>Show only events I am attending
     </label>
   </div>
-  <div class='row'>
-    <%= bootstrap_calendar @date do |date| %>
-      <%= date.day %>
-      <% if @events_by_date[date] %>
-        <ul class='unstyled'>
-          <% @events_by_date[date].each do |event| %>
-            <% if event.rsvp?(current_user) %>
-              <li data-attending="true"><%= link_to event.title, event_path(event) %>(Attending)</li>
-            <% else %>
-              <li data-attending="false"><%= link_to event.title, event_path(event) %></li>
-            <% end %>
-          <% end %>
-        </ul>
-      <% end %>
-    <% end %>
+  <div id='event-calendar'>
+    <%= render 'calendar', current_date: @date, events_by_date: @events_by_date %>
   </div>
 </div>
