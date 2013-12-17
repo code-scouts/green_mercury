@@ -82,15 +82,43 @@ bundle install
 
 Create And Migrate Databases
 ----------------------------
-Now that you have the dependencies installed, it's time to create the databases for the site. At your terminal run `sudo -u postgres psql postgres`. This will open a Psql prompt, where you'll create a user and a database. Replace `<me>` with your Ubuntu username below:
-```SQL
-create role <me> with login createdb;
-create database green_mercury owner <me>;
-create database green_mercury_test owner <me>;
-commit;
-\q
+Now that you have the dependencies installed, it's time to create the databases for the site.
+
+At your terminal run the following commands which will create a user and a database. Replace `<user>` with a username of your choosing (try: greenmercury) and enter a password when prompted:
+
 ```
-That creates an empty database, so you just need to set it up with the proper tables:
+sudo -u postgres createuser -D -A -P <user>
+sudo -u postgres createdb -O <user> green_mercury
+sudo -u postgres createdb -O <user> green_mercury_test
+```
+In order to use these credentials you need to edit another file config/database.yml to add the username and password. First of all, though, you need to remove the file from git to make sure the password don't get accidently leaked.
+
+```
+git rm --cached config/database.yml
+```
+
+Don't worry the `--cached` option ensures the file won't actually get deleted.
+
+Next edit the file .gitignore -- this is a special file that tells git to ignore certain file, and stops it bugging you about them. Go ahead and enter `config/database.yml' on an empty line.
+
+Now  tell git about the changes
+```
+git add -u
+git commit -m 'forget about database.yml'
+```
+
+The `-m` stands for message, so you can put your own message after it  if you like.
+
+Now you can safely edit config.yml
+ In the sections `development` and `test` uncomment the lines 
+ ```
+ #  username: [insert user name]
+ #  password: [insert password]
+ ```
+ by removing the # sign and add in the username and password you created (remove [ ] as well).
+
+
+So far the database you created is empty, so you just need to set it up with the proper tables:
 ```
 rake db:migrate
 rake db:migrate RAILS_ENV=test
