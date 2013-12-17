@@ -9,6 +9,8 @@ development:
   database: green_mercury
   encoding: unicode
   pool: 5
+#  username: [insert user name]
+#  password: [insert password]
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -19,6 +21,8 @@ test: &test
   database: green_mercury_test
   encoding: unicode
   pool: 5
+#  username: [insert user name]
+#  password: [insert password]
 
 cucumber:
   <<: *test
