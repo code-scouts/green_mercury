@@ -490,6 +490,108 @@ describe User do
       user.open_meeting_requests.should eq [request1]
     end
   end
+
+  describe 'fetch_inactives' do 
+    it 'gets all of the inactive members' do
+      approved_application = FactoryGirl.create(:approved_member_application, user_uuid: "the-uuid")
+      mock_response = double
+      mock_response.should_receive(:body).and_return('{
+        "results": [{
+          "uuid": "the-uuid",
+          "email": "granite@stone.co"
+        }]
+      }')
+
+      HTTParty.should_receive(:post).with(
+        'https://codescouts.janraincapture.test.host/entity.find',
+        {
+          body: {
+            filter: "last_logged_in<'#{Time.now - ACTIVE_TIMESPAN}'and last_emailed_on>'#{Time.now - ACTIVE_TIMESPAN}'",
+            type_name: 'user',
+            client_id: 'fakeclientidfortests',
+            client_secret: 'fakeclientsecretfortests',
+          }
+        }
+      ).and_return(mock_response)
+
+      users = User.fetch_inactives
+      users.first.email.should eq "granite@stone.co"
+    end
+
+    it 'gets all of the inactive mentors' do
+      approved_application = FactoryGirl.create(:approved_mentor_application, user_uuid: "the-uuid")
+      mock_response = double
+      mock_response.should_receive(:body).and_return('{
+        "results": [{
+          "uuid": "the-uuid",
+          "email": "granite@stone.co"
+        }]
+      }')
+
+      HTTParty.should_receive(:post).with(
+        'https://codescouts.janraincapture.test.host/entity.find',
+        {
+          body: {
+            filter: "last_logged_in<'#{Time.now - ACTIVE_TIMESPAN}'and last_emailed_on>'#{Time.now - ACTIVE_TIMESPAN}'",
+            type_name: 'user',
+            client_id: 'fakeclientidfortests',
+            client_secret: 'fakeclientsecretfortests',
+          }
+        }
+      ).and_return(mock_response)
+
+      users = User.fetch_inactives
+      users.first.email.should eq "granite@stone.co"
+    end
+
+    it 'does not include users that are not a member or mentor' do 
+      mock_response = double
+      mock_response.should_receive(:body).and_return('{
+        "results": [{
+          "uuid": "the-uuid",
+          "email": "granite@stone.co"
+        }]
+      }')
+      HTTParty.should_receive(:post).and_return(mock_response)
+      users = User.fetch_inactives.should eq []
+    end
+  end
+
+  describe 'email_inactives' do 
+
+    it 'emails all inactive members and mentors' do 
+      inactives = [new_mentor, new_member, new_member]
+      User.stub(:fetch_inactives).and_return(inactives)
+      allow_any_instance_of(User).to receive(:update_attribute)
+      User.email_inactives
+      ActionMailer::Base.deliveries.count.should == 3
+    end
+
+    it 'updates the users last emailed attribute' do 
+      User.stub(:fetch_inactives).and_return([new_member])
+      expect_any_instance_of(User).to receive(:update_attribute).once
+      User.email_inactives
+    end
+  end
+
+  describe 'update_attribute' do 
+    it 'updates the user in the Janrain capture' do 
+      user = new_member
+      HTTParty.should_receive(:post).with(
+        'https://codescouts.janraincapture.test.host/entity.update',
+        {
+          body: {
+            uuid: user.uuid,
+            type_name: 'user',
+            attributes: {email: "example.com"},
+            client_id: 'fakeclientidfortests',
+            client_secret: 'fakeclientsecretfortests'
+          }
+        }
+      )
+      user.update_attribute(email: 'example.com')
+    end
+  end
 end
 
 

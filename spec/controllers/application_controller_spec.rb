@@ -94,4 +94,28 @@ describe ApplicationController do
       controller.instance_variable_get(:@fresh_access_token).should eq 'skinnyjeans'
     end
   end
+
+  describe 'update_last_logged_in' do   
+    it 'should post to the janrain capture current time as the last_logged_in time' do 
+      user = new_mentor
+      controller.stub(:current_user) { user }
+      HTTParty.should_receive(:post).with(
+        'https://codescouts.janraincapture.test.host/entity.update',
+        {
+          body: {
+            uuid: user.uuid,
+            type_name: 'user',
+            attributes: {last_logged_in: "#{Time.now}"},
+            client_id: 'fakeclientidfortests',
+            client_secret: 'fakeclientsecretfortests'
+          }
+        }
+      )
+      controller.update_last_logged_in
+    end
+
+    it 'should return nil there is no user' do
+      controller.update_last_logged_in.should be_nil
+    end
+  end
 end

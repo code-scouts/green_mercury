@@ -59,6 +59,11 @@ class ApplicationController < ActionController::Base
     User.fetch_from_uuids(user_uuids)
   end
 
+  def update_last_logged_in
+    return unless current_user
+    current_user.update_attribute(last_logged_in: "#{Time.now}") 
+  end
+
   protected
 
   def load_janrain_facts

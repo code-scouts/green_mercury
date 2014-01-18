@@ -1,10 +1,12 @@
 require "rvm/capistrano"
 require 'bundler/capistrano'
 require "dotenv/capistrano"
+require "whenever/capistrano"
 
 set :application, "green_mercury"
 set :repository,  "https://github.com/code-scouts/green_mercury.git"
 set :scm, :git
+set :whenever_command, "bundle exec whenever"
 
 role :web, "green-mercury.codescouts.org"
 role :app, "green-mercury.codescouts.org"

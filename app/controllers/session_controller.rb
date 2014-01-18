@@ -3,6 +3,8 @@ require 'user'
 class SessionController < ApplicationController
   skip_before_filter :new_applicant
   skip_before_filter :pending_applicant
+  before_filter :update_last_logged_in, only: :logout
+  after_filter :update_last_logged_in, only: :acquire_session
   
   def acquire_session
     respond_to do |format|

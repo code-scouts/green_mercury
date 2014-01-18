@@ -33,6 +33,7 @@ gem 'httparty'
 gem 'dotenv-rails'
 gem 'cancan'
 gem 'dalli'
+gem 'whenever', require: false
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
@@ -42,6 +43,7 @@ end
 group :test do
   gem 'poltergeist'
   gem 'phantomjs', require: 'phantomjs/poltergeist'
+  gem 'connection_pool'
 end
 
 group :development, :test do
@@ -66,6 +68,7 @@ group :development do
   gem 'rvm-capistrano'
   gem 'quiet_assets'
   gem 'webrick', '1.3.1'
+  gem 'letter_opener'
 end
 
 # Use ActiveModel has_secure_password
