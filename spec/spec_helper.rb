@@ -12,7 +12,7 @@ Spork.prefork do
   require 'paperclip/matchers'
   require 'capybara/poltergeist'
   Capybara.javascript_driver = :poltergeist
-  require 'helpers'
+  require_relative 'helpers'
 
   ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
   RSpec.configure do |config|
