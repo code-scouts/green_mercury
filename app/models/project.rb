@@ -22,17 +22,15 @@ class Project < ActiveRecord::Base
     end
   end
 
-  def self.available(user)
-    if user == 'member'
-      project_ids = MemberParticipation.where(user_uuid: nil).map(&:project_id)
-    else
-      project_ids = MentorParticipation.where(user_uuid: nil).map(&:project_id)
-    end
-
-    Project.all.keep_if { |project| project_ids.include?(project.id) }
+  def self.available_for(user)
+    participation_class = user.is_member? ? MemberParticipation : MentorParticipation
+    project_ids = participation_class.where(user_uuid: nil).map(&:project_id)
+    Project.where(id: [project_ids])
   end
 
-  def self.unavailable(user)
-    Project.all - Project.available(user)
+  def self.unavailable_for(user)
+    participation_class = user.is_member? ? MemberParticipation : MentorParticipation
+    project_ids = participation_class.where(user_uuid: nil).map(&:project_id)
+    Project.where("id not in (?)", project_ids)
   end
 end

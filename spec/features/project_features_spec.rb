@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 feature 'create a project' do
+
   before :each do 
     user = new_mentor
     ApplicationController.any_instance.stub(:current_user) { user }

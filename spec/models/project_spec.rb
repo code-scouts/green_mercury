@@ -41,39 +41,46 @@ describe Project do
     end
   end
 
-  describe 'available' do
-    it 'returns an array of projects a member can join' do
-      project1 = FactoryGirl.create(:project)
-      project2 = FactoryGirl.create(:project)
-      FactoryGirl.create(:member_participation, project: project1, user_uuid: nil)
-      FactoryGirl.create(:mentor_participation, project: project2, user_uuid: nil)
-      Project.available('member').should eq [project1]
+  describe '#available_for' do
+    let!(:project1) { FactoryGirl.create(:project) }
+    let!(:project2) {FactoryGirl.create(:project) }
+
+    context 'when the user is a member' do 
+      let(:user) { new_member }
+
+      it 'is an array of projects they can join' do 
+        FactoryGirl.create(:member_participation, project: project1, user_uuid: nil)
+        expect(Project.available_for(user)).to match_array [project1]
+      end
     end
 
-    it 'returns an array of projects a mentor can join' do
-      project1 = FactoryGirl.create(:project)
-      project2 = FactoryGirl.create(:project)
-      FactoryGirl.create(:mentor_participation, project: project1, user_uuid: nil)
-      FactoryGirl.create(:member_participation, project: project2, user_uuid: nil)
-      Project.available('mentor').should eq [project1]
+    context 'when the user is a mentor' do
+      let(:user) { new_mentor }
+
+      it 'is an array of projects they can join' do  
+        FactoryGirl.create(:mentor_participation, project: project2, user_uuid: nil)
+        expect(Project.available_for(user)).to match_array [project2]
+      end
     end
   end
 
-  describe 'unavailable' do
+  describe '#unavailable_for' do
     it 'returns an array of projects with no spaces left for members' do
+      user = new_member
       project1 = FactoryGirl.create(:project)
       project2 = FactoryGirl.create(:project)
       FactoryGirl.create(:member_participation, project: project1, user_uuid: nil)
       FactoryGirl.create(:mentor_participation, project: project2, user_uuid: nil)
-      Project.unavailable('member').should eq [project2]
+      expect(Project.unavailable_for(user)).to match_array [project2]
     end
 
     it 'returns an array of projects with no spaces left for mentors' do
+      user = new_mentor
       project1 = FactoryGirl.create(:project)
       project2 = FactoryGirl.create(:project)
       FactoryGirl.create(:mentor_participation, project: project1, user_uuid: nil)
       FactoryGirl.create(:member_participation, project: project2, user_uuid: nil)
-      Project.unavailable('mentor').should eq [project2]
+      expect(Project.unavailable_for(user)).to match_array [project2]
     end
   end
 end

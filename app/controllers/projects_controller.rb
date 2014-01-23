@@ -1,13 +1,8 @@
 class ProjectsController < ApplicationController
   def index
     @user_projects = current_user.projects
-    if current_user.is_mentor?
-      @available_projects = Project.available('mentor') - @user_projects
-      @unavailable_projects = Project.unavailable('mentor') - @user_projects
-    else
-      @available_projects = Project.available('member') - @user_projects
-      @unavailable_projects = Project.unavailable('member') - @user_projects
-    end
+    @available_projects = Project.available_for(current_user)
+    @unavailable_projects = Project.unavailable_for(current_user)
   end
 
   def new
