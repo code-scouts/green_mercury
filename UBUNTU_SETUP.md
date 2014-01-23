@@ -84,7 +84,7 @@ Create And Migrate Databases
 ----------------------------
 Now that you have the dependencies installed, it's time to create the databases for the site. At your terminal run `sudo -u postgres psql postgres`. This will open a Psql prompt, where you'll create a user and a database. Replace `<me>` with your Ubuntu username below:
 ```SQL
-create role <me> with login createdb;
+create role <me> with login createdb password 'hacktehplanit';
 create database green_mercury owner <me>;
 create database green_mercury_test owner <me>;
 commit;
