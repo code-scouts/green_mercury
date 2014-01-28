@@ -468,13 +468,22 @@ describe User do
   end
 
   describe 'projects' do
-    it 'returns all projects the user is participating in' do
-      user = new_member
-      project1 = FactoryGirl.create(:project)
-      project2 = FactoryGirl.create(:project)
-      FactoryGirl.create(:member_participation, project: project1, user_uuid: user.uuid)
-      FactoryGirl.create(:mentor_participation, project: project2, user_uuid: nil)
-      user.projects.should eq [project1]
+    context 'when they are participating in one or more projects' do
+      it 'returns all projects the user is participating in' do
+        user = new_member
+        project1 = FactoryGirl.create(:project)
+        project2 = FactoryGirl.create(:project)
+        FactoryGirl.create(:member_participation, project: project1, user_uuid: user.uuid)
+        FactoryGirl.create(:mentor_participation, project: project2, user_uuid: nil)
+        user.projects.should eq [project1]
+      end
+    end
+
+    context 'when they have not active participations' do
+      it 'returns an empty array' do 
+        user = new_member
+        expect(user.projects).to match_array []
+      end
     end
   end
 
@@ -514,6 +523,20 @@ describe User do
       request2 = FactoryGirl.create(:meeting_request, member_uuid: 'member-uuid', mentor_uuid: user.uuid)
       request4 = FactoryGirl.create(:meeting_request, member_uuid: 'member-uuid', mentor_uuid: 'mentor-uuid')
       user.open_meeting_requests.should eq [request1]
+    end
+  end
+
+  describe '#particpation_class' do 
+    subject { user.participation_class }
+
+    context 'when they are a member' do 
+      let(:user) { new_member }
+      it { should eq MemberParticipation }
+    end
+
+    context 'when they are a mentor' do 
+      let(:user) { new_mentor }
+      it { should eq MentorParticipation }
     end
   end
 end

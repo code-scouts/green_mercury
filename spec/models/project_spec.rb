@@ -64,24 +64,24 @@ describe Project do
     end
   end
 
-  describe '#unavailable_for' do
-    it 'returns an array of projects with no spaces left for members' do
-      user = new_member
-      project1 = FactoryGirl.create(:project)
-      project2 = FactoryGirl.create(:project)
-      FactoryGirl.create(:member_participation, project: project1, user_uuid: nil)
-      FactoryGirl.create(:mentor_participation, project: project2, user_uuid: nil)
-      expect(Project.unavailable_for(user)).to match_array [project2]
-    end
+  # describe '#unavailable_for' do
+  #   it 'returns an array of projects with no spaces left for members' do
+  #     user = new_member
+  #     project1 = FactoryGirl.create(:project)
+  #     project2 = FactoryGirl.create(:project)
+  #     FactoryGirl.create(:member_participation, project: project1, user_uuid: nil)
+  #     FactoryGirl.create(:mentor_participation, project: project2, user_uuid: nil)
+  #     expect(Project.unavailable_for(user)).to match_array [project2]
+  #   end
 
-    it 'returns an array of projects with no spaces left for mentors' do
-      user = new_mentor
-      project1 = FactoryGirl.create(:project)
-      project2 = FactoryGirl.create(:project)
-      FactoryGirl.create(:mentor_participation, project: project1, user_uuid: nil)
-      FactoryGirl.create(:member_participation, project: project2, user_uuid: nil)
-      expect(Project.unavailable_for(user)).to match_array [project2]
-    end
-  end
+  #   it 'returns an array of projects with no spaces left for mentors' do
+  #     user = new_mentor
+  #     project1 = FactoryGirl.create(:project)
+  #     project2 = FactoryGirl.create(:project)
+  #     FactoryGirl.create(:mentor_participation, project: project1, user_uuid: nil)
+  #     FactoryGirl.create(:member_participation, project: project2, user_uuid: nil)
+  #     expect(Project.unavailable_for(user)).to match_array [project2]
+  #   end
+  # end
 end
 

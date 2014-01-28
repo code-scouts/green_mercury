@@ -23,14 +23,7 @@ class Project < ActiveRecord::Base
   end
 
   def self.available_for(user)
-    participation_class = user.is_member? ? MemberParticipation : MentorParticipation
-    project_ids = participation_class.where(user_uuid: nil).map(&:project_id)
-    Project.where(id: [project_ids])
-  end
-
-  def self.unavailable_for(user)
-    participation_class = user.is_member? ? MemberParticipation : MentorParticipation
-    project_ids = participation_class.where(user_uuid: nil).map(&:project_id)
-    Project.where("id not in (?)", project_ids)
+    project_ids = user.participation_class.unfilled.pluck(:project_id)
+    Project.where(id: project_ids)
   end
 end

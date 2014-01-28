@@ -155,9 +155,8 @@ class User
   end
 
   def projects
-    participation_class = is_member? ? MemberParticipation : MentorParticipation
-    project_ids = participation_class.where(user_uuid: uuid).map(&:project_id)
-    Project.where(id: [project_ids])
+    project_ids = participation_class.where(user_uuid: uuid).pluck(:project_id)
+    Project.where(id: project_ids)
   end
 
   def claimed_meeting_requests
@@ -194,6 +193,10 @@ class User
     event.event_organizers.any? do |organizer|
       organizer.user_uuid == user_uuid
     end
+  end
+
+  def participation_class
+    is_member? ? MemberParticipation : MentorParticipation
   end
 end
 

@@ -2,7 +2,6 @@ class ProjectsController < ApplicationController
   def index
     @user_projects = current_user.projects
     @available_projects = Project.available_for(current_user)
-    @unavailable_projects = Project.unavailable_for(current_user)
   end
 
   def new
