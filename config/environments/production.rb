@@ -81,12 +81,21 @@ GreenMercury::Application.configure do
   # serve assets from s3
   config.action_controller.asset_host = "https://#{ENV['CLOUDFRONT']}.cloudfront.net"
 
+  MEETUP_API_KEY = ENV['MEETUP_API_KEY']
+  MEETUP_API_SECRET = ENV['MEETUP_API_SECRET']
+
+  config.cache_store = :mem_cache_store, 'localhost'
+
+  CAPTURE_OWNER_CLIENT_ID = 'wtujnf669ttdacr8mk8mww8z7z2kbgtc'
+  CAPTURE_OWNER_CLIENT_SECRET = ENV['CAPTURE_OWNER_CLIENT_SECRET']
+  CAPTURE_APP_ID = 'kr2e8rz35hhgqeja6wvx9c6sjy'
+  RPX_URL = 'https://codescouts.rpxnow.com'
+  CAPTURE_URL = 'https://codescouts.janraincapture.com'
+  FLOW_VERSION = 'd1eeea56-513b-47cc-9a65-661d66bca9b9'
+
   #Devise will use this when sending password reset emails.
   #This should be changed when the site goes live. I don't know how to guarantee that that happens :(
   config.action_mailer.default_url_options = { :host => 'green-mercury.codescouts.org' }
-
-  MEETUP_API_KEY = ENV['MEETUP_API_KEY']
-  MEETUP_API_SECRET = ENV['MEETUP_API_SECRET']
 
   #Send emails via sendgrid
   ActionMailer::Base.smtp_settings = {
@@ -98,12 +107,11 @@ GreenMercury::Application.configure do
     :password       => ENV['SES_PASSWORD'],
   }
 
-  CAPTURE_OWNER_CLIENT_ID = 'wtujnf669ttdacr8mk8mww8z7z2kbgtc'
-  CAPTURE_OWNER_CLIENT_SECRET = ENV['CAPTURE_OWNER_CLIENT_SECRET']
-  CAPTURE_APP_ID = 'kr2e8rz35hhgqeja6wvx9c6sjy'
-  RPX_URL = 'https://codescouts.rpxnow.com'
-  CAPTURE_URL = 'https://codescouts.janraincapture.com'
-  FLOW_VERSION = 'd1eeea56-513b-47cc-9a65-661d66bca9b9'
-
-  config.cache_store = :mem_cache_store, 'localhost'
+  # Send Exception Notification email
+  config.middleware.use ExceptionNotification::Rack,
+    :email => {
+      :email_prefix         => "Green Mercury Error",
+      :sender_address       => %{"Exception Notifier" <andrew@codescouts.org>},
+      :exception_recipients => %w{andrew@codescouts.org}
+    }
 end

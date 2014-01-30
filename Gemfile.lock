@@ -69,6 +69,9 @@ GEM
     dotenv-rails (0.9.0)
       dotenv (= 0.9.0)
     erubis (2.7.0)
+    exception_notification (4.0.1)
+      actionmailer (>= 3.0.4)
+      activesupport (>= 3.0.4)
     excon (0.27.6)
     execjs (2.0.2)
     facter (1.7.3)
@@ -270,6 +273,7 @@ DEPENDENCIES
   dalli
   database_cleaner
   dotenv-rails
+  exception_notification
   factory_girl_rails
   httparty
   jbuilder (~> 1.2)
