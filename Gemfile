@@ -45,6 +45,7 @@ end
 
 group :test do
   gem 'poltergeist'
+  gem 'phantomjs', '~> 1.9', require: 'phantomjs/poltergeist'
 end
 
 group :development, :test do
