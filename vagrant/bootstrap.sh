@@ -10,10 +10,9 @@ echo 'source ~vagrant/.rvm/scripts/rvm && rvm use --install --default 1.9.3' | s
 echo 'source ~/.rvm/scripts/rvm' >> ~vagrant/.bash_profile
 echo 'rvm use 1.9.3' >> ~vagrant/.bash_profile
 
-sudo -u postgres psql postgres -c 'create role vagrant with login createdb'
+sudo -u postgres psql postgres -c "create role vagrant with login createdb password 'hacktehplanit'"
 sudo -u postgres psql postgres -c 'create database green_mercury owner vagrant'
 sudo -u postgres psql postgres -c 'create database green_mercury_test owner vagrant'
-sed -i 's/md5/trust/' /etc/postgresql/9.1/main/pg_hba.conf
 service postgresql restart
 
 ln -s /vagrant ~vagrant/green_mercury
