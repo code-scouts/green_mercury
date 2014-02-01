@@ -34,6 +34,7 @@ gem 'httparty'
 gem 'dotenv-rails'
 gem 'cancan'
 gem 'dalli'
+gem 'exception_notification'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
@@ -41,8 +42,6 @@ group :doc do
 end
 
 group :test do
-  gem 'shoulda-matchers'
-  gem 'capybara'
   gem 'poltergeist'
   gem 'phantomjs', require: 'phantomjs/poltergeist'
 end
@@ -67,7 +66,6 @@ group :development do
   gem 'librarian-puppet'
   gem 'capistrano'
   gem 'rvm-capistrano'
-  gem 'better_errors'
   gem 'quiet_assets'
   gem 'webrick', '1.3.1'
 end
