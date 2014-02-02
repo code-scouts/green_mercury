@@ -6,8 +6,15 @@
       </h3>
     </div>
     <div class="row muted">
-      <%= @meeting_request.created_at.strftime("%B %d, %Y") %>
-       - <%= @member.name %>
+      <div class='span5'>
+        <%= @meeting_request.created_at.strftime("%b %d ") %>
+        - <%= @member.name %>
+      </div>
+      <div class='span7'>
+        <div id='related-concepts'>
+          <%= render 'shared/concept_tags', object: @meeting_request %>
+        </div>
+      </div>
     </div>
     <div class="row">
       <%= simple_format(@meeting_request.content) %>
@@ -40,7 +47,6 @@
           <%= link_to 'Delete Request', meeting_request_path(@meeting_request), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-wide' %>
         </div>
       <% end %>
-
     </div>
   </div>
 </div>

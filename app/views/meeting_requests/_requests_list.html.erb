@@ -1,16 +1,18 @@
-<ul class="plain-list">
-  <% meeting_requests.each do |meeting_request| %>
-    <li class="extra-margin-bottom">
-      <div class="row">
-        <%= link_to meeting_request.title, meeting_request_path(meeting_request) %>
-      </div>
-
-      <div class="row muted">
-        <%= meeting_request.created_at.strftime("%B %d, %Y") %>
-        <% if current_user.is_mentor? %>
-           | <%= users[meeting_request.member_uuid].name %>
-        <% end %>
-      </div>
-    </li>
+<% meeting_requests.each do |meeting_request| %>
+  <% if meeting_request.concepts.any? %>
+    <div class='request'
+      <% meeting_request.concepts.each do |concept| %>
+        data-<%= escape_attribute_name(concept.name) %>='true'
+      <% end %>
+    >
+  <% else %>
+    <div class='request'>
   <% end %>
-</ul>
+      <%= link_to meeting_request.title, meeting_request_path(meeting_request) %>
+      <p class="muted">
+        <%= meeting_request.created_at.strftime("%b %d") %>
+          - <%= users[meeting_request.member_uuid].name %>
+        <%= render 'shared/concept_tags', object: meeting_request %>
+      </p>
+    </div>
+<% end %>

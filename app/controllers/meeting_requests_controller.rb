@@ -58,6 +58,6 @@ class MeetingRequestsController < ApplicationController
 private
 
   def meeting_request_params
-    params.require(:meeting_request).permit(:title, :content, :contact_info, :member_uuid)
+    params.require(:meeting_request).permit(:title, :content, :contact_info, :member_uuid, :concept_ids => [])
   end
 end

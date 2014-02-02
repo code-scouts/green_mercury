@@ -26,6 +26,7 @@ gem 'redcarpet'
 gem 'pygments.rb'
 
 gem "twitter-bootstrap-rails"
+gem 'bootstrap-glyphicons'
 gem 'asset_sync'
 gem 'unicorn'
 gem 'newrelic_rpm'

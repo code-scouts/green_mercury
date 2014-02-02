@@ -72,3 +72,28 @@ $mercury: #d1d1d1;
 #location-map {
   display: none;
 }
+
+.request {
+  border: solid;
+  border-color: grey;
+  margin-bottom: 5px;
+  padding: 2px;
+}
+
+.no-left-margin {
+  margin-left: 0px;
+}
+
+.concept-tag {
+  cursor: pointer;
+  &:hover {
+    background-color: blue;
+  }
+}
+
+.concept-search {
+  cursor: pointer;
+  &:hover {
+    background-color: green;
+  }
+}

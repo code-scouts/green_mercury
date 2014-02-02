@@ -8,6 +8,10 @@ module ApplicationHelper
     ]
   end
 
+  def escape_attribute_name(string)
+    string.gsub(/\W|_/, '-').downcase
+  end
+
   class HTMLwithPygments < Redcarpet::Render::HTML
     def block_code(code, language)
       Pygments.highlight(code, lexer:language)

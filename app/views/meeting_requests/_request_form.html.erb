@@ -12,16 +12,34 @@
       <%= render 'shared/form_errors', object: @meeting_request %>
 
       <div class='row'>
-        <div class="form-group">
-          <%= f.label :title %>
+        <div class='span2'>
+          <h5 class='muted'>Title</h5>
+        </div> 
+        <div class='span9'>
           <%= f.text_field :title, class: "form-control" %>
         </div>
       </div>
 
       <div class='row'>
-        <div class="form-group">
-          <%= f.label :contact_method, "What is the best way to contact you?" %>
-          <%= f.text_area :contact_info, class: "form-control meeting-contact-form" %>
+        <div class='span2'>
+          <h5 class='muted'>What is the best way to contact you?</h5>
+        </div>
+        <div class='span10'>
+          <%= f.text_area :contact_info, class: "meeting-contact-form" %>
+        </div>
+      </div>
+
+      <div class='row'>
+        <div class='span2'>
+          <h5 class='muted'>Concepts Involved</h5>
+        </div>
+        <div class='span10'>
+          <% Concept.all.each do |concept| %>
+            <label class='checkbox'>
+              <%= check_box_tag "meeting_request[concept_ids][]", concept.id %>
+              <%= concept.name %>
+            </label>
+          <% end %>
         </div>
       </div>
 
