@@ -10,6 +10,7 @@ class Event < ActiveRecord::Base
   before_save :validate_date
   before_save :validate_end_time
   default_scope -> { order('date ASC') }
+  scope :for_month, -> date { where(date: date.beginning_of_month..date.end_of_month) }
 
   def rsvp?(user)
     EventRsvp.where(user_uuid: user.uuid, event_id: self.id).length > 0
@@ -41,11 +42,6 @@ class Event < ActiveRecord::Base
 
   def self.upcoming_events
     Event.where("date >= ?", Date.today)
-  end
-
-  def self.for_month(month, year)
-    first_of_month = Date.new(year, month)
-    where("date >= ? AND date <= ?", first_of_month, first_of_month + 1.month)
   end
 
 private
