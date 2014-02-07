@@ -82,9 +82,9 @@ feature 'add a new description to existing concept' do
   end
 
   scenario 'a user adds a valid description with markdown', js: true do 
-    fill_in 'concept_description_description', with: "Look what I can do:\n\n ```ruby \n puts 'Hello World!' \n ```"
-    click_button 'Save'  
-    within('#latest-description') { expect(page).to have_css('.highlight') }
+    fill_in 'concept_description_description', with: "```Hello World!```"
+    click_button 'Save'
+    within('code') { expect(page).to have_content 'Hello World' }
   end
 
   scenario 'user clicks cancel button', js: true do
