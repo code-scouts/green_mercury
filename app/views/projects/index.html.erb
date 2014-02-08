@@ -1,0 +1,12 @@
+<% if can? :create, Project.new %>
+  <%= link_to 'Create a Project', new_project_path %>
+<% end %>
+
+<h3>Your Projects</h3>
+
+<%= render 'project_list', projects: @user_projects %>
+
+<h3>Available Projects</h3>
+
+<%= render 'project_list', projects: @available_projects %>
+

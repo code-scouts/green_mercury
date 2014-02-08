@@ -1,0 +1,55 @@
+<div id='project-info' class='row'>
+  <div class='span3'>
+    <%= image_tag @project.image.url(:medium) %>
+  </div>
+  <div class='span8 offset1'>
+    <div class='row'>
+      <div class='span9'>
+        <h2><%= @project.title %></h2>
+      </div>
+      <div class='span3'>
+        <% if can? :update, @project %>
+          <%= link_to "Edit Project", edit_project_path(@project), class: "btn btn-primary btn-small" %>
+        <% end %>
+      </div>
+    </div>
+    <h4><%= @project.start_date.strftime("%B %d, %Y") %> - <%= @project.end_date.strftime("%B %d, %Y") %></h4>
+    <%= simple_format(@project.description) %>
+  </div>
+</div>
+
+<div class='row'>
+  <div id='sidebar' class='span3'>
+    <div id='team'>
+      <div id='mentors'>
+        <h4>Mentors</h4>
+        <%= render 'participants', participants: @project.mentor_participations, role: 'mentor' %>
+      </div>
+      <div id='members'>
+        <h4>Members</h4>
+        <%= render 'participants', participants: @project.member_participations, role: 'member' %>
+      </div>
+    </div>
+  </div>
+  <div class='span8 offset1'>
+    <div class='row'>
+      <div class='span9'>
+        <h5>Discussion</h5>
+      </div>
+      <div class='span3'>
+        <% if can? :participate, @project %>
+          <%= link_to 'New Post', new_comment_path(commentable_id: @project.id, commentable_type: 'Project'), class: 'btn btn-primary btn-small', id: 'new-post-button' %>
+        <% end %>
+      </div>
+    </div>
+
+    <section id='discussion' class='row'>
+      <div id='new-post'></div>
+      <div class='row'>
+        <%= render 'comments/comments', parent: @project %>
+      </div>
+    </section>
+  </div>
+</div>
+
+
