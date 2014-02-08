@@ -8,7 +8,7 @@ class ConceptDescriptionsController < ApplicationController
 
   def create
     @concept = Concept.find(params[:concept_description][:concept_id])
-    uuids = @concept.history.map { |history| history.user_uuid }
+    uuids = @concept.concept_descriptions.map { |history| history.user_uuid }
     @users = User.fetch_from_uuids(uuids)
     @concept_description = @concept.concept_descriptions.new(concept_description_params)
     if @concept_description.save
