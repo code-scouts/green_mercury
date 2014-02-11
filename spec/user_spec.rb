@@ -351,44 +351,39 @@ describe User do
     end
   end
 
-  describe 'events' do
-    before do
-      @event1 = FactoryGirl.create(:event, title: 'Event 1')
-      @event2 = FactoryGirl.create(:event, title: 'Event 2')
-      @user = FactoryGirl.build(:user)
-      @event1.event_rsvps.create(user_uuid: @user.uuid)
+  describe '#events' do
+    it 'gets events the user has an RSVP for' do 
+      user = FactoryGirl.build(:user)
+      event = FactoryGirl.create(:event)
+      event.event_rsvps.create(user_uuid: user.uuid)
+      expect(user.events).to match_array [event]
     end
 
-    it 'should return all events the user has RSVPd to' do
-      @user.events.should eq [@event1]
-    end
-
-    it 'should not return any events that have already occurred' do
-      Date.stub(:today).and_return(Date.yesterday - 1.day)
-      event3 = FactoryGirl.create(:event, title: 'Event 3', date: Date.today)
-      Date.unstub(:today)
-      event3.event_rsvps.create(user_uuid: @user.uuid)
-      @user.events.should eq [@event1]
+    it 'does not get events that have already occurred' do 
+      user = FactoryGirl.build(:user)
+      past_time = Time.now - 1.month
+      Timecop.travel(past_time)
+      event = FactoryGirl.create(:event, start_time: past_time + 1.hour, end_time: past_time + 2.hours)
+      event.event_rsvps.create(user_uuid: user.uuid)
+      Timecop.return
+      expect(user.events).to_not include(event)
     end
   end
 
-  describe 'events_without_rsvp' do
-    before do
-      @event1 = FactoryGirl.create(:event, title: 'Event 1')
-      @event2 = FactoryGirl.create(:event, title: 'Event 2')
-      @user = FactoryGirl.build(:user)
-      @event1.event_rsvps.create(user_uuid: @user.uuid)
+  describe '#events_without_rsvp' do
+    it 'gets the events the user has not RSVPd to' do
+      user = FactoryGirl.build(:user)
+      event = FactoryGirl.create(:event)
+      expect(user.events_without_rsvp).to match_array [event]
     end
 
-    it 'should return all events the user has not RSVPd to' do
-      @user.events_without_rsvp.should eq [@event2]
-    end
-
-    it 'should not return any events that have already occurred' do
-      Date.stub(:today).and_return(Date.yesterday - 1.day)
-      event3 = FactoryGirl.create(:event, title: 'Event 3', date: Date.today)
-      Date.unstub(:today)
-      @user.events_without_rsvp.should eq [@event2]
+    it 'does not return any events that have already occurred' do
+      user = FactoryGirl.build(:user)
+      past_time = Time.now - 1.month
+      Timecop.travel(past_time)
+      event = FactoryGirl.create(:event, start_time: past_time + 1.hour, end_time: past_time + 2.hours)
+      Timecop.return
+      expect(user.events_without_rsvp).to_not include(event) 
     end
   end
 

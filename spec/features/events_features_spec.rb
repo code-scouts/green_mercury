@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'create events' do
+feature 'Create an event' do
   before :each do
     @user = new_mentor
     stub_user_fetch_from_uuids
@@ -12,16 +12,25 @@ feature 'create events' do
     fill_in 'event_title', with: 'This Thing'
     fill_in 'event_description', with: 'We do things'
     fill_in 'event_location', with: 'That place'
-    fill_in 'event_date', with: Date.today
-    fill_in 'event_start_time', with: Time.now
-    fill_in 'event_end_time', with: (Time.now + 1.hour)
-    click_button('Create Event')
+    fill_in 'event_start_time', with: Time.now + 1.hour
+    fill_in 'event_end_time', with: (Time.now + 2.hours)
+    click_button('Save')
     page.should have_content "Your event has been created."
   end
 
   scenario 'user creates an event with invalid information' do
-    click_button('Create Event')
+    click_button('Save')
     page.should have_content 'error'
+  end
+
+  scenario 'event creator should be an organizer by default' do
+    fill_in 'event_title', with: 'This Thing'
+    fill_in 'event_description', with: 'We do things'
+    fill_in 'event_location', with: 'That place'
+    fill_in 'event_start_time', with: Time.now + 1.hour
+    fill_in 'event_end_time', with: (Time.now + 2.hours)
+    click_button('Save')
+    within('.display-organizers') { page.should have_content @user.name }
   end
 end
 
@@ -81,7 +90,7 @@ feature 'edit an event' do
     visit event_path @event
     click_link 'Edit event'
     fill_in 'event_location', with: 'That other place'
-    click_button('Confirm changes')
+    click_button('Save')
     page.should have_content "That other place"
   end
 
@@ -90,7 +99,7 @@ feature 'edit an event' do
     visit event_path @event
     click_link 'Edit event'
     fill_in 'event_location', with: ""
-    click_button('Confirm changes')
+    click_button('Save')
     page.should have_content "error"
   end
 
@@ -129,21 +138,10 @@ feature 'Add an organizer to an event' do
     @user2 = new_mentor
     stub_user_fetch_from_uuids
     stub_application_controller
-    visit new_event_path
-    fill_in 'event_title', with: 'This Thing'
-    fill_in 'event_description', with: 'We do things'
-    fill_in 'event_location', with: 'That place'
-    fill_in 'event_date', with: Date.today
-    fill_in 'event_start_time', with: Time.now
-    fill_in 'event_end_time', with: (Time.now + 1.hour)
-    click_button('Create Event')
-    @event = Event.first
+    @event = FactoryGirl.create(:event)
+    @event.event_organizers.create(user_uuid: @user.uuid)
     @event.event_rsvps.create(user_uuid: @user2.uuid)
     visit event_path @event
-  end
-
-  scenario 'event creator should be an organizer by default' do
-    within('.display-organizers') { page.should have_content @user.name }
   end
 
   scenario 'event organizer adds a new organizer' do
@@ -167,6 +165,3 @@ feature 'Add an organizer to an event' do
     page.should_not have_button 'Make organizer'
   end
 end
-
-
-

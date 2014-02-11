@@ -4,12 +4,10 @@ class Event < ActiveRecord::Base
   validates :title, presence: true, length: { maximum: 100 }
   validates :description, presence: true
   validates :location, presence: true, length: { maximum: 200 }
-  validates :date, presence: true
   validates :start_time, presence: true
   validates :end_time, presence: true
-  before_save :validate_date
-  before_save :validate_end_time
-  default_scope -> { order('date ASC') }
+  validates_datetime :start_time, on_or_after: :now
+  validates_datetime :end_time, after: :start_time
 
   def rsvp?(user)
     EventRsvp.where(user_uuid: user.uuid, event_id: self.id).length > 0
@@ -40,16 +38,6 @@ class Event < ActiveRecord::Base
   end
 
   def self.upcoming_events
-    Event.where("date >= ?", Date.today)
-  end
-
-private
-
-  def validate_date
-    self.date >= Date.today
-  end
-
-  def validate_end_time
-    self.end_time > self.start_time
+    where("start_time >= ?", Time.now)
   end
 end

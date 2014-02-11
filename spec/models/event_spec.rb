@@ -5,7 +5,6 @@ describe Event do
   it { should respond_to :title }
   it { should respond_to :description }
   it { should respond_to :location }
-  it { should respond_to :date }
   it { should respond_to :start_time }
   it { should respond_to :end_time }
 
@@ -17,36 +16,17 @@ describe Event do
   it { should validate_presence_of :description }
   it { should validate_presence_of :location }
   it { should ensure_length_of(:location).is_at_most(200) }
-  it { should validate_presence_of :date }
   it { should validate_presence_of :start_time }
   it { should validate_presence_of :end_time }
 
-  it 'should save if date is equal to or later than today' do
-    event = FactoryGirl.build(:event)
-    event.save.should be_true
+  it 'validates the start time is not in the past' do
+    event = FactoryGirl.build(:event, start_time: Time.now - 1.day)
+    expect(event.save).to be_false
   end
 
-  it 'should not save if date is before today' do
-    event = FactoryGirl.build(:event, date: (Date.today - 1.day))
-    event.save.should be_false
-  end
-
-  it 'should save if end time is after start time' do
-    event = FactoryGirl.build(:event)
-    event.save.should be_true
-  end
-
-  it 'should not save if end time is equal to or before start time' do
-    time = Time.now
-    event = FactoryGirl.build(:event, start_time: time, end_time: time)
-    event.save.should be_false
-  end
-
-  it 'should return events sorted by date' do
-    event1 = FactoryGirl.create(:event, date: Date.today)
-    event2 = FactoryGirl.create(:event, date: (Date.today + 2.days))
-    event3 = FactoryGirl.create(:event, date: (Date.today + 1.day))
-    Event.all.should eq [event1, event3, event2]
+  it 'validates the end time is after the start time' do
+    event = FactoryGirl.build(:event, start_time: Time.now + 2.day, end_time: Time.now + 1.day)
+    expect(event.save).to be_false
   end
 
   describe 'rsvp?' do
@@ -114,14 +94,18 @@ describe Event do
     end
   end
 
-  describe 'upcoming_events' do
-    it 'should return an array of all events occuring today or later' do
-      @event1 = FactoryGirl.create(:event, title: 'Event 1')
-      Date.stub(:today).and_return(Date.yesterday - 1.day)
-      event2 = FactoryGirl.create(:event, title: 'Event 2', date: Date.today)
-      Date.unstub(:today)
-      @event3 = FactoryGirl.create(:event, title: 'Event 3')
-      Event.upcoming_events.should eq [@event1, @event3]
+  describe '.upcoming_events' do
+    it 'gets events that start after the current time' do
+      event = FactoryGirl.create(:event, start_time: Time.now + 1.hour, end_time: Time.now + 1.day)
+      expect(Event.upcoming_events).to match_array [event]
+    end
+
+    it 'does not get events that happened before the current time' do
+      past_time = Time.now - 1.month
+      Timecop.travel(past_time) 
+      event = FactoryGirl.create(:event, start_time: past_time + 1.day, end_time: past_time + 2.days)
+      Timecop.return
+      expect(Event.upcoming_events).to_not include(event)
     end
   end
 end

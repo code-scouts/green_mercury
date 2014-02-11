@@ -34,6 +34,7 @@ gem 'dotenv-rails'
 gem 'cancan'
 gem 'dalli'
 gem 'exception_notification'
+gem 'validates_timeliness'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
@@ -41,6 +42,7 @@ group :doc do
 end
 
 group :test do
+  gem 'timecop'
   gem 'poltergeist'
   gem 'phantomjs', require: 'phantomjs/poltergeist'
 end
