@@ -19,8 +19,6 @@ class EventsController < ApplicationController
   def show
     @event = Event.find(params[:id])
     authorize! :read, @event
-    @event_rsvp = @event.rsvp_for(current_user)
-    @users = @event.all_rsvps
   end
 
   def index

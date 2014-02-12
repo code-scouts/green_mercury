@@ -114,21 +114,33 @@ feature 'edit an event' do
 end
 
 feature 'RSVP to an event' do
-  before :each do
-    create_mentor_and_event
-    stub_user_fetch_from_uuids
-    stub_application_controller
-    visit event_path @event
-    click_button 'RSVP for this event'
+  background 'stub current user with a mentor' do
+    @user = FactoryGirl.build(:user, name: 'Peyton')
+    FactoryGirl.create(:approved_member_application, user_uuid: @user.uuid) 
+    ApplicationController.any_instance.stub(:current_user).and_return(@user)
   end
 
-  scenario 'user RSVPs for an event' do
-    page.should have_content @user.name
+  background 'create an event' do 
+    @event = FactoryGirl.create(:event)
+  end
+
+  background "response from Janrain the event's users" do 
+    stub_user_fetch_from_uuids    
+  end
+
+  background 'visit the event#show page' do 
+    visit event_path @event
+  end
+
+  background 'RSVP for the event' do 
+    click_button 'RSVP for this event'
+    expect(@event.rsvp?(@user)).to be_true
+    expect(page).to have_content 'Peyton'
   end
 
   scenario 'user removes their RSVP for an event' do
     click_button 'Cancel RSVP'
-    page.should_not have_content @user.name
+    expect(page).to_not have_content @user.name
   end
 end
 

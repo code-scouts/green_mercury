@@ -27,15 +27,15 @@
   <div class='span4'>
 
     <div class="rsvp-container">
-      <%= render "rsvp_button", event: @event, event_rsvp: @event_rsvp %>
+      <%= render "rsvp_button", event: @event %>
     </div>
 
     <div class='display-organizers'>
-      <%= render "organizers", event: @event %>
+      <%= render "organizers", event: @event, users_hash: @event.organizers_hash %>
     </div>
 
     <div class='display-attendees'>
-      <%= render "attendees", event: @event %>
+      <%= render "attendees", event: @event, users_hash: @event.attendees_hash %>
     </div>
   </div>
 </div>

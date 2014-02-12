@@ -10,28 +10,24 @@ class Event < ActiveRecord::Base
   validates_datetime :end_time, after: :start_time
 
   def rsvp?(user)
-    EventRsvp.where(user_uuid: user.uuid, event_id: self.id).length > 0
+    event_rsvps.where(user_uuid: user.uuid).exists?
   end
 
   def rsvp_for(user)
-    if self.rsvp?(user)
-      EventRsvp.where(user_uuid: user.uuid, event_id: self.id).first
-    else
-      EventRsvp.new
-    end
+    event_rsvps.where(user_uuid: user.uuid).first
   end
 
-  def all_rsvps
-    uuids = event_rsvps.map { |rsvp| rsvp.user_uuid }
+  def users_hash
+    uuids = event_rsvps.pluck(:user_uuid)
     User.fetch_from_uuids(uuids)
   end
 
-  def organizers
-    uuids = event_organizers.map { |organizer| organizer.user_uuid }
+  def organizers_hash
+    uuids = event_organizers.pluck(:user_uuid)
     User.fetch_from_uuids(uuids)
   end
 
-  def attendees
+  def attendees_hash
     all_organizers = event_organizers.map { |organizer| organizer.user_uuid }
     uuids = event_rsvps.map { |rsvp| rsvp.user_uuid }.delete_if { |attendee| all_organizers.include?(attendee) }
     User.fetch_from_uuids(uuids)
