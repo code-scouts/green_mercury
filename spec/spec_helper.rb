@@ -9,8 +9,10 @@ Spork.prefork do
   require 'capybara/rspec'
   require 'cancan/matchers'
   require 'shoulda/matchers/integrations/rspec'
-  require 'capybara/poltergeist'
-  Capybara.javascript_driver = :poltergeist
+  require 'rbconfig'
+  if /^darwin12.4/ =~ RbConfig::CONFIG['host_os']
+    require_relative 'mavericks_monkeypatch'
+  end
   require_relative 'helpers'
 
   ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
