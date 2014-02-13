@@ -78,4 +78,9 @@ FactoryGirl.define do
     contact_info 'call my cell all hours'
     member_uuid 'member-uuid'
   end
+
+  factory :event_rsvp do 
+    event
+    user_uuid "foobar"
+  end
 end

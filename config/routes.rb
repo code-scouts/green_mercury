@@ -4,8 +4,8 @@ GreenMercury::Application.routes.draw do
   root 'index#index'
 
   resources :events
-  resources :event_organizers, only: [:create]
   resources :event_rsvps, only: [:create, :destroy]
+  resources :event_organizers, only: [:create]
 
   get '/new_applications/index', controller: :new_applications, action: :index, as: :new_application
   get '/new_applications/show', controller: :new_applications, action: :show

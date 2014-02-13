@@ -64,7 +64,8 @@ feature 'delete an event' do
   end
 
   scenario 'an event organizer deletes an event' do
-    @event.event_organizers.create(user_uuid: @user.uuid)
+    @event.rsvp(@user)
+    @event.make_organizer(@user)
     visit event_path @event
     click_link 'Delete event'
     page.should_not have_content @event.title
@@ -86,7 +87,7 @@ feature 'edit an event' do
   end
 
   scenario 'an event organizer edits an event with valid information' do
-    @event.event_organizers.create(user_uuid: @user.uuid)
+    @event.event_rsvps.create(user_uuid: @user.uuid, organizer: true)
     visit event_path @event
     click_link 'Edit event'
     fill_in 'event_location', with: 'That other place'
@@ -95,7 +96,7 @@ feature 'edit an event' do
   end
 
   scenario 'an event organizer edits an event with invalid information' do
-    @event.event_organizers.create(user_uuid: @user.uuid)
+    @event.event_rsvps.create(user_uuid: @user.uuid, organizer: true)
     visit event_path @event
     click_link 'Edit event'
     fill_in 'event_location', with: ""
@@ -151,14 +152,14 @@ feature 'Add an organizer to an event' do
     stub_user_fetch_from_uuids
     stub_application_controller
     @event = FactoryGirl.create(:event)
-    @event.event_organizers.create(user_uuid: @user.uuid)
+    @event.event_rsvps.create(user_uuid: @user.uuid, organizer: true)
     @event.event_rsvps.create(user_uuid: @user2.uuid)
     visit event_path @event
   end
 
   scenario 'event organizer adds a new organizer' do
     click_link 'Make organizer'
-    @user2.organizer?(@event).should be_true
+    expect(@event.organizer?(@user2)).to be_true
   end
 
   scenario 'non-event organizer tries to add a new organizer' do

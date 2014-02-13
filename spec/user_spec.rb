@@ -387,22 +387,6 @@ describe User do
     end
   end
 
-  describe 'organizer?' do
-    before do
-      @event = FactoryGirl.create(:event)
-      @user = FactoryGirl.build(:user)
-    end
-
-    it 'is true if the user is an organizer of the event' do
-      @event.event_organizers.create(user_uuid: @user.uuid)
-      @user.organizer?(@event).should be_true
-    end
-
-    it 'is false if the user is not an organizer of the event' do
-      @user.organizer?(@event).should be_false
-    end
-  end
-
   describe 'acquire_token' do
     it 'should post to janrain capture' do
       mock_response = double

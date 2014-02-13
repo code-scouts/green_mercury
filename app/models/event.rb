@@ -1,6 +1,5 @@
 class Event < ActiveRecord::Base
-  has_many :event_rsvps
-  has_many :event_organizers
+  has_many :event_rsvps, dependent: :destroy
   validates :title, presence: true, length: { maximum: 100 }
   validates :description, presence: true
   validates :location, presence: true, length: { maximum: 200 }
@@ -8,6 +7,10 @@ class Event < ActiveRecord::Base
   validates :end_time, presence: true
   validates_datetime :start_time, on_or_after: :now
   validates_datetime :end_time, after: :start_time
+
+  def rsvp(user)
+    event_rsvps.create(user_uuid: user.uuid)
+  end
 
   def rsvp?(user)
     event_rsvps.where(user_uuid: user.uuid).exists?
@@ -23,17 +26,28 @@ class Event < ActiveRecord::Base
   end
 
   def organizers_hash
-    uuids = event_organizers.pluck(:user_uuid)
+    uuids = event_rsvps.where(organizer: true).pluck(:user_uuid)
     User.fetch_from_uuids(uuids)
   end
 
   def attendees_hash
-    all_organizers = event_organizers.map { |organizer| organizer.user_uuid }
-    uuids = event_rsvps.map { |rsvp| rsvp.user_uuid }.delete_if { |attendee| all_organizers.include?(attendee) }
+    uuids = event_rsvps.where(organizer: false).pluck(:user_uuid)
     User.fetch_from_uuids(uuids)
   end
 
   def self.upcoming_events
     where("start_time >= ?", Time.now)
+  end
+
+  def organizer?(user)
+    event_rsvps.where(user_uuid: user.uuid, organizer: true).exists?
+  end
+
+  def make_organizer(user)
+    rsvp_for(user).make_organizer
+  end
+
+  def make_organizer_by_uuid(uuid)
+    event_rsvps.where(user_uuid: uuid).first.make_organizer
   end
 end

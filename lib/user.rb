@@ -77,11 +77,4 @@ class User
   def events_without_rsvp
     Event.upcoming_events - events
   end
-
-  def organizer?(event)
-    user_uuid = uuid
-    event.event_organizers.any? do |organizer|
-      organizer.user_uuid == user_uuid
-    end
-  end
 end

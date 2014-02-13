@@ -8,8 +8,7 @@ describe Event do
   it { should respond_to :start_time }
   it { should respond_to :end_time }
 
-  it { should have_many :event_organizers }
-  it { should have_many :event_rsvps }
+  it { should have_many(:event_rsvps).dependent(:destroy) }
   
   it { should validate_presence_of :title }
   it { should ensure_length_of(:title).is_at_most(100) }
@@ -27,6 +26,15 @@ describe Event do
   it 'validates the end time is after the start time' do
     event = FactoryGirl.build(:event, start_time: Time.now + 2.day, end_time: Time.now + 1.day)
     expect(event.save).to be_false
+  end
+
+  describe '#rsvp' do 
+    it 'rsvps the user to the event' do 
+      event = FactoryGirl.create(:event)
+      user = FactoryGirl.build(:user)
+      event.rsvp(user)
+      expect(event.rsvp?(user)).to be_true
+    end
   end
 
   describe '#rsvp?' do
@@ -49,7 +57,7 @@ describe Event do
       it 'gets the RSVP' do 
         event = FactoryGirl.create(:event)
         user = FactoryGirl.build(:user)
-        event_rsvp = event.event_rsvps.create(user_uuid: user.uuid)
+        event_rsvp = event.rsvp(user)
         expect(event.rsvp_for(user)).to eq event_rsvp
       end
     end
@@ -67,7 +75,7 @@ describe Event do
     it 'is a hash of uuids and user objects for users attending the event' do
       event = FactoryGirl.create(:event)
       user = FactoryGirl.build(:user)
-      event.event_rsvps.create(user_uuid: user.uuid)
+      event.rsvp(user)
       User.should_receive(:fetch_from_uuids).with([user.uuid])
       event.users_hash
     end
@@ -77,7 +85,7 @@ describe Event do
     it 'is a hash of uuids and users for the event organizers' do
       event = FactoryGirl.create(:event)
       user = FactoryGirl.build(:user)
-      event.event_organizers.create(user_uuid: user.uuid)
+      event.event_rsvps.create(user_uuid: user.uuid, organizer: true)
       User.should_receive(:fetch_from_uuids).with([user.uuid])
       event.organizers_hash
     end
@@ -87,8 +95,16 @@ describe Event do
     it 'is a hash of users that are not event organizers' do
       event = FactoryGirl.create(:event)
       user = FactoryGirl.build(:user)
-      event.event_rsvps.create(user_uuid: user.uuid)
+      event.rsvp(user)
       User.should_receive(:fetch_from_uuids).with([user.uuid])
+      event.attendees_hash
+    end
+
+    it 'does not get event organizers' do 
+      event = FactoryGirl.create(:event)
+      user = FactoryGirl.build(:user)
+      event.event_rsvps.create(user_uuid: user.uuid, organizer: true)
+      User.should_receive(:fetch_from_uuids).with([])
       event.attendees_hash
     end
   end
@@ -105,6 +121,58 @@ describe Event do
       event = FactoryGirl.create(:event, start_time: past_time + 1.day, end_time: past_time + 2.days)
       Timecop.return
       expect(Event.upcoming_events).to_not include(event)
+    end
+  end
+
+  describe '#organizer?' do
+    context "when the user has an RSVP marked as an organizer" do 
+      it "is true" do 
+        user = FactoryGirl.build(:user)
+        event = FactoryGirl.create(:event)
+        event.event_rsvps.create(user_uuid: user.uuid, organizer: true)
+        expect(event.organizer?(user)).to be_true
+      end
+    end
+
+    context "when they have an RSVP not marked as an organizer" do 
+      it "is false" do 
+        user = FactoryGirl.build(:user)
+        event = FactoryGirl.create(:event)
+        event.event_rsvps.create(user_uuid: user.uuid, organizer: false)
+        expect(event.organizer?(user)).to be_false
+      end
+    end
+
+    context "when they have not RSVP to the event" do 
+      it "is false" do 
+        user = FactoryGirl.build(:user)
+        event = FactoryGirl.create(:event)
+        expect(event.organizer?(user)).to be_false
+      end
+    end
+  end
+
+  describe '#make_organizer' do 
+    context 'when the user has an RSVP' do 
+      it "makes them an organizer" do 
+        user = FactoryGirl.build(:user)
+        event = FactoryGirl.create(:event)
+        event.rsvp(user)
+        event.make_organizer(user)
+        expect(event.organizer?(user)).to be_true
+      end
+    end
+  end
+
+  describe '#make_organizer_by_uuid' do 
+    context 'when the user has an RSVP' do 
+      it 'makes them an organizer' do 
+        user = FactoryGirl.build(:user)
+        event = FactoryGirl.create(:event)
+        event.rsvp(user)
+        event.make_organizer_by_uuid(user.uuid)
+        expect(event.organizer?(user)).to be_true
+      end
     end
   end
 end
