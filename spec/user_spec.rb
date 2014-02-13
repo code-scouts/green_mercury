@@ -68,35 +68,35 @@ describe User do
     end
   end
 
-  describe 'is_mentor?' do 
-    it "should be true if the user has an approved application" do 
-      user = User.new 
+  describe 'is_mentor?' do
+    it "should be true if the user has an approved application" do
+      user = User.new
       user.uuid = '1234'
       FactoryGirl.create(:mentor_application, user_uuid: user.uuid, approved_date: Time.now)
       user.is_mentor?.should be_true
     end
 
-    it "should be false if the user has no approved application" do 
+    it "should be false if the user has no approved application" do
       user = User.new
       user.is_mentor?.should eq false
     end
 
-    it "should be false if the user has a rejected application" do 
+    it "should be false if the user has a rejected application" do
       user = User.new
       user.uuid = '1234'
       FactoryGirl.create(:mentor_application, user_uuid: user.uuid, rejected_date: Time.now)
       user.is_mentor?.should be_false
     end
 
-    it "should be false if the user has an applicaton that was accepted and then rejected" do 
+    it "should be false if the user has an applicaton that was accepted and then rejected" do
       user = User.new
       user.uuid = '1234'
       application = FactoryGirl.create(:mentor_application, user_uuid: user.uuid, approved_date: Time.now - 1.hour)
       application.update(:rejected_date => Time.now)
-      user.is_mentor?.should be_false 
+      user.is_mentor?.should be_false
     end
 
-    it "should be true if the user has an application that was rejected and then accepted" do 
+    it "should be true if the user has an application that was rejected and then accepted" do
       user = User.new
       user.uuid = '1234'
       application = FactoryGirl.create(:mentor_application, user_uuid: user.uuid, rejected_date: Time.now - 1.hour)
@@ -117,35 +117,35 @@ describe User do
     end
   end
 
-  describe 'is_member?' do 
-    it "should be true if the user has an approved application" do 
-      user = User.new 
+  describe 'is_member?' do
+    it "should be true if the user has an approved application" do
+      user = User.new
       user.uuid = '1234'
       FactoryGirl.create(:member_application, user_uuid: user.uuid, approved_date: Time.now)
       user.is_member?.should be_true
     end
 
-    it "should be false if the user has no approved application" do 
+    it "should be false if the user has no approved application" do
       user = User.new
       user.is_member?.should eq false
     end
 
-    it "should be false if the user has a rejected application" do 
+    it "should be false if the user has a rejected application" do
       user = User.new
       user.uuid = '1234'
       FactoryGirl.create(:member_application, user_uuid: user.uuid, rejected_date: Time.now)
       user.is_member?.should be_false
     end
 
-    it "should be false if the user has an applicaton that was accepted and then rejected" do 
+    it "should be false if the user has an applicaton that was accepted and then rejected" do
       user = User.new
       user.uuid = '1234'
       application = FactoryGirl.create(:member_application, user_uuid: user.uuid, approved_date: Time.now - 1.hour)
       application.update(:rejected_date => Time.now)
-      user.is_member?.should be_false 
+      user.is_member?.should be_false
     end
 
-    it "should be true if the user has an application that was rejected and then accepted" do 
+    it "should be true if the user has an application that was rejected and then accepted" do
       user = User.new
       user.uuid = '1234'
       application = FactoryGirl.create(:member_application, user_uuid: user.uuid, rejected_date: Time.now - 1.hour)
@@ -153,7 +153,7 @@ describe User do
       user.is_member?.should be_true
     end
   end
-  
+
   describe 'new_member factory' do
     it "should return true if the user is a member" do
       user = new_member
@@ -200,6 +200,32 @@ describe User do
     it "should return false if the user has submitted an application to become a member or mentor" do
       user = new_member
       user.is_new?.should be_false
+    end
+  end
+
+  describe "accept code of conduct" do
+    it "should send an update to Capture" do
+      Date.stub(:today).and_return(Date.new(2013, 12, 30))
+      user = new_member
+      response = double
+      response.should_receive(:body).and_return('{
+        "stat": "ok"
+      }')
+      HTTParty.should_receive(:post).with(
+        'https://codescouts.janraincapture.test.host/entity.update',
+        {
+          body: {
+            uuid: user.uuid,
+            type_name: 'user',
+            client_id: 'fakeclientidfortests',
+            client_secret: 'fakeclientsecretfortests',
+            attribute_name: 'coc_accepted_date',
+            value: '"2013-12-30"',
+          }
+        }
+      ).and_return(response)
+
+      user.accept_code_of_conduct
     end
   end
 
@@ -462,7 +488,7 @@ describe User do
       request4 = FactoryGirl.create(:meeting_request, member_uuid: 'other-member-uuid', mentor_uuid: 'mentor-uuid')
       user.claimed_meeting_requests.should eq [request2]
     end
-    
+
     it 'returns the requests claimed by the mentor (if user is a mentor)' do
       user = new_mentor
       request1 = FactoryGirl.create(:meeting_request, member_uuid: 'member-uuid')
@@ -481,7 +507,7 @@ describe User do
       request4 = FactoryGirl.create(:meeting_request, member_uuid: 'other-member-uuid', mentor_uuid: 'mentor-uuid')
       user.open_meeting_requests.should eq [request1]
     end
-    
+
     it 'returns all unclaimed requests (if user is a mentor)' do
       user = new_mentor
       request1 = FactoryGirl.create(:meeting_request, member_uuid: 'member-uuid')

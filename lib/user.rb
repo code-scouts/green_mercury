@@ -84,4 +84,17 @@ class User
       organizer.user_uuid == user_uuid
     end
   end
+
+  def accept_code_of_conduct
+    response = HTTParty.post(CAPTURE_URL + '/entity.update', {body:{
+      uuid: uuid,
+      client_id: CAPTURE_OWNER_CLIENT_ID,
+      client_secret: CAPTURE_OWNER_CLIENT_SECRET,
+      type_name: 'user',
+      attribute_name: 'coc_accepted_date',
+      value: %Q("#{Date.today.to_s}"),
+    }})
+    body = JSON.parse(response.body)
+    body['stat'] == 'ok' or raise Exception.new(response.body)
+  end
 end
