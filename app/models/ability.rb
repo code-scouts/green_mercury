@@ -22,7 +22,7 @@ class Ability
     end
 
     can :manage, Event do |event|
-      user.organizer?(event)
+      event.organizer?(user)
     end
 
     if !user.uuid.nil?

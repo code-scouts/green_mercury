@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131025172320) do
+ActiveRecord::Schema.define(version: 20140213185923) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,36 +30,26 @@ ActiveRecord::Schema.define(version: 20131025172320) do
     t.datetime "updated_at"
   end
 
-  create_table "event_organizers", force: true do |t|
-    t.text     "user_uuid"
-    t.integer  "event_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "event_organizers", ["event_id", "user_uuid"], name: "index_event_organizers_on_event_id_and_user_uuid", unique: true, using: :btree
-
   create_table "event_rsvps", force: true do |t|
     t.text     "user_uuid"
     t.integer  "event_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "organizer",  default: false
   end
 
   add_index "event_rsvps", ["event_id", "user_uuid"], name: "index_event_rsvps_on_event_id_and_user_uuid", unique: true, using: :btree
+  add_index "event_rsvps", ["organizer"], name: "index_event_rsvps_on_organizer", using: :btree
 
   create_table "events", force: true do |t|
     t.string   "title"
     t.text     "description"
     t.string   "location"
-    t.date     "date"
-    t.time     "start_time"
-    t.time     "end_time"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "start_time"
+    t.datetime "end_time"
   end
-
-  add_index "events", ["date"], name: "index_events_on_date", using: :btree
 
   create_table "meeting_requests", force: true do |t|
     t.string   "title"

@@ -1,0 +1,29 @@
+<%= form_for event do |f| %>
+  <%= render 'shared/form_errors', object: @event %>
+
+  <div role='form'>
+    <div class='form-group'>
+      <%= f.text_field :title, placeholder: 'Title' %>
+    </div>
+
+    <div class='form-group'>
+      <%= f.text_area :description, placeholder: 'Description' %>
+    </div>
+
+    <div class='form-group'>
+      <%= f.text_area :location, placeholder: 'Location' %>
+    </div>
+
+    <div class='form-group'>
+      <%= f.label "Start Time" %> 
+      <%= f.datetime_local_field :start_time %>
+    </div>
+
+    <div class='form-group'>
+      <%= f.label "End Time" %>
+      <%= f.datetime_local_field :end_time %>
+    </div>
+
+    <%= f.submit 'Save', class: 'btn' %>
+  </div>
+<% end %>
