@@ -1,6 +1,6 @@
 <div id='project-info' class='row'>
   <div class='span3'>
-    <%= image_tag @project.image.url(:medium) %>
+    <%= image_tag @project.image.url(:medium, expires: 60 * 60) %>
   </div>
   <div class='span8 offset1'>
     <div class='row'>

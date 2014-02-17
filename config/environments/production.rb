@@ -114,4 +114,14 @@ GreenMercury::Application.configure do
       :sender_address       => %{"Exception Notifier" <andrew@codescouts.org>},
       :exception_recipients => %w{andrew@codescouts.org}
     }
+
+  PAPERCLIP_OPTIONS={
+    storage: :aws,
+    s3_bucket: "green-mercury-uploads",
+    s3_permissions: :private,
+    s3_protocol: 'https',
+    s3_options: {
+      :content_disposition => 'attachment',
+    },
+  }
 end

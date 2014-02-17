@@ -4,8 +4,10 @@ class Project < ActiveRecord::Base
   has_many :comments, as: :commentable
   validates :title, presence: true
   validates :description, presence: true
-  has_attached_file :image, styles: { medium: "250x250>", thumb: "75x75>" },
-                            default_url: "default_image_:style.png"
+  has_attached_file(:image, {
+                    styles: { medium: "250x250>", thumb: "75x75>" },
+                    default_url: "default_image_:style.png",
+                    }.merge(PAPERCLIP_OPTIONS))
 
   accepts_nested_attributes_for :mentor_participations
   accepts_nested_attributes_for :member_participations

@@ -45,6 +45,7 @@ GreenMercury::Application.configure do
   RPX_URL = 'https://codescouts.rpxnow.test.host'
   CAPTURE_URL = 'https://codescouts.janraincapture.test.host'
   FLOW_VERSION = 'some-version'
+  PAPERCLIP_OPTIONS={}
 
   config.cache_store = :null_store
 end
