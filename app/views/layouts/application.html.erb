@@ -10,7 +10,6 @@
 
 <header>
   <div class="row-fluid">
-    <div class="span2"></div>
     <div class="span2">
       <% if user_signed_in? %>
         <%= link_to "Projects", projects_path %>
@@ -197,7 +196,7 @@
 
 <div class="container">
   <div class="row-fluid">
-    
+
     <% if flash[:alert] %>
       <div class='alert-box alert'> <%= flash[:alert] %> </div>
     <% end %>
