@@ -30,6 +30,8 @@
     # PGPASSWORD
     # AWS_ACCESS_KEY_ID
     # AWS_SECRET_ACCESS_KEY
+    # AMAZON_ACCESS_KEY_ID #these two are the same as the two above; both
+    # AMAZON_SECRET_ACCESS_KEY #are necessary for different systems. Bleh
     # CLOUDFRONT=d2tkaj1n5zn3uf
     # ENGAGE_API_KEY
     # FOG_DIRECTORY=green-mercury-assets

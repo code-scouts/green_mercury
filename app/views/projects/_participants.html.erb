@@ -1,0 +1,24 @@
+<ul class='unstyled'>
+  <% participants.each do |participation| %>
+    <li>
+      <div class='row'>
+        <% if !participation.user_uuid.nil? %>
+          <div class='span4 photo'></div>
+          <div class='span8'>
+            <%= @users[participation.user_uuid].name %>
+            <p class='muted'><%= participation.role %></p>
+          </div>
+        <% else %>
+          <div class='span4 photo'></div>
+          <div class='span8'>
+            <% if role == 'mentor' %>
+              <%= link_to participation.role, mentor_participation_path(participation), method: 'patch' %>
+            <% else %>
+              <%= link_to participation.role, member_participation_path(participation), method: 'patch' %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </li>
+  <% end %>
+</ul>

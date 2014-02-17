@@ -9,15 +9,6 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
+ *= require bootstrap-wysihtml5
  *= require_tree .
  */
-
-footer {
-  position: relative;
-  width: 370px;
-  padding: 2%;
-}
-
-footer img {
-  max-width: 35%;
-}
