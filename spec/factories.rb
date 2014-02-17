@@ -3,9 +3,8 @@ FactoryGirl.define do
     title 'Awesome Party'
     description 'We will do crazy stuff together'
     location '701 E Burnside St  Portland, OR 97214'
-    date Date.tomorrow
-    start_time Time.now
-    end_time (Time.now + 3.hours)
+    start_time Time.now + 1.hour
+    end_time Time.now + 3.hours
   end
 
   factory :member_application do 
@@ -119,5 +118,10 @@ FactoryGirl.define do
     content 'need help learning ruby'
     contact_info 'call my cell all hours'
     member_uuid 'member-uuid'
+  end
+
+  factory :event_rsvp do 
+    event
+    user_uuid "foobar"
   end
 end

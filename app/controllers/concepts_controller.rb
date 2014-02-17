@@ -18,8 +18,8 @@ class ConceptsController < ApplicationController
   end
 
   def show
-    @concept = Concept.find(params[:id])
-    uuids = @concept.history.map { |history| history.user_uuid }
+    @concept = Concept.includes(:concept_descriptions).find(params[:id])
+    uuids = @concept.concept_descriptions.pluck(:user_uuid)
     @users = User.fetch_from_uuids(uuids)
   end
 

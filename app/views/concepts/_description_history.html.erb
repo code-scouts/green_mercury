@@ -15,7 +15,7 @@
     </thead>
 
     <tbody id="all-descriptions">
-      <% concept.history.each_with_index do |history, index| %>
+      <% concept.concept_descriptions.each_with_index do |history, index| %>
 
         <tr>
           <td><%= history.created_at.strftime("%B %d, %Y at %I:%M %p") %></td>

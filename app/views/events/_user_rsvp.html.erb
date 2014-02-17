@@ -1,0 +1,4 @@
+<%= user.name %>
+<% if can?(:manage, event) %>
+   | <%= link_to 'Make organizer', event_organizers_path(event_id: event.id, user_uuid: user.uuid), method: 'post', remote: true %>
+<% end %>
