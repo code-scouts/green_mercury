@@ -7,6 +7,8 @@ class Project < ActiveRecord::Base
   has_attached_file(:image, {
                     styles: { medium: "250x250>", thumb: "75x75>" },
                     default_url: "default_image_:style.png",
+                    url: '/system/projects/:id/:style.png',
+                    path: 'public/system/projects/:id/:style.png',
                     }.merge(PAPERCLIP_OPTIONS))
   validates_attachment_content_type :image,
     :content_type => %w(image/jpeg image/jpg image/png image/gif)
