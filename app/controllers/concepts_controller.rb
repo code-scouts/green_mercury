@@ -1,4 +1,13 @@
+#It shouldn't be possible to create two concepts with the same name.
+#Create a unique index, validate_uniqueness_of :name,
+#and add a RecordExistsError handler in the ConceptsController.
+#should flash that record exists, including it's name and location
+#and redirect to creating a new page, using information
+#that allready was entered
+
 class ConceptsController < ApplicationController
+  validate_uniqueness_of :name
+
   def index
     @concepts = Concept.all
   end
@@ -8,11 +17,14 @@ class ConceptsController < ApplicationController
   end
 
   def create
-    @concept = Concept.new(concept_params)
-    if @concept.save
-      flash[:notice] = "Your concept has been added."
-      redirect_to @concept
-    else
+    begin
+      @concept = Concept.new(concept_params)
+      if @concept.save
+        flash[:notice] = "Your concept has been added."
+        redirect_to @concept
+      end
+    rescue ActiveRecord::RecordNotUnique => e
+      flash[:notice] = "#{@concept} already exists."
       render 'new'
     end
   end
