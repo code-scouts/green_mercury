@@ -6,15 +6,30 @@ class Ability
 
     if user.is_admin?
       can :manage, :all
-    end
 
-    if user.is_member?
+    elsif user.is_mentor? 
+      can :create, Project
+      can :read, MeetingRequest
+
+      can :update, MentorParticipation do |participation|
+        participation.user_uuid.nil? && !participation.project.mentor_participant?(user)
+      end
+
+      can :update, Project do |project|
+        project.user_uuid == user.uuid
+      end
+
+    elsif user.is_member?
       can :manage, MeetingRequest, member_uuid: user.uuid
       can :read, MeetingRequest
+
+      can :update, MemberParticipation do |participation|
+        participation.user_uuid.nil? && !participation.project.member_participant?(user)
+      end
     end
 
-    if user.is_mentor?
-      can :read, MeetingRequest
+    can :participate, Project do |project|
+      project.mentor_participant?(user) || project.member_participant?(user)
     end
 
     can :claim, MeetingRequest do |meeting_request|
@@ -22,7 +37,7 @@ class Ability
     end
 
     can :manage, Event do |event|
-      user.organizer?(event)
+      event.organizer?(user)
     end
 
     if !user.uuid.nil?

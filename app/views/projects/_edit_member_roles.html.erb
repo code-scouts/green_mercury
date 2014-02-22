@@ -1,0 +1,5 @@
+<% if project.member_participations.any? %>
+  <%= f.fields_for :member_participations do |builder| %>
+    <%= render 'member_participation_fields', f: builder %>
+  <% end %>
+<% end %>

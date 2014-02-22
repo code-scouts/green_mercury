@@ -9,9 +9,10 @@ Spork.prefork do
   require 'capybara/rspec'
   require 'cancan/matchers'
   require 'shoulda/matchers/integrations/rspec'
+  require 'paperclip/matchers'
   require 'capybara/poltergeist'
   Capybara.javascript_driver = :poltergeist
-  require 'helpers'
+  require_relative 'helpers'
 
   ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
   RSpec.configure do |config|
@@ -33,6 +34,7 @@ Spork.prefork do
     # the seed, which is printed after each run.
     #     --seed 1234
     config.order = "random"
+    config.include Paperclip::Shoulda::Matchers
   end
 end
 

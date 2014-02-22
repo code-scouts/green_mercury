@@ -10,15 +10,6 @@
  *
  *= require_self
  *= require twitter-bootstrap-calendar
+ *= require bootstrap-wysihtml5
  *= require_tree .
  */
-
-footer {
-  position: relative;
-  width: 370px;
-  padding: 2%;
-}
-
-footer img {
-  max-width: 35%;
-}

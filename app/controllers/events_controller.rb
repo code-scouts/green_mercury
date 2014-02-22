@@ -8,7 +8,8 @@ class EventsController < ApplicationController
     @event = Event.new(event_params)
     authorize! :create, @event
     if @event.save
-      @event.event_organizers.create(user_uuid: current_user.uuid)
+      @event.rsvp(current_user)
+      @event.make_organizer(current_user)
       flash[:notice] = 'Your event has been created.'
       redirect_to @event
     else
@@ -17,15 +18,13 @@ class EventsController < ApplicationController
   end
 
   def show
-    @event = Event.find(params[:id])
+    @event = Event.includes(:event_rsvps).find(params[:id])
     authorize! :read, @event
-    @event_rsvp = @event.rsvp_for(current_user)
-    @users = @event.all_rsvps
   end
 
   def index
     @date = params[:date] && Date.valid_date?(params[:date]) ? Date.parse(params[:date]) : Date.today
-    @events_by_date = Event.for_month(@date).group_by(&:date)
+    @events_by_date = Calendar.new(Event.for_month(@date.to_time), @date).organize_by_date
   end
 
   def edit
@@ -55,6 +54,6 @@ class EventsController < ApplicationController
 private
 
   def event_params
-    params.require(:event).permit(:title, :description, :location, :date, :start_time, :end_time)
+    params.require(:event).permit(:title, :description, :location, :start_time, :end_time)
   end
 end

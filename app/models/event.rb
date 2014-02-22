@@ -1,56 +1,69 @@
 class Event < ActiveRecord::Base
-  has_many :event_rsvps
-  has_many :event_organizers
+  has_many :event_rsvps, dependent: :destroy
   validates :title, presence: true, length: { maximum: 100 }
   validates :description, presence: true
   validates :location, presence: true, length: { maximum: 200 }
-  validates :date, presence: true
   validates :start_time, presence: true
   validates :end_time, presence: true
-  before_save :validate_date
-  before_save :validate_end_time
-  default_scope -> { order('date ASC') }
-  scope :for_month, -> date { where(date: date.beginning_of_month..date.end_of_month) }
+  validates_datetime :start_time, on_or_after: :now
+  validates_datetime :end_time, after: :start_time
+
+  def self.for_month(time)
+    (start_in_month(time).to_a +  end_in_month(time).to_a).uniq
+  end
+
+  def self.start_in_month(time)
+    where(start_time: time.all_month)  
+  end
+
+  def self.end_in_month(time)
+    where(end_time: time.all_month)  
+  end
+
+  def rsvp(user)
+    event_rsvps.create(user_uuid: user.uuid)
+  end
 
   def rsvp?(user)
-    EventRsvp.where(user_uuid: user.uuid, event_id: self.id).length > 0
+    event_rsvps.where(user_uuid: user.uuid).exists?
   end
 
   def rsvp_for(user)
-    if self.rsvp?(user)
-      EventRsvp.where(user_uuid: user.uuid, event_id: self.id).first
-    else
-      EventRsvp.new
-    end
+    event_rsvps.where(user_uuid: user.uuid).first
   end
 
-  def all_rsvps
-    uuids = event_rsvps.map { |rsvp| rsvp.user_uuid }
+  def users_hash
+    uuids = event_rsvps.pluck(:user_uuid)
     User.fetch_from_uuids(uuids)
   end
 
-  def organizers
-    uuids = event_organizers.map { |organizer| organizer.user_uuid }
+  def organizers_hash
+    uuids = event_rsvps.where(organizer: true).pluck(:user_uuid)
     User.fetch_from_uuids(uuids)
   end
 
-  def attendees
-    all_organizers = event_organizers.map { |organizer| organizer.user_uuid }
-    uuids = event_rsvps.map { |rsvp| rsvp.user_uuid }.delete_if { |attendee| all_organizers.include?(attendee) }
+  def attendees_hash
+    uuids = event_rsvps.where(organizer: false).pluck(:user_uuid)
     User.fetch_from_uuids(uuids)
   end
 
   def self.upcoming_events
-    Event.where("date >= ?", Date.today)
+    where("start_time >= ?", Time.now)
   end
 
-private
-
-  def validate_date
-    self.date >= Date.today
+  def organizer?(user)
+    event_rsvps.where(user_uuid: user.uuid, organizer: true).exists?
   end
 
-  def validate_end_time
-    self.end_time > self.start_time
+  def make_organizer(user)
+    rsvp_for(user).make_organizer
+  end
+
+  def make_organizer_by_uuid(uuid)
+    event_rsvps.where(user_uuid: uuid).first.make_organizer
+  end
+
+  def happening_on?(date)
+    [*start_time.to_date..end_time.to_date].include?(date)
   end
 end

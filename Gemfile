@@ -34,6 +34,12 @@ gem 'dotenv-rails'
 gem 'cancan'
 gem 'dalli'
 gem 'twitter-bootstrap-calendar'
+gem 'bootstrap-wysihtml5-rails', :git => "https://github.com/steven-ferguson/bootstrap-wysihtml5-rails"
+gem 'paperclip'
+gem 'paperclip-aws'
+gem 'acts_as_commentable'
+gem 'exception_notification'
+gem 'validates_timeliness'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
@@ -41,11 +47,10 @@ group :doc do
 end
 
 group :test do
-  gem 'shoulda-matchers'
-  gem 'capybara'
-  gem 'poltergeist'
-  gem 'phantomjs', require: 'phantomjs/poltergeist'
   gem 'timecop'
+  gem 'poltergeist'
+  gem 'timecop'
+  gem 'phantomjs', '~> 1.9', require: 'phantomjs/poltergeist'
 end
 
 group :development, :test do
@@ -68,7 +73,6 @@ group :development do
   gem 'librarian-puppet'
   gem 'capistrano'
   gem 'rvm-capistrano'
-  gem 'better_errors'
   gem 'quiet_assets'
   gem 'webrick', '1.3.1'
 end
