@@ -23,8 +23,9 @@ class EventsController < ApplicationController
   end
 
   def index
-    @date = params[:date] && Date.valid_date?(params[:date]) ? Date.parse(params[:date]) : Date.today
-    @events_by_date = Calendar.new(Event.for_month(@date.to_time), @date).organize_by_date
+    time = Timeliness.parse(params[:date]) || Time.current
+    @date = time.to_date
+    @events_by_date = Calendar.new(Event.for_month(time), @date).organize_by_date
   end
 
   def edit
