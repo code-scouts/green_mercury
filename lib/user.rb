@@ -49,6 +49,20 @@ class User
     end
   end
 
+  def project_role(project)
+    participation = Participation.where(user_uuid: uuid, project_id: project.id).take
+    if !participation.nil?
+      participation.role
+    else
+      nil
+    end
+  end
+
+  def projects
+    project_ids = participation_class.where(user_uuid: uuid).pluck(:project_id)
+    Project.where(id: project_ids)
+  end
+
   def claimed_meeting_requests
     if is_mentor?
       MeetingRequest.where(mentor_uuid: self.uuid)
@@ -76,5 +90,9 @@ class User
 
   def events_without_rsvp
     Event.upcoming_events - events
+  end
+
+  def participation_class
+    is_member? ? MemberParticipation : MentorParticipation
   end
 end

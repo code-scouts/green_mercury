@@ -1,0 +1,10 @@
+<% if projects.any? %>
+	<ul>
+	  <% projects.each do |project| %>
+	    <li>
+	      <%= image_tag project.image.url(:thumb, expires: 60*60) %>
+	      <%= link_to project.title, project_path(project) %>
+	    </li>
+	  <% end %>
+	</ul>
+<% end %>

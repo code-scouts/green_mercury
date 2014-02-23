@@ -72,6 +72,47 @@ FactoryGirl.define do
     user_uuid '1'
   end
 
+  factory :project do
+    title "Thing"
+    description "Stuff"
+    start_date Time.now
+    end_date Time.now + 1.month
+
+    factory :project_with_comment do 
+      ignore do 
+        comment_count 1
+      end
+
+      after(:create) do |project, evaluator|
+        FactoryGirl.create_list(:comment, evaluator.comment_count, commentable: project)
+      end
+    end
+  end
+
+  factory :comment do 
+    title "Comment Title"
+    comment "Comment body"
+    user_uuid '1'
+    association :commentable, factory: :project
+  end
+
+  factory :participation do 
+    sequence(:user_uuid) { |n| "user#{n}" }
+    project
+  end
+
+  factory :mentor_participation do 
+    sequence(:user_uuid) { |n| "user#{n}" }
+    role 'Mentor'
+    project
+  end
+
+  factory :member_participation do 
+    sequence(:user_uuid) { |n| "user#{n}" }
+    role 'Member'
+    project
+  end 
+
   factory :meeting_request do
     sequence(:title) { |n| "help me #{n} I need help" }
     content 'need help learning ruby'
