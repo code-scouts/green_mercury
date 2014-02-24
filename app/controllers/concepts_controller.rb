@@ -6,8 +6,6 @@
 #that allready was entered
 
 class ConceptsController < ApplicationController
-  validate_uniqueness_of :name
-
   def index
     @concepts = Concept.all
   end
@@ -24,7 +22,8 @@ class ConceptsController < ApplicationController
         redirect_to @concept
       end
     rescue ActiveRecord::RecordNotUnique => e
-      flash[:notice] = "#{@concept} already exists."
+      other_concept = Concept.find_by(name: @concept.name)
+      flash[:notice] = "#{@concept.name} already exists: #{concept_url(other_concept)}"
       render 'new'
     end
   end
