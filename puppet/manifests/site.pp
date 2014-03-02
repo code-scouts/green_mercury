@@ -8,6 +8,9 @@ node default {
   package { "gettext":
     ensure => installed,
   }
+  package { "imagemagick":
+    ensure => installed,
+  }
 
 
   user { 'green_mercury':

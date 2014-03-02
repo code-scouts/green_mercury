@@ -10,6 +10,10 @@ $(function() {
     }
   });
 
+  $('.wysihtml5').each(function(i, elem) {
+    $(elem).wysihtml5();
+  });
+  
   $('#toggle-map-container').on('click', '#toggle-map-button', function(event) {
     event.preventDefault();
     $('#location-map').toggle();
@@ -21,3 +25,4 @@ $(function() {
   });
 
 });
+

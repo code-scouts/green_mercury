@@ -9,6 +9,11 @@
   min-width: 500px;
 }
 
+.project-text-form {
+  width: 40em;
+  min-height: 300px;
+}
+
 .meeting-contact-form {
   min-height: 60px;
   min-width: 500px;
@@ -52,6 +57,21 @@ $mercury: #d1d1d1;
   margin-top: 20px;
 }
 
+
+.role-field {
+  padding: 5px;
+}
+
+footer {
+  position: relative;
+  width: 370px;
+  padding: 2%;
+}
+
+footer img {
+  max-width: 35%;
+}
+
 .hiding {
   display: none;
 }
@@ -71,4 +91,17 @@ $mercury: #d1d1d1;
 
 #location-map {
   display: none;
+}
+
+.comment {
+  border-style: solid;
+  border-width: small;
+  margin-bottom: 5px;
+  .row {
+    margin: 5px;
+  }
+}
+
+.text-right {
+  text-align: right;
 }

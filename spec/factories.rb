@@ -3,9 +3,8 @@ FactoryGirl.define do
     title 'Awesome Party'
     description 'We will do crazy stuff together'
     location '701 E Burnside St  Portland, OR 97214'
-    date Date.tomorrow
-    start_time Time.now
-    end_time (Time.now + 3.hours)
+    start_time Time.now + 1.hour
+    end_time Time.now + 3.hours
   end
 
   factory :member_application do 
@@ -73,10 +72,56 @@ FactoryGirl.define do
     user_uuid '1'
   end
 
+  factory :project do
+    title "Thing"
+    description "Stuff"
+    start_date Time.now
+    end_date Time.now + 1.month
+
+    factory :project_with_comment do 
+      ignore do 
+        comment_count 1
+      end
+
+      after(:create) do |project, evaluator|
+        FactoryGirl.create_list(:comment, evaluator.comment_count, commentable: project)
+      end
+    end
+  end
+
+  factory :comment do 
+    title "Comment Title"
+    comment "Comment body"
+    user_uuid '1'
+    association :commentable, factory: :project
+  end
+
+  factory :participation do 
+    sequence(:user_uuid) { |n| "user#{n}" }
+    project
+  end
+
+  factory :mentor_participation do 
+    sequence(:user_uuid) { |n| "user#{n}" }
+    role 'Mentor'
+    project
+  end
+
+  factory :member_participation do 
+    sequence(:user_uuid) { |n| "user#{n}" }
+    role 'Member'
+    project
+  end 
+
   factory :meeting_request do
     sequence(:title) { |n| "help me #{n} I need help" }
     content 'need help learning ruby'
     contact_info 'call my cell all hours'
     member_uuid 'member-uuid'
+  end
+
+  factory :event_rsvp do 
+    event
+    user_uuid "foobar"
   end
 end

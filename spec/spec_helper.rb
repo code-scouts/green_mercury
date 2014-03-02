@@ -9,6 +9,7 @@ Spork.prefork do
   require 'capybara/rspec'
   require 'cancan/matchers'
   require 'shoulda/matchers/integrations/rspec'
+  require 'paperclip/matchers'
   require 'rbconfig'
   if /^darwin/ =~ RbConfig::CONFIG['host_os']
     require_relative 'mavericks_monkeypatch'
@@ -38,6 +39,7 @@ Spork.prefork do
     # the seed, which is printed after each run.
     #     --seed 1234
     config.order = "random"
+    config.include Paperclip::Shoulda::Matchers
   end
 end
 

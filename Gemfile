@@ -33,7 +33,12 @@ gem 'httparty'
 gem 'dotenv-rails'
 gem 'cancan'
 gem 'dalli'
+gem 'bootstrap-wysihtml5-rails', :git => "https://github.com/steven-ferguson/bootstrap-wysihtml5-rails"
+gem 'paperclip'
+gem 'paperclip-aws'
+gem 'acts_as_commentable'
 gem 'exception_notification'
+gem 'validates_timeliness'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
@@ -41,8 +46,9 @@ group :doc do
 end
 
 group :test do
+  gem 'timecop'
   gem 'poltergeist'
-  gem 'phantomjs', require: 'phantomjs/poltergeist'
+  gem 'phantomjs', '~> 1.9', require: 'phantomjs/poltergeist'
 end
 
 group :development, :test do
