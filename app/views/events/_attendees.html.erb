@@ -1,11 +1,8 @@
 <h4>Attending:</h4>
   <ul>
-    <% event.all_rsvps.each do |uuid, rsvp| %>
+    <% users_hash.each do |uuid, user| %>
       <li>
-        <%= rsvp.name %>
-        <% if !rsvp.organizer?(event) && can?(:manage, @event) %>
-           | <%= link_to 'Make organizer', event_organizers_path(event_id: event.id, user_uuid: uuid), method: 'post', remote: true %>
-        <% end %>
+        <%= render 'user_rsvp', event: event, user: user %>
       </li>
     <% end %>
   </ul>

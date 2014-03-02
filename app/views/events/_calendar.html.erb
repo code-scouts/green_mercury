@@ -1,0 +1,14 @@
+<%= bootstrap_calendar current_date do |date| %>
+  <%= date.day %>
+  <% if events_by_date[date] %>
+    <ul class='unstyled'>
+      <% @events_by_date[date].each do |event| %>
+        <% if event.rsvp?(current_user) %>
+          <li data-attending="true"><%= link_to event.title, event_path(event) %>(Attending)</li>
+        <% else %>
+          <li data-attending="false"><%= link_to event.title, event_path(event) %></li>
+        <% end %>
+      <% end %>
+    </ul>
+  <% end %>
+<% end %>

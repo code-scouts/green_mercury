@@ -1,5 +1,8 @@
 class EventRsvp < ActiveRecord::Base
   belongs_to :event
+  validates :user_uuid, uniqueness: { scope: :event_id }
 
-  validates :event_id, uniqueness: { scope: :user_uuid }
+  def make_organizer
+    update(organizer: true)
+  end
 end

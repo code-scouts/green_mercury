@@ -30,7 +30,17 @@ class User
   end
 
   def is_new?
-    member_application.nil? && mentor_application.nil? && !is_admin?
+    if member_application.nil? && mentor_application.nil? && !is_admin?
+      preexistence = PreexistingMember.find_by(email: email)
+      if preexistence
+        preexistence.application_class.approve_me(self)
+        false
+      else
+        true
+      end
+    else
+      false
+    end
   end
 
   def display_name
@@ -47,6 +57,20 @@ class User
     else
       '<hidden>'
     end
+  end
+
+  def project_role(project)
+    participation = Participation.where(user_uuid: uuid, project_id: project.id).take
+    if !participation.nil?
+      participation.role
+    else
+      nil
+    end
+  end
+
+  def projects
+    project_ids = participation_class.where(user_uuid: uuid).pluck(:project_id)
+    Project.where(id: project_ids)
   end
 
   def claimed_meeting_requests
@@ -78,11 +102,8 @@ class User
     Event.upcoming_events - events
   end
 
-  def organizer?(event)
-    user_uuid = uuid
-    event.event_organizers.any? do |organizer|
-      organizer.user_uuid == user_uuid
-    end
+  def participation_class
+    is_member? ? MemberParticipation : MentorParticipation
   end
 
   def accept_code_of_conduct
