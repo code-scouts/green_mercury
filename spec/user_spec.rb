@@ -201,6 +201,13 @@ describe User do
       user = new_member
       user.is_new?.should be_false
     end
+
+    it "should look for a pre-existing record" do
+      user = FactoryGirl.build(:user)
+      FactoryGirl.create(:preexisting_member, email: user.email)
+      MemberApplication.should_receive(:approve_me).with(user)
+      user.is_new?.should be_false
+    end
   end
 
   describe "fetch_from_uuid" do

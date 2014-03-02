@@ -124,4 +124,8 @@ FactoryGirl.define do
     event
     user_uuid "foobar"
   end
+
+  factory :preexisting_member do
+    sequence(:email) { |n| "user#{n}@example.com" }
+  end
 end

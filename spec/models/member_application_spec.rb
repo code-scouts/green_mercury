@@ -86,4 +86,21 @@ describe MemberApplication do
       application.approved?.should eq false
     end
   end
+
+  describe "approve_me" do
+    before :each do
+      @user = FactoryGirl.build(:user)
+    end
+
+    it "creates an approved record" do
+      application = MemberApplication.approve_me(@user)
+      application.approved?.should be_true
+      application.user_uuid.should == @user.uuid
+    end
+
+    it "puts placeholders in the required fields" do
+      application = MemberApplication.approve_me(@user)
+      application.experience_level.should == '<pre-existing user>'
+    end
+  end
 end

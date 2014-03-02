@@ -30,7 +30,17 @@ class User
   end
 
   def is_new?
-    member_application.nil? && mentor_application.nil? && !is_admin?
+    if member_application.nil? && mentor_application.nil? && !is_admin?
+      preexistence = PreexistingMember.find_by(email: email)
+      if preexistence
+        preexistence.application_class.approve_me(self)
+        false
+      else
+        true
+      end
+    else
+      false
+    end
   end
 
   def display_name
