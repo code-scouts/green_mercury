@@ -12,6 +12,9 @@ Spork.prefork do
   require 'rbconfig'
   if /^darwin12.4/ =~ RbConfig::CONFIG['host_os']
     require_relative 'mavericks_monkeypatch'
+  else
+    require 'capybara/poltergeist'
+    Capybara.javascript_driver = :poltergeist
   end
   require_relative 'helpers'
 
