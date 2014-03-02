@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Comment do 
+describe Comment do
   it { should belong_to :commentable }
   it { should have_many :comments }
   it { should ensure_length_of(:title).is_at_most(50) }
@@ -13,7 +13,7 @@ describe Comment do
       project.comments.first.get_project.id.should eq project.id
     end
 
-    it 'returns the project when the comment is threaded' do 
+    it 'returns the project when the comment is threaded' do
       comment = project.comments.first.comments.create(title: "Title", comment: "Comment")
       comment.get_project.id.should eq project.id
     end

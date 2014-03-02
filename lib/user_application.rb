@@ -1,11 +1,11 @@
 module UserApplication
   module ClassMethods
-    def pending 
+    def pending
       self.where(approved_date: nil, rejected_date: nil)
     end
 
     def rejected
-      self.where("rejected_date <= ? AND (approved_date IS NULL OR rejected_date >= approved_date)", Time.now)      
+      self.where("rejected_date <= ? AND (approved_date IS NULL OR rejected_date >= approved_date)", Time.now)
     end
 
     def approve_me(user)
@@ -21,7 +21,7 @@ module UserApplication
     end
   end
 
-  def user 
+  def user
     User.fetch_from_uuid(user_uuid)
   end
 

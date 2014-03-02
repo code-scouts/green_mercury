@@ -7,25 +7,25 @@ FactoryGirl.define do
     end_time Time.now + 3.hours
   end
 
-  factory :member_application do 
+  factory :member_application do
     sequence(:user_uuid) { |n| "member#{n}" }
     why_you_want_to_join "I don't know"
     experience_level "Advanced"
     comfortable_learning 2
     time_commitment 'All day'
-    
-    factory :approved_member_application do 
+
+    factory :approved_member_application do
       approved_date Time.now - 1.day
       approved_by_user_uuid "admin"
     end
 
-    factory :rejected_member_application do 
+    factory :rejected_member_application do
       rejected_date Time.now - 1.day
       rejected_by_user_uuid "admin"
     end
   end
 
-  factory :mentor_application do 
+  factory :mentor_application do
     sequence(:user_uuid) { |n| "mentor#{n}" }
     contact 'email'
     geography 'Portland'
@@ -46,7 +46,7 @@ FactoryGirl.define do
       approved_by_user_uuid "admin"
     end
 
-    factory :rejected_mentor_application do 
+    factory :rejected_mentor_application do
       rejected_date Time.now - 1.day
       rejected_by_user_uuid "admin"
     end
@@ -57,10 +57,10 @@ FactoryGirl.define do
     sequence(:uuid) { |n| "user#{n}" }
     sequence(:email) { |n| "user#{n}@example.com" }
 
-    factory :admin do 
+    factory :admin do
       is_admin true
     end
-  end 
+  end
 
   factory :concept do
     name "Ruby"
@@ -78,8 +78,8 @@ FactoryGirl.define do
     start_date Time.now
     end_date Time.now + 1.month
 
-    factory :project_with_comment do 
-      ignore do 
+    factory :project_with_comment do
+      ignore do
         comment_count 1
       end
 
@@ -89,29 +89,29 @@ FactoryGirl.define do
     end
   end
 
-  factory :comment do 
+  factory :comment do
     title "Comment Title"
     comment "Comment body"
     user_uuid '1'
     association :commentable, factory: :project
   end
 
-  factory :participation do 
+  factory :participation do
     sequence(:user_uuid) { |n| "user#{n}" }
     project
   end
 
-  factory :mentor_participation do 
+  factory :mentor_participation do
     sequence(:user_uuid) { |n| "user#{n}" }
     role 'Mentor'
     project
   end
 
-  factory :member_participation do 
+  factory :member_participation do
     sequence(:user_uuid) { |n| "user#{n}" }
     role 'Member'
     project
-  end 
+  end
 
   factory :meeting_request do
     sequence(:title) { |n| "help me #{n} I need help" }
@@ -120,7 +120,7 @@ FactoryGirl.define do
     member_uuid 'member-uuid'
   end
 
-  factory :event_rsvp do 
+  factory :event_rsvp do
     event
     user_uuid "foobar"
   end

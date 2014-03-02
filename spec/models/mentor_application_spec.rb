@@ -18,8 +18,8 @@ describe MentorApplication do
   it { should validate_presence_of :volunteer_technical }
   it { should validate_presence_of :volunteer_online }
 
-  describe 'user' do 
-    it "gets the user with a matching uuid" do 
+  describe 'user' do
+    it "gets the user with a matching uuid" do
       user = FactoryGirl.build(:user)
       application = FactoryGirl.create(:mentor_application, user_uuid: user.uuid)
       User.stub(:fetch_from_uuid) { user }
@@ -27,16 +27,16 @@ describe MentorApplication do
     end
   end
 
-  describe "pending" do 
-    it "returns all pending mentor applications" do 
+  describe "pending" do
+    it "returns all pending mentor applications" do
       application = FactoryGirl.create(:mentor_application)
       FactoryGirl.create(:rejected_mentor_application)
       MentorApplication.pending.should eq [application]
     end
   end
 
-  describe "rejected" do 
-    it "gets all mentors whose applications are rejected" do 
+  describe "rejected" do
+    it "gets all mentors whose applications are rejected" do
       application = FactoryGirl.create(:rejected_mentor_application)
       application_b = FactoryGirl.create(:mentor_application, rejected_date: Time.now, approved_date: Time.now - 1.day)
       application_c = FactoryGirl.create(:mentor_application, rejected_date: Time.now - 1.day, approved_date: Time.now)
@@ -45,8 +45,8 @@ describe MentorApplication do
     end
   end
 
-  describe 'rejected?' do 
-    it "is true if the application has been rejected" do 
+  describe 'rejected?' do
+    it "is true if the application has been rejected" do
       application = FactoryGirl.create(:rejected_mentor_application)
       application.rejected?.should eq true
     end
@@ -56,12 +56,12 @@ describe MentorApplication do
       application.rejected?.should eq true
     end
 
-    it "is false if the application has not been rejected" do 
+    it "is false if the application has not been rejected" do
       application = FactoryGirl.create(:approved_mentor_application)
       application.rejected?.should eq false
     end
 
-    it "is false if the application is pending" do 
+    it "is false if the application is pending" do
       application = FactoryGirl.create(:mentor_application)
       application.rejected?.should eq false
     end
@@ -82,7 +82,7 @@ describe MentorApplication do
       application = FactoryGirl.create(:mentor_application, rejected_date: Time.now - 1.day, approved_date: Time.now)
       application.approved?.should eq true
     end
-    
+
     it "is false if the application has been rejected" do
       application = FactoryGirl.create(:rejected_mentor_application)
       application.approved?.should eq false

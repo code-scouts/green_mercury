@@ -9,8 +9,8 @@ describe MemberApplication do
   it { should validate_presence_of :comfortable_learning }
   it { should validate_presence_of :time_commitment }
 
-  describe 'user' do 
-    it "gets the user with a matching uuid" do 
+  describe 'user' do
+    it "gets the user with a matching uuid" do
       user = FactoryGirl.build(:user)
       application = FactoryGirl.create(:member_application, user_uuid: user.uuid)
       User.stub(:fetch_from_uuid) { user }
@@ -18,23 +18,23 @@ describe MemberApplication do
     end
   end
 
-  describe "pending" do 
-    it "returns all pending mentor applications" do 
+  describe "pending" do
+    it "returns all pending mentor applications" do
       application = FactoryGirl.create(:member_application)
       FactoryGirl.create(:rejected_member_application)
       MemberApplication.pending.should eq [application]
     end
   end
 
-  describe "rejected" do 
-    it "gets all members whose applications are rejected" do 
+  describe "rejected" do
+    it "gets all members whose applications are rejected" do
       application = FactoryGirl.create(:rejected_member_application)
       MemberApplication.rejected.should eq [application]
     end
   end
 
-  describe 'rejected?' do 
-    it "is true if the application has been rejected" do 
+  describe 'rejected?' do
+    it "is true if the application has been rejected" do
       application = FactoryGirl.create(:rejected_member_application)
       application.rejected?.should eq true
     end
@@ -44,12 +44,12 @@ describe MemberApplication do
       application.rejected?.should eq true
     end
 
-    it "is false if the application has not been rejected" do 
+    it "is false if the application has not been rejected" do
       application = FactoryGirl.create(:approved_member_application)
       application.rejected?.should eq false
     end
 
-    it "is false if the application is pending" do 
+    it "is false if the application is pending" do
       application = FactoryGirl.create(:member_application)
       application.rejected?.should eq false
     end
@@ -70,7 +70,7 @@ describe MemberApplication do
       application = FactoryGirl.create(:member_application, rejected_date: Time.now - 1.day, approved_date: Time.now)
       application.approved?.should eq true
     end
-    
+
     it "is false if the application has been rejected" do
       application = FactoryGirl.create(:rejected_member_application)
       application.approved?.should eq false
