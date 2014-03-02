@@ -33,6 +33,7 @@ gem 'httparty'
 gem 'dotenv-rails'
 gem 'cancan'
 gem 'dalli'
+gem 'twitter-bootstrap-calendar'
 gem 'bootstrap-wysihtml5-rails', :git => "https://github.com/steven-ferguson/bootstrap-wysihtml5-rails"
 gem 'paperclip'
 gem 'paperclip-aws'
@@ -48,6 +49,7 @@ end
 group :test do
   gem 'timecop'
   gem 'poltergeist'
+  gem 'timecop'
   gem 'phantomjs', '~> 1.9', require: 'phantomjs/poltergeist'
 end
 
