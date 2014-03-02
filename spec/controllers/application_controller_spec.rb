@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 describe ApplicationController do
-  before do
-    ApplicationController.send :public, :new_applicant
-    ApplicationController.send :public, :pending_applicant
+  before :each do
+    controller.class.send :public, :new_applicant
+    controller.class.send :public, :pending_applicant
   end
 
   context "admin" do
