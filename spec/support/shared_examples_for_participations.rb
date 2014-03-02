@@ -5,7 +5,8 @@ shared_examples "a participation" do
 
   describe '.unfilled' do
     it 'gets participations not already filled by a user' do
-      expect(described_class.unfilled).to match_array [unfilled_participation]
+      expect(described_class.unfilled.map(&:id)).to \
+        match_array [unfilled_participation.id]
     end
   end
 end
