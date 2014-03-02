@@ -10,7 +10,7 @@ Spork.prefork do
   require 'cancan/matchers'
   require 'shoulda/matchers/integrations/rspec'
   require 'rbconfig'
-  if /^darwin12.4/ =~ RbConfig::CONFIG['host_os']
+  if /^darwin/ =~ RbConfig::CONFIG['host_os']
     require_relative 'mavericks_monkeypatch'
   else
     require 'capybara/poltergeist'
