@@ -234,6 +234,23 @@ describe User do
 
       user.accept_code_of_conduct
     end
+
+    it "should be reflected in an attribute" do
+      response = double
+      response.should_receive(:body).and_return('{
+        "stat": "ok"
+      }')
+      HTTParty.stub(:post).and_return(response)
+      user = new_member
+      user.accept_code_of_conduct
+
+      user.coc_accepted?.should be_true
+    end
+
+    it 'should be reflected in future calls to the janrain api' do
+      user = new_member(coc_accepted_date: '20130613')
+      user.coc_accepted?.should be_true
+    end
   end
 
   describe "fetch_from_uuid" do

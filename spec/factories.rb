@@ -56,6 +56,7 @@ FactoryGirl.define do
     sequence(:name) { |n| "user#{n}" }
     sequence(:uuid) { |n| "user#{n}" }
     sequence(:email) { |n| "user#{n}@example.com" }
+    coc_accepted_date Date.today.to_s
 
     factory :admin do
       is_admin true

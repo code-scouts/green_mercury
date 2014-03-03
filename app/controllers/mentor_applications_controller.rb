@@ -1,6 +1,7 @@
 class MentorApplicationsController < ApplicationController
   include ApplicantManager
   skip_before_filter :new_applicant, only: [:new, :create]
+  skip_before_filter :require_code_of_conduct, only: [:new, :create]
 
 private
   def application_params

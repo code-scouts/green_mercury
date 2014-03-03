@@ -1,4 +1,6 @@
 class CodeOfConductController < ApplicationController
+  skip_before_filter :require_code_of_conduct
+
   def show
   end
 

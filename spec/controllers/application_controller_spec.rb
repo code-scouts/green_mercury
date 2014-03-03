@@ -4,6 +4,7 @@ describe ApplicationController do
   before :each do
     controller.class.send :public, :new_applicant
     controller.class.send :public, :pending_applicant
+    controller.class.send :public, :require_code_of_conduct
   end
 
   context "admin" do
@@ -53,6 +54,15 @@ describe ApplicationController do
       controller.stub(:current_user) { user }
       controller.should_receive(:redirect_to).with('/new_applications/index')
       controller.new_applicant
+    end
+  end
+
+  context "user hasn't accepted the code of conduct yet" do
+    it "redirects to the code of conduct" do
+      user = new_member(coc_accepted_date: nil)
+      controller.stub(:current_user) { user }
+      controller.should_receive(:redirect_to).with('/code_of_conduct')
+      controller.require_code_of_conduct
     end
   end
 

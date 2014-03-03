@@ -1,7 +1,14 @@
 class AccessTokenExpired < StandardError; end
 
 class User
-  attr_accessor :meetup_token, :email, :confirmed_at, :profile_photo_url, :uuid, :is_admin, :name
+  attr_accessor :meetup_token,
+                :email,
+                :confirmed_at,
+                :profile_photo_url,
+                :uuid,
+                :is_admin,
+                :name,
+                :coc_accepted_date
 
   extend JanrainCapturable
 
@@ -41,6 +48,10 @@ class User
     else
       false
     end
+  end
+
+  def coc_accepted?
+    ! coc_accepted_date.nil?
   end
 
   def display_name
@@ -107,15 +118,17 @@ class User
   end
 
   def accept_code_of_conduct
+    acceptance_date = Date.today.to_s
     response = HTTParty.post(CAPTURE_URL + '/entity.update', {body:{
       uuid: uuid,
       client_id: CAPTURE_OWNER_CLIENT_ID,
       client_secret: CAPTURE_OWNER_CLIENT_SECRET,
       type_name: 'user',
       attribute_name: 'coc_accepted_date',
-      value: %Q("#{Date.today.to_s}"),
+      value: %Q("#{acceptance_date}"),
     }})
     body = JSON.parse(response.body)
     body['stat'] == 'ok' or raise Exception.new(response.body)
+    self.coc_accepted_date = acceptance_date
   end
 end

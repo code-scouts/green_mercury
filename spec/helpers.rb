@@ -1,11 +1,11 @@
-def new_member 
-  user = FactoryGirl.build(:user)
+def new_member(attrs={})
+  user = FactoryGirl.build(:user, attrs)
   FactoryGirl.create(:approved_member_application, user_uuid: user.uuid)
   user
 end
 
-def new_mentor
-  user = FactoryGirl.build(:user)
+def new_mentor(attrs={})
+  user = FactoryGirl.build(:user, attrs)
   FactoryGirl.create(:approved_mentor_application, user_uuid: user.uuid)
   user
 end
