@@ -175,6 +175,49 @@ describe Event do
       end
     end
   end
+
+  describe '.for_month' do  
+    context 'when there are events in the month' do 
+      it "gets events that start in the month" do
+        time = Time.now + 1.day
+        event = FactoryGirl.create(:event, start_time: time, end_time: time.end_of_month + 1.day)
+        expect(Event.for_month(time)).to match_array [event]
+      end
+
+      it "gets events that end in the month" do 
+        time = Time.now + 1.day
+        next_month = time.end_of_month + 1.day 
+        event = FactoryGirl.create(:event, start_time: time, end_time: next_month)
+        expect(Event.for_month(next_month)).to match_array [event]
+      end
+
+      it "only gets the event once" do 
+        time = Time.now + 1.day
+        event = FactoryGirl.create(:event, start_time: time.beginning_of_day, end_time: time.end_of_day)
+        expect(Event.for_month(time)).to match_array [event]
+      end
+    end
+
+    context 'when there are no events in the month' do 
+      it 'returns an empty array' do 
+        expect(Event.for_month(Time.now)).to match_array []
+      end
+    end 
+  end
+
+  describe '#happening_on?' do 
+    it "is true if the event happens on the date" do 
+      date = Date.current
+      event = FactoryGirl.build(:event, start_time: date.beginning_of_day, end_time: date.end_of_day)
+      expect(event.happening_on?(date)).to be_true
+    end
+
+    it "is false if the event is not happening on the date" do 
+      date = Date.current
+      event = FactoryGirl.build(:event, start_time: date + 1.week, end_time: date + 2.weeks)
+      expect(event.happening_on?(date)).to be_false
+    end
+  end
 end
 
 

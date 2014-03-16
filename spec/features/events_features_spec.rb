@@ -54,6 +54,15 @@ feature 'view all events' do
     page.should have_content @event.title
     page.should have_content @event2.title
   end
+
+  scenario 'they filter out events that they are not attending', js: true do 
+    user = new_mentor
+    ApplicationController.any_instance.stub(:current_user) { user }
+    event = FactoryGirl.create(:event)
+    visit events_path
+    check('attending')
+    within('.calendar') { page.should_not have_content event.title }
+  end
 end
 
 feature 'delete an event' do

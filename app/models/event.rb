@@ -8,6 +8,18 @@ class Event < ActiveRecord::Base
   validates_datetime :start_time, on_or_after: :now
   validates_datetime :end_time, after: :start_time
 
+  def self.for_month(time)
+    (start_in_month(time).to_a +  end_in_month(time).to_a).uniq
+  end
+
+  def self.start_in_month(time)
+    where(start_time: time.all_month)  
+  end
+
+  def self.end_in_month(time)
+    where(end_time: time.all_month)  
+  end
+
   def rsvp(user)
     event_rsvps.create(user_uuid: user.uuid)
   end
@@ -49,5 +61,9 @@ class Event < ActiveRecord::Base
 
   def make_organizer_by_uuid(uuid)
     event_rsvps.where(user_uuid: uuid).first.make_organizer
+  end
+
+  def happening_on?(date)
+    [*start_time.to_date..end_time.to_date].include?(date)
   end
 end

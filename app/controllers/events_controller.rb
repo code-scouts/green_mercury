@@ -23,6 +23,9 @@ class EventsController < ApplicationController
   end
 
   def index
+    time = Timeliness.parse(params[:date]) || Time.current
+    @date = time.to_date
+    @events_by_date = Calendar.new(Event.for_month(time), @date).organize_by_date
   end
 
   def edit

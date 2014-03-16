@@ -10,12 +10,6 @@ class ApplicationController < ActionController::Base
   before_filter :load_janrain_facts
   before_filter :new_applicant
   before_filter :pending_applicant
-  # So, current_user is a helper method, not a filter. We're running it
-  # here as a before_filter so that @fresh_access_token can be set by the
-  # time template rendering starts. This is a hack and should be undone if
-  # current_user or user_signed_in? is being called for some legitimate
-  # reason on each page load.
-  before_filter :current_user
 
   # Prevent CSRF attacks by raising an exception.
   protect_from_forgery with: :exception
@@ -25,13 +19,9 @@ class ApplicationController < ActionController::Base
   end
 
   before_filter :select_a_sponsor
-  
+
   def select_a_sponsor
     @sponsor = sponsors.sample
-  end
-
-  rescue_from CanCan::AccessDenied do |exception|
-    redirect_to root_url, :alert => exception.message
   end
 
   def current_user
