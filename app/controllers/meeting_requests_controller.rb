@@ -1,6 +1,7 @@
 class MeetingRequestsController < ApplicationController
   def new
     @meeting_request = MeetingRequest.new(member_uuid: current_user.uuid)
+    @concepts = Concept.all
     authorize! :create, @meeting_request
   end
 
@@ -17,6 +18,7 @@ class MeetingRequestsController < ApplicationController
 
   def edit
     @meeting_request = MeetingRequest.find(params[:id])
+    @concepts = Concept.all
     authorize! :update, @meeting_request
   end
 
@@ -37,6 +39,7 @@ class MeetingRequestsController < ApplicationController
     claimed_uuids = current_user.claimed_meeting_requests.map(&:member_uuid)
     @open_users = User.fetch_from_uuids(open_uuids)
     @claimed_users = User.fetch_from_uuids(claimed_uuids)
+    @concepts = Concept.all
   end
 
   def show

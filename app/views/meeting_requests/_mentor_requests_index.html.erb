@@ -11,9 +11,7 @@
     <h3>Concepts</h3>
     <p>Click on a concept to see related requests</p>
     <ul class='inline'>
-      <% Concept.all.each do |concept| %>
-        <li class='badge concept-search' data-name='<%= escape_attribute_name(concept.name) %>'><%= concept.name %></li>
-      <% end %>
+      <%= render partial: "concept", collection: @concepts %>
     </ul>
   </div>
 </section>
