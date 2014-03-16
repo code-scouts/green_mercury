@@ -33,15 +33,3 @@ private
   end
 end
 
-ow
-    @concept = Concept.includes(:concept_descriptions).find(params[:id])
-    uuids = @concept.concept_descriptions.pluck(:user_uuid)
-    @users = User.fetch_from_uuids(uuids)
-  end
-
-private
-  def concept_params
-    params.require(:concept).permit(:name, concept_descriptions_attributes: [:description, :user_uuid])
-  end
-end
-
