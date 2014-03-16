@@ -60,9 +60,15 @@ Install PostgreSQL
 ------------------
 This project relies on a PostgreSQL database. On a Mac the simplest way to install Postgres is with [Postgres.app](http://postgresapp.com/). You can install it according to the guide on that website.
 
-Postgres.app creates a postgresql configuration that is slightly different from the norm. It doesn't listen on a "unix domain socket," though you don't need to know what one of those is. The important takeaway is that many resources will tell you to interact with postgresql by running `psql`. When you see that, you need to actually interact with postgresql by running `psql -h localhost`.
-
 Depending on your version of OSX, your computer may complain that Postgres.app is not from the App Store. This is a well-intentioned move by Apple to make sure your computer isn't infected with malware...but in this case it's being too picky! If you encounter this dialog, right-click on Postgres.app and choose "Open", then choose the "Open" button on the dialog that asks you to confirm that you really want to run Postgres.
+
+Now that you've installed Postgres.app, you have a weird and annoying problem: even though OSX doesn't ship with Postgres, it does ship with `psql`, the command-line application that you use to interact with Postgres. However, the version of `psql` that ships with OSX doesn't interact happily with Postgres.app. You need to add Postgres.app's `bin` directory to the front of your PATH so that your terminal finds Postgres.app's version of `psql` instead. Run this command at your command line, and then also add it to the end of your `~/.bash_profile`:
+
+```Bash
+export PATH="/Applications/Postgres.app/Contents/Versions/9.3/bin:$PATH"
+```
+
+You can choose to install PostgreSQL in other ways, but you may have trouble getting ruby's `pg` gem to find postgres.
 
 Clone the Source
 ----------------
@@ -95,9 +101,13 @@ Create And Migrate Databases
 ----------------------------
 Now that you have the dependencies installed, it's time to create the databases for the site. At your terminal run these two commands:
 ```
-rake db:create
-rake db:create RAILS_ENV=test
+psql
+create database green_mercury owner <me>;
+create database green_mercury_test owner <me>;
+commit;
+\q
 ```
+
 That creates a pair of empty databases, so you just need to set them up with the proper tables:
 ```
 rake db:migrate
