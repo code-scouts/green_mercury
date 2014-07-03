@@ -210,6 +210,49 @@ describe User do
     end
   end
 
+  describe "accept code of conduct" do
+    it "should send an update to Capture" do
+      Date.stub(:today).and_return(Date.new(2013, 12, 30))
+      user = new_member
+      response = double
+      response.should_receive(:body).and_return('{
+        "stat": "ok"
+      }')
+      HTTParty.should_receive(:post).with(
+        'https://codescouts.janraincapture.test.host/entity.update',
+        {
+          body: {
+            uuid: user.uuid,
+            type_name: 'user',
+            client_id: 'fakeclientidfortests',
+            client_secret: 'fakeclientsecretfortests',
+            attribute_name: 'coc_accepted_date',
+            value: '"2013-12-30"',
+          }
+        }
+      ).and_return(response)
+
+      user.accept_code_of_conduct
+    end
+
+    it "should be reflected in an attribute" do
+      response = double
+      response.should_receive(:body).and_return('{
+        "stat": "ok"
+      }')
+      HTTParty.stub(:post).and_return(response)
+      user = new_member
+      user.accept_code_of_conduct
+
+      user.coc_accepted?.should be_true
+    end
+
+    it 'should be reflected in future calls to the janrain api' do
+      user = new_member(coc_accepted_date: '20130613')
+      user.coc_accepted?.should be_true
+    end
+  end
+
   describe "fetch_from_uuid" do
     it "should initialize a User instance if the uuid exists" do
       response = double

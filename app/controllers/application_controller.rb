@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
   before_filter :load_janrain_facts
   before_filter :new_applicant
   before_filter :pending_applicant
+  before_filter :require_code_of_conduct
 
   # Prevent CSRF attacks by raising an exception.
   protect_from_forgery with: :exception
@@ -74,6 +75,12 @@ class ApplicationController < ActionController::Base
   def pending_applicant
     if user_signed_in? && current_user.is_pending?
       redirect_to new_applications_show_path
+    end
+  end
+
+  def require_code_of_conduct
+    if user_signed_in? && ! current_user.coc_accepted?
+      redirect_to code_of_conduct_path
     end
   end
 end
