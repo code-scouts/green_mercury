@@ -8,11 +8,15 @@ class ConceptsController < ApplicationController
   end
 
   def create
-    @concept = Concept.new(concept_params)
-    if @concept.save
-      flash[:notice] = "Your concept has been added."
-      redirect_to @concept
-    else
+    begin
+      @concept = Concept.new(concept_params)
+      if @concept.save
+        flash[:notice] = "Your concept has been added."
+        redirect_to @concept
+      end
+    rescue ActiveRecord::RecordNotUnique => e
+      other_concept = Concept.find_by(name: @concept.name)
+      flash[:notice] = "#{@concept.name} already exists: #{link_to(concept_url(other_concept))}"
       render 'new'
     end
   end
